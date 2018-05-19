@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">SmartParty</string>
+    <string name="server_error">服务端错误</string>
+    <string name="net_error">网络错误</string>
+    <string name="net_timeout">网络连接超时</string>
+    <string name="http_error">http错误: %d</string>
+    <string name="version_ignore_tips">此版本更新不再提示，若需要可在“我的--设置--版本”选择更新。</string>
+    <string name="no_network">当前网络不可用</string>
+    <string name="none_loading">—————— 已经到底了 ——————</string>
+</resources>
