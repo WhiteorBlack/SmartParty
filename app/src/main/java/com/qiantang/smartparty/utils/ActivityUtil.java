@@ -10,6 +10,8 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.qiantang.smartparty.module.main.view.MainActivity;
+import com.qiantang.smartparty.module.scan.view.QRCodeActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -96,4 +98,23 @@ public class ActivityUtil {
         context.startActivity(intent);
     }
 
+    /**
+     * 首页
+     *
+     * @param activity
+     */
+    public static void startMainActivity(Activity activity) {
+        Intent intent = new Intent(activity, MainActivity.class);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 二维码扫描
+     *
+     * @param activity
+     */
+    public static void startQRActivity(Activity activity) {
+        Intent intent = new Intent(activity, QRCodeActivity.class);
+        activity.startActivity(intent);
+    }
 }

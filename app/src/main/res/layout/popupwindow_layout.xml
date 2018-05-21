@@ -42,7 +42,7 @@
             android:textColor="@color/white"
             android:textSize="15sp" />
 
-        <com.puxiang.mall.widget.textloading.ProgressLayout
+        <com.qiantang.smartparty.widget.textloading.ProgressLayout
             android:id="@+id/progress"
             android:layout_width="@dimen/progress_width"
             android:layout_height="wrap_content"

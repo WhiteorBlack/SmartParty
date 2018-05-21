@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="isHide"
+            type="boolean" />
+
+        <variable
+            name="isTextHide"
+            type="boolean" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolBarSizeHeight"
+        android:background="@color/toolbar_color"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:paddingBottom="10px">
+
+        <TextView
+            style="@style/toolbarTitleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="45px"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@{title}" />
+
+        <ImageView
+            android:id="@+id/iv_scan"
+            android:layout_width="45px"
+            android:layout_height="45px"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/sideMargin"
+            android:onClick="onClick"
+            android:background="@mipmap/ic_launcher"
+            android:visibility="@{isHide?View.GONE:View.VISIBLE}" />
+
+        <TextView
+            android:id="@+id/tv_publish"
+            style="@style/toolbarTitleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="45px"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/sideMargin"
+            android:gravity="bottom"
+            android:text="发表"
+            android:onClick="onClick"
+            android:textSize="26px"
+            android:visibility="@{isTextHide?View.GONE:View.VISIBLE}" />
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.qiantang.smartparty.module.mine.viewmodel.MineViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_index" />
+
+        <RelativeLayout
+            android:id="@+id/rl_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+            android:padding="@dimen/sideMargin">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/my_pic"
+                android:layout_width="100px"
+                android:layout_height="100px"
+                android:alpha="@{viewModel.topAlpha}"
+                app:placeholderImage="@mipmap/mine_head"
+                app:placeholderImageScaleType="fitXY"
+                app:roundAsCircle="true"
+                app:url="@{viewModel.userBean.userImage}" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/sideMargin"
+                android:layout_toRightOf="@+id/my_pic"
+                android:text="名字"
+                android:textColor="@color/black"
+                android:textSize="28px" />
+
+            <TextView
+                android:id="@+id/tv_role"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/my_pic"
+                android:layout_below="@+id/tv_name"
+                android:layout_marginLeft="@dimen/sideMargin"
+                android:layout_toRightOf="@+id/my_pic"
+                android:gravity="bottom"
+                android:text="办公室"
+                android:textSize="22px" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/sideMargin"
+                android:layout_toRightOf="@id/tv_name"
+                android:background="@drawable/bg_statue"
+                android:paddingBottom="5px"
+                android:paddingLeft="10px"
+                android:paddingRight="10px"
+                android:paddingTop="5px"
+                android:text="状态"
+                android:textSize="24px" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:background="@mipmap/icon_step_arrow" />
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>

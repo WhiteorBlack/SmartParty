@@ -17,4 +17,6 @@
     <color name="tipsText">#ef7203</color>
     <!-- 价格颜色 -->
     <color name="sale_price">#c8142d</color>
+    <color name="toolbar_color">#303F9F</color>
+    <color name="scan_color">#7bc351</color>
 </resources>

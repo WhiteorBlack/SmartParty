@@ -21,7 +21,7 @@ public class Config {
     public static int TabColorBarHeight = MyApplication.heightPixels / 340;
     public static int BadgeViewSize = 8 * 1080 / MyApplication.widthPixels;
 
-    public static final int SPLASH_TIME = 2500;
+    public static final int SPLASH_TIME = 500;
 
     public static final String PLATE_ID = "plateId";
     public static final String DETAIL_ID = "detailId";
