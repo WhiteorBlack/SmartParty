@@ -32,13 +32,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 /**
  * Created by zhaoyong bai on 2018/5/19.
  */
-public class MainActivity extends BaseBindActivity implements IndicatorViewPager.OnIndicatorPageChangeListener ,EasyPermission.PermissionCallback{
+public class MainActivity extends BaseBindActivity implements IndicatorViewPager.OnIndicatorPageChangeListener, EasyPermission.PermissionCallback {
     public static Handler handler = new Handler();
     private ActivityMainBinding binding;
     private MainViewModel viewModel;
     private IndicatorViewPager indicatorViewPager;
     private String[] names = {"首页", "学习感悟", "党建助手", "我的"};
-    private int[] icons = {R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher};
+    private int[] icons = {R.drawable.index_selector, R.drawable.study_selector, R.drawable.assiant_selector, R.drawable.mine_selector};
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override

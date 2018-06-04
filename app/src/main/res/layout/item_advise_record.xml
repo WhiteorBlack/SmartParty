@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.qiantang.smartparty.utils.MyTextUtils"/>
+        <variable
+            name="item"
+            type="com.qiantang.smartparty.modle.RxAdviseRecord" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="30px"
+        android:background="@color/white">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv"
+            android:layout_width="80px"
+            android:layout_height="80px"
+            android:layout_marginLeft="@dimen/sideMargin"
+            android:layout_marginTop="30px"
+            app:roundAsCircle="true" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/gray28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/sdv"
+            android:layout_marginLeft="20px"
+            android:layout_toRightOf="@+id/sdv"
+            android:text="测试" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            style="@style/gray22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_name"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30px"
+            android:text="22" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="30px"
+            style="@style/black24"
+            android:text="反馈内容"
+            android:layout_marginTop="20px"
+            android:layout_toRightOf="@+id/sdv" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_content"
+            android:layout_alignRight="@+id/tv_content"
+            android:layout_below="@+id/tv_content"
+            android:layout_marginTop="20px"
+            android:background="@color/edit_bg">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_reword"
+                android:layout_marginTop="@dimen/sideMargin"
+                android:layout_marginRight="30px"
+                android:text="@{MyTextUtils.getCommentText(`回复`,`回复内容`)}"
+                android:layout_marginLeft="20px"
+                style="@style/black24"/>
+
+            <TextView
+                android:id="@+id/tv_date_reword"
+                style="@style/gray22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_reword"
+                android:layout_marginTop="20px"
+                android:layout_marginBottom="20px"
+                android:layout_alignLeft="@+id/tv_reword"
+                android:layout_marginRight="30px"
+                android:text="22" />
+        </RelativeLayout>
+    </RelativeLayout>
+</layout>

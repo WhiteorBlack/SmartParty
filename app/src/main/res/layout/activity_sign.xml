@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.qiantang.smartparty.module.index.viewmodel.SignViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/fl_title"
+            android:layout_width="match_parent"
+            android:layout_height="390px"
+            android:background="@mipmap/bg_score_top">
+
+            <ImageButton
+                style="@style/ToolbarBackBtnWhiteStyle"
+                android:layout_marginTop="50px" />
+
+            <TextView
+                style="@style/white36"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="67px"
+                android:text="快捷签到" />
+        </FrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_content"
+            android:layout_width="match_parent"
+            android:layout_height="700px"
+            android:layout_marginLeft="40px"
+            android:layout_marginRight="40px"
+            android:layout_marginTop="194px"
+            android:background="@drawable/bg_sign_state">
+
+            <TextView
+                android:id="@+id/tv_title"
+                style="@style/black32"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50px"
+                android:layout_marginRight="50px"
+                android:layout_marginTop="56px"
+                android:text="标题" />
+
+            <ImageView
+                android:id="@+id/iv_man"
+                android:layout_width="28px"
+                android:layout_height="28px"
+                android:layout_below="@+id/tv_title"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="60px"
+                android:background="@mipmap/icon_sign_info" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/black26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_man"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="19px"
+                android:text="测试" />
+
+            <ImageView
+                android:id="@+id/iv_point"
+                android:layout_width="28px"
+                android:layout_height="28px"
+                android:layout_below="@+id/tv_name"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40px"
+                android:background="@mipmap/icon_sign_point" />
+
+            <TextView
+                android:id="@+id/tv_sign_point"
+                style="@style/black26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_point"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="19px"
+                android:text="签到地点" />
+
+            <TextView
+                android:id="@+id/tv_point"
+                style="@style/black26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_sign_point"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12px"
+                android:text="签到地点" />
+
+            <ImageView
+                android:id="@+id/iv_time"
+                android:layout_width="28px"
+                android:layout_height="28px"
+                android:layout_below="@+id/tv_point"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40px"
+                android:background="@mipmap/icon_sign_time" />
+
+            <TextView
+                android:id="@+id/tv_sign_time"
+                style="@style/black26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_time"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="19px"
+                android:text="签到时间" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                style="@style/black26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_sign_time"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12px"
+                android:text="签到地点" />
+        </RelativeLayout>
+
+
+        <Button
+            android:id="@+id/btn_confirm"
+            style="@style/white24"
+            android:layout_width="300px"
+            android:layout_height="70px"
+            android:layout_below="@+id/rl_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="89px"
+            android:background="@drawable/btn_confirm"
+            android:text="立即签到" />
+
+        <ImageView
+            android:id="@+id/iv_confirm"
+            android:layout_width="112px"
+            android:layout_height="112px"
+            android:layout_above="@+id/btn_confirm"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="-70px"
+            android:scaleType="centerInside"
+            android:src="@mipmap/icon_sign_success" />
+    </RelativeLayout>
+</layout>

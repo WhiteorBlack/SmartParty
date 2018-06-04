@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.qiantang.smartparty.module.mine.viewmodel.InfoViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bgColor"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_common" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="120px"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingRight="@dimen/sideMargin">
+
+            <TextView
+                style="@style/gray22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+                android:layout_weight="1"
+                android:text="头像" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:layout_width="80px"
+                android:layout_height="80px"
+                app:placeholderImage="@mipmap/mine_head"
+                app:placeholderImageScaleType="fitXY"
+                app:roundAsCircle="true" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/sideMargin"
+                android:background="@mipmap/icon_step_arrow" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:background="@color/line" />
+
+        <LinearLayout
+            style="@style/Mine_list"
+            android:layout_height="102px">
+
+            <TextView
+                style="@style/gray22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+                android:layout_weight="1"
+                android:text="姓名" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/MineTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/sideMargin"
+                android:layout_marginRight="@dimen/sideMargin"
+                android:background="@mipmap/icon_step_arrow" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:background="@color/line" />
+
+        <LinearLayout
+            style="@style/Mine_list"
+            android:layout_height="102px">
+
+            <TextView
+                style="@style/gray22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+                android:layout_weight="1"
+                android:text="所属组织" />
+
+            <TextView
+                android:id="@+id/tv_group"
+                style="@style/MineTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/sideMargin"
+                android:layout_marginRight="@dimen/sideMargin"
+                android:background="@mipmap/icon_step_arrow" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:background="@color/line" />
+
+        <LinearLayout
+            style="@style/Mine_list"
+            android:layout_height="102px">
+
+            <TextView
+                style="@style/gray22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+                android:layout_weight="1"
+                android:text="职位" />
+
+            <TextView
+                android:id="@+id/tv_pos"
+                style="@style/MineTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/sideMargin"
+                android:layout_marginRight="@dimen/sideMargin"
+                android:background="@mipmap/icon_step_arrow" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:background="@color/line" />
+
+        <LinearLayout
+            style="@style/Mine_list"
+            android:layout_height="102px">
+
+            <TextView
+                style="@style/gray22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+                android:layout_weight="1"
+                android:text="入党时间" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                style="@style/MineTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/sideMargin"
+                android:layout_marginRight="@dimen/sideMargin"
+                android:background="@mipmap/icon_step_arrow" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:background="@color/line" />
+
+        <LinearLayout
+            style="@style/Mine_list"
+            android:layout_height="102px">
+
+            <TextView
+                style="@style/gray22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+                android:layout_weight="1"
+                android:text="民族" />
+
+            <TextView
+                android:id="@+id/tv_nation"
+                style="@style/MineTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/sideMargin"
+                android:layout_marginRight="@dimen/sideMargin"
+                android:background="@mipmap/icon_step_arrow" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:background="@color/line" />
+    </LinearLayout>
+</layout>

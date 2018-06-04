@@ -6,7 +6,7 @@
     <dimen name="elevation_height">4px</dimen>
 
 
-    <dimen name="sideMargin">20px</dimen>
+    <dimen name="sideMargin">24px</dimen>
     <dimen name="titleSize">32px</dimen>
     <dimen name="sideMarginTop">20px</dimen>
     <dimen name="salePriceSize">38px</dimen>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data></data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolBarSizeHeight"
+        android:background="@color/paleRed">
+
+        <ImageButton
+            style="@style/ToolbarBackBtnWhiteStyle"
+            android:layout_gravity="bottom|left" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginLeft="160px"
+            android:layout_marginRight="160px"
+            app:tabIndicatorColor="@color/white"
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextAppearance="@style/indicatorStyle"
+            app:tabTextColor="@color/white" />
+    </FrameLayout>
+</layout>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="item"
+            type="com.qiantang.smartparty.modle.RxVideoStudy" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/sideMargin">
+
+        <com.qiantang.smartparty.widget.SampleCoverVideo
+            android:id="@+id/sdv"
+            android:layout_width="match_parent"
+            android:layout_height="428px" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/black28"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sdv"
+            android:layout_marginLeft="@dimen/sideMargin"
+            android:layout_marginRight="@dimen/sideMargin"
+            android:layout_marginTop="15px"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="视频" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginLeft="@dimen/sideMargin"
+            android:layout_marginTop="15px"
+            android:text="2-12"
+            android:textSize="22px" />
+
+
+        <TextView
+            android:id="@+id/tv_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginLeft="80px"
+            android:layout_marginRight="@dimen/sideMargin"
+            android:layout_marginTop="15px"
+            android:text="12次"
+            android:textSize="22px" />
+
+        <TextView
+            android:id="@+id/tv_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginTop="15px"
+            android:layout_toLeftOf="@+id/tv_comment"
+            android:text="12次"
+            android:textSize="22px" />
+    </RelativeLayout>
+</layout>

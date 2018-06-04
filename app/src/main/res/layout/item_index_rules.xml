@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.qiantang.smartparty.modle.RxVideoStudy" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="5px"
+        android:paddingTop="26px">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            app:placeholderImage="@mipmap/ic_launcher"
+            app:viewAspectRatio="1.72" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            style="@style/indexNewsInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/sdv"
+            android:layout_alignRight="@+id/sdv"
+            android:layout_marginRight="20px"
+            android:layout_marginTop="10px"
+            android:text="2"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/black28"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/sdv"
+            android:layout_alignRight="@+id/sdv"
+            android:layout_below="@+id/sdv"
+            android:layout_marginLeft="15px"
+            android:layout_marginRight="10px"
+            android:layout_marginTop="16px"
+            android:ellipsize="end"
+            android:lines="2"
+            android:text="视频名称" />
+    </RelativeLayout>
+</layout>

@@ -33,7 +33,6 @@
     </declare-styleable>
 
 
-
     <declare-styleable name="AdapterView">
         <!-- require ItemView {@link me.tatarka.bindingcollectionadapter.ItemView} or ItemViewSelector {{@link me.tatarka.bindingcollectionadapter.ItemViewSelector}.} -->
         <attr name="itemView" />
@@ -146,7 +145,7 @@
         <attr name="type" format="integer" />
         <attr name="request_height" format="integer" />
         <attr name="request_width" format="integer" />
-        <attr name="defaultUri" format="string"/>
+        <attr name="defaultUri" format="string" />
     </declare-styleable>
 
     <declare-styleable name="VTabLayout">
@@ -303,13 +302,13 @@
     <declare-styleable name="Dialog">
         <attr name="DialogTitleAppearance" format="reference" />
         <attr name="DialogTitleText" format="reference|string" />
-        <attr name="DialogSpotColor" format="reference|color"/>
-        <attr name="DialogSpotCount" format="integer"/>
+        <attr name="DialogSpotColor" format="reference|color" />
+        <attr name="DialogSpotCount" format="integer" />
     </declare-styleable>
 
     <declare-styleable name="SwipeMenuView">
-        <attr name="swipeEnable" format="boolean"/>
-        <attr name="ios" format="boolean"/>
-        <attr name="leftSwipe" format="boolean"/>
+        <attr name="swipeEnable" format="boolean" />
+        <attr name="ios" format="boolean" />
+        <attr name="leftSwipe" format="boolean" />
     </declare-styleable>
 </resources>

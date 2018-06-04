@@ -8,7 +8,7 @@ import com.qiantang.smartparty.config.Config;
  */
 public class URLs {
     public static final String RESPONSE_OK = "000";
-    public static final int PAGE_SIZE = 10;
+    public static final int PAGE_SIZE = 15;
     //版本检测
     public static final String GET_VERSION = Config.SERVER_HOST + "";
 }

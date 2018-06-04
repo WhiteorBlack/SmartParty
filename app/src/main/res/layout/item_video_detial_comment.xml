@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data></data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="20px">
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_marginLeft="14px"
+            android:layout_marginRight="14px"
+            android:background="@color/line" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv"
+            app:placeholderImage="@mipmap/mine_head"
+            app:roundAsCircle="true"
+            android:layout_width="58px"
+            android:layout_height="58px"
+            android:layout_marginLeft="@dimen/sideMargin"
+            android:layout_marginTop="20px" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/black28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16px"
+            android:layout_marginTop="30px"
+            android:layout_toRightOf="@+id/sdv"
+            android:text="测试" />
+
+        <TextView
+            android:id="@+id/tv_comment"
+            style="@style/gray24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginLeft="16px"
+            android:layout_marginRight="60px"
+            android:layout_marginTop="17px"
+            android:layout_toRightOf="@+id/sdv"
+            android:text="测试评论内容" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tv_comment"
+            android:layout_marginLeft="16px"
+            android:layout_marginRight="@dimen/sideMargin"
+            android:layout_marginTop="22px"
+            android:layout_toRightOf="@+id/sdv"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_date"
+                style="@style/gray22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
+                android:text="2018" />
+
+            <CheckBox
+                android:id="@+id/chb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/select_point" />
+
+            <TextView
+                android:id="@+id/tv_praise"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="9px"
+                android:text="22"
+                android:textSize="22px" />
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

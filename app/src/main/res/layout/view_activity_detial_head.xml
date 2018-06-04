@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.qiantang.smartparty.module.assistant.viewmodel.ActivityDetialViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:viewAspectRatio="1.97" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/black30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sdv"
+            android:layout_marginLeft="100px"
+            android:layout_marginRight="100px"
+            android:layout_marginTop="32px"
+            android:gravity="center"
+            android:text="助力儿童运动" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            style="@style/gray24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30px"
+            android:text="2018" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="2px"
+            android:layout_height="30px"
+            android:layout_below="@+id/tv_date"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15px"
+            android:background="@color/infoColor" />
+
+        <TextView
+            android:id="@+id/tv_object"
+            style="@style/gray24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/line"
+            android:layout_marginRight="40px"
+            android:layout_toLeftOf="@+id/line"
+            android:text="参与对象:" />
+
+        <TextView
+            android:id="@+id/tv_count"
+            style="@style/gray24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/line"
+            android:layout_marginLeft="40px"
+            android:layout_toRightOf="@+id/line"
+            android:text="报名人数:" />
+
+        <TextView
+            android:id="@+id/tv_point"
+            style="@style/gray24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_count"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15px"
+            android:text="地点:" />
+
+        <View
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="20px"
+            android:layout_below="@+id/tv_point"
+            android:layout_marginTop="30px"
+            android:background="@color/line" />
+
+        <LinearLayout
+            android:id="@+id/ll_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line2"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="30px"
+            android:paddingTop="30px">
+
+            <View
+                android:id="@+id/line3"
+                android:layout_width="4px"
+                android:layout_height="28px"
+                android:layout_marginLeft="@dimen/sideMargin"
+                android:background="@color/paleRed" />
+
+            <TextView
+                android:id="@+id/tv_comment_title"
+                style="@style/black22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18px"
+                android:text="活动介绍"
+                android:textSize="28px" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_info"
+            style="@style/gray24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_info"
+            android:layout_marginLeft="@dimen/sideMargin"
+            android:layout_marginRight="@dimen/sideMargin"
+            android:text="活动介绍信息" />
+
+        <View
+            android:id="@+id/line4"
+            android:layout_width="match_parent"
+            android:layout_height="20px"
+            android:layout_below="@+id/tv_info"
+            android:layout_marginTop="30px"
+            android:background="@color/line" />
+
+        <LinearLayout
+            android:id="@+id/ll_record"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line4"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="30px"
+            android:paddingTop="30px">
+
+            <View
+                android:layout_width="4px"
+                android:layout_height="28px"
+                android:layout_marginLeft="@dimen/sideMargin"
+                android:background="@color/paleRed" />
+
+            <TextView
+                style="@style/black22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18px"
+                android:text="签到记录"
+                android:textSize="28px" />
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_record"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_record" />
+
+
+        <View
+            android:id="@+id/line5"
+            android:layout_width="match_parent"
+            android:layout_height="20px"
+            android:layout_below="@+id/rv_record"
+            android:background="@color/line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line5"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="30px"
+            android:paddingTop="30px">
+
+            <View
+                android:layout_width="4px"
+                android:layout_height="28px"
+                android:layout_marginLeft="@dimen/sideMargin"
+                android:background="@color/paleRed" />
+
+            <TextView
+                style="@style/black22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18px"
+                android:text="评论"
+                android:textSize="28px" />
+
+            <TextView
+                android:id="@+id/tv_comment_count"
+                style="@style/gray24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10px"
+                android:text="(22条)" />
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

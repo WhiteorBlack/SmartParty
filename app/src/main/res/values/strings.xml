@@ -7,4 +7,6 @@
     <string name="version_ignore_tips">此版本更新不再提示，若需要可在“我的--设置--版本”选择更新。</string>
     <string name="no_network">当前网络不可用</string>
     <string name="none_loading">—————— 已经到底了 ——————</string>
+    <string name="rationale_camera">需要访问您的相机功能</string>
+    <string name="phoneNumberInvalid">请输入有效手机号码</string>
 </resources>

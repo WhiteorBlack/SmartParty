@@ -18,8 +18,7 @@
 
         <include
             android:id="@+id/toolbar"
-            layout="@layout/toolbar_layout"
-           />
+            layout="@layout/toolbar_common" />
 
         <LinearLayout
             android:id="@+id/ll_parent"

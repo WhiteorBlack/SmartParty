@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.qiantang.smartparty.modle.RxPartyFee" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="32px"
+            android:layout_height="32px"
+            android:layout_marginLeft="@dimen/sideMargin"
+            android:layout_marginTop="30px"
+            android:src="@mipmap/icon_fee_party" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/black30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/iv_icon"
+            android:layout_marginLeft="16px"
+            android:layout_marginTop="30px"
+            android:layout_toRightOf="@+id/iv_icon"
+            android:gravity="center"
+            android:text="党费" />
+
+        <TextView
+            android:id="@+id/tv_state"
+            style="@style/gray24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_name"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="34px"
+            android:text="已逾期" />
+
+        <TextView
+            android:id="@+id/tv_money"
+            style="@style/red36"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_name"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginTop="29px"
+            android:text="5" />
+
+        <TextView
+            android:id="@+id/tv_type"
+            style="@style/gray24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_money"
+            android:layout_below="@+id/tv_money"
+            android:layout_marginRight="34px"
+            android:layout_marginTop="23px"
+            android:text="党费" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            style="@style/gray24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_type"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tv_money"
+            android:layout_marginRight="34px"
+            android:text="2018" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20px"
+            android:layout_below="@+id/tv_type"
+            android:layout_marginTop="30px"
+            android:background="@color/line" />
+    </RelativeLayout>
+</layout>

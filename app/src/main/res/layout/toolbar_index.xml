@@ -23,13 +23,13 @@
         android:layout_height="@dimen/toolBarSizeHeight"
         android:background="@color/toolbar_color"
         android:gravity="bottom"
-        android:orientation="horizontal"
-        android:paddingBottom="10px">
+        android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/tv_title"
             style="@style/toolbarTitleStyle"
             android:layout_width="wrap_content"
-            android:layout_height="45px"
+            android:layout_height="90px"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:gravity="center"
@@ -41,23 +41,31 @@
             android:layout_height="45px"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:layout_marginBottom="26px"
             android:layout_marginRight="@dimen/sideMargin"
             android:onClick="onClick"
-            android:background="@mipmap/ic_launcher"
+            android:src="@mipmap/icon_scan"
             android:visibility="@{isHide?View.GONE:View.VISIBLE}" />
 
         <TextView
             android:id="@+id/tv_publish"
             style="@style/toolbarTitleStyle"
             android:layout_width="wrap_content"
-            android:layout_height="45px"
+            android:layout_height="90px"
+            android:layout_alignBottom="@+id/tv_title"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/sideMargin"
-            android:gravity="bottom"
-            android:text="发表"
+            android:gravity="center"
             android:onClick="onClick"
+            android:text="发表"
             android:textSize="26px"
             android:visibility="@{isTextHide?View.GONE:View.VISIBLE}" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/line" />
     </RelativeLayout>
 </layout>

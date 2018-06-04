@@ -43,9 +43,8 @@ public class InitializeService extends IntentService {
     private boolean isConfirm;
     private boolean isUpdateConfirm;
     private String createTime = "";
-    public static final String ACTION_INIT_WHEN_APP_CREATE = "com.puxiang.mall.service.action.init";
+    public static final String ACTION_INIT_WHEN_APP_CREATE = "com.qiantang.smartparty.services.action.init";
     private static String TAG = "InitializeService";
-    private static final String BUGLY_APPID = "7af15a29f3";
 
     public InitializeService() {
         super("InitializeService");

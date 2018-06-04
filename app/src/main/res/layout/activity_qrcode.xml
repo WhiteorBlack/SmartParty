@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
-            type="com.qiantang.smartparty.module.scan.viewmodel.QRCodeViewModel"/>
+            type="com.qiantang.smartparty.module.scan.viewmodel.QRCodeViewModel" />
     </data>
 
     <RelativeLayout
@@ -15,13 +16,13 @@
 
         <include
             android:id="@+id/toolbar"
-            layout="@layout/toolbar_layout"
-            />
+            layout="@layout/toolbar_common" />
 
         <cn.bingoogolapple.qrcode.zbar.ZBarView
             android:id="@+id/z_scan"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar"
             app:qrcv_animTime="1000"
             app:qrcv_barCodeTipText="将条码放入框内，即可自动扫描"
             app:qrcv_barcodeRectHeight="140dp"
@@ -44,7 +45,7 @@
             app:qrcv_rectWidth="200dp"
             app:qrcv_scanLineColor="@color/scan_color"
             app:qrcv_toolbarHeight="56dp"
-            app:qrcv_topOffset="90dp"/>
+            app:qrcv_topOffset="90dp" />
 
     </RelativeLayout>
 </layout>

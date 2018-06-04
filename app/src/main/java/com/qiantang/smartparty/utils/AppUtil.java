@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
@@ -153,5 +154,13 @@ public class AppUtil {
             result = context.getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    public static boolean isHideRightText(String text,boolean isHide){
+        return (TextUtils.isEmpty(text)||isHide);
+    }
+
+    public static boolean isHideRightImage(int text,boolean isHide){
+        return (text>0||isHide);
     }
 }

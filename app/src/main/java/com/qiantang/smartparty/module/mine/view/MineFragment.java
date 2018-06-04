@@ -26,13 +26,11 @@ public class MineFragment extends BaseBindFragment {
 
     @Override
     public void initView() {
-        binding.toolbar.setTitle("我的");
-        binding.toolbar.setIsTextHide(true);
-        binding.toolbar.setIsHide(true);
+
     }
 
     @Override
     protected void viewModelDestroy() {
-
+        viewModel.destroy();
     }
 }

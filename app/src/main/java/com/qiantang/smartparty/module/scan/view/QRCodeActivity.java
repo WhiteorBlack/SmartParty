@@ -42,12 +42,12 @@ public class QRCodeActivity extends BaseBindActivity implements QRCodeView.Deleg
         binding = DataBindingUtil.setContentView(this, R.layout.activity_qrcode);
         mQRCodeView = binding.zScan;
         viewModel = new QRCodeViewModel(this);
-
     }
 
     @Override
     public void initView() {
         binding.toolbar.setTitle("扫码");
+        binding.toolbar.setIsHide(true);
         mQRCodeView.setDelegate(this);
     }
 

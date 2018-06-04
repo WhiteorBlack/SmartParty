@@ -4,6 +4,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.qiantang.smartparty.module.mine.viewmodel.MineViewModel" />
@@ -11,45 +13,45 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar_index" />
+        android:layout_height="match_parent"
+        android:background="@color/bgColor">
 
         <RelativeLayout
             android:id="@+id/rl_info"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/toolbar"
+            android:layout_height="360px"
+            android:background="@color/paleRed"
+            android:onClick="@{viewModel.onClick}"
             android:padding="@dimen/sideMargin">
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/my_pic"
                 android:layout_width="100px"
                 android:layout_height="100px"
-                android:alpha="@{viewModel.topAlpha}"
+                android:layout_centerVertical="true"
                 app:placeholderImage="@mipmap/mine_head"
                 app:placeholderImageScaleType="fitXY"
-                app:roundAsCircle="true"
-                app:url="@{viewModel.userBean.userImage}" />
+                app:roundAsCircle="true" />
 
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/my_pic"
                 android:layout_marginLeft="@dimen/sideMargin"
+                android:layout_marginTop="10px"
                 android:layout_toRightOf="@+id/my_pic"
                 android:text="名字"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="28px" />
 
             <TextView
                 android:id="@+id/tv_role"
+                style="@style/white24"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/my_pic"
-                android:layout_below="@+id/tv_name"
+                android:layout_marginBottom="7px"
                 android:layout_marginLeft="@dimen/sideMargin"
                 android:layout_toRightOf="@+id/my_pic"
                 android:gravity="bottom"
@@ -57,24 +59,247 @@
                 android:textSize="22px" />
 
             <TextView
+                style="@style/white20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tv_name"
                 android:layout_marginLeft="@dimen/sideMargin"
-                android:layout_toRightOf="@id/tv_name"
+                android:layout_toRightOf="@+id/tv_name"
                 android:background="@drawable/bg_statue"
                 android:paddingBottom="5px"
-                android:paddingLeft="10px"
-                android:paddingRight="10px"
+                android:paddingLeft="16px"
+                android:paddingRight="16px"
                 android:paddingTop="5px"
                 android:text="状态"
                 android:textSize="24px" />
 
             <ImageView
+                android:id="@+id/iv_arrow"
+                android:layout_width="80px"
+                android:layout_height="80px"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:onClick="@{viewModel.onClick}"
+                android:scaleType="centerInside"
+                android:src="@mipmap/icon_step_arrow" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_score"
+            android:layout_width="match_parent"
+            android:layout_height="172px"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:layout_marginTop="260px"
+            android:background="@drawable/bg_mine_scoret"
+            android:paddingLeft="160px"
+            android:paddingRight="160px">
+
+            <LinearLayout
+                android:id="@+id/ll_month"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
+                android:gravity="center"
+                android:onClick="@{viewModel.onClick}"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_month_score"
+                    style="@style/red46"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0" />
+
+                <TextView
+                    style="@style/gray22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="19px"
+                    android:text="本月学习值" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="2px"
+                android:layout_height="86px"
+                android:layout_centerInParent="true"
+                android:background="@color/line" />
+
+            <LinearLayout
+                android:id="@+id/ll_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:background="@mipmap/icon_step_arrow" />
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:onClick="@{viewModel.onClick}"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_total_score"
+                    style="@style/red46"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0" />
+
+                <TextView
+                    style="@style/gray22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="19px"
+                    android:text="累计学习值" />
+            </LinearLayout>
         </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_score"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:layout_marginTop="25px"
+            android:background="@drawable/bg_mine_scoret"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/fl_collection"
+                style="@style/Mine_list"
+                android:onClick="@{viewModel.onClick}">
+
+                <TextView
+                    style="@style/MineTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/icon_my_collect"
+                    android:gravity="center_vertical"
+                    android:text="我的收藏" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="@dimen/sideMargin"
+                    android:background="@mipmap/icon_step_arrow" />
+            </FrameLayout>
+
+            <View
+                android:id="@+id/line2"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="25px"
+                android:layout_marginRight="25px"
+                android:background="@color/line" />
+
+            <FrameLayout
+                android:id="@+id/fl_activity"
+                style="@style/Mine_list"
+                android:onClick="@{viewModel.onClick}">
+
+                <TextView
+                    style="@style/MineTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/icon_my_activity"
+                    android:gravity="center_vertical"
+                    android:text="我的活动" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="@dimen/sideMargin"
+                    android:background="@mipmap/icon_step_arrow" />
+            </FrameLayout>
+
+            <View
+                android:id="@+id/line3"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@+id/fl_activity"
+                android:layout_marginLeft="25px"
+                android:layout_marginRight="25px"
+                android:background="@color/line" />
+
+            <FrameLayout
+                android:id="@+id/fl_test"
+                style="@style/Mine_list"
+                android:onClick="@{viewModel.onClick}">
+
+                <TextView
+                    style="@style/MineTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/icon_my_test"
+                    android:gravity="center_vertical"
+                    android:text="我的评测" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="@dimen/sideMargin"
+                    android:background="@mipmap/icon_step_arrow" />
+            </FrameLayout>
+
+            <View
+                android:id="@+id/line4"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="25px"
+                android:layout_marginRight="25px"
+                android:background="@color/line" />
+
+            <FrameLayout
+                android:id="@+id/fl_about_us"
+                style="@style/Mine_list"
+                android:onClick="@{viewModel.onClick}">
+
+                <TextView
+                    style="@style/MineTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/icon_about_us"
+                    android:gravity="center_vertical"
+                    android:text="关于我们" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="@dimen/sideMargin"
+                    android:background="@mipmap/icon_step_arrow" />
+            </FrameLayout>
+
+            <View
+                android:id="@+id/line5"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="25px"
+                android:layout_marginRight="25px"
+                android:background="@color/line" />
+
+            <FrameLayout
+                android:id="@+id/fl_setting"
+                style="@style/Mine_list"
+                android:onClick="@{viewModel.onClick}">
+
+                <TextView
+                    style="@style/MineTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/icon_setting"
+                    android:gravity="center_vertical"
+                    android:text="设置" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_marginRight="@dimen/sideMargin"
+                    android:background="@mipmap/icon_step_arrow" />
+            </FrameLayout>
+
+        </LinearLayout>
     </RelativeLayout>
 </layout>

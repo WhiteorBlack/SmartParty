@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="item"
+            type="com.qiantang.smartparty.modle.RxMsg"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_point"
+            android:layout_width="12px"
+            android:layout_height="12px"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="24px"
+            android:background="@mipmap/button02" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/black26"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30px"
+            android:layout_marginLeft="24px"
+            android:layout_marginRight="120px"
+            android:layout_marginTop="30px"
+            android:layout_toRightOf="@+id/iv_point"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="消息标题啛啛喳喳错错错错错错错错错啛啛喳喳错错错cccccccccccccc" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            style="@style/gray20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="32px"
+            android:text="3-23" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/line" />
+    </RelativeLayout>
+</layout>

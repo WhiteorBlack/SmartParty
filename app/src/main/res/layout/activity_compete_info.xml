@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.qiantang.smartparty.module.login.viewmodel.CompeteViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_common" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/gray24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+            android:layout_marginLeft="30px"
+            android:layout_marginTop="40px"
+            android:text="姓名" />
+
+        <EditText
+            android:id="@+id/et_name"
+            style="@style/black26"
+            android:layout_width="300px"
+            android:layout_height="80px"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/toolbar"
+            android:layout_marginTop="13px"
+            android:background="@null"
+            android:gravity="right|center_vertical"
+            android:hint="请输入您的姓名"
+            android:paddingRight="30px" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:layout_marginTop="40px"
+            android:background="@color/line" />
+
+        <TextView
+            android:id="@+id/tv_nation_title"
+            style="@style/gray24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line"
+            android:layout_marginLeft="30px"
+            android:layout_marginTop="40px"
+            android:text="是否本单位人员" />
+
+        <ImageView
+            android:id="@+id/iv_arrow"
+            android:layout_width="60px"
+            android:layout_height="60px"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/line"
+            android:layout_marginRight="@dimen/sideMargin"
+            android:layout_marginTop="21.5px"
+            android:onClick="onClick"
+            android:scaleType="centerInside"
+            android:src="@mipmap/icon_step_arrow" />
+
+        <TextView
+            android:id="@+id/tv_nation"
+            style="@style/black26"
+            android:layout_width="200px"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_nation_title"
+            android:layout_toLeftOf="@+id/iv_arrow"
+            android:gravity="right|center_vertical"
+            android:onClick="onClick"
+            android:text="是" />
+
+        <View
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/tv_nation_title"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:layout_marginTop="40px"
+            android:background="@color/line" />
+
+        <TextView
+            android:id="@+id/tv_org_title"
+            style="@style/gray24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line1"
+            android:layout_marginLeft="30px"
+            android:layout_marginTop="40px"
+            android:text="所属组织" />
+
+        <ImageView
+            android:id="@+id/iv_arrow_org"
+            android:layout_width="60px"
+            android:layout_height="60px"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/line1"
+            android:layout_marginRight="@dimen/sideMargin"
+            android:layout_marginTop="21.5px"
+            android:onClick="onClick"
+            android:scaleType="centerInside"
+            android:src="@mipmap/icon_step_arrow" />
+
+        <TextView
+            android:id="@+id/tv_org"
+            style="@style/black26"
+            android:layout_width="200px"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_org_title"
+            android:layout_below="@id/line1"
+            android:layout_toLeftOf="@+id/iv_arrow"
+            android:gravity="right|center_vertical"
+            android:onClick="onClick"
+            android:text="党支部" />
+
+        <View
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/tv_org"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:layout_marginTop="40px"
+            android:background="@color/line" />
+
+        <TextView
+            android:id="@+id/tv_pos"
+            style="@style/gray24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line2"
+            android:layout_marginLeft="30px"
+            android:layout_marginTop="40px"
+            android:text="职务" />
+
+        <EditText
+            android:id="@+id/et_pos"
+            style="@style/black26"
+            android:layout_width="300px"
+            android:layout_height="80px"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/line2"
+            android:layout_marginTop="13px"
+            android:background="@null"
+            android:gravity="right|center_vertical"
+            android:hint="请输入您的职务"
+            android:paddingRight="30px" />
+
+        <View
+            android:id="@+id/line3"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/tv_pos"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:layout_marginTop="40px"
+            android:background="@color/line" />
+
+        <TextView
+            android:id="@+id/tv_id_title"
+            style="@style/gray24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line3"
+            android:layout_marginLeft="30px"
+            android:layout_marginTop="40px"
+            android:text="身份" />
+
+        <ImageView
+            android:id="@+id/iv_arrow_id"
+            android:layout_width="60px"
+            android:layout_height="60px"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/line3"
+            android:layout_marginRight="@dimen/sideMargin"
+            android:layout_marginTop="21.5px"
+            android:onClick="onClick"
+            android:scaleType="centerInside"
+            android:src="@mipmap/icon_step_arrow" />
+
+        <TextView
+            android:id="@+id/tv_id"
+            style="@style/black26"
+            android:layout_width="200px"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_id_title"
+            android:layout_below="@id/line1"
+            android:layout_toLeftOf="@+id/iv_arrow_id"
+            android:gravity="right|center_vertical"
+            android:onClick="onClick"
+            android:text="党员" />
+
+        <View
+            android:id="@+id/line4"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/tv_id"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:layout_marginTop="40px"
+            android:background="@color/line" />
+
+        <TextView
+            android:id="@+id/tv_date_title"
+            style="@style/gray24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line4"
+            android:layout_marginLeft="30px"
+            android:layout_marginTop="40px"
+            android:text="入党时间" />
+
+        <ImageView
+            android:id="@+id/iv_arrow_date"
+            android:layout_width="60px"
+            android:layout_height="60px"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/line4"
+            android:layout_marginRight="@dimen/sideMargin"
+            android:layout_marginTop="21.5px"
+            android:onClick="onClick"
+            android:scaleType="centerInside"
+            android:src="@mipmap/icon_step_arrow" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            style="@style/black26"
+            android:layout_width="200px"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_date_title"
+            android:layout_below="@id/line4"
+            android:layout_toLeftOf="@+id/iv_arrow"
+            android:gravity="right|center_vertical"
+            android:onClick="onClick"
+            android:text="2018.10" />
+
+        <View
+            android:id="@+id/line5"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/tv_date"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:layout_marginTop="40px"
+            android:background="@color/line" />
+
+        <Button
+            style="@style/confirmBtn"
+            android:layout_below="@+id/line5"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="200px"
+            android:text="提交审核" />
+    </RelativeLayout>
+</layout>

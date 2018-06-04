@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.qiantang.smartparty.modle.RxIndexNews" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="20px"
+        android:paddingRight="20px"
+        android:paddingTop="@dimen/sideMargin">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv"
+            android:layout_width="240px"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="5px"
+            android:layout_marginRight="5px"
+            app:actualImageScaleType="centerInside"
+            app:viewAspectRatio="1.33" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/indexNewsTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5px"
+            android:layout_marginRight="20px"
+            android:layout_marginTop="7px"
+            android:layout_toLeftOf="@+id/sdv"
+            android:ellipsize="end"
+            android:lines="2"
+            android:text="标题标题标题标题标题" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            style="@style/indexNewsInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/sdv"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginBottom="5px"
+            android:layout_marginLeft="5px"
+            android:layout_marginRight="5px"
+            android:gravity="bottom"
+            android:text="2-22" />
+
+        <TextView
+            android:id="@+id/tv_comment"
+            style="@style/indexNewsInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/sdv"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginBottom="5px"
+            android:layout_marginLeft="5px"
+            android:layout_marginRight="28px"
+            android:layout_toLeftOf="@+id/sdv"
+            android:gravity="bottom"
+            android:text="2评论" />
+
+        <TextView
+            android:id="@+id/tv_read"
+            style="@style/indexNewsInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/sdv"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginBottom="5px"
+            android:layout_marginRight="27px"
+            android:layout_toLeftOf="@+id/tv_comment"
+            android:gravity="bottom"
+            android:text="2阅读" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_below="@+id/sdv"
+            android:layout_marginTop="@dimen/sideMargin"
+            android:background="@color/line" />
+    </RelativeLayout>
+</layout>

@@ -25,7 +25,7 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
  * Created by 123 on 2017/9/1.
  */
 
-public abstract class BaseBindActivity extends RxAppCompatActivity implements RefreshListener{
+public abstract class BaseBindActivity extends RxAppCompatActivity implements RefreshListener {
     private PtrFrameLayout mPtrFrame;
     protected String TAG;
     private boolean isAuto = true;
@@ -42,7 +42,7 @@ public abstract class BaseBindActivity extends RxAppCompatActivity implements Re
         super.onCreate(savedInstanceState);
         TAG = this.getClass().getSimpleName();
         mImmersionBar = ImmersionBar.with(this);
-        mImmersionBar.statusBarDarkFont(false).flymeOSStatusBarFontColor(R.color.white).keyboardEnable(true).keyboardMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE).init();
+        mImmersionBar.keyboardEnable(false).keyboardMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE).init();
         initBind();
         rootView = (ViewGroup) getWindow().getDecorView();
         //是否自动适配
@@ -270,6 +270,14 @@ public abstract class BaseBindActivity extends RxAppCompatActivity implements Re
     public void refreshFail() {
         if (mPtrFrame != null && mPtrFrame.isRefreshing()) {
             mPtrFrame.refreshComplete();
+        }
+    }
+
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.iv_back:
+                onBackPressed();
+                break;
         }
     }
 

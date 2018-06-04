@@ -55,9 +55,6 @@ public class SampleApplication extends Application {
                     long.class, long.class, Intent.class);
             return (ApplicationLike) constructor.newInstance(this, TINKER_ENABLE_ALL, false,
                     applicationStartElapsedTime, applicationStartMillisTime, null);
-//            Class var1 = Class.forName("com.puxiang.mall.MyApplication", false, this.getClassLoader());
-//            Constructor var2 = var1.getConstructor(new Class[]{Application.class});
-//            return (ApplicationLike) var2.newInstance(new Object[]{this});
         } catch (Throwable var3) {
             throw new RuntimeException("createDelegate failed", var3);
         }

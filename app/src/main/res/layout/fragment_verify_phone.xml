@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.qiantang.smartparty.module.mine.viewmodel.FragmentVerifyViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_phone"
+            style="@style/black24"
+            android:layout_width="match_parent"
+            android:layout_height="102px"
+            android:layout_marginLeft="29px"
+            android:gravity="left|center_vertical"
+            android:text="123456789" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_below="@+id/tv_phone"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:background="@color/line" />
+
+        <EditText
+            android:id="@+id/et_code"
+            style="@style/black24"
+            android:layout_width="300px"
+            android:layout_height="102px"
+            android:layout_below="@+id/line"
+            android:layout_marginLeft="29px"
+            android:background="@null"
+            android:hint="请输入验证码" />
+
+        <CheckBox
+            android:id="@+id/cb_sms"
+            android:layout_width="180px"
+            android:layout_height="54px"
+            android:layout_alignBaseline="@+id/et_code"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/sideMargin"
+            android:background="@drawable/bg_send_code"
+            android:button="@null"
+            android:checked="@{viewModel.isCounting}"
+            android:clickable="false"
+            android:enabled="@{!viewModel.isCounting}"
+            android:gravity="center"
+            style="@style/red24"
+            android:onClick="@{viewModel.onClick}"
+            android:text="@{viewModel.msg}" />
+
+        <View
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_below="@+id/et_code"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:background="@color/line" />
+
+        <Button
+            android:id="@+id/btn_confirm"
+            style="@style/white24"
+            android:layout_width="300px"
+            android:layout_height="70px"
+            android:layout_below="@+id/line1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="240px"
+            android:background="@drawable/btn_confirm"
+            android:onClick="@{viewModel.onClick}"
+            android:text="下一步" />
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.qiantang.smartparty.module.mine.viewmodel.SettingViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/line"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_common" />
+
+        <TextView
+            style="@style/gray24"
+            android:layout_width="match_parent"
+            android:layout_height="78px"
+            android:layout_marginLeft="30px"
+            android:gravity="center_vertical"
+            android:text="账户安全" />
+
+        <LinearLayout
+            style="@style/Mine_list"
+            android:layout_height="104px"
+            android:id="@+id/ll_modify_phone"
+            android:onClick="onClick"
+            android:paddingRight="@dimen/sideMargin">
+
+            <TextView
+                style="@style/gray24"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+                android:layout_weight="1"
+                android:text="修改手机号" />
+
+            <TextView
+                android:id="@+id/tv_phone"
+                style="@style/black26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30px" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/icon_step_arrow" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/gray24"
+            android:layout_width="match_parent"
+            android:layout_height="78px"
+            android:layout_marginLeft="30px"
+            android:gravity="center_vertical"
+            android:text="第三方授权" />
+
+        <LinearLayout
+            style="@style/Mine_list"
+            android:layout_height="104px"
+            android:background="@color/white"
+            android:paddingRight="@dimen/sideMargin">
+
+            <TextView
+                style="@style/gray24"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+                android:layout_weight="1"
+                android:text="微信" />
+
+            <TextView
+                android:id="@+id/tv_wechat"
+                style="@style/black26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30px" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/icon_step_arrow" />
+        </LinearLayout>
+
+        <TextView
+            style="@style/gray24"
+            android:layout_width="match_parent"
+            android:layout_height="78px"
+            android:layout_marginLeft="30px"
+            android:gravity="center_vertical"
+            android:text="联系客服" />
+
+        <LinearLayout
+            style="@style/Mine_list"
+            android:layout_height="104px"
+            android:paddingRight="@dimen/sideMargin">
+
+            <TextView
+                style="@style/gray24"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+                android:layout_weight="1"
+                android:text="客服" />
+
+            <TextView
+                android:id="@+id/tv_service"
+                style="@style/black26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30px" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/icon_step_arrow" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

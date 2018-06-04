@@ -13,6 +13,7 @@ import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.module.assistant.view.AssisantFragment;
 import com.qiantang.smartparty.module.index.view.IndexFragment;
+import com.qiantang.smartparty.module.mine.view.MineFragment;
 import com.qiantang.smartparty.module.study.view.StudyFragment;
 import com.qiantang.smartparty.utils.AppUtil;
 import com.qiantang.smartparty.utils.AutoUtils;
@@ -50,7 +51,7 @@ public class ViewPagerAdapter extends IndicatorViewPager.IndicatorFragmentPagerA
         imageView.setImageDrawable(AppUtil.getDrawable(icons[position]));
         TextView textView = convertView.findViewById(R.id.tv_tab);
         textView.setText(names[position]);
-        AutoUtils.auto(imageView);
+        AutoUtils.auto(convertView);
         return convertView;
     }
 
@@ -72,7 +73,7 @@ public class ViewPagerAdapter extends IndicatorViewPager.IndicatorFragmentPagerA
                 fragment=new AssisantFragment();
                 break;
             case 3://我的
-
+                fragment=new MineFragment();
                 break;
 
         }

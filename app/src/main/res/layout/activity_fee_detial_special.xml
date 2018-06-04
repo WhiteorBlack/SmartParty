@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.qiantang.smartparty.module.assistant.viewmodel.FeeDetialSpecialViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/line"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_common" />
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+
+                <TextView
+                    android:id="@+id/tv_name_title"
+                    style="@style/gray24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30px"
+                    android:layout_marginTop="40px"
+                    android:text="党员姓名" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    style="@style/black26"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/tv_name_title"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="32px"
+                    android:text="测试"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:layout_below="@+id/tv_name_title"
+                    android:layout_marginLeft="20px"
+                    android:layout_marginRight="20px"
+                    android:layout_marginTop="40px"
+                    android:background="@color/line" />
+
+                <TextView
+                    android:id="@+id/tv_nation_title"
+                    style="@style/gray24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/line"
+                    android:layout_marginLeft="30px"
+                    android:layout_marginTop="40px"
+                    android:text="党支部" />
+
+                <TextView
+                    android:id="@+id/tv_nation"
+                    style="@style/black26"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/tv_nation_title"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="32px"
+                    android:text="测试"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/line1"
+                    android:layout_width="match_parent"
+                    android:layout_height="20px"
+                    android:layout_below="@+id/tv_nation_title"
+                    android:layout_marginTop="40px"
+                    android:background="@color/line" />
+
+                <TextView
+                    android:id="@+id/tv_fee_title"
+                    style="@style/gray24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/line1"
+                    android:layout_marginLeft="30px"
+                    android:layout_marginTop="40px"
+                    android:text="交费类型" />
+
+                <TextView
+                    android:id="@+id/tv_fee_type"
+                    style="@style/black26"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/tv_fee_title"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="32px"
+                    android:text="测试"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/line2"
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:layout_below="@+id/tv_fee_title"
+                    android:layout_marginLeft="20px"
+                    android:layout_marginRight="20px"
+                    android:layout_marginTop="40px"
+                    android:background="@color/line" />
+
+                <TextView
+                    android:id="@+id/tv_feep_title"
+                    style="@style/gray24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/line2"
+                    android:layout_marginLeft="30px"
+                    android:layout_marginTop="40px"
+                    android:text="交费项目" />
+
+                <TextView
+                    android:id="@+id/tv_fee_pro"
+                    style="@style/black26"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/tv_feep_title"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="32px"
+                    android:text="测试"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/line3"
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:layout_below="@+id/tv_feep_title"
+                    android:layout_marginLeft="20px"
+                    android:layout_marginRight="20px"
+                    android:layout_marginTop="40px"
+                    android:background="@color/line" />
+
+                <TextView
+                    android:id="@+id/tv_date_title"
+                    style="@style/gray24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/line3"
+                    android:layout_marginLeft="30px"
+                    android:layout_marginTop="40px"
+                    android:text="截止日期" />
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    style="@style/black26"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/tv_date_title"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="32px"
+                    android:text="2018"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/line4"
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:layout_below="@+id/tv_date_title"
+                    android:layout_marginLeft="20px"
+                    android:layout_marginRight="20px"
+                    android:layout_marginTop="40px"
+                    android:background="@color/line" />
+
+                <TextView
+                    android:id="@+id/tv_info_title"
+                    style="@style/gray24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/line4"
+                    android:layout_marginLeft="30px"
+                    android:layout_marginTop="40px"
+                    android:text="交费说明" />
+
+                <TextView
+                    android:id="@+id/tv_info"
+                    style="@style/black26"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_info_title"
+                    android:layout_marginLeft="32px"
+                    android:layout_marginRight="32px"
+                    android:layout_marginTop="22px"
+                    android:text="测试"
+                    android:textStyle="bold" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_info" />
+
+                <View
+                    android:id="@+id/line5"
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:layout_below="@+id/rv_info"
+                    android:layout_marginLeft="20px"
+                    android:layout_marginRight="20px"
+                    android:layout_marginTop="40px"
+                    android:background="@color/line" />
+
+                <TextView
+                    android:id="@+id/tv_count_title"
+                    style="@style/gray24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/line5"
+                    android:layout_marginLeft="30px"
+                    android:layout_marginTop="40px"
+                    android:text="交费金额" />
+
+                <EditText
+                    android:id="@+id/tv_fee_count"
+                    style="@style/red26"
+                    android:layout_width="300px"
+                    android:layout_height="80px"
+                    android:layout_alignBaseline="@+id/tv_count_title"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="32px"
+                    android:background="@null"
+                    android:gravity="right|center_vertical"
+                    android:text="5.0"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/line6"
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:layout_below="@+id/tv_count_title"
+                    android:layout_marginLeft="20px"
+                    android:layout_marginRight="20px"
+                    android:layout_marginTop="40px"
+                    android:background="@color/line" />
+
+            </RelativeLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+
+        <Button
+            android:id="@+id/btn_confirm"
+            style="@style/white24"
+            android:layout_width="300px"
+            android:layout_height="70px"
+            android:layout_gravity="center"
+            android:layout_marginBottom="48px"
+            android:layout_marginTop="48px"
+            android:background="@drawable/btn_confirm"
+            android:onClick="onClick"
+            android:text="确定支付" />
+    </LinearLayout>
+</layout>

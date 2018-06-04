@@ -96,8 +96,8 @@ public class MyTextUtils {
     public static SpannableString getCommentText(String name, String comment) {
         String s = name + ":" + comment;
         SpannableString word = new SpannableString(s);
-        word.setSpan(new ForegroundColorSpan(Color.parseColor("#9B30FF")), 0, name.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        word.setSpan(new RelativeSizeSpan(1.0f), s.length() - name.length(), s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        word.setSpan(new ForegroundColorSpan(Color.parseColor("#DC3F3F")), 0, name.length()+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        word.setSpan(new RelativeSizeSpan(1.0f), s.length() - name.length()-1, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return word;
     }
 

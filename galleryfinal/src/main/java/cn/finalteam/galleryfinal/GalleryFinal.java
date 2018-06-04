@@ -398,6 +398,13 @@ public class GalleryFinal {
     }
 
     /**
+     * 清除回调
+     */
+    public static void clearCallback(){
+        mCallback=null;
+    }
+
+    /**
      * 清楚缓存文件
      */
     public static void cleanCacheFile() {

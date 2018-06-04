@@ -7,13 +7,10 @@
     android:gravity="center"
     android:orientation="horizontal">
 
-    <com.qiantang.smartparty.widget.LoadMoreFooter
+    <ProgressBar
         android:id="@+id/pb"
-        android:layout_width="70px"
-        android:layout_height="70px"
-        android:layout_gravity="center"
-        android:visibility="gone"
-        android:background="@mipmap/ic_launcher_round" />
+        android:layout_width="50px"
+        android:layout_height="50px" />
 
     <TextView
         android:id="@+id/tv_loading"

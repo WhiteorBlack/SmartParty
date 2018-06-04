@@ -10,13 +10,21 @@
     <color name="tipsTitle">#2e0904</color>
     <!-- 搜索框背景颜色 -->
     <color name="searchBg">#eef1f4</color>
-    <color name="none_text">#a9afbb</color>
+    <color name="none_text">#999999</color>
     <color name="main_bg">#f2f2f2</color>
     <color name="transparent">#00000000</color>
     <!-- 提示文字 -->
     <color name="tipsText">#ef7203</color>
     <!-- 价格颜色 -->
     <color name="sale_price">#c8142d</color>
-    <color name="toolbar_color">#303F9F</color>
+    <color name="toolbar_color">#fff</color>
     <color name="scan_color">#7bc351</color>
+    <color name="line">#EFEFF4</color>
+    <color name="infoColor">#666666</color>
+    <color name="paleRed">#DC3F3F</color>
+    <color name="yellow">#F5DB03</color>
+    <color name="paleRedAlpha">#CCDC3F3F</color>
+    <color name="bgColor">#F8F8F8</color>
+    <color name="black">#333333</color>
+    <color name="edit_bg">#F8F8F8</color>
 </resources>
