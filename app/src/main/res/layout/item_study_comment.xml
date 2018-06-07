@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.qiantang.smartparty.modle.RxStudyComment" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="7px"
+        android:layout_marginTop="14px"
+        android:orientation="horizontal"
+        android:paddingLeft="20px"
+        android:paddingRight="20px">
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/red24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{item.username+`:`}" />
+
+        <TextView
+            style="@style/black24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@{item.content}" />
+    </LinearLayout>
+</layout>

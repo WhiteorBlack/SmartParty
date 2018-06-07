@@ -2,6 +2,10 @@ package com.qiantang.smartparty.network.retrofit;
 
 
 import com.qiantang.smartparty.MyApplication;
+import com.qiantang.smartparty.modle.RxRankBranch;
+import com.qiantang.smartparty.modle.RxRankPersonal;
+import com.qiantang.smartparty.modle.RxStudy;
+import com.qiantang.smartparty.modle.RxStudyUnreadMsg;
 import com.qiantang.smartparty.modle.RxUploadUrl;
 import com.qiantang.smartparty.utils.luban.Luban;
 
@@ -75,4 +79,63 @@ public class ApiWrapper extends RetrofitUtil {
     }
 
 
+    /**
+     * 个人排行
+     *
+     * @param time
+     * @return
+     */
+    public Observable<RxRankPersonal> getRankPersonal(String time) {
+        return getService().getRankPersonal(MyApplication.USER_ID, time).compose(this.applySchedulers());
+    }
+
+
+    /**
+     * 支部排行
+     *
+     * @param time
+     * @return
+     */
+    public Observable<RxRankBranch> getRankBranch(String time) {
+        return getService().getRankBranch(MyApplication.USER_ID, time).compose(this.applySchedulers());
+    }
+
+
+    /**
+     * 获取学习感悟列表
+     *
+     * @return
+     */
+    public Observable<RxStudy> getStudyList(int pageNo) {
+        return getService().getStudyList(MyApplication.USER_ID, pageNo).compose(this.applySchedulers());
+    }
+
+    /**
+     * 删除学习感悟
+     *
+     * @return
+     */
+    public Observable<String> deleteComment(String id) {
+        return getService().deleteComment(id).compose(this.applySchedulers());
+    }
+
+    /**
+     * 学习感悟未读消息
+     */
+    public Observable<List<RxStudyUnreadMsg>> getUnreadMsg() {
+        return getService().getUnreadMsg(MyApplication.USER_ID).compose(this.applySchedulers());
+    }
+
+    public Observable<String> commentLike(int type, String id, String content) {
+        return getService().commentLike(MyApplication.USER_ID, type, id, content).compose(this.applySchedulers());
+    }
+
+    /**
+     * 取消赞
+     * @param id
+     * @return
+     */
+    public Observable<String> cancelLike( String id) {
+        return getService().cancelLike(MyApplication.USER_ID, id).compose(this.applySchedulers());
+    }
 }

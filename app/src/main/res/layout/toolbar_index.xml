@@ -5,6 +5,10 @@
 
         <import type="android.view.View" />
 
+        <import type="android.text.TextUtils" />
+
+        <import type="com.qiantang.smartparty.utils.AppUtil" />
+
         <variable
             name="title"
             type="String" />
@@ -16,6 +20,10 @@
         <variable
             name="isTextHide"
             type="boolean" />
+
+        <variable
+            name="resId"
+            type="int" />
     </data>
 
     <RelativeLayout
@@ -41,10 +49,10 @@
             android:layout_height="45px"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="26px"
+            android:layout_marginBottom="20px"
             android:layout_marginRight="@dimen/sideMargin"
             android:onClick="onClick"
-            android:src="@mipmap/icon_scan"
+            android:src="@{AppUtil.getDrawable(resId)}"
             android:visibility="@{isHide?View.GONE:View.VISIBLE}" />
 
         <TextView
@@ -60,7 +68,7 @@
             android:onClick="onClick"
             android:text="发表"
             android:textSize="26px"
-            android:visibility="@{isTextHide?View.GONE:View.VISIBLE}" />
+            android:visibility="gone" />
 
         <View
             android:layout_width="match_parent"

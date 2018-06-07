@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data></data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="98px"
+        android:background="@drawable/input_layout_box"
+        android:paddingBottom="16px"
+        android:paddingLeft="@dimen/sideMargin"
+        android:paddingTop="16px">
+
+
+        <TextView
+            android:id="@+id/btn_send"
+            style="@style/red32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingBottom="8px"
+            android:paddingLeft="30px"
+            android:paddingRight="42px"
+            android:paddingTop="8px"
+            android:text="发送" />
+
+        <EditText
+            android:id="@+id/ed_comment_content"
+            style="@style/black24"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/sideMargin"
+            android:layout_toLeftOf="@id/btn_send"
+            android:background="@drawable/bg_editbox"
+            android:hint="评论"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            tools:text="测试测试测试测试" />
+
+    </RelativeLayout>
+</layout>

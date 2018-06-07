@@ -33,8 +33,8 @@ public class MyTextUtils {
         return "￥" + String.format("%.2f", f);
     }
 
-    public static String getInt2String(int i){
-        return i+"";
+    public static String getInt2String(int i) {
+        return i + "";
     }
 
     public static void setSalePrice(TextView textView, double d) {
@@ -93,11 +93,20 @@ public class MyTextUtils {
         textView.setText(word, TextView.BufferType.SPANNABLE);
     }
 
+    public static SpannableString getRankText(String name, String comment) {
+        String s = name + " " + comment;
+        SpannableString word = new SpannableString(s);
+        word.setSpan(new ForegroundColorSpan(Color.parseColor("#DC3F3F")), name.length(), s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        word.setSpan(new RelativeSizeSpan(1.5f), name.length(), s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return word;
+    }
+
+
     public static SpannableString getCommentText(String name, String comment) {
         String s = name + ":" + comment;
         SpannableString word = new SpannableString(s);
-        word.setSpan(new ForegroundColorSpan(Color.parseColor("#DC3F3F")), 0, name.length()+1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        word.setSpan(new RelativeSizeSpan(1.0f), s.length() - name.length()-1, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        word.setSpan(new ForegroundColorSpan(Color.parseColor("#DC3F3F")), 0, name.length() + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        word.setSpan(new RelativeSizeSpan(1.0f), s.length() - name.length() - 1, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return word;
     }
 
@@ -192,13 +201,14 @@ public class MyTextUtils {
 
     /**
      * 判断邮箱是否合法
+     *
      * @param email
      * @return
      */
-    public static boolean isEmail(String email){
-        if (null==email || "".equals(email)) return false;
+    public static boolean isEmail(String email) {
+        if (null == email || "".equals(email)) return false;
         //Pattern p = Pattern.compile("\\w+@(\\w+.)+[a-z]{2,3}"); //简单匹配
-        Pattern p =  Pattern.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");//复杂匹配
+        Pattern p = Pattern.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");//复杂匹配
         Matcher m = p.matcher(email);
         return m.matches();
     }

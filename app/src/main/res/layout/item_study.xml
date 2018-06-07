@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.qiantang.smartparty.MyApplication" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="com.qiantang.smartparty.R" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="item"
+            type="com.qiantang.smartparty.modle.RxStudyList" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/rl_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20px">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv"
+            android:layout_width="80px"
+            android:layout_height="80px"
+            android:layout_marginLeft="22px"
+            android:layout_marginTop="40px"
+            app:roundAsCircle="true" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/gray28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/sdv"
+            android:layout_marginLeft="20px"
+            android:layout_toRightOf="@+id/sdv"
+            android:text="@{item.username}" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            style="@style/black24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_name"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginRight="36px"
+            android:layout_marginTop="20px"
+            android:layout_toRightOf="@+id/sdv"
+            android:text="@{item.content}" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/tv_content"
+            android:layout_alignRight="@+id/tv_content"
+            android:layout_below="@+id/tv_content"
+            android:visibility="@{TextUtils.isEmpty(item.image)?View.INVISIBLE:View.VISIBLE}" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            style="@style/gray22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_content"
+            android:layout_below="@+id/rv"
+            android:layout_marginTop="34px"
+            android:text="@{item.creationtime}" />
+
+        <TextView
+            android:id="@+id/tv_del"
+            style="@style/red24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_date"
+            android:layout_marginLeft="40px"
+            android:layout_toRightOf="@+id/tv_date"
+            android:text="删除"
+            android:visibility="@{TextUtils.equals(item.user_id,MyApplication.USER_ID)?View.VISIBLE:View.GONE}" />
+
+        <ImageView
+            android:id="@+id/iv_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/tv_date"
+            android:layout_marginRight="40px"
+            android:src="@mipmap/icon_comment_like" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/tv_date"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:layout_marginTop="35px"
+            android:background="@color/line"
+            android:visibility="@{item.zanAppMap.size()  &gt; 0|| item.zanAppMap.size()  &gt; 0?View.INVISIBLE:View.VISIBLE}" />
+
+        <LinearLayout
+            android:id="@+id/ll_prase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/tv_content"
+            android:layout_alignRight="@+id/tv_content"
+            android:layout_below="@+id/line"
+            android:background="@color/grayBg"
+            android:gravity="top"
+            android:orientation="horizontal"
+            android:padding="20px"
+            android:paddingBottom="10px"
+            android:paddingTop="10px"
+            android:visibility="@{item.zanAppMap.size()  &gt; 0?View.VISIBLE:View.GONE}">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/icon_like_red" />
+
+            <com.qiantang.smartparty.widget.AutoLinearLayout
+                android:id="@+id/ll_like"
+                android:layout_marginLeft="10px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignLeft="@+id/ll_prase"
+            android:layout_alignRight="@+id/ll_prase"
+            android:layout_below="@+id/ll_prase"
+            android:background="@color/lineDark"
+            android:visibility="@{item.zanAppMap.size()  &gt; 0  &amp;&amp; item.zanAppMap.size() &gt; 0?View.VISIBLE:View.GONE}" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/ll_prase"
+            android:layout_alignRight="@+id/ll_prase"
+            android:layout_below="@+id/line1"
+            android:background="@color/grayBg"
+            android:visibility="@{item.commentAppMap.size() &gt; 0?View.VISIBLE:View.GONE}" />
+    </RelativeLayout>
+</layout>

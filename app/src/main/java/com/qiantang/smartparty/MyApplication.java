@@ -42,8 +42,7 @@ public class MyApplication extends ApplicationLike {
     public static int heightPixels;
     public static int widthPixels;
     public static String TOKEN = "";
-    public static String USER_ID = "";
-    public static String RONG_TOKEN = "";
+    public static String USER_ID = "40";
     public static String SHOP_ID = "";
     public static ACache mCache;
     private static Context context;
@@ -54,6 +53,7 @@ public class MyApplication extends ApplicationLike {
     public static boolean isHotFix = false;
     public static ObservableBoolean isRefreshing = new ObservableBoolean(false);
     public static ObservableBoolean isLoginOB = new ObservableBoolean(false);
+    public static ObservableBoolean isPop = new ObservableBoolean(false);
     @Override
     public void onCreate() {
         super.onCreate();
@@ -128,27 +128,27 @@ public class MyApplication extends ApplicationLike {
         String info = mCache.getAsString(CacheKey.INFO);
         String rongToken = mCache.getAsString(CacheKey.RONG_TOKEN);
         // Log.e(TAG, "onCreate: " + userId + "----" + token);
-        if (!StringUtil.isEmpty(userId)) {
-            USER_ID = userId;
-        } else {
-            USER_ID = "";
-        }
-        if (!StringUtil.isEmpty(token)) {
-            TOKEN = token;
-        } else {
-            TOKEN = "";
-        }
-        if (!StringUtil.isEmpty(token)) {
-            INFO = info;
-        } else {
-            INFO = "";
-        }
-
-        if (TextUtils.isEmpty(rongToken)) {
-            RONG_TOKEN = "";
-        } else {
-            RONG_TOKEN = rongToken;
-        }
+//        if (!StringUtil.isEmpty(userId)) {
+//            USER_ID = userId;
+//        } else {
+//            USER_ID = "";
+//        }
+//        if (!StringUtil.isEmpty(token)) {
+//            TOKEN = token;
+//        } else {
+//            TOKEN = "";
+//        }
+//        if (!StringUtil.isEmpty(token)) {
+//            INFO = info;
+//        } else {
+//            INFO = "";
+//        }
+//
+//        if (TextUtils.isEmpty(rongToken)) {
+//            RONG_TOKEN = "";
+//        } else {
+//            RONG_TOKEN = rongToken;
+//        }
     }
 
 

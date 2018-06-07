@@ -46,8 +46,8 @@ public class IndexFragment extends BaseBindFragment {
     @Override
     public void initView() {
         binding.toolbar.setIsHide(false);
-        binding.toolbar.setIsTextHide(true);
         binding.toolbar.setTitle("首页");
+        binding.toolbar.setResId(R.mipmap.icon_scan);
         binding.toolbar.ivScan.setOnClickListener(this::onClick);
         initBanner(binding.headBanner.headBanner);
         initBannerSize(binding.headBanner.headBanner);

@@ -9,4 +9,9 @@
     <string name="none_loading">—————— 已经到底了 ——————</string>
     <string name="rationale_camera">需要访问您的相机功能</string>
     <string name="phoneNumberInvalid">请输入有效手机号码</string>
+    <string name="fragment_rank_more_dept">超出支部数</string>
+    <string name="fragment_rank_ge">个</string>
+    <string name="fragment_rank_total_study">总学习值</string>
+    <string name="fragment_rank_more_personal">超出个人数</string>
+    <string name="item_rank_join_text">人参与</string>
 </resources>

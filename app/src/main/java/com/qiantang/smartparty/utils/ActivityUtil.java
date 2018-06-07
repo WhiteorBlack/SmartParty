@@ -32,6 +32,7 @@ import com.qiantang.smartparty.module.index.view.VideoStudyDetialActivity;
 import com.qiantang.smartparty.module.login.view.CompeteInfoActivity;
 import com.qiantang.smartparty.module.login.view.LoginActivity;
 import com.qiantang.smartparty.module.login.view.RegisterActivity;
+import com.qiantang.smartparty.module.login.view.SimpleInfoActivity;
 import com.qiantang.smartparty.module.main.view.MainActivity;
 import com.qiantang.smartparty.module.mine.view.AboutUsActivity;
 import com.qiantang.smartparty.module.mine.view.InfoActivity;
@@ -42,6 +43,8 @@ import com.qiantang.smartparty.module.mine.view.MyCollectionActivity;
 import com.qiantang.smartparty.module.mine.view.SettingActivity;
 import com.qiantang.smartparty.module.mine.view.TotalScoreActivity;
 import com.qiantang.smartparty.module.scan.view.QRCodeActivity;
+import com.qiantang.smartparty.module.study.view.StudyMyActivity;
+import com.qiantang.smartparty.module.study.view.StudyUnReadMsgActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -194,6 +197,7 @@ public class ActivityUtil {
 
     /**
      * 登录
+     *
      * @param activity
      */
     public static void startLoginActivity(Activity activity) {
@@ -203,6 +207,7 @@ public class ActivityUtil {
 
     /**
      * 注册
+     *
      * @param activity
      */
     public static void startRegisterActivity(Activity activity) {
@@ -212,10 +217,21 @@ public class ActivityUtil {
 
     /**
      * 完善个人信息
+     *
      * @param activity
      */
     public static void startCompeteActivity(Activity activity) {
         Intent intent = new Intent(activity, CompeteInfoActivity.class);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 完善个人信息
+     *
+     * @param activity
+     */
+    public static void startSimpleInfoActivity(Activity activity) {
+        Intent intent = new Intent(activity, SimpleInfoActivity.class);
         activity.startActivity(intent);
     }
 
@@ -443,6 +459,26 @@ public class ActivityUtil {
     public static void startFeeDetialSpecialActivity(Activity activity, String id) {
         Intent intent = new Intent(activity, FeeDetialSpecialActivity.class);
         intent.putExtra("id", id);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 学习感悟未读消息
+     *
+     * @param activity
+     */
+    public static void startStudyUnreadActivity(Activity activity) {
+        Intent intent = new Intent(activity, StudyUnReadMsgActivity.class);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 我的学习感悟
+     *
+     * @param activity
+     */
+    public static void startStudyMyActivity(Activity activity) {
+        Intent intent = new Intent(activity, StudyMyActivity.class);
         activity.startActivity(intent);
     }
 }

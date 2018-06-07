@@ -221,6 +221,21 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".module.login.view.SimpleInfoActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".module.study.view.StudyUnReadMsgActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".module.study.view.StudyMyActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".module.index.view.VideoStudyDetialActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"

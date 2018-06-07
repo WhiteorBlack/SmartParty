@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -29,7 +30,7 @@ public class RefreshHeader extends FrameLayout implements PtrUIHandler {
     private LinearLayout ll;
     private int llWidth;
     private boolean stateBar = true;
-    private ImageView lv;
+    private ProgressBar lv;
     private Rotatable rotatable;
 
     public RefreshHeader(Context context) {
@@ -66,13 +67,13 @@ public class RefreshHeader extends FrameLayout implements PtrUIHandler {
         }
         View view = LayoutInflater.from(getContext()).inflate(layout_refresh_header, this);
         AutoUtils.auto(view);
-        lv = findViewById(R.id.lv);
+        lv = findViewById(R.id.pb);
         ll = (LinearLayout) findViewById(R.id.ll_loading);
         textView = (TextView) findViewById(R.id.tv_loading);
         int w = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
         int h = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
         //  imageView.measure(w, h);
-        lv.measure(w, h);
+//        lv.measure(w, h);
         textView.measure(w, h);
         ll.measure(w, h);
         //  imgWidth = imageView.getMeasuredWidth();
@@ -106,10 +107,10 @@ public class RefreshHeader extends FrameLayout implements PtrUIHandler {
             lv.setVisibility(VISIBLE);
         }
         textView.setText("加载中...");
-        if (rotatable == null) {
-            rotatable = new Rotatable.Builder(lv).direction(Rotatable.ROTATE_Y).build();
-            rotatable.rotate(Rotatable.ROTATE_Y, 1000);
-        }
+//        if (rotatable == null) {
+//            rotatable = new Rotatable.Builder(lv).direction(Rotatable.ROTATE_Y).build();
+//            rotatable.rotate(Rotatable.ROTATE_Y, 1000);
+//        }
     }
 
     public void onUIRefreshComplete(PtrFrameLayout frame) {

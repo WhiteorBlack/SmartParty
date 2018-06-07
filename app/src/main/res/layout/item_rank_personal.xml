@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.qiantang.smartparty.utils.AppUtil" />
+
+        <variable
+            name="item"
+            type="com.qiantang.smartparty.modle.RxRankPersonalList" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_rank"
+            android:layout_width="140px"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="@{item.rank+``}"
+            android:textColor="@color/yellow"
+            android:textSize="56px"
+            android:visibility="@{AppUtil.isRankTop(item.rank)?View.VISIBLE:View.INVISIBLE}" />
+
+        <ImageView
+            android:layout_width="140px"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:scaleType="centerInside"
+            android:src="@{AppUtil.getRank(item.rank)}"
+            android:visibility="@{AppUtil.isRankTop(item.rank)?View.GONE:View.VISIBLE}" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/black28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="141px"
+            android:layout_marginTop="23px"
+            android:text="@{item.username}" />
+
+        <TextView
+            android:id="@+id/tv_count"
+            style="@style/gray22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_name"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginBottom="30px"
+            android:layout_marginTop="15px"
+            android:text="@{item.dept_name}" />
+
+        <TextView
+            android:id="@+id/tv_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="40px"
+            android:text="@{item.learningability}"
+            android:textColor="@color/paleRed"
+            android:textSize="32px" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/line" />
+    </RelativeLayout>
+</layout>

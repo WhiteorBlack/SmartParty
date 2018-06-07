@@ -93,7 +93,7 @@ public abstract class EasyBindQuickAdapter<T> extends BaseQuickAdapter<T, Bindin
         } else {
             addData(list);
         }
-        if (list.size() < URLs.PAGE_SIZE) {
+        if (list.size() == 0 || list == null) {
             loadMoreEnd();
         } else {
             loadMoreComplete();

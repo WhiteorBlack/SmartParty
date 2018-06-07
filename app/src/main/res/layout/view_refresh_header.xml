@@ -12,11 +12,10 @@
         android:orientation="horizontal">
 
 
-        <com.qiantang.smartparty.widget.loading.LoadingView
-            android:id="@+id/lv"
-            android:layout_width="90px"
-            android:layout_height="90px"
-            android:background="@mipmap/ic_launcher" />
+        <ProgressBar
+            android:id="@+id/pb"
+            android:layout_width="50px"
+            android:layout_height="50px" />
 
         <TextView
             android:id="@+id/tv_loading"

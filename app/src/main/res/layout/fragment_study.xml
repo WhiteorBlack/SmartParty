@@ -19,6 +19,7 @@
 
         <com.qiantang.smartparty.widget.CusPtrFrameLayout
             android:id="@+id/cptr"
+            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -27,5 +28,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </com.qiantang.smartparty.widget.CusPtrFrameLayout>
+
+        <com.qiantang.smartparty.widget.commentwidget.CommentBox
+            android:id="@+id/comment_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </layout>

@@ -68,6 +68,33 @@ public class AppUtil {
         return MyApplication.getContext().getResources().getDimensionPixelSize(resId);
     }
 
+    /**
+     * 判断排行榜
+     *
+     * @param rank
+     * @return
+     */
+    public static boolean isRankTop(int rank) {
+        return rank > 3;
+    }
+
+
+    public static Drawable getRank(int rank) {
+        int resId = 0;
+        switch (rank) {
+            case 1:
+                resId = R.mipmap.rank_first;
+                break;
+            case 2:
+                resId = R.mipmap.rank_second;
+                break;
+            case 3:
+                resId = R.mipmap.rank_third;
+                break;
+        }
+
+        return getDrawable(resId);
+    }
 
     public static boolean isDebugMode() {
         boolean debugAble = false;
@@ -156,11 +183,11 @@ public class AppUtil {
         return result;
     }
 
-    public static boolean isHideRightText(String text,boolean isHide){
-        return (TextUtils.isEmpty(text)||isHide);
+    public static boolean isHideRightText(String text, boolean isHide) {
+        return (TextUtils.isEmpty(text) || isHide);
     }
 
-    public static boolean isHideRightImage(int text,boolean isHide){
-        return (text>0||isHide);
+    public static boolean isHideRightImage(int text, boolean isHide) {
+        return (text > 0 || isHide);
     }
 }

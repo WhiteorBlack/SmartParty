@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="com.qiantang.smartparty.R"/>
+        <import type="com.qiantang.smartparty.utils.StringUtil"/>
+        <import type="com.qiantang.smartparty.utils.MyTextUtils" />
+
+        <variable
+            name="viewModel"
+            type="com.qiantang.smartparty.module.index.viewmodel.RankPersonalViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/line">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150px"
+            android:background="@color/paleRed"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_pre"
+                android:layout_width="30px"
+                android:layout_height="30px"
+                android:layout_marginTop="33px"
+                android:background="@mipmap/arrow_left_white"
+                android:onClick="@{viewModel.onClick}"
+                android:scaleType="centerInside" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                style="@style/white28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="28px"
+                android:layout_marginTop="29px"
+                android:text="2018" />
+
+            <ImageView
+                android:id="@+id/iv_next"
+                android:layout_width="30px"
+                android:layout_height="30px"
+                android:layout_marginLeft="28px"
+                android:layout_marginTop="33px"
+                android:onClick="@{viewModel.onClick}"
+                android:scaleType="centerInside"
+                android:src="@mipmap/arrow_right_white" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_info"
+            android:layout_width="match_parent"
+            android:layout_height="202px"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
+            android:layout_marginTop="85px"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/tv_rank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="25px"
+                android:text="@{viewModel.personalMap.rank+``}"
+                android:textColor="@color/yellow"
+                android:textSize="76px" />
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="4px"
+                android:layout_height="100px"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="25px"
+                android:layout_toRightOf="@+id/tv_rank"
+                android:background="@color/line" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/black28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/line"
+                android:layout_marginLeft="20px"
+                android:layout_marginTop="5px"
+                android:layout_toRightOf="@+id/line"
+                android:text="@{viewModel.personalMap.username}" />
+
+            <TextView
+                android:id="@+id/tv_count"
+                style="@style/gray22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/line"
+                android:layout_marginBottom="10px"
+                android:layout_marginLeft="20px"
+                android:layout_toRightOf="@+id/line"
+                android:gravity="center"
+                android:text="@{MyTextUtils.getRankText(StringUtil.getString(R.string.fragment_rank_more_personal),viewModel.personalMap.morePeople+StringUtil.getString(R.string.fragment_rank_ge))}" />
+
+            <View
+                android:id="@+id/line1"
+                android:layout_width="2px"
+                android:layout_height="30px"
+                android:layout_alignBottom="@+id/tv_count"
+                android:layout_marginLeft="19px"
+                android:layout_toRightOf="@+id/tv_count"
+                android:background="@color/line" />
+
+            <TextView
+                android:id="@+id/tv_score"
+                style="@style/gray22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/line1"
+                android:layout_marginLeft="20px"
+                android:layout_toRightOf="@+id/line1"
+                android:gravity="center"
+                android:text="@{MyTextUtils.getRankText(StringUtil.getString(R.string.fragment_rank_total_study),viewModel.personalMap.learningability+``)}" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_title"
+            android:layout_width="match_parent"
+            android:layout_height="88px"
+            android:layout_below="@+id/rl_info"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
+            android:layout_marginTop="20px"
+            android:background="#F6FAFE"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/gray24"
+                android:layout_width="140px"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="排名" />
+
+            <TextView
+                style="@style/gray24"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="21px"
+                android:layout_weight="1"
+                android:text="组织" />
+
+            <TextView
+                style="@style/gray24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="27px"
+                android:layout_marginRight="40px"
+                android:text="学习值" />
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/ll_title"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
+            android:background="@color/white" />
+    </RelativeLayout>
+</layout>

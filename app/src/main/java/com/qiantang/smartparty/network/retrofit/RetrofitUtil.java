@@ -20,6 +20,7 @@ import com.qiantang.smartparty.modle.HttpResult;
 import com.qiantang.smartparty.network.ApiService;
 import com.qiantang.smartparty.utils.NetworkUtil;
 import com.qiantang.smartparty.utils.StringUtil;
+import com.qiantang.smartparty.utils.ToastUtil;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -257,11 +258,11 @@ public class RetrofitUtil {
                 String errorMessage = response.getErrorMessage();
                 if (!StringUtil.isEmpty(errorMessage)) {
 //                    ToastUtil.toast(errorMessage);
+                    Logger.e(errorMessage);
                 }
                 if (!subscriber.isDisposed()) {
                     T object = response.getReturnObject();
-                    subscriber.onNext(object == null ? ((T) "000") : object);
-
+                    subscriber.onNext(object == null ? ((T) "0") : object);
                 }
             } else {
                 int errorCode = response.getErrorCode();
@@ -286,7 +287,6 @@ public class RetrofitUtil {
 
 
     /**
-     * 自定义异常，当接口返回的{@link HttpResult#errorCode}不为{@link }时，需要跑出此异常
      * eg：登陆时验证码错误；参数为传递等
      */
     public static class APIException extends Exception {
@@ -294,7 +294,7 @@ public class RetrofitUtil {
         /**
          * 成功
          */
-        public static final int OK = 000;
+        public static final int OK = 0;
         /**
          * 回话过期
          */

@@ -2,9 +2,16 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
+        <import type="com.qiantang.smartparty.utils.StringUtil" />
+
+        <import type="com.qiantang.smartparty.R" />
+
+        <import type="com.qiantang.smartparty.utils.MyTextUtils" />
+
         <variable
             name="viewModel"
-            type="com.qiantang.smartparty.module.index.viewmodel.RankViewModel"/>
+            type="com.qiantang.smartparty.module.index.viewmodel.RankViewModel" />
     </data>
 
     <RelativeLayout
@@ -24,7 +31,8 @@
                 android:layout_width="30px"
                 android:layout_height="30px"
                 android:layout_marginTop="33px"
-                android:background="@mipmap/ic_launcher"
+                android:background="@mipmap/arrow_left_white"
+                android:onClick="@{viewModel.onClick}"
                 android:scaleType="centerInside" />
 
             <TextView
@@ -34,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="28px"
                 android:layout_marginTop="29px"
-                android:text="2018" />
+                android:text="@{viewModel.date}" />
 
             <ImageView
                 android:id="@+id/iv_next"
@@ -42,8 +50,9 @@
                 android:layout_height="30px"
                 android:layout_marginLeft="28px"
                 android:layout_marginTop="33px"
+                android:onClick="@{viewModel.onClick}"
                 android:scaleType="centerInside"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/arrow_right_white" />
         </LinearLayout>
 
         <RelativeLayout
@@ -61,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="25px"
-                android:text="222"
+                android:text="@{viewModel.rxBranckMap.rank+``}"
                 android:textColor="@color/yellow"
                 android:textSize="76px" />
 
@@ -83,7 +92,7 @@
                 android:layout_marginLeft="20px"
                 android:layout_marginTop="5px"
                 android:layout_toRightOf="@+id/line"
-                android:text="党支部" />
+                android:text="@{viewModel.rxBranckMap.dept_name}" />
 
             <TextView
                 android:id="@+id/tv_count"
@@ -95,7 +104,7 @@
                 android:layout_marginLeft="20px"
                 android:layout_toRightOf="@+id/line"
                 android:gravity="center"
-                android:text="超出党支部" />
+                android:text="@{MyTextUtils.getRankText(StringUtil.getString(R.string.fragment_rank_more_dept),viewModel.rxBranckMap.morePeople+StringUtil.getString(R.string.fragment_rank_ge))}" />
 
             <View
                 android:id="@+id/line1"
@@ -103,8 +112,8 @@
                 android:layout_height="30px"
                 android:layout_alignBottom="@+id/tv_count"
                 android:layout_marginLeft="19px"
-                android:background="@color/line"
-                android:layout_toRightOf="@+id/tv_count" />
+                android:layout_toRightOf="@+id/tv_count"
+                android:background="@color/line" />
 
             <TextView
                 android:id="@+id/tv_score"
@@ -115,7 +124,7 @@
                 android:layout_marginLeft="20px"
                 android:layout_toRightOf="@+id/line1"
                 android:gravity="center"
-                android:text="总学习分" />
+                android:text="@{MyTextUtils.getRankText(StringUtil.getString(R.string.fragment_rank_total_study),viewModel.rxBranckMap.learningability+``)}" />
         </RelativeLayout>
 
         <LinearLayout
@@ -133,8 +142,8 @@
             <TextView
                 style="@style/gray24"
                 android:layout_width="140px"
-                android:gravity="center"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="排名" />
 
             <TextView

@@ -3,9 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="com.qiantang.smartparty.MyApplication" />
+
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
-            type="com.qiantang.smartparty.module.main.viewmodel.MainViewModel"/>
+            type="com.qiantang.smartparty.module.main.viewmodel.MainViewModel" />
     </data>
 
     <LinearLayout
@@ -23,6 +28,8 @@
             android:id="@+id/indicator"
             android:layout_width="match_parent"
             android:layout_height="98px"
-            android:background="@color/white" />
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:visibility="@{MyApplication.isPop?View.GONE:View.VISIBLE}" />
     </LinearLayout>
 </layout>

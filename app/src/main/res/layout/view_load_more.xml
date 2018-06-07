@@ -33,12 +33,10 @@
 
     <ImageView
         android:id="@+id/tv_load_end"
-        style="@style/noneTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10px"
-        android:background="@mipmap/bottom_line"
         android:gravity="center"
+        android:src="@mipmap/bottom_line"
         android:visibility="gone" />
 
 </LinearLayout>

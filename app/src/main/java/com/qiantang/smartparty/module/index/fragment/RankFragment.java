@@ -33,7 +33,6 @@ public class RankFragment extends BaseBindFragment {
     @Override
     public void initView() {
         initRv(binding.rv);
-        viewModel.testData();
     }
 
     private void initRv(RecyclerView rv) {

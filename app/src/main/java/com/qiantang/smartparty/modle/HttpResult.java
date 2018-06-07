@@ -6,11 +6,11 @@ import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
 public class HttpResult<T> {
 
     public String getErrorMessage() {
-        return errorMessage;
+        return msg;
     }
 
     public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
+        this.msg = errorMessage;
     }
 
     public String getToken() {
@@ -22,27 +22,27 @@ public class HttpResult<T> {
     }
 
     public int getErrorCode() {
-        return errorCode;
+        return status;
     }
 
     public void setErrorCode(int errorCode) {
-        this.errorCode = errorCode;
+        this.status = errorCode;
     }
 
-    private String errorMessage;
+    private String msg;
     private String token;
-    private int errorCode;
+    private int status;
 
 
     //用来模仿Data
-    private T returnObject;
+    private T data;
 
     public T getReturnObject() {
-        return returnObject;
+        return data;
     }
 
     public void setReturnObject(T returnObject) {
-        this.returnObject = returnObject;
+        this.data = returnObject;
     }
 
     public void getReturnObjectClass(T t) {
@@ -50,7 +50,7 @@ public class HttpResult<T> {
     }
 
     public boolean isSuccess() {
-        return errorCode == RetrofitUtil.APIException.OK;
+        return status == RetrofitUtil.APIException.OK;
     }
 
 }

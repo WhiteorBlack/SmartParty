@@ -10,17 +10,7 @@ public class AppVersionJSON {
      */
 
     private String errorMessage;
-    /**
-     * id : 1
-     * createTime : 2016-08-10 10:43:30
-     * versionFile :
-     * introduceDetail : 硕美科V2.0
-     * introduce : 硕美科V2.0
-     * versionCode : 2
-     * versionType : 1
-     * versionName : 硕美科V2.0
-     * modifyTime : 2016-08-10 10:43:30
-     */
+
 
     private ReturnObjectBean returnObject;
     private String token;

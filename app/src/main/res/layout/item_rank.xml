@@ -3,9 +3,13 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <import type="com.qiantang.smartparty.utils.AppUtil" />
+
         <variable
             name="item"
-            type="com.qiantang.smartparty.modle.RxRank" />
+            type="com.qiantang.smartparty.modle.RxRankBranchList" />
     </data>
 
     <RelativeLayout
@@ -18,26 +22,27 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:gravity="center"
-            android:text="4"
+            android:text="@{item.rank+``}"
             android:textColor="@color/yellow"
-            android:textSize="56px" />
+            android:textSize="56px"
+            android:visibility="@{AppUtil.isRankTop(item.rank)?View.VISIBLE:View.GONE}" />
 
         <ImageView
             android:layout_width="140px"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:scaleType="centerInside"
-            android:src="@mipmap/button02" />
+            android:src="@{AppUtil.getRank(item.rank)}"
+            android:visibility="@{AppUtil.isRankTop(item.rank)?View.GONE:View.VISIBLE}" />
 
         <TextView
             android:id="@+id/tv_name"
             style="@style/black28"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="141px"
             android:layout_marginTop="23px"
-            android:layout_marginLeft="21px"
-            android:layout_toRightOf="@+id/tv_rank"
-            android:text="党支部" />
+            android:text="@{item.dept_name}" />
 
         <TextView
             android:id="@+id/tv_count"
@@ -46,10 +51,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_name"
             android:layout_marginBottom="30px"
-            android:layout_marginLeft="21px"
+            android:layout_alignLeft="@+id/tv_name"
             android:layout_marginTop="15px"
-            android:layout_toRightOf="@+id/tv_rank"
-            android:text="党支部" />
+            android:text="@{item.peopleCount+`人参与`}" />
 
         <TextView
             android:id="@+id/tv_score"
@@ -58,7 +62,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="40px"
-            android:text="220"
+            android:text="@{item.learningability+``}"
             android:textColor="@color/paleRed"
             android:textSize="32px" />
 

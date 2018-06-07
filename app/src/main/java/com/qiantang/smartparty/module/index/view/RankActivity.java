@@ -8,6 +8,7 @@ import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.SimpleFragmentAdapter;
 import com.qiantang.smartparty.databinding.ActivityRankBinding;
 import com.qiantang.smartparty.module.index.fragment.RankFragment;
+import com.qiantang.smartparty.module.index.fragment.RankPersonalFragment;
 import com.qiantang.smartparty.module.index.viewmodel.RankViewModel;
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class RankActivity extends BaseBindActivity {
         List<Fragment> fragments = new ArrayList<>();
         Fragment fragment = new RankFragment();
         fragments.add(fragment);
-        Fragment fragment1 = new RankFragment();
+        Fragment fragment1 = new RankPersonalFragment();
         fragments.add(fragment1);
         return fragments;
     }
