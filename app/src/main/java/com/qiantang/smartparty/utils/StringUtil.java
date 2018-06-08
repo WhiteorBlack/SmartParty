@@ -52,6 +52,30 @@ public class StringUtil {
         return isValid;
     }
 
+    public static String getActivityStatus(int status) {
+        String text = "";
+        switch (status) {
+            case 1:
+                text = "待发布";
+                break;
+            case 2:
+                text = "未开始";
+                break;
+            case 3:
+                text = "报名中";
+                break;
+            case 4:
+                text = "进行中";
+                break;
+            case 5:
+                text = "已结束";
+                break;
+        }
+        return text;
+    }
+
+    ;
+
     public static boolean isContains(String shareUrl, String... keys) {
         for (String key : keys) {
             if (shareUrl.contains(key)) {
@@ -61,14 +85,5 @@ public class StringUtil {
         return false;
     }
 
-//    public static String parseObjectToJsonString(Object object) {
-//        return NetworkUtil.generateCustomGson().toJson(object);
-//    }
-//
-//    public static <T> T parseJsonStringToObject(String jsonString, Class<T> clazz) {
-//        if (isEmpty(jsonString)) {
-//            return null;
-//        }
-//        return new Gson().fromJson(jsonString, clazz);
-//    }
+
 }

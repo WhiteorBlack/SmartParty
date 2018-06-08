@@ -114,7 +114,7 @@ public class StudyMyActivity extends BaseBindActivity implements CommentBox.OnCo
     }
 
     private void initRecycleView(RecyclerView rv) {
-        rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
         adapter.setEnableLoadMore(true);
         adapter.setLoadMoreView(RecycleViewUtils.getLoadMoreView());
@@ -122,6 +122,7 @@ public class StudyMyActivity extends BaseBindActivity implements CommentBox.OnCo
         rv.addOnItemTouchListener(viewModel.onItemTouchListener());
     }
 
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_right:

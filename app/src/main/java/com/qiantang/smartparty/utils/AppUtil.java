@@ -1,25 +1,39 @@
 package com.qiantang.smartparty.utils;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.nanchen.compresshelper.CompressHelper;
+import com.nanchen.compresshelper.FileUtil;
 import com.orhanobut.logger.Logger;
 import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static com.shuyu.gsyvideoplayer.GSYVideoBaseManager.TAG;
 
 
 /**
@@ -189,5 +203,85 @@ public class AppUtil {
 
     public static boolean isHideRightImage(int text, boolean isHide) {
         return (text > 0 || isHide);
+    }
+
+    public static String getImageBase64(String path, Context context) throws IOException {
+
+        return imageToBase64(compressImage(getUri(path, context)));
+    }
+
+    public static String imageToBase64(Bitmap bitmap) {
+        String result = null;
+        ByteArrayOutputStream baos = null;
+        try {
+            if (bitmap != null) {
+                baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+
+                baos.flush();
+                baos.close();
+
+                byte[] bitmapBytes = baos.toByteArray();
+                result = Base64.encodeToString(bitmapBytes, Base64.DEFAULT);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (baos != null) {
+                    baos.flush();
+                    baos.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    public static Bitmap compressImage(Uri path) throws IOException {
+        if (path == null) {
+            return null;
+        }
+        File oldFile = FileUtil.getTempFile(MyApplication.getContext(), path);
+
+        return CompressHelper.getDefault(MyApplication.getContext()).compressToBitmap(oldFile);
+    }
+
+    /**
+     * path转uri
+     */
+    public static Uri getUri(String path, Context context) {
+        Uri uri = null;
+        if (path != null) {
+            path = Uri.decode(path);
+            Log.d(TAG, "path2 is " + path);
+            ContentResolver cr = context.getContentResolver();
+            StringBuffer buff = new StringBuffer();
+            buff.append("(")
+                    .append(MediaStore.Images.ImageColumns.DATA)
+                    .append("=")
+                    .append("'" + path + "'")
+                    .append(")");
+            Cursor cur = cr.query(
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    new String[]{MediaStore.Images.ImageColumns._ID},
+                    buff.toString(), null, null);
+            int index = 0;
+            for (cur.moveToFirst(); !cur.isAfterLast(); cur
+                    .moveToNext()) {
+                index = cur.getColumnIndex(MediaStore.Images.ImageColumns._ID);
+                index = cur.getInt(index);
+            }
+            if (index == 0) {
+            } else {
+                Uri uri_temp = Uri.parse("content://media/external/images/media/" + index);
+                Log.d(TAG, "uri_temp is " + uri_temp);
+                if (uri_temp != null) {
+                    uri = uri_temp;
+                }
+            }
+        }
+        return uri;
     }
 }

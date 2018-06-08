@@ -31,14 +31,7 @@ public class NewsViewModel implements ViewModel {
     }
 
     public void testData() {
-        List<RxVideoStudy> monthScores = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            RxVideoStudy rxVideoStudy = new RxVideoStudy();
-            rxVideoStudy.setPicUrl("http://pic.qiantucdn.com/58pic/14/78/41/77358PICZaq_1024.jpg");
-            rxVideoStudy.setVideoUrl("http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4");
-            monthScores.add(rxVideoStudy);
-        }
-        adapter.setNewData(monthScores);
+
     }
 
     public RecyclerView.OnItemTouchListener onItemTouchListener() {

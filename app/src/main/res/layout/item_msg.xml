@@ -2,9 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="item"
-            type="com.qiantang.smartparty.modle.RxMsg"/>
+            type="com.qiantang.smartparty.modle.RxMsg" />
     </data>
 
     <RelativeLayout
@@ -31,7 +32,7 @@
             android:layout_toRightOf="@+id/iv_point"
             android:ellipsize="end"
             android:lines="1"
-            android:text="消息标题啛啛喳喳错错错错错错错错错啛啛喳喳错错错cccccccccccccc" />
+            android:text="@{item.title}" />
 
         <TextView
             android:id="@+id/tv_date"
@@ -41,7 +42,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="32px"
-            android:text="3-23" />
+            android:text="@{item.releaseTime}" />
 
         <View
             android:layout_width="match_parent"

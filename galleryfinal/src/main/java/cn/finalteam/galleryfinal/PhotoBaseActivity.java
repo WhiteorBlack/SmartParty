@@ -19,10 +19,12 @@ package cn.finalteam.galleryfinal;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.util.DisplayMetrics;
 import android.view.Window;
 import android.widget.Toast;
@@ -109,6 +111,7 @@ public abstract class PhotoBaseActivity extends Activity implements EasyPermissi
     /**
      * 拍照
      */
+    private  File toFile;
     protected void takePhotoAction() {
         if (!DeviceUtils.existSDCard()) {
             String errormsg = getString(R.string.empty_sdcard);
@@ -126,12 +129,18 @@ public abstract class PhotoBaseActivity extends Activity implements EasyPermissi
             takePhotoFolder = new File(mPhotoTargetFolder);
         }
         boolean suc = FileUtils.mkdirs(takePhotoFolder);
-        File toFile = new File(takePhotoFolder, "IMG" + DateUtils.format(new Date(), "yyyyMMddHHmmss") + ".jpg");
+         toFile = new File(takePhotoFolder, "IMG" + DateUtils.format(new Date(), "yyyyMMddHHmmss") + ".jpg");
 
         ILogger.d("create folder=" + toFile.getAbsolutePath());
         if (suc) {
             mTakePhotoUri = Uri.fromFile(toFile);
-            Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            Intent captureIntent = new Intent();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                //添加这一句表示对目标应用临时授权该Uri所代表的文件
+                mTakePhotoUri = FileProvider.getUriForFile(this, "com.qiantang.smartparty.FileProvider", toFile);
+                captureIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            }
+            captureIntent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
             captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, mTakePhotoUri);
             startActivityForResult(captureIntent, GalleryFinal.TAKE_REQUEST_CODE);
         } else {
@@ -144,6 +153,7 @@ public abstract class PhotoBaseActivity extends Activity implements EasyPermissi
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if ( requestCode == GalleryFinal.TAKE_REQUEST_CODE ) {
             if (resultCode == RESULT_OK && mTakePhotoUri != null) {
+                mTakePhotoUri=Uri.fromFile(toFile);
                 final String path = mTakePhotoUri.getPath();
                 if (new File(path).exists()) {
                     final PhotoInfo info = new PhotoInfo();

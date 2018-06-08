@@ -2,6 +2,12 @@ package com.qiantang.smartparty.network.retrofit;
 
 
 import com.qiantang.smartparty.MyApplication;
+import com.qiantang.smartparty.modle.RxActivity;
+import com.qiantang.smartparty.modle.RxActivityDetial;
+import com.qiantang.smartparty.modle.RxAssientHome;
+import com.qiantang.smartparty.modle.RxIndexCommon;
+import com.qiantang.smartparty.modle.RxMsg;
+import com.qiantang.smartparty.modle.RxMyStudy;
 import com.qiantang.smartparty.modle.RxRankBranch;
 import com.qiantang.smartparty.modle.RxRankPersonal;
 import com.qiantang.smartparty.modle.RxStudy;
@@ -111,6 +117,15 @@ public class ApiWrapper extends RetrofitUtil {
     }
 
     /**
+     * 获取学习感悟列表
+     *
+     * @return
+     */
+    public Observable<RxMyStudy> getMyStudyList(int pageNo) {
+        return getService().getMyStudyList(MyApplication.USER_ID, pageNo).compose(this.applySchedulers());
+    }
+
+    /**
      * 删除学习感悟
      *
      * @return
@@ -137,5 +152,49 @@ public class ApiWrapper extends RetrofitUtil {
      */
     public Observable<String> cancelLike( String id) {
         return getService().cancelLike(MyApplication.USER_ID, id).compose(this.applySchedulers());
+    }
+
+    /**
+     * 发表感想
+     * @return
+     */
+    public Observable<String> addCommentApp( String content,String image) {
+        return getService().addCommentApp(MyApplication.USER_ID, content,image).compose(this.applySchedulers());
+    }
+
+    /**
+     * 党建助手首页
+     */
+    public Observable<RxAssientHome> assientHome(){
+        return getService().assientHome().compose(this.applySchedulers());
+    }
+
+    /**
+     * 党建助手首页
+     */
+    public Observable<List<RxMsg>> tzNotice(int page){
+        return getService().tzNotice(page).compose(this.applySchedulers());
+    }
+
+    /**
+     *@param type  4党建风采
+     * @param page
+     * @return
+     */
+    public Observable<List<RxIndexCommon>> fcNotice(int page, int type){
+        return getService().fcNotice(page,type).compose(this.applySchedulers());
+    }
+
+    /**
+     *党建活动
+     * @param page
+     * @return
+     */
+    public Observable<List<RxActivity>> djActivity(int page){
+        return getService().djActivity(page).compose(this.applySchedulers());
+    }
+
+    public Observable<RxActivityDetial> djActivityDetails(int page,String id){
+        return getService().djActivityDetails(page,id,MyApplication.USER_ID).compose(this.applySchedulers());
     }
 }

@@ -2,6 +2,12 @@ package com.qiantang.smartparty.network;
 
 
 import com.qiantang.smartparty.modle.HttpResult;
+import com.qiantang.smartparty.modle.RxActivity;
+import com.qiantang.smartparty.modle.RxActivityDetial;
+import com.qiantang.smartparty.modle.RxAssientHome;
+import com.qiantang.smartparty.modle.RxIndexCommon;
+import com.qiantang.smartparty.modle.RxMsg;
+import com.qiantang.smartparty.modle.RxMyStudy;
 import com.qiantang.smartparty.modle.RxRankBranch;
 import com.qiantang.smartparty.modle.RxRankPersonal;
 import com.qiantang.smartparty.modle.RxStudy;
@@ -51,6 +57,12 @@ public interface ApiService {
     Observable<HttpResult<RxStudy>> getStudyList(@Field("userId") String userId,
                                                  @Field("pageNum") int pageNum);
 
+    //我的学习感悟
+    @FormUrlEncoded
+    @POST("app/comment/myCommentAppList")
+    Observable<HttpResult<RxMyStudy>> getMyStudyList(@Field("userId") String userId,
+                                                     @Field("pageNum") int pageNum);
+
     //删除学习感悟
     @FormUrlEncoded
     @POST("app/comment/deleteCommentApp")
@@ -74,4 +86,38 @@ public interface ApiService {
     @POST("app/comment/deleteZanApp")
     Observable<HttpResult<String>> cancelLike(@Field("userId") String userId,
                                               @Field("commentId") String commentId);
+
+    //发表感想
+    @FormUrlEncoded
+    @POST("app/comment/addCommentApp")
+    Observable<HttpResult<String>> addCommentApp(@Field("userId") String userId,
+                                                 @Field("content") String content,
+                                                 @Field("image") String image);
+
+    //党建助手首页
+    @POST("app/partyBuild/homePage")
+    Observable<HttpResult<RxAssientHome>> assientHome();
+
+    @FormUrlEncoded
+    //消息列表
+    @POST("app/partyBuild/tzNotice")
+    Observable<HttpResult<List<RxMsg>>> tzNotice(@Field("pageNum") int page);
+
+    @FormUrlEncoded
+    //党建风采
+    @POST("app/partyBuild/fcNotice")
+    Observable<HttpResult<List<RxIndexCommon>>> fcNotice(@Field("pageNum") int page,
+                                                         @Field("type") int type);
+
+    @FormUrlEncoded
+    //党建活动
+    @POST("app/partyBuild/djActivity")
+    Observable<HttpResult<List<RxActivity>>> djActivity(@Field("pageNum") int page);
+
+    @FormUrlEncoded
+    //党建活动
+    @POST("app/partyBuild/djActivityDetails")
+    Observable<HttpResult<RxActivityDetial>> djActivityDetails(@Field("pageNum") int page,
+                                                               @Field("activityId") String activityId,
+                                                               @Field("userId") String userId);
 }

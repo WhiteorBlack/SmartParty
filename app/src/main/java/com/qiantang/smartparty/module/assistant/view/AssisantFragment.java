@@ -44,6 +44,7 @@ public class AssisantFragment extends BaseBindFragment {
         initMsgRv(binding.rvMsg);
         initActivityRv(binding.rvActivity);
         initStateRv(binding.rvState);
+        viewModel.getListData(msgAdapter,activityAdapter,stateAdapter);
     }
 
     /**
@@ -52,12 +53,11 @@ public class AssisantFragment extends BaseBindFragment {
      * @param rvState
      */
     private void initStateRv(RecyclerView rvState) {
-        stateAdapter=new IndexCommonAdapter(R.layout.item_study_state);
+        stateAdapter = new IndexCommonAdapter(R.layout.item_study_state);
         rvState.addOnItemTouchListener(viewModel.stateToucnListener());
         rvState.setNestedScrollingEnabled(false);
         rvState.setLayoutManager(new LinearLayoutManager(getContext()));
         rvState.setAdapter(stateAdapter);
-        viewModel.getStateData(stateAdapter);
     }
 
     /**
@@ -66,12 +66,11 @@ public class AssisantFragment extends BaseBindFragment {
      * @param rvActivity
      */
     private void initActivityRv(RecyclerView rvActivity) {
-        activityAdapter=new ActivityAdapter(R.layout.item_activity);
+        activityAdapter = new ActivityAdapter(R.layout.item_activity);
         rvActivity.addOnItemTouchListener(viewModel.activityToucnListener());
         rvActivity.setNestedScrollingEnabled(false);
         rvActivity.setLayoutManager(new LinearLayoutManager(getContext()));
         rvActivity.setAdapter(activityAdapter);
-        viewModel.getActivityData(activityAdapter);
     }
 
     /**
@@ -85,7 +84,6 @@ public class AssisantFragment extends BaseBindFragment {
         rvMsg.setNestedScrollingEnabled(false);
         rvMsg.setLayoutManager(new LinearLayoutManager(getContext()));
         rvMsg.setAdapter(msgAdapter);
-        viewModel.getMsgData(msgAdapter);
     }
 
     /**

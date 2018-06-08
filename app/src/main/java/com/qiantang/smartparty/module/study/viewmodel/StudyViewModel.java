@@ -1,5 +1,6 @@
 package com.qiantang.smartparty.module.study.viewmodel;
 
+import android.Manifest;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
@@ -9,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.baoyz.actionsheet.ActionSheet;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -32,6 +34,10 @@ import com.qiantang.smartparty.utils.ActivityUtil;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import java.util.List;
+
+import cn.finalteam.galleryfinal.FunctionConfig;
+import cn.finalteam.galleryfinal.GalleryFinal;
+import cn.finalteam.galleryfinal.model.PhotoInfo;
 
 /**
  * Created by zhaoyong bai on 2018/5/21.
@@ -119,7 +125,7 @@ public class StudyViewModel extends BaseObservable implements ViewModel, Comment
                         if (type == 2) {
                             adapter.getData().get(commentPos).getCommentAppMap().add(new RxStudyComment(adapter.getData().get(commentPos).getUsername(), content, MyApplication.USER_ID));
                         }
-                        adapter.notifyItemChanged(commentPos+1);
+                        adapter.notifyItemChanged(commentPos + 1);
                     }
                 });
     }
@@ -146,7 +152,7 @@ public class StudyViewModel extends BaseObservable implements ViewModel, Comment
                                 break;
                             }
                         }
-                        adapter.notifyItemChanged(commentPos);
+                        adapter.notifyItemChanged(commentPos+1);
                     }
                 });
     }
@@ -193,9 +199,8 @@ public class StudyViewModel extends BaseObservable implements ViewModel, Comment
                         if (isDeleting) {
                             return;
                         }
-                        delPos = position;
-                        isDeleting = true;
-                        deleteComment(adapter.getData().get(position).getComment_id());
+                        delPos=position;
+                        deletePop(adapter.getData().get(position).getComment_id());
                         break;
                     case R.id.iv_comment:
                         if (isDealing) {
@@ -212,6 +217,28 @@ public class StudyViewModel extends BaseObservable implements ViewModel, Comment
             }
         };
     }
+
+    /**
+     * 删除感悟弹窗
+     */
+    private void deletePop(String id) {
+        ActionSheet.createBuilder(fragment.getContext(), fragment.getFragmentManager())
+                .setCancelButtonTitle("取消")
+                .setOtherButtonTitles("确定删除")
+                .setCancelableOnTouchOutside(true)
+                .setListener(new ActionSheet.ActionSheetListener() {
+                    @Override
+                    public void onDismiss(ActionSheet actionSheet, boolean isCancel) {
+                    }
+
+                    @Override
+                    public void onOtherButtonClick(ActionSheet actionSheet, int index) {
+                        isDeleting = true;
+                        deleteComment(id);
+                    }
+                }).show();
+    }
+
 
     public void onClick(View view) {
         switch (view.getId()) {

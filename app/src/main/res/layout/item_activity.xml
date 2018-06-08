@@ -5,6 +5,14 @@
 
     <data>
 
+        <import type="com.qiantang.smartparty.R" />
+
+        <import type="com.qiantang.smartparty.utils.StringUtil" />
+
+        <import type="com.qiantang.smartparty.utils.AppUtil" />
+
+        <import type="android.view.View" />
+
         <variable
             name="item"
             type="com.qiantang.smartparty.modle.RxActivity" />
@@ -14,8 +22,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:paddingLeft="20px"
-        android:paddingRight="20px"
+        android:paddingLeft="33px"
+        android:paddingRight="33px"
         android:paddingTop="10px">
 
         <com.facebook.drawee.view.SimpleDraweeView
@@ -35,12 +43,12 @@
             android:layout_alignRight="@+id/sdv"
             android:layout_marginBottom="22px"
             android:layout_marginRight="19px"
-            android:background="@drawable/bg_activity_state"
+            android:background="@{item.status==5?AppUtil.getDrawable(R.drawable.bg_activity_state_end):AppUtil.getDrawable(R.drawable.bg_activity_state)}"
             android:paddingBottom="9px"
             android:paddingLeft="25px"
             android:paddingRight="25px"
             android:paddingTop="9px"
-            android:text="报名中" />
+            android:text="@{StringUtil.getActivityStatus(item.status)}" />
 
         <TextView
             android:id="@+id/tv_name"
@@ -51,41 +59,42 @@
             android:layout_marginLeft="5px"
             android:layout_marginRight="5px"
             android:layout_marginTop="@dimen/sideMargin"
-            android:text="标题" />
+            android:text="@{item.title}" />
 
         <TextView
             android:id="@+id/tv_date"
-            style="@style/indexNewsInfo"
+            style="@style/gray22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_name"
             android:layout_marginLeft="5px"
             android:layout_marginRight="5px"
             android:layout_marginTop="27px"
-            android:text="2-22" />
+            android:text="@{item.createTime}" />
 
         <TextView
             android:id="@+id/tv_comment"
-            style="@style/indexNewsInfo"
+            style="@style/gray22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/tv_name"
             android:layout_marginLeft="5px"
-            android:layout_marginRight="5px"
+            android:layout_marginRight="9px"
             android:layout_marginTop="27px"
-            android:text="2评论" />
+            android:text="@{item.pl+`评论`}" />
 
         <TextView
             android:id="@+id/tv_read"
-            style="@style/indexNewsInfo"
+            style="@style/gray22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_name"
-            android:layout_marginRight="27px"
+            android:layout_marginRight="87px"
             android:layout_marginTop="27px"
             android:layout_toLeftOf="@+id/tv_comment"
-            android:text="2阅读" />
+            android:text="@{item.bm+`报名`}"
+            android:visibility="@{item.status &gt; 3?View.VISIBLE:View.INVISIBLE}" />
 
         <View
             android:layout_width="match_parent"

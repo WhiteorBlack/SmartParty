@@ -1,0 +1,241 @@
+package com.qiantang.smartparty.module.study.viewmodel;
+
+import android.Manifest;
+import android.databinding.ObservableBoolean;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.view.View;
+
+import com.baoyz.actionsheet.ActionSheet;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.qiantang.smartparty.BaseBindActivity;
+import com.qiantang.smartparty.R;
+import com.qiantang.smartparty.base.ViewModel;
+import com.qiantang.smartparty.module.study.adapter.PublishAdapter;
+import com.qiantang.smartparty.network.NetworkSubscriber;
+import com.qiantang.smartparty.network.retrofit.ApiWrapper;
+import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
+import com.qiantang.smartparty.utils.AppUtil;
+import com.qiantang.smartparty.utils.LoadingWindow;
+import com.qiantang.smartparty.utils.ToastUtil;
+import com.qiantang.smartparty.utils.permissions.EasyPermission;
+import com.qiantang.smartparty.utils.permissions.PermissionCode;
+import com.trello.rxlifecycle2.android.ActivityEvent;
+
+import java.io.IOException;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import cn.finalteam.galleryfinal.FunctionConfig;
+import cn.finalteam.galleryfinal.GalleryFinal;
+import cn.finalteam.galleryfinal.model.PhotoInfo;
+
+import static com.qiantang.smartparty.utils.StringUtil.getString;
+
+
+public class PublishViewModel implements ViewModel {
+    private static final int REQUEST_CODE_CAMERA = 1000;
+    private static final int REQUEST_CODE_GALLERY = 1001;
+    private final BaseBindActivity activity;
+    private final PublishAdapter adapter;
+    private final LoadingWindow loadingWindow;
+    private final PhotoInfo nullPhoto = new PhotoInfo();
+    private FunctionConfig.Builder functionConfigBuilder;
+    private List<PhotoInfo> list = new ArrayList<>();
+    private GalleryFinal.OnHanlderResultCallback resultCallback;
+    private boolean isMax;
+    public String content = "";
+
+    public PublishViewModel(BaseBindActivity activity, PublishAdapter adapter) {
+        this.activity = activity;
+        this.adapter = adapter;
+        initAdapterData(adapter);
+        initFunctionConfig();
+        loadingWindow = new LoadingWindow(activity);
+    }
+
+    /**
+     * 初始化图片展示Adapter
+     *
+     * @param adapter
+     */
+    private void initAdapterData(PublishAdapter adapter) {
+        list.add(nullPhoto);
+        adapter.setNewData(list);
+    }
+
+
+    /**
+     * 获取相册图片
+     */
+    private void getPic() {
+        ActionSheet.createBuilder(activity, activity.getSupportFragmentManager())
+                .setCancelButtonTitle("取消")
+                .setOtherButtonTitles("打开相册", "拍照")
+                .setCancelableOnTouchOutside(true)
+                .setListener(new ActionSheet.ActionSheetListener() {
+                    @Override
+                    public void onDismiss(ActionSheet actionSheet, boolean isCancel) {
+                    }
+
+                    @Override
+                    public void onOtherButtonClick(ActionSheet actionSheet, int index) {
+                        FunctionConfig functionConfig;
+                        functionConfigBuilder.setSelected(list);
+                        functionConfig = functionConfigBuilder.build();
+                        switch (index) {
+                            case 0:
+                                GalleryFinal.openGalleryMuti(REQUEST_CODE_GALLERY,
+                                        functionConfig, resultCallback);
+                                break;
+                            case 1:
+                                EasyPermission.with(activity)
+                                        .rationale(getString(R.string.rationale_camera))
+                                        .addRequestCode(PermissionCode.RG_CAMERA_PERM)
+                                        .permissions(Manifest.permission.CAMERA)
+                                        .request();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }).show();
+    }
+
+    /**
+     * 打开相机
+     */
+    public void openCamera() {
+        functionConfigBuilder.setSelected(list);
+        FunctionConfig functionConfig = functionConfigBuilder.build();
+        GalleryFinal.openCamera(REQUEST_CODE_CAMERA, functionConfig, resultCallback);
+    }
+
+    /**
+     * 初始化图片选择器
+     */
+    private void initFunctionConfig() {
+        if (functionConfigBuilder == null) {
+            functionConfigBuilder = new FunctionConfig.Builder()
+                    .setMutiSelectMaxSize(9)
+                    .setSelected(list)
+                    .setEnableCamera(false)
+                    .setEnablePreview(true);
+        }
+        resultCallback = new GalleryFinal.OnHanlderResultCallback() {
+            @Override
+            public void onHanlderSuccess(int reqeustCode, List<PhotoInfo> resultList) {
+                if (resultList != null) {
+                    if (reqeustCode == REQUEST_CODE_CAMERA) {
+                        int index = list.size() - 1;
+                        list.add(index > 0 ? index : 0, resultList.get(0));
+                        if (list.size() < 10) {
+                            isMax = false;
+                        } else {
+                            list.remove(list.size() - 1);
+                            isMax = true;
+                        }
+                    } else {
+                        list.clear();
+                        list.addAll(resultList);
+                        if (resultList.size() < 9) {
+                            list.add(nullPhoto);
+                            isMax = false;
+                        } else {
+                            isMax = true;
+                        }
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onHanlderFailure(int requestCode, String errorMsg) {
+                ToastUtil.toast(errorMsg);
+            }
+        };
+    }
+
+    /**
+     * 发帖请求
+     */
+    public void publish() {
+        if (list.size() == 0 && TextUtils.isEmpty(content)) {
+            ToastUtil.toast("感想内容不能为空");
+            return;
+        }
+        loadingWindow.showWindow();
+        String image = "";
+        if (list.size() > 0) {
+            for (int i = 0; i < list.size(); i++) {
+
+                try {
+                    image += AppUtil.getImageBase64(list.get(i).getPhotoPath(), activity) + ",";
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (!isMax && i == list.size() - 1) {
+                    break;
+                }
+            }
+        }
+        if (!TextUtils.isEmpty(image)){
+            image=image.substring(0,image.length()-1);
+        }
+        ApiWrapper.getInstance().addCommentApp(content,image)
+                .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
+                .doOnTerminate(loadingWindow::hidWindow)
+                .subscribe(new NetworkSubscriber<String>() {
+                    @Override
+                    public void onFail(RetrofitUtil.APIException e) {
+                        super.onFail(e);
+                    }
+
+                    @Override
+                    public void onSuccess(String data) {
+                        ToastUtil.toast(data);
+                    }
+                });
+    }
+
+
+    public RecyclerView.OnItemTouchListener itemClickListener() {
+        return new OnItemChildClickListener() {
+            @Override
+            public void onSimpleItemChildClick(BaseQuickAdapter baseQuickAdapter, View view, int
+                    i) {
+                switch (view.getId()) {
+                    case R.id.publish_item_lose:
+                        if (isMax) {
+                            list.add(nullPhoto);
+                            isMax = false;
+                        }
+                        baseQuickAdapter.remove(i);
+                        break;
+                    case R.id.sdv_item_pic:
+                        String photoPath = ((PhotoInfo) baseQuickAdapter.getData().get(i)).getPhotoPath();
+                        if (TextUtils.isEmpty(photoPath)) {
+                            getPic();
+                        }
+                        break;
+                }
+            }
+        };
+    }
+
+    @Override
+    public void destroy() {
+        WeakReference<GalleryFinal.OnHanlderResultCallback> wrf = new WeakReference<>(
+                resultCallback);
+        WeakReference<GalleryFinal.OnHanlderResultCallback> wr = new WeakReference<>(
+                GalleryFinal.getCallback());
+        resultCallback = null;
+        loadingWindow.dismiss();
+        GalleryFinal.clearCallback();
+        GalleryFinal.cleanCacheFile();
+    }
+}

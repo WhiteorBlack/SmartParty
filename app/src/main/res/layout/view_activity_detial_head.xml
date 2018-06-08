@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.view.View" />
 
         <variable
             name="viewModel"
@@ -18,7 +23,8 @@
             android:id="@+id/sdv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:viewAspectRatio="1.97" />
+            app:viewAspectRatio="1.97"
+            bind:topPic="@{viewModel.detials.imgSrc}" />
 
         <TextView
             android:id="@+id/tv_name"
@@ -30,7 +36,7 @@
             android:layout_marginRight="100px"
             android:layout_marginTop="32px"
             android:gravity="center"
-            android:text="助力儿童运动" />
+            android:text="@{viewModel.detials.title}" />
 
         <TextView
             android:id="@+id/tv_date"
@@ -40,7 +46,7 @@
             android:layout_below="@+id/tv_name"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30px"
-            android:text="2018" />
+            android:text="@{viewModel.detials.createTime}" />
 
         <View
             android:id="@+id/line"
@@ -59,7 +65,7 @@
             android:layout_alignBottom="@+id/line"
             android:layout_marginRight="40px"
             android:layout_toLeftOf="@+id/line"
-            android:text="参与对象:" />
+            android:text="@{`参与对象:`+(TextUtils.equals(viewModel.detials.deptName,`0`)?`全体部门`:viewModel.detials.deptName)}" />
 
         <TextView
             android:id="@+id/tv_count"
@@ -69,7 +75,7 @@
             android:layout_alignBottom="@+id/line"
             android:layout_marginLeft="40px"
             android:layout_toRightOf="@+id/line"
-            android:text="报名人数:" />
+            android:text="@{`报名人数:`+viewModel.detials.enroll}" />
 
         <TextView
             android:id="@+id/tv_point"
@@ -79,7 +85,7 @@
             android:layout_below="@+id/tv_count"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15px"
-            android:text="地点:" />
+            android:text="@{`地点:`+viewModel.detials.site}" />
 
         <View
             android:id="@+id/line2"
@@ -117,7 +123,7 @@
 
         </LinearLayout>
 
-        <TextView
+        <com.qiantang.smartparty.utils.fullhtml.TextViewForFullHtml
             android:id="@+id/tv_info"
             style="@style/gray24"
             android:layout_width="match_parent"
@@ -125,7 +131,7 @@
             android:layout_below="@+id/ll_info"
             android:layout_marginLeft="@dimen/sideMargin"
             android:layout_marginRight="@dimen/sideMargin"
-            android:text="活动介绍信息" />
+            bind:loadContent="@{viewModel.detials.content}" />
 
         <View
             android:id="@+id/line4"
@@ -136,76 +142,80 @@
             android:background="@color/line" />
 
         <LinearLayout
-            android:id="@+id/ll_record"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/line4"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingBottom="30px"
-            android:paddingTop="30px">
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/ll_record"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="30px"
+                android:paddingTop="30px"
+                android:visibility="@{viewModel.hasSign?View.VISIBLE:View.GONE}">
+
+                <View
+                    android:layout_width="4px"
+                    android:layout_height="28px"
+                    android:layout_marginLeft="@dimen/sideMargin"
+                    android:background="@color/paleRed" />
+
+                <TextView
+                    style="@style/black22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18px"
+                    android:text="签到记录"
+                    android:textSize="28px" />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_record"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40px"
+                android:layout_marginRight="40px" />
+
 
             <View
-                android:layout_width="4px"
-                android:layout_height="28px"
-                android:layout_marginLeft="@dimen/sideMargin"
-                android:background="@color/paleRed" />
+                android:id="@+id/line5"
+                android:layout_width="match_parent"
+                android:layout_height="20px"
+                android:background="@color/line" />
 
-            <TextView
-                style="@style/black22"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="18px"
-                android:text="签到记录"
-                android:textSize="28px" />
-        </LinearLayout>
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="30px"
+                android:paddingTop="30px">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_record"
-            android:layout_width="match_parent"
-            android:layout_marginLeft="20px"
-            android:layout_marginRight="20px"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ll_record" />
+                <View
+                    android:layout_width="4px"
+                    android:layout_height="28px"
+                    android:layout_marginLeft="@dimen/sideMargin"
+                    android:background="@color/paleRed" />
 
+                <TextView
+                    style="@style/black22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18px"
+                    android:text="评论"
+                    android:textSize="28px" />
 
-        <View
-            android:id="@+id/line5"
-            android:layout_width="match_parent"
-            android:layout_height="20px"
-            android:layout_below="@+id/rv_record"
-            android:background="@color/line" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/line5"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingBottom="30px"
-            android:paddingTop="30px">
-
-            <View
-                android:layout_width="4px"
-                android:layout_height="28px"
-                android:layout_marginLeft="@dimen/sideMargin"
-                android:background="@color/paleRed" />
-
-            <TextView
-                style="@style/black22"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="18px"
-                android:text="评论"
-                android:textSize="28px" />
-
-            <TextView
-                android:id="@+id/tv_comment_count"
-                style="@style/gray24"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10px"
-                android:text="(22条)" />
+                <TextView
+                    android:id="@+id/tv_comment_count"
+                    style="@style/gray24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10px"
+                    android:text="(22条)" />
+            </LinearLayout>
         </LinearLayout>
     </RelativeLayout>
 </layout>

@@ -9,6 +9,7 @@ import com.qiantang.smartparty.BaseBindFragment;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.modle.RxActivity;
+import com.qiantang.smartparty.modle.RxAssientHome;
 import com.qiantang.smartparty.modle.RxIndexClass;
 import com.qiantang.smartparty.modle.RxIndexNews;
 import com.qiantang.smartparty.modle.RxMsg;
@@ -16,7 +17,10 @@ import com.qiantang.smartparty.modle.RxVideoStudy;
 import com.qiantang.smartparty.module.assistant.adapter.ActivityAdapter;
 import com.qiantang.smartparty.module.assistant.adapter.MsgAdapter;
 import com.qiantang.smartparty.module.index.adapter.IndexCommonAdapter;
+import com.qiantang.smartparty.network.NetworkSubscriber;
+import com.qiantang.smartparty.network.retrofit.ApiWrapper;
 import com.qiantang.smartparty.utils.ActivityUtil;
+import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,29 +48,19 @@ public class AssisantViewModel implements ViewModel {
         return classes;
     }
 
-    public void getMsgData(MsgAdapter adapter) {
-        List<RxMsg> msgs = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            msgs.add(new RxMsg());
-        }
-        adapter.setNewData(msgs);
+    public void getListData(MsgAdapter msgAdapter, ActivityAdapter activityAdapter, IndexCommonAdapter indexCommonAdapter) {
+        ApiWrapper.getInstance().assientHome()
+                .compose(fragment.bindUntilEvent(FragmentEvent.DESTROY))
+                .subscribe(new NetworkSubscriber<RxAssientHome>() {
+                    @Override
+                    public void onSuccess(RxAssientHome data) {
+                        msgAdapter.setNewData(data.getTz());
+                        activityAdapter.setNewData(data.getDj());
+                        indexCommonAdapter.setNewData(data.getFc());
+                    }
+                });
     }
 
-    public void getActivityData(ActivityAdapter adapter) {
-        List<RxActivity> msgs = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            msgs.add(new RxActivity());
-        }
-        adapter.setNewData(msgs);
-    }
-
-    public void getStateData(IndexCommonAdapter adapter) {
-        List<RxVideoStudy> msgs = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            msgs.add(new RxVideoStudy());
-        }
-        adapter.setNewData(msgs);
-    }
 
     /**
      * 通知公告点击事件
@@ -106,7 +100,8 @@ public class AssisantViewModel implements ViewModel {
         return new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ActivityUtil.startActivityDetialActivity(fragment.getActivity(), "");
+                RxActivity rxActivity= (RxActivity) adapter.getData().get(position);
+                ActivityUtil.startActivityDetialActivity(fragment.getActivity(), rxActivity.getActivityId());
             }
         };
     }
@@ -156,7 +151,17 @@ public class AssisantViewModel implements ViewModel {
 
     public void onClick(View view) {
         switch (view.getId()) {
-
+            case R.id.tv_news_more:
+                ActivityUtil.startMsgActivity(fragment.getActivity());
+                break;
+            case R.id.tv_study_state_more:
+                //党建活动
+                ActivityUtil.startPartyActivity(fragment.getActivity());
+                break;
+            case R.id.tv_study_video:
+                //党建风采
+                ActivityUtil.startMienActivity(fragment.getActivity());
+                break;
         }
     }
 

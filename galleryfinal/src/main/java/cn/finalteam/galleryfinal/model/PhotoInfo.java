@@ -16,6 +16,7 @@
 
 package cn.finalteam.galleryfinal.model;
 
+import android.net.Uri;
 import android.text.TextUtils;
 
 import java.io.Serializable;
@@ -32,6 +33,7 @@ public class PhotoInfo implements Serializable {
     //private String thumbPath;
     private int width;
     private int height;
+    private Uri photoUri;
 
     public PhotoInfo() {}
 
@@ -53,6 +55,14 @@ public class PhotoInfo implements Serializable {
 
     public String getPhotoPath() {
         return photoPath;
+    }
+
+    public Uri getPhotoUri() {
+        return photoUri;
+    }
+
+    public void setPhotoUri(Uri photoUri) {
+        this.photoUri = photoUri;
     }
 
     public void setPhotoPath(String photoPath) {

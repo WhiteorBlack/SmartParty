@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.baoyz.actionsheet.ActionSheet;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -18,12 +19,14 @@ import com.qiantang.smartparty.BaseBindFragment;
 import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.base.ViewModel;
+import com.qiantang.smartparty.modle.RxMyStudy;
 import com.qiantang.smartparty.modle.RxStudy;
 import com.qiantang.smartparty.modle.RxStudyComment;
 import com.qiantang.smartparty.modle.RxStudyList;
 import com.qiantang.smartparty.modle.RxStudyUserMap;
 import com.qiantang.smartparty.modle.RxStudyZan;
 import com.qiantang.smartparty.module.study.adapter.StudyAdapter;
+import com.qiantang.smartparty.module.study.adapter.StudyMyAdapter;
 import com.qiantang.smartparty.module.study.popup.CommentPop;
 import com.qiantang.smartparty.module.study.view.StudyFragment;
 import com.qiantang.smartparty.module.study.view.StudyMyActivity;
@@ -66,9 +69,9 @@ public class StudyMyViewModel extends BaseObservable implements ViewModel, Comme
         if (i == 1) {
             pageNo = 1;
         }
-        ApiWrapper.getInstance().getStudyList(i)
+        ApiWrapper.getInstance().getMyStudyList(i)
                 .compose(fragment.bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribe(new NetworkSubscriber<RxStudy>() {
+                .subscribe(new NetworkSubscriber<RxMyStudy>() {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
@@ -76,9 +79,8 @@ public class StudyMyViewModel extends BaseObservable implements ViewModel, Comme
                     }
 
                     @Override
-                    public void onSuccess(RxStudy data) {
+                    public void onSuccess(RxMyStudy data) {
                         fragment.refreshOK();
-                        setUserMap(data.getUserMap());
                         adapter.setPagingData(data.getResultList(), pageNo);
                     }
                 });
@@ -149,22 +151,10 @@ public class StudyMyViewModel extends BaseObservable implements ViewModel, Comme
                                 break;
                             }
                         }
-                        adapter.notifyItemChanged(commentPos);
+                        adapter.notifyItemChanged(commentPos+1);
                     }
                 });
     }
-
-
-    @Bindable
-    public RxStudyUserMap getUserMap() {
-        return userMap.get();
-    }
-
-    public void setUserMap(RxStudyUserMap userMap) {
-        this.userMap.set(userMap);
-        notifyPropertyChanged(BR.userMap);
-    }
-
 
     public RecyclerView.OnItemTouchListener onItemTouchListener() {
         return new OnItemClickListener() {
@@ -182,8 +172,7 @@ public class StudyMyViewModel extends BaseObservable implements ViewModel, Comme
                             return;
                         }
                         delPos = position;
-                        isDeleting = true;
-                        deleteComment(adapter.getData().get(position).getComment_id());
+                        deletePop(adapter.getData().get(position).getComment_id());
                         break;
                     case R.id.iv_comment:
                         if (isDealing) {
@@ -200,6 +189,28 @@ public class StudyMyViewModel extends BaseObservable implements ViewModel, Comme
             }
         };
     }
+
+    /**
+     * 删除感悟弹窗
+     */
+    private void deletePop(String id) {
+        ActionSheet.createBuilder(fragment, fragment.getSupportFragmentManager())
+                .setCancelButtonTitle("取消")
+                .setOtherButtonTitles("确定删除")
+                .setCancelableOnTouchOutside(true)
+                .setListener(new ActionSheet.ActionSheetListener() {
+                    @Override
+                    public void onDismiss(ActionSheet actionSheet, boolean isCancel) {
+                    }
+
+                    @Override
+                    public void onOtherButtonClick(ActionSheet actionSheet, int index) {
+                        isDeleting = true;
+                        deleteComment(id);
+                    }
+                }).show();
+    }
+
 
     @Override
     public void onLikeClick(View v, @NonNull RxStudyList info, boolean hasLiked) {

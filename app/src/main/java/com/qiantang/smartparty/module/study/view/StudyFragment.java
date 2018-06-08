@@ -20,6 +20,7 @@ import com.qiantang.smartparty.databinding.ViewStudyHeadBinding;
 import com.qiantang.smartparty.modle.RxStudyList;
 import com.qiantang.smartparty.module.study.adapter.StudyAdapter;
 import com.qiantang.smartparty.module.study.viewmodel.StudyViewModel;
+import com.qiantang.smartparty.utils.ActivityUtil;
 import com.qiantang.smartparty.utils.AutoUtils;
 import com.qiantang.smartparty.utils.RecycleViewUtils;
 import com.qiantang.smartparty.utils.ToastUtil;
@@ -56,7 +57,7 @@ public class StudyFragment extends BaseBindFragment implements CommentBox.OnComm
         binding.toolbar.setTitle("学习感悟");
         binding.toolbar.setIsHide(false);
         binding.toolbar.setResId(R.mipmap.icon_publish);
-        binding.toolbar.tvPublish.setOnClickListener(this::onClick);
+        binding.toolbar.ivScan.setOnClickListener(this::onClick);
         binding.commentBox.setOnCommentSendClickListener(this);
         initRecycleView(binding.rv);
         initRefresh(binding.cptr);
@@ -85,6 +86,7 @@ public class StudyFragment extends BaseBindFragment implements CommentBox.OnComm
         adapter.setEnableLoadMore(true);
         adapter.setLoadMoreView(RecycleViewUtils.getLoadMoreView());
         adapter.addHeaderView(headBinding.getRoot());
+        rv.addOnItemTouchListener(viewModel.onItemTouchListener());
         adapter.setOnLoadMoreListener(() -> viewModel.loadMore(), rv);
     }
 
@@ -121,12 +123,11 @@ public class StudyFragment extends BaseBindFragment implements CommentBox.OnComm
 
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.iv_right:
-
+            case R.id.iv_scan:
+                ActivityUtil.startPublishActivity(getActivity());
                 break;
         }
     }
-
 
     @Override
     protected void viewModelDestroy() {

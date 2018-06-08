@@ -14,12 +14,15 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.qiantang.smartparty.interfacer.RefreshListener;
 import com.qiantang.smartparty.utils.AutoUtils;
 import com.qiantang.smartparty.utils.ToastUtil;
+import com.qiantang.smartparty.widget.RefreshHeader;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import java.util.HashMap;
 
 import cn.bingoogolapple.bgabanner.BGABanner;
+import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
+import in.srain.cube.views.ptr.PtrHandler;
 
 /**
  * Created by 123 on 2017/9/1.
@@ -53,6 +56,7 @@ public abstract class BaseBindActivity extends RxAppCompatActivity implements Re
         }
 
         initView();
+        onFirstUserVisible();
     }
 
     @Override
@@ -103,20 +107,6 @@ public abstract class BaseBindActivity extends RxAppCompatActivity implements Re
         this.value = value;
     }
 
-    /**
-     * 初始化ToolBar
-     *
-     * @param toolbar
-     */
-    public void initToolbar(Toolbar toolbar) {
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setHomeButtonEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
-        }
-        toolbar.setNavigationOnClickListener(v -> onBackPressed());
-    }
 
 
     /**
@@ -195,6 +185,20 @@ public abstract class BaseBindActivity extends RxAppCompatActivity implements Re
      */
     public void initRefresh(final PtrFrameLayout mPtrFrame, boolean stateBar) {
         this.mPtrFrame = mPtrFrame;
+        RefreshHeader ptrUIHandler = new RefreshHeader(this);
+        mPtrFrame.addPtrUIHandler(ptrUIHandler);
+        mPtrFrame.setHeaderView(ptrUIHandler);
+        mPtrFrame.setPtrHandler(new PtrHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                refreshData();
+            }
+
+            @Override
+            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+                return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
+            }
+        });
     }
 
     /**
@@ -269,6 +273,7 @@ public abstract class BaseBindActivity extends RxAppCompatActivity implements Re
     @Override
     public void refreshFail() {
         if (mPtrFrame != null && mPtrFrame.isRefreshing()) {
+            ToastUtil.toast("网络异常");
             mPtrFrame.refreshComplete();
         }
     }

@@ -71,7 +71,6 @@ public class IndexFragment extends BaseBindFragment {
         rvRules.setLayoutManager(new GridLayoutManager(getContext(), 2));
         rvRules.addOnItemTouchListener(viewModel.rulesToucnListener());
         rvRules.setAdapter(rulesAdapter);
-        rulesAdapter.setNewData(viewModel.testData());
     }
 
     /**
@@ -86,7 +85,6 @@ public class IndexFragment extends BaseBindFragment {
         rvStudyPractice.addItemDecoration(new SpaceItemDecoration(0, 0, 12, 0));
         rvStudyPractice.setAdapter(studyProAdapter);
         rvStudyPractice.addOnItemTouchListener(viewModel.studyProToucnListener());
-        studyProAdapter.setNewData(viewModel.testData());
     }
 
     /**
@@ -100,7 +98,6 @@ public class IndexFragment extends BaseBindFragment {
         rvSpeech.setLayoutManager(new LinearLayoutManager(getContext()));
         rvSpeech.setAdapter(speechAdapter);
         rvSpeech.addOnItemTouchListener(viewModel.speechToucnListener());
-        speechAdapter.setNewData(viewModel.testData());
     }
 
     /**
@@ -115,7 +112,6 @@ public class IndexFragment extends BaseBindFragment {
         rvStudyVideo.setAdapter(studyVideoAdapter);
         rvStudyVideo.addItemDecoration(new SpaceItemDecoration(0, 0, 12, 0));
         rvStudyVideo.addOnItemTouchListener(viewModel.studyVideoToucnListener());
-        studyVideoAdapter.setNewData(viewModel.testData());
     }
 
     /**
@@ -129,7 +125,6 @@ public class IndexFragment extends BaseBindFragment {
         rvStudyState.setLayoutManager(new LinearLayoutManager(getContext()));
         rvStudyState.setAdapter(studyStateAdapter);
         rvStudyState.addOnItemTouchListener(viewModel.studyStateToucnListener());
-        studyStateAdapter.setNewData(viewModel.testData());
     }
 
     /**

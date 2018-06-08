@@ -31,12 +31,13 @@
         android:text="数据加载失败"
         android:visibility="gone" />
 
-    <ImageView
+    <TextView
         android:id="@+id/tv_load_end"
+        style="@style/gray26"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:src="@mipmap/bottom_line"
+        android:text="没有更多了"
         android:visibility="gone" />
 
 </LinearLayout>

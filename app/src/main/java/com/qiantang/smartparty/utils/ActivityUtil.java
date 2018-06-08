@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.qiantang.smartparty.MyApplication;
+import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.module.assistant.view.ActivityDetial;
 import com.qiantang.smartparty.module.assistant.view.AdviseActivity;
 import com.qiantang.smartparty.module.assistant.view.AdviseRecordActivity;
@@ -20,6 +21,9 @@ import com.qiantang.smartparty.module.assistant.view.ApplySuccessActivity;
 import com.qiantang.smartparty.module.assistant.view.FeeDetialActivity;
 import com.qiantang.smartparty.module.assistant.view.FeeDetialSpecialActivity;
 import com.qiantang.smartparty.module.assistant.view.FeeRecordActivity;
+import com.qiantang.smartparty.module.assistant.view.MienActivity;
+import com.qiantang.smartparty.module.assistant.view.MsgActivity;
+import com.qiantang.smartparty.module.assistant.view.PartyActivity;
 import com.qiantang.smartparty.module.assistant.view.PartyfeeActivity;
 import com.qiantang.smartparty.module.assistant.view.ReportActivity;
 import com.qiantang.smartparty.module.index.view.NewsActivity;
@@ -43,6 +47,8 @@ import com.qiantang.smartparty.module.mine.view.MyCollectionActivity;
 import com.qiantang.smartparty.module.mine.view.SettingActivity;
 import com.qiantang.smartparty.module.mine.view.TotalScoreActivity;
 import com.qiantang.smartparty.module.scan.view.QRCodeActivity;
+import com.qiantang.smartparty.module.search.view.SearchActivity;
+import com.qiantang.smartparty.module.study.view.PublishActivity;
 import com.qiantang.smartparty.module.study.view.StudyMyActivity;
 import com.qiantang.smartparty.module.study.view.StudyUnReadMsgActivity;
 
@@ -479,6 +485,57 @@ public class ActivityUtil {
      */
     public static void startStudyMyActivity(Activity activity) {
         Intent intent = new Intent(activity, StudyMyActivity.class);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 发布学习感悟
+     *
+     * @param activity
+     */
+    public static void startPublishActivity(Activity activity) {
+        Intent intent = new Intent(activity, PublishActivity.class);
+        activity.startActivityForResult(intent, Config.PUBLISH_REQUEST);
+    }
+
+    /**
+     * 通知公告
+     *
+     * @param activity
+     */
+    public static void startMsgActivity(Activity activity) {
+        Intent intent = new Intent(activity, MsgActivity.class);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 党建风采
+     *
+     * @param activity
+     */
+    public static void startMienActivity(Activity activity) {
+        Intent intent = new Intent(activity, MienActivity.class);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 党建活动
+     *
+     * @param activity
+     */
+    public static void startPartyActivity(Activity activity) {
+        Intent intent = new Intent(activity, PartyActivity.class);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 搜索页面
+     *
+     * @param activity
+     */
+    public static void startSearchActivity(Activity activity,int type) {
+        Intent intent = new Intent(activity, SearchActivity.class);
+        intent.putExtra("type",type);
         activity.startActivity(intent);
     }
 }

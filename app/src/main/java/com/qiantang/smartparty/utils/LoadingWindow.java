@@ -28,8 +28,6 @@ public class LoadingWindow {
     private final Activity activity;
     private PopupWindow popWindow;
     private View windowView;
-    //    private Rotatable rotatable;
-    private AnimationDrawable animationDrawable;
     private ProgressLayout progressLayout;
 
     private int size;
@@ -59,7 +57,6 @@ public class LoadingWindow {
         popWindow.setOnDismissListener(() -> backgroundAlpha(1f));
 //        rotatable = new Rotatable.Builder(windowView.findViewById(R.id.pb)).direction(Rotatable.ROTATE_Y).build();
         progressLayout = windowView.findViewById(R.id.progress);
-        animationDrawable = (AnimationDrawable) ((ImageView) (windowView.findViewById(R.id.pb))).getDrawable();
         tvLoading = windowView.findViewById(R.id.tv_loading);
 //        initProgress();
 
@@ -97,7 +94,6 @@ public class LoadingWindow {
             try {
                 backgroundAlpha(0.5f);
                 popWindow.showAtLocation(windowView, Gravity.CENTER, 0, 0);
-                animationDrawable.start();
                 handler.postDelayed(runnable, 50);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -132,7 +128,7 @@ public class LoadingWindow {
 
     public void dismiss() {
         if (popWindow != null && popIsShow()) {
-            animationDrawable.stop();
+//            animationDrawable.stop();
             handler.removeCallbacks(runnable);
             popWindow.dismiss();
         }

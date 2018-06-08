@@ -67,6 +67,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.qiantang.smartparty.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/update_apk_path" />
+        </provider>
+
         <activity
             android:name=".module.spalsh.view.SplahsActivity"
             android:theme="@style/SplashTheme">
@@ -133,6 +144,7 @@
 
         <activity
             android:name=".module.assistant.view.ActivityDetial"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
@@ -232,6 +244,31 @@
 
         <activity
             android:name=".module.study.view.StudyMyActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".module.study.view.PublishActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".module.assistant.view.MsgActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".module.assistant.view.MienActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".module.assistant.view.PartyActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".module.search.view.SearchActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
