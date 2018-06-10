@@ -11,8 +11,9 @@
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/sdv"
-        android:layout_width="48px"
-        android:layout_height="48px"
+        android:layout_width="58px"
+        android:layout_height="58px"
+        android:layout_marginBottom="40px"
         android:layout_marginLeft="10px"
         android:layout_marginRight="10px"
         app:placeholderImage="@mipmap/icon_sign_more"

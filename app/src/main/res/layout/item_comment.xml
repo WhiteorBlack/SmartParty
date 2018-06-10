@@ -2,7 +2,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data></data>
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="item"
+            type="com.qiantang.smartparty.modle.RxComment" />
+    </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -35,7 +42,7 @@
             android:layout_marginLeft="16px"
             android:layout_marginTop="30px"
             android:layout_toRightOf="@+id/sdv"
-            android:text="测试" />
+            android:text="@{item.username}" />
 
         <TextView
             android:id="@+id/tv_comment"
@@ -47,7 +54,7 @@
             android:layout_marginRight="60px"
             android:layout_marginTop="17px"
             android:layout_toRightOf="@+id/sdv"
-            android:text="测试" />
+            android:text="@{item.content}" />
 
 
         <LinearLayout
@@ -67,22 +74,29 @@
                 style="@style/gray22"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:layout_weight="1"
-                android:text="2018" />
+                android:text="@{item.creationtime}" />
 
-            <CheckBox
-                android:id="@+id/chb"
+            <ImageView
+                android:id="@+id/iv_praise"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:button="@drawable/select_point" />
+                android:background="@mipmap/icon_comment_praise_red"
+                android:visibility="@{item.isDz==1?View.VISIBLE:View.GONE}" />
+
+            <ImageView
+                android:id="@+id/iv_unpraise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/icon_comment_praise_gray"
+                android:visibility="@{item.isDz==0?View.VISIBLE:View.GONE}" />
 
             <TextView
                 android:id="@+id/tv_praise"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="9px"
-                android:text="22"
+                android:text="@{item.dz+``}"
                 android:textSize="22px" />
         </LinearLayout>
     </RelativeLayout>

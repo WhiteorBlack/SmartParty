@@ -11,6 +11,7 @@ import com.qiantang.smartparty.modle.RxMsg;
 import com.qiantang.smartparty.module.assistant.adapter.MsgAdapter;
 import com.qiantang.smartparty.network.NetworkSubscriber;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
+import com.qiantang.smartparty.utils.ActivityUtil;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import java.util.List;
@@ -47,8 +48,8 @@ public class MsgViewModel implements ViewModel {
     public RecyclerView.OnItemTouchListener onItemTouchListener() {
         return new OnItemClickListener() {
             @Override
-            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+            public void onSimpleItemClick(BaseQuickAdapter adapterq, View view, int position) {
+                ActivityUtil.jumpWeb(activity,adapter.getData().get(position).getNoticeId());
             }
         };
     }

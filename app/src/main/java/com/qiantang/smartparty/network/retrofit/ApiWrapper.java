@@ -10,6 +10,7 @@ import com.qiantang.smartparty.modle.RxMsg;
 import com.qiantang.smartparty.modle.RxMyStudy;
 import com.qiantang.smartparty.modle.RxRankBranch;
 import com.qiantang.smartparty.modle.RxRankPersonal;
+import com.qiantang.smartparty.modle.RxSignList;
 import com.qiantang.smartparty.modle.RxStudy;
 import com.qiantang.smartparty.modle.RxStudyUnreadMsg;
 import com.qiantang.smartparty.modle.RxUploadUrl;
@@ -147,54 +148,88 @@ public class ApiWrapper extends RetrofitUtil {
 
     /**
      * 取消赞
+     *
      * @param id
      * @return
      */
-    public Observable<String> cancelLike( String id) {
+    public Observable<String> cancelLike(String id) {
         return getService().cancelLike(MyApplication.USER_ID, id).compose(this.applySchedulers());
     }
 
     /**
      * 发表感想
+     *
      * @return
      */
-    public Observable<String> addCommentApp( String content,String image) {
-        return getService().addCommentApp(MyApplication.USER_ID, content,image).compose(this.applySchedulers());
+    public Observable<String> addCommentApp(String content, String image) {
+        return getService().addCommentApp(MyApplication.USER_ID, content, image).compose(this.applySchedulers());
     }
 
     /**
      * 党建助手首页
      */
-    public Observable<RxAssientHome> assientHome(){
+    public Observable<RxAssientHome> assientHome() {
         return getService().assientHome().compose(this.applySchedulers());
     }
 
     /**
      * 党建助手首页
      */
-    public Observable<List<RxMsg>> tzNotice(int page){
+    public Observable<List<RxMsg>> tzNotice(int page) {
         return getService().tzNotice(page).compose(this.applySchedulers());
     }
 
     /**
-     *@param type  4党建风采
+     * @param type 4党建风采
      * @param page
      * @return
      */
-    public Observable<List<RxIndexCommon>> fcNotice(int page, int type){
-        return getService().fcNotice(page,type).compose(this.applySchedulers());
+    public Observable<List<RxIndexCommon>> fcNotice(int page, int type) {
+        return getService().fcNotice(page, type).compose(this.applySchedulers());
     }
 
     /**
-     *党建活动
+     * 党建活动
+     *
      * @param page
      * @return
      */
-    public Observable<List<RxActivity>> djActivity(int page){
+    public Observable<List<RxActivity>> djActivity(int page) {
         return getService().djActivity(page).compose(this.applySchedulers());
     }
 
-    public Observable<RxActivityDetial> djActivityDetails(int page,String id){
-        return getService().djActivityDetails(page,id,MyApplication.USER_ID).compose(this.applySchedulers());
+    /**
+     * 活动详情
+     *
+     * @param page
+     * @param id
+     * @return
+     */
+    public Observable<RxActivityDetial> djActivityDetails(int page, String id) {
+        return getService().djActivityDetails(page, id, MyApplication.USER_ID).compose(this.applySchedulers());
+    }
+
+    /**
+     * 评论
+     *
+     * @param id
+     * @return
+     */
+    public Observable<String> comment(String content, String id) {
+        return getService().comment(id, content, MyApplication.USER_ID).compose(this.applySchedulers());
+    }
+
+    /**
+     * 报名
+     *
+     * @param id
+     * @return
+     */
+    public Observable<String> enroll(String id) {
+        return getService().enroll(id, MyApplication.USER_ID).compose(this.applySchedulers());
+    }
+
+    public Observable<List<RxSignList>> tzSign(String id,int pageNo){
+        return getService().tzSign(id,pageNo).compose(this.applySchedulers());
     }
 }

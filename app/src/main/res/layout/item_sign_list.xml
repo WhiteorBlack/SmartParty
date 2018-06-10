@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.qiantang.smartparty.modle.RxSignList" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="20px">
+
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv"
+            android:layout_width="58px"
+            android:layout_height="58px"
+            android:layout_marginLeft="@dimen/sideMargin"
+            android:layout_marginTop="20px"
+            app:placeholderImage="@mipmap/mine_head"
+            app:roundAsCircle="true" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/black30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16px"
+            android:layout_marginTop="30px"
+            android:layout_toRightOf="@+id/sdv"
+            android:text="@{item.username}" />
+
+        <TextView
+            android:id="@+id/tv_comment"
+            style="@style/gray22"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginLeft="16px"
+            android:layout_marginRight="60px"
+            android:layout_marginTop="17px"
+            android:layout_toRightOf="@+id/sdv"
+            android:text="@{`时间:  `+item.sign_time}" />
+
+        <TextView
+            android:id="@+id/tv_point"
+            style="@style/gray22"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_comment"
+            android:layout_marginLeft="16px"
+            android:layout_marginRight="60px"
+            android:layout_marginTop="17px"
+            android:layout_toRightOf="@+id/sdv"
+            android:text="@{`地址:  `+item.sign_space}" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_below="@+id/tv_point"
+            android:layout_marginTop="26px"
+            android:layout_marginLeft="14px"
+            android:layout_marginRight="14px"
+            android:background="@color/line" />
+    </RelativeLayout>
+</layout>

@@ -14,7 +14,17 @@ public class RxPartyActivityDetial {
     private String title;
     private String imgSrc;
     private String content;
+    private int count;
     private String deptName;
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
 
     public String getDeptName() {
         return deptName;

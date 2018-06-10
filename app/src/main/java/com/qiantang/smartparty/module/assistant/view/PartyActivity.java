@@ -18,6 +18,7 @@ import com.qiantang.smartparty.utils.RecycleViewUtils;
 
 /**
  * Created by zhaoyong bai on 2018/6/8.
+ * 党建活动列表
  */
 public class PartyActivity extends BaseBindActivity {
     private ActivityAdapter adapter;

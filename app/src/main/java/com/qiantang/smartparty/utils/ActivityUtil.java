@@ -26,6 +26,7 @@ import com.qiantang.smartparty.module.assistant.view.MsgActivity;
 import com.qiantang.smartparty.module.assistant.view.PartyActivity;
 import com.qiantang.smartparty.module.assistant.view.PartyfeeActivity;
 import com.qiantang.smartparty.module.assistant.view.ReportActivity;
+import com.qiantang.smartparty.module.assistant.view.SignListActivity;
 import com.qiantang.smartparty.module.index.view.NewsActivity;
 import com.qiantang.smartparty.module.index.view.RankActivity;
 import com.qiantang.smartparty.module.index.view.SignActivity;
@@ -51,6 +52,7 @@ import com.qiantang.smartparty.module.search.view.SearchActivity;
 import com.qiantang.smartparty.module.study.view.PublishActivity;
 import com.qiantang.smartparty.module.study.view.StudyMyActivity;
 import com.qiantang.smartparty.module.study.view.StudyUnReadMsgActivity;
+import com.qiantang.smartparty.module.web.view.WebViewNew;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -135,6 +137,32 @@ public class ActivityUtil {
         Uri content_url = Uri.parse(url);
         intent.setData(content_url);
         context.startActivity(intent);
+    }
+
+    /**
+     * 跳转没有登录要求的网页
+     * @param activity
+     * @param url
+     */
+    public static void jumpWeb(Activity activity,String url){
+        Intent intent=new Intent(activity, WebViewNew.class);
+        intent.putExtra(WebUtil.URL,url);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 跳转没有登录有要求的网页
+     * @param activity
+     * @param url
+     */
+    public static void jumpMyWeb(Activity activity,String url){
+        if (!MyApplication.isLogin()){
+            startLoginActivity(activity);
+            return;
+        }
+        Intent intent=new Intent(activity, WebViewNew.class);
+        intent.putExtra(WebUtil.URL,url);
+        activity.startActivity(intent);
     }
 
     /**
@@ -306,12 +334,13 @@ public class ActivityUtil {
 
     /**
      * 党建活动详情
-     *
+     * 传入状态 以调整底部评论框和报名状态
      * @param activity
      */
-    public static void startActivityDetialActivity(Activity activity, String id) {
+    public static void startActivityDetialActivity(Activity activity, String id,int status) {
         Intent intent = new Intent(activity, ActivityDetial.class);
         intent.putExtra("id", id);
+        intent.putExtra("status",status);
         activity.startActivity(intent);
     }
 
@@ -536,6 +565,17 @@ public class ActivityUtil {
     public static void startSearchActivity(Activity activity,int type) {
         Intent intent = new Intent(activity, SearchActivity.class);
         intent.putExtra("type",type);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 签到记录
+     *
+     * @param activity
+     */
+    public static void startSignListActivity(Activity activity,String id) {
+        Intent intent = new Intent(activity, SignListActivity.class);
+        intent.putExtra("id",id);
         activity.startActivity(intent);
     }
 }

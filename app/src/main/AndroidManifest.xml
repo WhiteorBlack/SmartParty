@@ -144,9 +144,9 @@
 
         <activity
             android:name=".module.assistant.view.ActivityDetial"
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity
             android:name=".module.assistant.view.PartyfeeActivity"
             android:launchMode="singleTask"
@@ -273,10 +273,21 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".module.index.view.VideoStudyDetialActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:name=".module.web.view.WebViewNew"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".module.assistant.view.SignListActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".module.index.view.VideoStudyDetialActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>

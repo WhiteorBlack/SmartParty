@@ -57,7 +57,7 @@ public class PartyViewModel implements ViewModel {
         return new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapterT, View view, int position) {
-                ActivityUtil.startActivityDetialActivity(activity, adapter.getData().get(position).getActivityId());
+                ActivityUtil.startActivityDetialActivity(activity, adapter.getData().get(position).getActivityId(), adapter.getData().get(position).getStatus());
             }
         };
     }

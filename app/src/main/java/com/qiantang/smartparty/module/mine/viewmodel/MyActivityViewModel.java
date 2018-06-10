@@ -32,11 +32,11 @@ public class MyActivityViewModel implements ViewModel {
             }
 
             @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                super.onItemChildClick(adapter, view, position);
+            public void onItemChildClick(BaseQuickAdapter adapterq, View view, int position) {
+                super.onItemChildClick(adapterq, view, position);
                 switch (view.getId()) {
                     case R.id.tv_check:
-                        ActivityUtil.startActivityDetialActivity(activity, "");
+                        ActivityUtil.startActivityDetialActivity(activity, adapter.getData().get(position).getActivityId(),adapter.getData().get(position).getStatus());
                         break;
                     case R.id.tv_del:
 

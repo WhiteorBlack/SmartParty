@@ -7,47 +7,45 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.base.ViewModel;
-import com.qiantang.smartparty.modle.RxIndexCommon;
-import com.qiantang.smartparty.modle.RxMsg;
-import com.qiantang.smartparty.module.assistant.adapter.MsgAdapter;
-import com.qiantang.smartparty.module.index.adapter.IndexCommonAdapter;
+import com.qiantang.smartparty.modle.RxSignList;
+import com.qiantang.smartparty.module.assistant.adapter.SignListAdapter;
 import com.qiantang.smartparty.network.NetworkSubscriber;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
-import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import java.util.List;
 
 /**
- * Created by zhaoyong bai on 2018/6/8.
+ * Created by zhaoyong bai on 2018/6/10.
  */
-public class MienViewModel implements ViewModel {
+public class SignListViewModel implements ViewModel {
     private BaseBindActivity activity;
-    private IndexCommonAdapter adapter;
+    private SignListAdapter signListAdapter;
     private int pageNo = 1;
+    private String id;
 
-    public MienViewModel(BaseBindActivity activity, IndexCommonAdapter adapter) {
+    public SignListViewModel(BaseBindActivity activity, SignListAdapter signListAdapter) {
         this.activity = activity;
-        this.adapter = adapter;
+        this.signListAdapter = signListAdapter;
+        initData();
+    }
+
+    private void initData() {
+        id = activity.getIntent().getStringExtra("id");
     }
 
     public void loadMore() {
         pageNo++;
-        getData();
+        getdata();
     }
 
-    public void getData() {
-        ApiWrapper.getInstance().fcNotice(pageNo,4)
+    public void getdata() {
+        ApiWrapper.getInstance().tzSign(id, pageNo)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribe(new NetworkSubscriber<List<RxIndexCommon>>() {
+                .subscribe(new NetworkSubscriber<List<RxSignList>>() {
                     @Override
-                    public void onFail(RetrofitUtil.APIException e) {
-                        super.onFail(e);
-                    }
-
-                    @Override
-                    public void onSuccess(List<RxIndexCommon> data) {
-                        adapter.setPagingData(data, pageNo);
+                    public void onSuccess(List<RxSignList> data) {
+                        signListAdapter.setPagingData(data, pageNo);
                     }
                 });
     }

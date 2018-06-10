@@ -51,7 +51,6 @@ public class MainActivity extends BaseBindActivity implements IndicatorViewPager
 
     @Override
     public void initView() {
-        mImmersionBar.keyboardEnable(false).keyboardMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING).init();
         indicatorViewPager = new IndicatorViewPager(binding.indicator, binding.viewpager);
         binding.viewpager.setCanScroll(false);
         binding.viewpager.setOffscreenPageLimit(icons.length);

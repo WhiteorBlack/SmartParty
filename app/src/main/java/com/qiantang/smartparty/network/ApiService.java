@@ -10,6 +10,7 @@ import com.qiantang.smartparty.modle.RxMsg;
 import com.qiantang.smartparty.modle.RxMyStudy;
 import com.qiantang.smartparty.modle.RxRankBranch;
 import com.qiantang.smartparty.modle.RxRankPersonal;
+import com.qiantang.smartparty.modle.RxSignList;
 import com.qiantang.smartparty.modle.RxStudy;
 import com.qiantang.smartparty.modle.RxStudyUnreadMsg;
 import com.qiantang.smartparty.modle.RxUploadUrl;
@@ -110,14 +111,33 @@ public interface ApiService {
                                                          @Field("type") int type);
 
     @FormUrlEncoded
-    //党建活动
-    @POST("app/partyBuild/djActivity")
-    Observable<HttpResult<List<RxActivity>>> djActivity(@Field("pageNum") int page);
-
-    @FormUrlEncoded
-    //党建活动
+    //党建活动详情
     @POST("app/partyBuild/djActivityDetails")
     Observable<HttpResult<RxActivityDetial>> djActivityDetails(@Field("pageNum") int page,
                                                                @Field("activityId") String activityId,
                                                                @Field("userId") String userId);
+
+    @FormUrlEncoded
+    //党建活动
+    @POST("app/partyBuild/djActivity")
+    Observable<HttpResult<List<RxActivity>>> djActivity(@Field("pageNum") int page);
+
+    //评论
+    @FormUrlEncoded
+    @POST("app/partyBuild/comment")
+    Observable<HttpResult<String>> comment(@Field("contentId") String contentId,
+                                           @Field("content") String content,
+                                           @Field("userId") String userId);
+
+    //活动报名
+    @FormUrlEncoded
+    @POST("app/partyBuild/enroll")
+    Observable<HttpResult<String>> enroll(@Field("activityNum") String activityNum,
+                                          @Field("userId") String userId);
+
+    //活动报名
+    @FormUrlEncoded
+    @POST("app/partyBuild/tzSign")
+    Observable<HttpResult<List<RxSignList>>> tzSign(@Field("noticeId") String noticeId,
+                                                    @Field("pageNum") int pageNum);
 }

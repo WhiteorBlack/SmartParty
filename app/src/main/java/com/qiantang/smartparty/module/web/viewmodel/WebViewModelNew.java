@@ -19,6 +19,7 @@ import android.webkit.WebViewClient;
 import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.config.Event;
 import com.qiantang.smartparty.module.web.view.WebViewNew;
+import com.qiantang.smartparty.network.URLs;
 import com.qiantang.smartparty.utils.ActivityUtil;
 import com.qiantang.smartparty.utils.LoadingWindow;
 import com.qiantang.smartparty.utils.StringUtil;
@@ -91,6 +92,9 @@ public class WebViewModelNew implements ViewModel {
         activity.setUrl(verifyUrlSuffixed(url));
     }
 
+    private void setTitle(String title) {
+        toolBarTitle.set(title);
+    }
 
     @Override
     public void destroy() {
@@ -111,12 +115,13 @@ public class WebViewModelNew implements ViewModel {
                     // 设置是否阻塞图片加载
                     view.getSettings().setBlockNetworkImage(true);
                     if (initOK) {
-//                        loadingWindow.showWindow();
                     } else {
                         initOK = true;
-//                        loadingWindow.delayedShowWindow();
                     }
                     isError.set(false);
+                }
+                if (url.contains(URLs.NOTICE_DETIAL)) {
+                    setTitle("通知详情");
                 }
             }
 

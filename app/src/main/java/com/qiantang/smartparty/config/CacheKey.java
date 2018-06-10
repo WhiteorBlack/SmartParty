@@ -7,6 +7,8 @@ public interface CacheKey {
 
     String MALL_IMGS = "mallImages";
     String USER_INFO = "userInfo";
+    String USER_NAME="userName";
+    String USER_AVATAR="userAvatar";
     String INFO = "info";
     String ACCOUNTS = "accounts";
     String PASSWORD = "password";

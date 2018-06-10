@@ -13,13 +13,16 @@ import com.qiantang.smartparty.modle.RxAssientHome;
 import com.qiantang.smartparty.modle.RxIndexClass;
 import com.qiantang.smartparty.modle.RxIndexNews;
 import com.qiantang.smartparty.modle.RxMsg;
+import com.qiantang.smartparty.modle.RxMsgList;
 import com.qiantang.smartparty.modle.RxVideoStudy;
 import com.qiantang.smartparty.module.assistant.adapter.ActivityAdapter;
 import com.qiantang.smartparty.module.assistant.adapter.MsgAdapter;
 import com.qiantang.smartparty.module.index.adapter.IndexCommonAdapter;
 import com.qiantang.smartparty.network.NetworkSubscriber;
+import com.qiantang.smartparty.network.URLs;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
 import com.qiantang.smartparty.utils.ActivityUtil;
+import com.qiantang.smartparty.utils.WebUtil;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import java.util.ArrayList;
@@ -71,7 +74,7 @@ public class AssisantViewModel implements ViewModel {
         return new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                ActivityUtil.jumpWeb(fragment.getActivity(), URLs.NOTICE_DETIAL + ((RxMsg) adapter.getData().get(position)).getNoticeId());
             }
         };
     }
@@ -100,8 +103,8 @@ public class AssisantViewModel implements ViewModel {
         return new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                RxActivity rxActivity= (RxActivity) adapter.getData().get(position);
-                ActivityUtil.startActivityDetialActivity(fragment.getActivity(), rxActivity.getActivityId());
+                RxActivity rxActivity = (RxActivity) adapter.getData().get(position);
+                ActivityUtil.startActivityDetialActivity(fragment.getActivity(), rxActivity.getActivityId(),rxActivity.getStatus());
             }
         };
     }

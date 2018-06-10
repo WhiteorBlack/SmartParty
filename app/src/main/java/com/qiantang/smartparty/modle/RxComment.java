@@ -5,7 +5,7 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 /**
  * Created by zhaoyong bai on 2018/5/25.
  */
-public class RxComment  {
+public class RxComment {
 
     private int isDz;
     private int dz;

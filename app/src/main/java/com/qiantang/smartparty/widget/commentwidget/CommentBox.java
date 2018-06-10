@@ -87,6 +87,12 @@ public class CommentBox extends FrameLayout {
         setVisibility(GONE);
     }
 
+    /**
+     * 学习感悟中的回复框
+     *
+     * @param momentid
+     * @param commentInfo
+     */
     public void showCommentBox(@NonNull String momentid, @Nullable IComment commentInfo) {
         if (TextUtils.isEmpty(momentid)) return;
         if (isShowing) return;
@@ -110,8 +116,47 @@ public class CommentBox extends FrameLayout {
         UIHelper.showInputMethod(mInputContent, 150);
     }
 
+    /**
+     * 用于一般的回复框
+     *
+     * @param hint
+     * @param momentid
+     */
+    public void showCommentBox(String hint, String momentid) {
+        mInputContent.setHint(TextUtils.isEmpty(hint) ? "评论" : hint);
+        //对于同一条动态恢复草稿，否则不恢复
+        if (TextUtils.equals(momentid, this.momentid) && !TextUtils.isEmpty(draftString)) {
+            mInputContent.setText(draftString);
+            mInputContent.setSelection(draftString.length());
+        } else {
+            mInputContent.setText(null);
+        }
+        setMomentid(momentid);
+        setVisibility(VISIBLE);
+        UIHelper.showInputMethod(mInputContent, 150);
+    }
+
+
+    /**
+     * 单纯的展示出box
+     */
+    public void showCommentBox(){
+        setVisibility(VISIBLE);
+    }
+
     public void dismissCommentBox(boolean clearDraft) {
         if (!isShowing) return;
+        this.isShowing = false;
+        if (!clearDraft) {
+            this.draftString = mInputContent.getText().toString().trim();
+        } else {
+            clearDraft();
+        }
+        UIHelper.hideInputMethod(mInputContent);
+        setVisibility(GONE);
+    }
+
+    public void dismissCommentBoxWithoutShowing(boolean clearDraft) {
         this.isShowing = false;
         if (!clearDraft) {
             this.draftString = mInputContent.getText().toString().trim();
@@ -134,6 +179,20 @@ public class CommentBox extends FrameLayout {
             dismissCommentBox(clearDraft);
         } else {
             showCommentBox(momentid, commentInfo);
+        }
+    }
+
+    /**
+     * 切换评论框的状态
+     *
+     * @param momentid
+     * @param clearDraft 是否清除草稿
+     */
+    public void toggleCommentBox(String momentid, String hint, boolean clearDraft) {
+        if (isShowing) {
+            dismissCommentBox(clearDraft);
+        } else {
+            showCommentBox(hint, momentid);
         }
     }
 

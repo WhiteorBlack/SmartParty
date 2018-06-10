@@ -18,18 +18,22 @@ import com.qiantang.smartparty.module.assistant.viewmodel.ActivityDetialViewMode
 import com.qiantang.smartparty.module.input.viewmodel.InputViewModel;
 import com.qiantang.smartparty.utils.AutoUtils;
 import com.qiantang.smartparty.utils.RecycleViewUtils;
+import com.qiantang.smartparty.widget.commentwidget.CircleViewHelper;
+import com.qiantang.smartparty.widget.commentwidget.CommentBox;
+import com.qiantang.smartparty.widget.commentwidget.IComment;
+import com.qiantang.smartparty.widget.commentwidget.KeyboardControlMnanager;
 
 /**
  * Created by zhaoyong bai on 2018/5/28.
  * 活动详情
  */
-public class ActivityDetial extends BaseBindActivity {
+public class ActivityDetial extends BaseBindActivity implements CommentBox.OnCommentSendClickListener {
     private ActivityDetialViewModel viewModel;
     private ActivityDetialBinding binding;
     private ViewActivityDetialHeadBinding headBinding;
     private CommentAdapter adapter;
-    private InputViewModel inputViewModel;
     private SignRecordAdapter signRecordAdapter;
+    private CircleViewHelper circleViewHelper;
 
     @Override
     protected void initBind() {
@@ -40,24 +44,41 @@ public class ActivityDetial extends BaseBindActivity {
         binding.setViewModel(viewModel);
         headBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.view_activity_detial_head, null, false);
         headBinding.setViewModel(viewModel);
-        inputViewModel = new InputViewModel(this);
-        binding.input.setViewModel(inputViewModel);
     }
 
     @Override
     public void initView() {
-        mImmersionBar.keyboardEnable(true).keyboardMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE).init();
         binding.toolbar.setTitle("活动详情");
         binding.toolbar.setIsHide(false);
         initRv(binding.rv);
         initRecordRv(headBinding.rvRecord);
-        inputViewModel.setIsPop(true);
+        if (circleViewHelper == null) {
+            circleViewHelper = new CircleViewHelper(this);
+        }
+        binding.input.setOnCommentSendClickListener(this);
+        if (viewModel.getStatus() >= 3) {
+            binding.input.showCommentBox();
+        }
     }
 
     private void initRecordRv(RecyclerView rvRecord) {
         rvRecord.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         rvRecord.setAdapter(signRecordAdapter);
         rvRecord.addOnItemTouchListener(viewModel.onSignItemTouchListener());
+        initKeyboardHeightObserver();
+    }
+
+    private void initKeyboardHeightObserver() {
+        //观察键盘弹出与消退
+        KeyboardControlMnanager.observerKeyboardVisibleChange(this, (keyboardHeight, isVisible) -> {
+            if (isVisible) {
+                //定位评论框到view
+//                circleViewHelper.alignCommentBoxToView(binding.rv, binding.input, binding.input.getCommentType());
+            } else {
+                //定位到底部
+                binding.input.dismissCommentBox(true);
+            }
+        });
     }
 
     public void onClick(View view) {
@@ -66,22 +87,24 @@ public class ActivityDetial extends BaseBindActivity {
                 onBackPressed();
                 break;
             case R.id.ll_comment:
-                viewModel.isInput.set(true);
-                binding.input.et.requestFocus();
+                showCommentBox();
                 break;
             case R.id.tv_join:
-
-                break;
-            case R.id.rv:
-                viewModel.isInput.set(false);
+                viewModel.enroll();
                 break;
         }
     }
 
+    private void showCommentBox() {
+        viewModel.isInput.set(true);
+        binding.input.toggleCommentBox(viewModel.getDetials().getActivityId(), "发表评论", false);
+    }
+
     @Override
     public void onBackPressed() {
-        if (viewModel.isInput.get()) {
+        if (viewModel.isInput.get() && viewModel.getStatus() == 3) {
             viewModel.isInput.set(false);
+            binding.input.dismissCommentBoxWithoutShowing(false);
             return;
         }
         super.onBackPressed();
@@ -95,11 +118,17 @@ public class ActivityDetial extends BaseBindActivity {
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
         rv.addOnItemTouchListener(viewModel.onItemTouchListener());
+        adapter.setOnLoadMoreListener(() -> viewModel.loadMore(), rv);
         viewModel.getData();
     }
 
     @Override
     protected void viewModelDestroy() {
         viewModel.destroy();
+    }
+
+    @Override
+    public void onCommentSendClick(View v, IComment comment, String commentContent) {
+        viewModel.comment(commentContent);
     }
 }

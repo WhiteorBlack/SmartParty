@@ -18,6 +18,7 @@
 
         <include
             android:id="@+id/toolbar"
+            bind:title="@{viewModel.toolBarTitle}"
             layout="@layout/toolbar_common" />
 
         <LinearLayout
