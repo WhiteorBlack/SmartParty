@@ -140,7 +140,7 @@ public class CommentBox extends FrameLayout {
     /**
      * 单纯的展示出box
      */
-    public void showCommentBox(){
+    public void showCommentBox() {
         setVisibility(VISIBLE);
     }
 
@@ -165,6 +165,12 @@ public class CommentBox extends FrameLayout {
         }
         UIHelper.hideInputMethod(mInputContent);
         setVisibility(GONE);
+    }
+
+    public void hideInput() {
+        clearDraft();
+        mInputContent.setText("");
+        UIHelper.hideInputMethod(mInputContent);
     }
 
     /**

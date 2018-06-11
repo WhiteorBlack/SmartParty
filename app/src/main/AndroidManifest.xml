@@ -283,6 +283,40 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".module.assistant.view.MienDetialActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".module.assistant.view.CharacterActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".module.assistant.view.CharacterDetialActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.assistant.view.MeetingActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".module.assistant.view.MeetingDetialActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".module.assistant.view.ThinkingActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".module.assistant.view.ThinkingDetialActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".module.index.view.VideoStudyDetialActivity"
             android:configChanges="orientation|screenSize"
             android:launchMode="singleTask"

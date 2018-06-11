@@ -11,6 +11,7 @@ import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.modle.RxActivity;
 import com.qiantang.smartparty.modle.RxAssientHome;
 import com.qiantang.smartparty.modle.RxIndexClass;
+import com.qiantang.smartparty.modle.RxIndexCommon;
 import com.qiantang.smartparty.modle.RxIndexNews;
 import com.qiantang.smartparty.modle.RxMsg;
 import com.qiantang.smartparty.modle.RxMsgList;
@@ -88,7 +89,7 @@ public class AssisantViewModel implements ViewModel {
         return new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                ActivityUtil.startMienDetialActivity(fragment.getActivity(), ((RxIndexCommon) adapter.getData().get(position)).getContentId());
             }
         };
     }
@@ -104,7 +105,7 @@ public class AssisantViewModel implements ViewModel {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                 RxActivity rxActivity = (RxActivity) adapter.getData().get(position);
-                ActivityUtil.startActivityDetialActivity(fragment.getActivity(), rxActivity.getActivityId(),rxActivity.getStatus());
+                ActivityUtil.startActivityDetialActivity(fragment.getActivity(), rxActivity.getActivityId(), rxActivity.getStatus());
             }
         };
     }
@@ -129,7 +130,7 @@ public class AssisantViewModel implements ViewModel {
                         ActivityUtil.startApplyPartySuccessActivity(fragment.getActivity());
                         break;
                     case 2:
-                        ActivityUtil.startReportActivity(fragment.getActivity());
+                        ActivityUtil.startThinkingActivity(fragment.getActivity());
                         break;
                     case 3:
 
@@ -138,10 +139,10 @@ public class AssisantViewModel implements ViewModel {
 
                         break;
                     case 5:
-
+                        ActivityUtil.startMeetingActivity(fragment.getActivity());
                         break;
                     case 6:
-
+                        ActivityUtil.startCharacterActivity(fragment.getActivity());
                         break;
                     case 7:
                         ActivityUtil.startAdviseActivity(fragment.getActivity());

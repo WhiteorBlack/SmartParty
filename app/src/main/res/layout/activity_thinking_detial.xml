@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <variable
+            name="viewModel"
+            type="com.qiantang.smartparty.module.assistant.viewmodel.ThinkDetialViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_common" />
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    style="@style/black30"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/sideMargin"
+                    android:layout_marginRight="@dimen/sideMargin"
+                    android:layout_marginTop="40px"
+                    android:text="@{viewModel.detial.title}" />
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    style="@style/gray22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/tv_title"
+                    android:layout_below="@+id/tv_title"
+                    android:layout_marginTop="@dimen/sideMargin"
+                    android:text="@{viewModel.detial.createTime}" />
+
+                <View
+                    android:id="@+id/line"
+                    android:layout_width="2px"
+                    android:layout_height="24px"
+                    android:layout_below="@+id/tv_title"
+                    android:layout_marginLeft="10px"
+                    android:layout_marginTop="@dimen/sideMargin"
+                    android:layout_toRightOf="@id/tv_time"
+                    android:background="@color/line" />
+
+                <TextView
+                    android:id="@+id/tv_read"
+                    style="@style/gray22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/tv_time"
+                    android:layout_marginLeft="10px"
+                    android:layout_marginTop="@dimen/sideMargin"
+                    android:layout_toRightOf="@+id/line"
+                    android:text="@{viewModel.detial.read+`阅读`}" />
+
+                <View
+                    android:id="@+id/line2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_below="@+id/tv_time"
+                    android:layout_marginLeft="20px"
+                    android:layout_marginRight="20px"
+                    android:layout_marginTop="30px"
+                    android:background="@color/line" />
+
+                <com.qiantang.smartparty.utils.fullhtml.TextViewForFullHtml
+                    android:id="@+id/tv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/line2"
+                    style="@style/gray24"
+                    android:layout_marginLeft="32px"
+                    android:layout_marginRight="32px"
+                    android:layout_marginTop="36px"
+                    bind:loadContent="@{viewModel.detial.content}" />
+
+                <View
+                    android:id="@+id/line3"
+                    android:layout_width="match_parent"
+                    android:layout_height="20px"
+                    android:layout_below="@+id/tv_content"
+                    android:layout_marginTop="44px"
+                    android:background="@color/line" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/line3"
+                    android:visibility="@{TextUtils.isEmpty(viewModel.detial.reply)?View.GONE:View.VISIBLE}">
+
+                    <View
+                        android:id="@+id/line4"
+                        android:layout_width="4px"
+                        android:layout_height="28px"
+                        android:layout_marginLeft="@dimen/sideMargin"
+                        android:layout_marginTop="30px"
+                        android:background="@color/paleRed" />
+
+                    <TextView
+                        style="@style/black28"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16px"
+                        android:layout_marginTop="30px"
+                        android:layout_toRightOf="@+id/line4"
+                        android:text="汇报批复" />
+
+                    <View
+                        android:id="@+id/line5"
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:layout_below="@+id/line4"
+                        android:layout_marginLeft="20px"
+                        android:layout_marginRight="20px"
+                        android:layout_marginTop="30px"
+                        android:background="@color/line" />
+
+                    <TextView
+                        android:id="@+id/tv_reply"
+                        style="@style/gray24"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/line5"
+                        android:layout_margin="30px"
+                        android:text="@{viewModel.detial.reply}" />
+
+                    <TextView
+                        android:id="@+id/tv_reply_time"
+                        style="@style/gray22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/tv_reply"
+                        android:layout_below="@+id/tv_reply"
+                        android:layout_marginBottom="30px"
+                        android:text="@{viewModel.detial.replyTime}" />
+                </RelativeLayout>
+            </RelativeLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </RelativeLayout>
+</layout>

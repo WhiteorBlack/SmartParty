@@ -9,6 +9,8 @@
 
         <import type="android.view.View" />
 
+        <import type="com.qiantang.smartparty.utils.StringUtil"/>
+
         <variable
             name="viewModel"
             type="com.qiantang.smartparty.module.assistant.viewmodel.ActivityDetialViewModel" />
@@ -214,7 +216,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10px"
-                    android:text="@{viewModel.commentCount+`条`}" />
+                    android:text="@{StringUtil.getCommentCount(viewModel.commentCount)}" />
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>

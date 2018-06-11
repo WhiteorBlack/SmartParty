@@ -5,6 +5,7 @@ import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.modle.RxActivity;
 import com.qiantang.smartparty.modle.RxActivityDetial;
 import com.qiantang.smartparty.modle.RxAssientHome;
+import com.qiantang.smartparty.modle.RxCharacterDetial;
 import com.qiantang.smartparty.modle.RxIndexCommon;
 import com.qiantang.smartparty.modle.RxMsg;
 import com.qiantang.smartparty.modle.RxMyStudy;
@@ -13,6 +14,7 @@ import com.qiantang.smartparty.modle.RxRankPersonal;
 import com.qiantang.smartparty.modle.RxSignList;
 import com.qiantang.smartparty.modle.RxStudy;
 import com.qiantang.smartparty.modle.RxStudyUnreadMsg;
+import com.qiantang.smartparty.modle.RxThinkDetial;
 import com.qiantang.smartparty.modle.RxUploadUrl;
 import com.qiantang.smartparty.utils.luban.Luban;
 
@@ -229,7 +231,56 @@ public class ApiWrapper extends RetrofitUtil {
         return getService().enroll(id, MyApplication.USER_ID).compose(this.applySchedulers());
     }
 
-    public Observable<List<RxSignList>> tzSign(String id,int pageNo){
-        return getService().tzSign(id,pageNo).compose(this.applySchedulers());
+    /**
+     * 签到记录
+     *
+     * @param id
+     * @param pageNo
+     * @return
+     */
+    public Observable<List<RxSignList>> tzSign(String id, int pageNo) {
+        return getService().tzSign(id, pageNo).compose(this.applySchedulers());
+    }
+
+    /**
+     * 风采详情
+     *
+     * @param page
+     * @param id
+     * @return
+     */
+    public Observable<RxActivityDetial> fcNoticeDetails(int page, String id) {
+        return getService().fcNoticeDetails(page, id, MyApplication.USER_ID).compose(this.applySchedulers());
+    }
+
+    /**
+     * 风采详情
+     *
+     * @param page
+     * @param id
+     * @return
+     */
+    public Observable<RxCharacterDetial> rwNoticeDetails(int page, String id, String printurl) {
+        return getService().rwNoticeDetails(page, printurl, id, MyApplication.USER_ID).compose(this.applySchedulers());
+    }
+
+    /**
+     * 思想汇报列表
+     *
+     * @param page
+     * @param type
+     * @return
+     */
+    public Observable<List<RxIndexCommon>> thinking(int page, int type) {
+        return getService().thinking(page, type, MyApplication.USER_ID).compose(this.applySchedulers());
+    }
+
+    /**
+     * 思想汇报详情
+     *
+     * @return
+     */
+    public Observable<RxThinkDetial> thinkingDetails(String id) {
+        return getService().thinkingDetails(id).compose(this.applySchedulers());
     }
 }

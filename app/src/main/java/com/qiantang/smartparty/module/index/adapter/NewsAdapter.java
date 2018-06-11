@@ -10,6 +10,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.qiantang.smartparty.BR;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.BindingViewHolder;
+import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.modle.RxIndexClass;
 import com.qiantang.smartparty.modle.RxIndexNews;
 
@@ -51,7 +52,7 @@ public class NewsAdapter extends BaseMultiItemQuickAdapter<RxIndexNews, BaseView
     protected void convert(BaseViewHolder helper, RxIndexNews item) {
         ViewDataBinding binding = ((BindingViewHolder) helper).getBinding();
         binding.setVariable(BR.item, item);
-        ((SimpleDraweeView) binding.getRoot().findViewById(R.id.sdv)).setImageURI(item.getPicUrl());
+        ((SimpleDraweeView) binding.getRoot().findViewById(R.id.sdv)).setImageURI(Config.IMAGE_HOST+item.getPicUrl());
         binding.executePendingBindings();
     }
 }

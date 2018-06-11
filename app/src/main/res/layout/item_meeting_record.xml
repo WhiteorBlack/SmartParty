@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.qiantang.smartparty.modle.RxIndexCommon" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="90px"
+        android:background="@color/white"
+        android:paddingLeft="20px"
+        android:paddingRight="32px"
+        android:paddingTop="@dimen/sideMargin">
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="4px"
+            android:layout_height="28px"
+            android:layout_centerVertical="true"
+            android:background="@color/paleRed" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            style="@style/gray22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="@{item.createTime}" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/black30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:layout_toLeftOf="@+id/tv_time"
+            android:layout_toRightOf="@+id/line"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@{item.title}" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/line" />
+    </RelativeLayout>
+</layout>

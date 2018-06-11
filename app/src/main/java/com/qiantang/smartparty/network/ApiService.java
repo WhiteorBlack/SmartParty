@@ -5,6 +5,7 @@ import com.qiantang.smartparty.modle.HttpResult;
 import com.qiantang.smartparty.modle.RxActivity;
 import com.qiantang.smartparty.modle.RxActivityDetial;
 import com.qiantang.smartparty.modle.RxAssientHome;
+import com.qiantang.smartparty.modle.RxCharacterDetial;
 import com.qiantang.smartparty.modle.RxIndexCommon;
 import com.qiantang.smartparty.modle.RxMsg;
 import com.qiantang.smartparty.modle.RxMyStudy;
@@ -13,6 +14,7 @@ import com.qiantang.smartparty.modle.RxRankPersonal;
 import com.qiantang.smartparty.modle.RxSignList;
 import com.qiantang.smartparty.modle.RxStudy;
 import com.qiantang.smartparty.modle.RxStudyUnreadMsg;
+import com.qiantang.smartparty.modle.RxThinkDetial;
 import com.qiantang.smartparty.modle.RxUploadUrl;
 
 import java.util.List;
@@ -140,4 +142,31 @@ public interface ApiService {
     @POST("app/partyBuild/tzSign")
     Observable<HttpResult<List<RxSignList>>> tzSign(@Field("noticeId") String noticeId,
                                                     @Field("pageNum") int pageNum);
+
+    //党建风采详情
+    @FormUrlEncoded
+    @POST("app/partyBuild/fcNoticeDetails")
+    Observable<HttpResult<RxActivityDetial>> fcNoticeDetails(@Field("pageNum") int page,
+                                                             @Field("contentId") String contentId,
+                                                             @Field("userId") String userId);
+
+    //人物表彰详情
+    @FormUrlEncoded
+    @POST("app/partyBuild/rwNoticeDetails")
+    Observable<HttpResult<RxCharacterDetial>> rwNoticeDetails(@Field("pageNum") int page,
+                                                              @Field("printurl") String printurl,
+                                                              @Field("contentId") String contentId,
+                                                              @Field("userId") String userId);
+
+    //思想汇报列表
+    @FormUrlEncoded
+    @POST("app/partyBuild/thinking")
+    Observable<HttpResult<List<RxIndexCommon>>> thinking(@Field("pageNum") int page,
+                                                         @Field("type") int type,
+                                                         @Field("userId") String userId);
+
+    //思想汇报详情
+    @FormUrlEncoded
+    @POST("app/partyBuild/thinkingDetails")
+    Observable<HttpResult<RxThinkDetial>> thinkingDetails(@Field("contentId") String contentId);
 }

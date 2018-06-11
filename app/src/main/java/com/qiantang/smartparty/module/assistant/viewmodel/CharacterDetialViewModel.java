@@ -7,12 +7,12 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.qiantang.smartparty.BR;
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
@@ -21,53 +21,52 @@ import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.config.CacheKey;
 import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.modle.RxActivityDetial;
-import com.qiantang.smartparty.modle.RxComment;
+import com.qiantang.smartparty.modle.RxAds;
+import com.qiantang.smartparty.modle.RxCharacterDetial;
 import com.qiantang.smartparty.modle.RxPartyActivityDetial;
+import com.qiantang.smartparty.modle.RxPicUrl;
 import com.qiantang.smartparty.modle.RxSignInfo;
-import com.qiantang.smartparty.modle.RxStudyComment;
-import com.qiantang.smartparty.modle.RxStudyZan;
 import com.qiantang.smartparty.module.assistant.adapter.SignRecordAdapter;
 import com.qiantang.smartparty.module.assistant.view.ActivityDetial;
+import com.qiantang.smartparty.module.assistant.view.CharacterDetialActivity;
 import com.qiantang.smartparty.network.NetworkSubscriber;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
 import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
 import com.qiantang.smartparty.utils.ActivityUtil;
 import com.qiantang.smartparty.utils.fullhtml.TextViewForFullHtml;
+import com.qiantang.smartparty.widget.MyBanner;
 import com.trello.rxlifecycle2.android.ActivityEvent;
-import com.qiantang.smartparty.BR;
-import com.trello.rxlifecycle2.android.FragmentEvent;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import cn.bingoogolapple.bgabanner.BGABanner;
 
 /**
  * Created by zhaoyong bai on 2018/5/28.
  */
-public class ActivityDetialViewModel extends BaseObservable implements ViewModel {
+public class CharacterDetialViewModel extends BaseObservable implements ViewModel, BGABanner.Delegate<View, RxPicUrl>, BGABanner.Adapter {
     private BaseBindActivity activity;
     private CommentAdapter adapter;
     public ObservableBoolean isInput = new ObservableBoolean(false);
     private int pageNo = 1;
     private String id;
-    private ObservableField<RxPartyActivityDetial> detials = new ObservableField<>();
+    private ObservableField<RxCharacterDetial> detials = new ObservableField<>();
     private ObservableInt commentCount = new ObservableInt(0);
-    private ObservableBoolean hasSign = new ObservableBoolean(false);
-    private ObservableInt status = new ObservableInt(0);
-    private SignRecordAdapter signRecordAdapter;
     private boolean isDealing = false;
     private int commentPos = 0;
+    private String printurl;
 
 
-    public ActivityDetialViewModel(BaseBindActivity activity, CommentAdapter adapter, SignRecordAdapter signRecordAdapter) {
+    public CharacterDetialViewModel(BaseBindActivity activity, CommentAdapter adapter) {
         this.activity = activity;
         this.adapter = adapter;
-        this.signRecordAdapter = signRecordAdapter;
         initData();
     }
 
     private void initData() {
         id = activity.getIntent().getStringExtra("id");
-        int status = activity.getIntent().getIntExtra("status", 0);
-        setStatus(3);
+        printurl = activity.getIntent().getStringExtra("printurl");
     }
 
     public void loadMore() {
@@ -76,38 +75,32 @@ public class ActivityDetialViewModel extends BaseObservable implements ViewModel
     }
 
     public void getData() {
-        ApiWrapper.getInstance().djActivityDetails(pageNo, id)
+        ApiWrapper.getInstance().rwNoticeDetails(pageNo, id, printurl)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribe(new NetworkSubscriber<RxActivityDetial>() {
+                .subscribe(new NetworkSubscriber<RxCharacterDetial>() {
                     @Override
-                    public void onSuccess(RxActivityDetial data) {
+                    public void onFail(RetrofitUtil.APIException e) {
+                        super.onFail(e);
+                        adapter.loadMoreEnd();
+                    }
+
+                    @Override
+                    public void onSuccess(RxCharacterDetial data) {
                         adapter.setPagingData(data.getPl(), pageNo);
                         if (pageNo == 1) {
-                            isInput.set(data.getIsApply() == 1);
                             setCommentCount(data.getCount());
-                            setDetials(data.getDetials());
-                            dealSign(data.getQd());
+                            setDetials(data);
                         }
                     }
                 });
     }
 
-    private void dealSign(List<RxSignInfo> qd) {
-        if (qd == null) {
-            setHasSign(false);
-            return;
-        }
-        setHasSign(qd.size() > 0);
-        if (qd.size() > 9) {
-            qd = qd.subList(0, 8);
-            qd.add(new RxSignInfo());
-        }
-        signRecordAdapter.setNewData(qd);
-    }
 
     public void comment(String content) {
-        ApiWrapper.getInstance().comment(content, getDetials().getActivityId())
+        isDealing = true;
+        ApiWrapper.getInstance().comment(content, id)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
+                .doOnTerminate(() -> isDealing = false)
                 .subscribe(new NetworkSubscriber<String>() {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
@@ -117,30 +110,10 @@ public class ActivityDetialViewModel extends BaseObservable implements ViewModel
 
                     @Override
                     public void onSuccess(String data) {
-                        RxPartyActivityDetial detial = getDetials();
+                        RxCharacterDetial detial = getDetials();
                         setCommentCount(getCommentCount() + 1);
                         setDetials(detial);
-                        ((ActivityDetial)activity).dissmissCommentBox();
-                    }
-                });
-    }
-
-    public void enroll() {
-        ApiWrapper.getInstance().enroll(getDetials().getActivityId())
-                .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribe(new NetworkSubscriber<String>() {
-                    @Override
-                    public void onSuccess(String data) {
-                        setStatus(4);
-                        List<RxSignInfo> signInfos = signRecordAdapter.getData();
-                        if (signInfos.size() < 9) {
-                            RxSignInfo rxSignInfo = new RxSignInfo();
-                            rxSignInfo.setAvatar(MyApplication.mCache.getAsString(CacheKey.USER_AVATAR));
-                            rxSignInfo.setUserId(MyApplication.USER_ID);
-                            signInfos.add(signInfos.size(), rxSignInfo);
-                            setHasSign(true);
-                            signRecordAdapter.notifyItemInserted(signInfos.size());
-                        }
+                        ((CharacterDetialActivity) activity).dissmissCommentBox();
                     }
                 });
     }
@@ -186,29 +159,20 @@ public class ActivityDetialViewModel extends BaseObservable implements ViewModel
                 });
     }
 
-    @Bindable
-    public boolean getHasSign() {
-        return hasSign.get();
-    }
-
-    public void setHasSign(boolean hasSign) {
-        this.hasSign.set(hasSign);
-        notifyPropertyChanged(BR.hasSign);
-    }
 
     @Bindable
-    public RxPartyActivityDetial getDetials() {
+    public RxCharacterDetial getDetials() {
         return detials.get();
     }
 
-    public void setDetials(RxPartyActivityDetial detials) {
+    public void setDetials(RxCharacterDetial detials) {
         this.detials.set(detials);
         notifyPropertyChanged(BR.detials);
     }
 
     @BindingAdapter("topPic")
     public static void topPic(SimpleDraweeView sdv, String url) {
-        sdv.setImageURI(Config.IMAGE_HOST+url);
+        sdv.setImageURI(url);
     }
 
     public RecyclerView.OnItemTouchListener onItemTouchListener() {
@@ -220,8 +184,12 @@ public class ActivityDetialViewModel extends BaseObservable implements ViewModel
 
             @Override
             public void onItemChildClick(BaseQuickAdapter adaptert, View view, int position) {
-                commentPos = position;
                 super.onItemChildClick(adaptert, view, position);
+                if (isDealing) {
+                    return;
+                }
+                commentPos = position;
+
                 switch (view.getId()) {
                     case R.id.iv_praise:
                         cancelLike(adapter.getData().get(position).getContentId());
@@ -240,18 +208,6 @@ public class ActivityDetialViewModel extends BaseObservable implements ViewModel
     }
 
 
-    public RecyclerView.OnItemTouchListener onSignItemTouchListener() {
-        return new OnItemClickListener() {
-            @Override
-            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if (position == 9 && signRecordAdapter.getData().get(position).getAvatar() == null) {
-                    //签到列表
-                    ActivityUtil.startSignListActivity(activity, getDetials().getActivityId());
-                }
-            }
-        };
-    }
-
     @Bindable
     public int getCommentCount() {
         return commentCount.get();
@@ -262,18 +218,29 @@ public class ActivityDetialViewModel extends BaseObservable implements ViewModel
         notifyPropertyChanged(BR.commentCount);
     }
 
-    @Bindable
-    public int getStatus() {
-        return status.get();
-    }
-
-    public void setStatus(int status) {
-        this.status.set(status);
-        notifyPropertyChanged(BR.status);
-    }
 
     @Override
     public void destroy() {
+
+    }
+
+    @BindingAdapter("headBanner")
+    public static void setBanner(MyBanner banner, List<RxPicUrl> list) {
+        List<String> tips = new ArrayList<>();
+        if (list == null || list.size() < 1) {
+            return;
+        }
+
+        banner.setData(R.layout.viewpager_img, list, null);
+    }
+
+    @Override
+    public void fillBannerItem(BGABanner banner, View itemView, Object model, int position) {
+        ((SimpleDraweeView) itemView).setImageURI(Config.IMAGE_HOST+((RxPicUrl) model).getImg_src());
+    }
+
+    @Override
+    public void onBannerItemClick(BGABanner banner, View itemView, RxPicUrl model, int position) {
 
     }
 }

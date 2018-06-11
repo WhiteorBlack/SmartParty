@@ -18,15 +18,22 @@ import com.qiantang.smartparty.module.assistant.view.AdviseRecordActivity;
 import com.qiantang.smartparty.module.assistant.view.ApplyPartyActivity;
 import com.qiantang.smartparty.module.assistant.view.ApplyPartyDetialActivity;
 import com.qiantang.smartparty.module.assistant.view.ApplySuccessActivity;
+import com.qiantang.smartparty.module.assistant.view.CharacterActivity;
+import com.qiantang.smartparty.module.assistant.view.CharacterDetialActivity;
 import com.qiantang.smartparty.module.assistant.view.FeeDetialActivity;
 import com.qiantang.smartparty.module.assistant.view.FeeDetialSpecialActivity;
 import com.qiantang.smartparty.module.assistant.view.FeeRecordActivity;
+import com.qiantang.smartparty.module.assistant.view.MeetingActivity;
+import com.qiantang.smartparty.module.assistant.view.MeetingDetialActivity;
 import com.qiantang.smartparty.module.assistant.view.MienActivity;
+import com.qiantang.smartparty.module.assistant.view.MienDetialActivity;
 import com.qiantang.smartparty.module.assistant.view.MsgActivity;
 import com.qiantang.smartparty.module.assistant.view.PartyActivity;
 import com.qiantang.smartparty.module.assistant.view.PartyfeeActivity;
 import com.qiantang.smartparty.module.assistant.view.ReportActivity;
 import com.qiantang.smartparty.module.assistant.view.SignListActivity;
+import com.qiantang.smartparty.module.assistant.view.ThinkingActivity;
+import com.qiantang.smartparty.module.assistant.view.ThinkingDetialActivity;
 import com.qiantang.smartparty.module.index.view.NewsActivity;
 import com.qiantang.smartparty.module.index.view.RankActivity;
 import com.qiantang.smartparty.module.index.view.SignActivity;
@@ -141,27 +148,29 @@ public class ActivityUtil {
 
     /**
      * 跳转没有登录要求的网页
+     *
      * @param activity
      * @param url
      */
-    public static void jumpWeb(Activity activity,String url){
-        Intent intent=new Intent(activity, WebViewNew.class);
-        intent.putExtra(WebUtil.URL,url);
+    public static void jumpWeb(Activity activity, String url) {
+        Intent intent = new Intent(activity, WebViewNew.class);
+        intent.putExtra(WebUtil.URL, url);
         activity.startActivity(intent);
     }
 
     /**
      * 跳转没有登录有要求的网页
+     *
      * @param activity
      * @param url
      */
-    public static void jumpMyWeb(Activity activity,String url){
-        if (!MyApplication.isLogin()){
+    public static void jumpMyWeb(Activity activity, String url) {
+        if (!MyApplication.isLogin()) {
             startLoginActivity(activity);
             return;
         }
-        Intent intent=new Intent(activity, WebViewNew.class);
-        intent.putExtra(WebUtil.URL,url);
+        Intent intent = new Intent(activity, WebViewNew.class);
+        intent.putExtra(WebUtil.URL, url);
         activity.startActivity(intent);
     }
 
@@ -335,12 +344,13 @@ public class ActivityUtil {
     /**
      * 党建活动详情
      * 传入状态 以调整底部评论框和报名状态
+     *
      * @param activity
      */
-    public static void startActivityDetialActivity(Activity activity, String id,int status) {
+    public static void startActivityDetialActivity(Activity activity, String id, int status) {
         Intent intent = new Intent(activity, ActivityDetial.class);
         intent.putExtra("id", id);
-        intent.putExtra("status",status);
+        intent.putExtra("status", status);
         activity.startActivity(intent);
     }
 
@@ -455,12 +465,43 @@ public class ActivityUtil {
     }
 
     /**
+     * 人物表彰页面
+     *
+     * @param activity
+     */
+    public static void startCharacterActivity(Activity activity) {
+        Intent intent = new Intent(activity, CharacterActivity.class);
+        activity.startActivity(intent);
+    }
+
+    /**
      * 意见反馈记录页面
      *
      * @param activity
      */
     public static void startAdviseRecordActivity(Activity activity) {
         Intent intent = new Intent(activity, AdviseRecordActivity.class);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 会议纪要页面
+     *
+     * @param activity
+     */
+    public static void startMeetingActivity(Activity activity) {
+        Intent intent = new Intent(activity, MeetingActivity.class);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 会议纪要页面
+     *
+     * @param activity
+     */
+    public static void startMeetingDetialActivity(Activity activity,String id) {
+        Intent intent = new Intent(activity, MeetingDetialActivity.class);
+        intent.putExtra("id",id);
         activity.startActivity(intent);
     }
 
@@ -472,6 +513,27 @@ public class ActivityUtil {
      */
     public static void startReportActivity(Activity activity) {
         Intent intent = new Intent(activity, ReportActivity.class);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 思想汇报列表页面
+     *
+     * @param activity
+     */
+    public static void startThinkingActivity(Activity activity) {
+        Intent intent = new Intent(activity, ThinkingActivity.class);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 思想汇报详情页面
+     *
+     * @param activity
+     */
+    public static void startThinkingDetialActivity(Activity activity,String id) {
+        Intent intent = new Intent(activity, ThinkingDetialActivity.class);
+        intent.putExtra("id",id);
         activity.startActivity(intent);
     }
 
@@ -562,9 +624,9 @@ public class ActivityUtil {
      *
      * @param activity
      */
-    public static void startSearchActivity(Activity activity,int type) {
+    public static void startSearchActivity(Activity activity, int type) {
         Intent intent = new Intent(activity, SearchActivity.class);
-        intent.putExtra("type",type);
+        intent.putExtra("type", type);
         activity.startActivity(intent);
     }
 
@@ -573,9 +635,32 @@ public class ActivityUtil {
      *
      * @param activity
      */
-    public static void startSignListActivity(Activity activity,String id) {
+    public static void startSignListActivity(Activity activity, String id) {
         Intent intent = new Intent(activity, SignListActivity.class);
-        intent.putExtra("id",id);
+        intent.putExtra("id", id);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 党建风采详情
+     *
+     * @param activity
+     */
+    public static void startMienDetialActivity(Activity activity, String id) {
+        Intent intent = new Intent(activity, MienDetialActivity.class);
+        intent.putExtra("id", id);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 党建风采详情
+     *
+     * @param activity
+     */
+    public static void startCharacterDetialActivity(Activity activity, String id,String printUrl) {
+        Intent intent = new Intent(activity, CharacterDetialActivity.class);
+        intent.putExtra("id", id);
+        intent.putExtra("printurl",printUrl);
         activity.startActivity(intent);
     }
 }

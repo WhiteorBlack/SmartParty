@@ -5,6 +5,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.BindingViewHolder;
 import com.qiantang.smartparty.adapter.EasyBindQuickAdapter;
+import com.qiantang.smartparty.config.Config;
 
 import java.util.List;
 
@@ -24,6 +25,6 @@ public class StudyImageAdapter extends EasyBindQuickAdapter<String> {
     protected void easyConvert(BindingViewHolder holder, String item) {
         holder.getBinding().setVariable(BR.item, item);
         holder.getBinding().executePendingBindings();
-        ((SimpleDraweeView) holder.getBinding().getRoot().findViewById(R.id.sdv)).setImageURI(item);
+        ((SimpleDraweeView) holder.getBinding().getRoot().findViewById(R.id.sdv)).setImageURI(Config.IMAGE_HOST+item);
     }
 }

@@ -122,6 +122,13 @@ public class ActivityDetial extends BaseBindActivity implements CommentBox.OnCom
         viewModel.getData();
     }
 
+    /**
+     * 提交成功之后隐藏键盘
+     */
+    public void dissmissCommentBox(){
+        binding.input.hideInput();
+    }
+
     @Override
     protected void viewModelDestroy() {
         viewModel.destroy();

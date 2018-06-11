@@ -17,24 +17,24 @@ import com.qiantang.smartparty.utils.RecycleViewUtils;
 /**
  * Created by zhaoyong bai on 2018/6/8.
  */
-public class MienActivity extends BaseBindActivity {
+public class ThinkingActivity extends BaseBindActivity {
     private IndexCommonAdapter adapter;
     private MienViewModel viewModel;
     private ActivityRecycleviewBinding binding;
 
     @Override
     protected void initBind() {
-        adapter = new IndexCommonAdapter(R.layout.item_study_state);
+        adapter = new IndexCommonAdapter(R.layout.item_meeting_record);
         viewModel = new MienViewModel(this, adapter);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_recycleview);
     }
 
     @Override
     public void initView() {
-        binding.toolbar.setTitle("党建风采");
-        binding.toolbar.setResId(R.mipmap.icon_search_black);
+        binding.toolbar.setTitle("思想汇报");
+        binding.toolbar.setRight("发表");
         initRv(binding.rv);
-        viewModel.getData(4);
+        viewModel.getThinkingData(7);
     }
 
     private void initRv(RecyclerView rv) {
@@ -50,8 +50,8 @@ public class MienActivity extends BaseBindActivity {
     public void onClick(View view) {
         super.onClick(view);
         switch (view.getId()) {
-            case R.id.iv_right:
-                ActivityUtil.startSearchActivity(this, Config.MIEN_TYPE);
+            case R.id.tv_right:
+                ActivityUtil.startReportActivity(this);
                 break;
         }
     }

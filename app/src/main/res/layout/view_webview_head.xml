@@ -3,14 +3,62 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <import type="com.qiantang.smartparty.utils.StringUtil" />
+
         <variable
             name="viewModel"
             type="com.qiantang.smartparty.module.assistant.viewmodel.HeadWebViewModel" />
     </data>
 
     <LinearLayout
-        android:id="@+id/ll_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" />
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <View
+            android:id="@+id/line5"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="30px"
+            android:paddingTop="30px"
+            android:visibility="@{viewModel.isFinish?View.VISIBLE:View.GONE}">
+
+            <View
+                android:layout_width="4px"
+                android:layout_height="28px"
+                android:layout_marginLeft="@dimen/sideMargin"
+                android:background="@color/paleRed" />
+
+            <TextView
+                style="@style/black22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18px"
+                android:text="评论"
+                android:textSize="28px" />
+
+            <TextView
+                android:id="@+id/tv_comment_count"
+                style="@style/gray24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10px"
+                android:text="@{StringUtil.getCommentCount(viewModel.commentCount)}" />
+        </LinearLayout>
+    </LinearLayout>
 </layout>

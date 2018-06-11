@@ -10,6 +10,15 @@ public class RxIndexCommon {
     private String title;
     private int pl;
     private String imgSrc;
+    private String printurl;
+
+    public String getPrinturl() {
+        return printurl;
+    }
+
+    public void setPrinturl(String printurl) {
+        this.printurl = printurl;
+    }
 
     public int getRead() {
         return read;

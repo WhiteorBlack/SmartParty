@@ -2,13 +2,15 @@ package com.qiantang.smartparty.module.assistant.viewmodel;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+import android.databinding.ObservableBoolean;
+import android.databinding.ObservableInt;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
-import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
@@ -17,31 +19,36 @@ import android.widget.LinearLayout;
 
 import com.just.agentweb.AgentWeb;
 import com.just.agentweb.DefaultWebClient;
+import com.orhanobut.logger.Logger;
+import com.qiantang.smartparty.BR;
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.base.ViewModel;
-import com.qiantang.smartparty.module.web.view.WebViewNew;
-import com.qiantang.smartparty.module.web.viewmodel.WebViewModelNew;
 import com.qiantang.smartparty.network.URLs;
-
-import static com.qiantang.smartparty.utils.WebUtil.verifyUrlSuffixed;
 
 /**
  * Created by zhaoyong bai on 2018/6/10.
  */
-public class HeadWebViewModel implements ViewModel {
+public class HeadWebViewModel extends BaseObservable implements ViewModel {
     private BaseBindActivity activity;
     private AgentWeb mAgentWeb;
-    private String url;
+    private String url = "";
+    private ObservableInt commentCount = new ObservableInt(0);
+    public ObservableBoolean isFinish=new ObservableBoolean(false); //判断是否H5加载完毕,完毕之后在展示评论内容
 
     public HeadWebViewModel(BaseBindActivity activity) {
         this.activity = activity;
+        initData();
+    }
+
+    private void initData() {
+        url = URLs.DETIAL_TOP + activity.getIntent().getStringExtra("id");
     }
 
     public void initWev(ViewGroup viewGroup) {
         mAgentWeb = AgentWeb.with(activity)
                 .setAgentWebParent(viewGroup, new LinearLayout.LayoutParams(-1, -1))
-                .useDefaultIndicator(activity.getResources().getColor(R.color.colorPrimary), 1)
+                .closeIndicator()
                 .setWebChromeClient(mWebChromeClient)
                 .setWebViewClient(getWebViewClient())
                 .setMainFrameErrorView(R.layout.agentweb_error_page, -1)
@@ -52,10 +59,14 @@ public class HeadWebViewModel implements ViewModel {
                 .go(url);
     }
 
+    public void setUrl(String url) {
+        mAgentWeb.getUrlLoader().loadUrl(url);
+    }
+
     private WebChromeClient mWebChromeClient = new WebChromeClient() {
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
-
+           mAgentWeb.getIndicatorController().progress(view,newProgress);
         }
 
         @Override
@@ -77,8 +88,9 @@ public class HeadWebViewModel implements ViewModel {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-
+                isFinish.set(true);
             }
+
 
 
             @Override //网页加载 禁止在浏览器打开在本应用打开
@@ -108,6 +120,15 @@ public class HeadWebViewModel implements ViewModel {
         };
     }
 
+    @Bindable
+    public int getCommentCount() {
+        return commentCount.get();
+    }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount.set(commentCount);
+        notifyPropertyChanged(BR.commentCount);
+    }
 
     @Override
     public void destroy() {

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.view.View" />
+
+        <import type="com.qiantang.smartparty.utils.StringUtil" />
+
+        <variable
+            name="viewModel"
+            type="com.qiantang.smartparty.module.assistant.viewmodel.CharacterDetialViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <com.qiantang.smartparty.widget.MyBanner
+            android:id="@+id/headBanner"
+            style="@style/BannerDefaultStyle"
+            app:banner_indicatorGravity="bottom|left"
+            app:banner_transitionEffect="alpha"
+            bind:headBanner="@{viewModel.detials.imgSrc}" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/black30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/headBanner"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
+            android:layout_marginTop="32px"
+            android:text="@{viewModel.detials.rw.title}" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            style="@style/gray24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_name"
+            android:layout_alignRight="@+id/tv_name"
+            android:layout_below="@+id/tv_name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="22px"
+            android:text="@{viewModel.detials.rw.intro}" />
+
+
+        <View
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="20px"
+            android:layout_below="@+id/tv_date"
+            android:layout_marginTop="30px"
+            android:background="@color/line" />
+
+        <LinearLayout
+            android:id="@+id/ll_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line2"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="30px"
+            android:paddingTop="30px">
+
+            <View
+                android:id="@+id/line3"
+                android:layout_width="4px"
+                android:layout_height="28px"
+                android:layout_marginLeft="@dimen/sideMargin"
+                android:background="@color/paleRed" />
+
+            <TextView
+                android:id="@+id/tv_comment_title"
+                style="@style/black22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18px"
+                android:text="人物介绍"
+                android:textSize="28px" />
+
+        </LinearLayout>
+
+        <com.qiantang.smartparty.utils.fullhtml.TextViewForFullHtml
+            android:id="@+id/tv_info"
+            style="@style/gray24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_info"
+            android:layout_marginLeft="@dimen/sideMargin"
+            android:layout_marginRight="@dimen/sideMargin"
+            bind:loadContent="@{viewModel.detials.rw.content}" />
+
+        <View
+            android:id="@+id/line4"
+            android:layout_width="match_parent"
+            android:layout_height="20px"
+            android:layout_below="@+id/tv_info"
+            android:layout_marginTop="30px"
+            android:background="@color/line" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line4"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="30px"
+            android:paddingTop="30px">
+
+            <View
+                android:layout_width="4px"
+                android:layout_height="28px"
+                android:layout_marginLeft="@dimen/sideMargin"
+                android:background="@color/paleRed" />
+
+            <TextView
+                style="@style/black22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18px"
+                android:text="评论"
+                android:textSize="28px" />
+
+            <TextView
+                android:id="@+id/tv_comment_count"
+                style="@style/gray24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10px"
+                android:text="@{StringUtil.getCommentCount(viewModel.commentCount)}" />
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

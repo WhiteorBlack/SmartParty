@@ -14,6 +14,15 @@ public class RxComment {
     private String userId;
     private String content;
     private String username;
+    private String contentId;
+
+    public String getContentId() {
+        return contentId;
+    }
+
+    public void setContentId(String contentId) {
+        this.contentId = contentId;
+    }
 
     public int getIsDz() {
         return isDz;

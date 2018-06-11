@@ -74,7 +74,9 @@ public class StringUtil {
         return text;
     }
 
-    ;
+    public static String getCommentCount(int count){
+        return "("+count+"条)";
+    }
 
     public static boolean isContains(String shareUrl, String... keys) {
         for (String key : keys) {

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="com.qiantang.smartparty.utils.AppUtil" />
+
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="right"
+            type="String" />
+
+        <variable
+            name="isHide"
+            type="boolean" />
+
+        <variable
+            name="resId"
+            type="int" />
+    </data>
+
+    <RelativeLayout
+        android:id="@+id/rl_parent"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolBarSizeHeight">
+
+        <ImageButton
+            style="@style/ToolbarBackBtnWhiteStyle"
+            android:layout_alignParentBottom="true"
+            android:src="@mipmap/back_black" />
+
+        <TextView
+            style="@style/toolbarTitleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="80px"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@{title}" />
+
+        <TextView
+            android:id="@+id/tv_right"
+            style="@style/toolbarTitleStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="80px"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="40px"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:text="@{right}"
+            android:textSize="26px"
+            android:visibility="@{TextUtils.isEmpty(right)?View.GONE:View.VISIBLE}" />
+
+        <ImageView
+            android:id="@+id/iv_right"
+            android:layout_width="50px"
+            android:layout_height="50px"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="22px"
+            android:layout_marginRight="@dimen/sideMargin"
+            android:onClick="onClick"
+            android:src="@{AppUtil.getDrawable(resId)}"
+            android:visibility="@{resId>0?View.VISIBLE:View.GONE}" />
+
+    </RelativeLayout>
+</layout>

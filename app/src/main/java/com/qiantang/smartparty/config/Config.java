@@ -55,6 +55,7 @@ public class Config {
 
     public static final String LOG_TAG = "QIANTANG";
     public static final String SERVER_HOST;
+    public static final String IMAGE_HOST;
     public static final String HTTP_MALL_ROOT_URL;
     public static final String HTTP_BBS_ROOT_URL;
     public static final String HTTP_CONTENT_TYPE = "Content-Type";
@@ -78,8 +79,9 @@ public class Config {
         switch (ENVIRONMENT) {
             case DEVELOP: //开发环境
                 SERVER_HOST = "http://zhdj.qtcem.cn/";
-                HTTP_BBS_ROOT_URL = "http://mbbs.hnslsm.cn/";
-                HTTP_MALL_ROOT_URL = "http://m.hnslsm.cn/";
+                HTTP_BBS_ROOT_URL = "";
+                HTTP_MALL_ROOT_URL = "";
+                IMAGE_HOST = "http://zhdj.qtcem.cn/imgfile/";
                 LOG_LEVEL = LogLevel.FULL;
                 break;
             case ONLINE: //生产环境
@@ -87,6 +89,7 @@ public class Config {
                 SERVER_HOST = "http://zhdj.qtcem.cn/";
                 HTTP_BBS_ROOT_URL = "http://172.16.88.158:8092/bbs/";
                 HTTP_MALL_ROOT_URL = "http://172.16.88.158:8092/mall/";
+                IMAGE_HOST = "http://zhdj.qtcem.cn/imgfile/";
                 LOG_LEVEL = LogLevel.NONE;
                 break;
         }
