@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.qiantang.smartparty.modle.RxVideoStudy" />
+            type="com.qiantang.smartparty.modle.RxIndexStudy" />
     </data>
 
     <RelativeLayout
@@ -34,7 +34,7 @@
             android:layout_alignRight="@+id/sdv"
             android:layout_marginRight="20px"
             android:layout_marginTop="10px"
-            android:text="2"
+            android:text=""
             android:textColor="@color/white" />
 
         <TextView
@@ -49,7 +49,6 @@
             android:layout_marginRight="10px"
             android:layout_marginTop="16px"
             android:ellipsize="end"
-            android:gravity="center"
             android:lines="2"
             android:text="@{item.title}" />
     </RelativeLayout>

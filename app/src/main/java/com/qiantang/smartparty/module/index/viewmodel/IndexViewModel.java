@@ -8,12 +8,21 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.qiantang.smartparty.BaseBindFragment;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.base.ViewModel;
+import com.qiantang.smartparty.modle.RxIndex;
 import com.qiantang.smartparty.modle.RxIndexClass;
 import com.qiantang.smartparty.modle.RxIndexNews;
-import com.qiantang.smartparty.modle.RxVideoStudy;
+import com.qiantang.smartparty.modle.RxIndexSection;
+import com.qiantang.smartparty.modle.RxIndexStudy;
+import com.qiantang.smartparty.module.index.adapter.IndexCommonAdapter;
+import com.qiantang.smartparty.module.index.adapter.IndexSectionAdapter;
+import com.qiantang.smartparty.module.index.adapter.IndexVideoAdapter;
 import com.qiantang.smartparty.module.index.adapter.NewsAdapter;
+import com.qiantang.smartparty.module.index.adapter.SpechAdapter;
+import com.qiantang.smartparty.network.NetworkSubscriber;
+import com.qiantang.smartparty.network.retrofit.ApiWrapper;
 import com.qiantang.smartparty.utils.ActivityUtil;
-import com.qiantang.smartparty.utils.AppUtil;
+import com.qiantang.smartparty.utils.ToastUtil;
+import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +33,79 @@ import java.util.List;
 public class IndexViewModel implements ViewModel {
     private BaseBindFragment fragment;
     private NewsAdapter newsAdapter;
+    private IndexCommonAdapter studyAdapter;
+    private IndexVideoAdapter videoStudyAdapter;
+    private SpechAdapter spechAdapter;
+    private IndexSectionAdapter sectionAdapter;
+    private List<RxIndexSection> sectionList = new ArrayList<>();
 
     public IndexViewModel(BaseBindFragment fragment, NewsAdapter newsAdapter) {
         this.fragment = fragment;
         this.newsAdapter = newsAdapter;
+    }
+
+    public void setAdater(NewsAdapter newsAdapter, IndexCommonAdapter studyAdapter, IndexVideoAdapter videoStudyAdapter, SpechAdapter spechAdapter, IndexSectionAdapter sectionAdapter) {
+        this.newsAdapter = newsAdapter;
+        this.studyAdapter = studyAdapter;
+        this.spechAdapter = spechAdapter;
+        this.videoStudyAdapter = videoStudyAdapter;
+        this.sectionAdapter = sectionAdapter;
+    }
+
+    public void getData() {
+        ApiWrapper.getInstance().showHomePage()
+                .compose(fragment.bindUntilEvent(FragmentEvent.DESTROY))
+                .subscribe(new NetworkSubscriber<List<RxIndex>>() {
+                    @Override
+                    public void onSuccess(List<RxIndex> data) {
+                        if (data.get(0) != null) {
+                            List<RxIndexNews> newsList = data.get(0).getNews();
+                            for (int i = 0; i < newsList.size(); i++) {
+                                if (i == 0) {
+                                    newsList.get(i).setItemType(RxIndexNews.ITEM_TOP);
+                                } else {
+                                    newsList.get(i).setItemType(RxIndexNews.ITEM_BOTTOM);
+                                }
+                            }
+                            newsAdapter.setNewData(newsList);
+                        }
+                        if (data.get(1) != null) {
+                            studyAdapter.setNewData(data.get(1).getStudy());
+                        }
+                        if (data.get(2) != null) {
+                            videoStudyAdapter.setNewData(data.get(2).getVideo());
+                        }
+                        if (data.get(3) != null) {
+                            spechAdapter.setNewData(data.get(3).getSpeak());
+                        }
+                        if (data.size() > 4) {
+                            int lastId = 0;
+                            for (int i = 0; i < data.size() - 4; i++) {
+                                List<RxIndexStudy> studyList = data.get(4 + i).getContent();
+                                if (studyList != null && studyList.size() > 0) {
+                                    int classifyId = 0;
+                                    if (i != 0) {
+                                        classifyId = data.get(3 + i).getClassifyId();
+                                    }
+                                    classifyId = data.get(4 + i).getClassifyId();
+                                    sectionList.add(new RxIndexSection(true, data.get(4 + i).getTitle(), i == 0, false, classifyId));
+                                    for (int j = 0; j < studyList.size(); j++) {
+                                        RxIndexSection rxIndexSection = new RxIndexSection(false);
+                                        rxIndexSection.setRxIndexStudy(studyList.get(j));
+                                        sectionList.add(rxIndexSection);
+                                    }
+                                }
+                            }
+                            if (sectionList.size() > 0) {
+                                sectionList.add(new RxIndexSection(true, "", false, true, lastId));
+                            }
+                        }
+
+                        if (sectionList.size() > 0) {
+                            sectionAdapter.setNewData(sectionList);
+                        }
+                    }
+                });
     }
 
     public List<RxIndexClass> getClassData() {
@@ -52,6 +130,7 @@ public class IndexViewModel implements ViewModel {
         return new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ActivityUtil.startHeadWebActivity(fragment.getActivity(), studyAdapter.getData().get(position).getContentId(), "学习动态");
             }
         };
     }
@@ -83,7 +162,7 @@ public class IndexViewModel implements ViewModel {
     }
 
     /**
-     * 两学一做模块点击事件
+     * 底部部分
      *
      * @return
      */
@@ -92,21 +171,20 @@ public class IndexViewModel implements ViewModel {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
             }
-        };
-    }
 
-    /**
-     * 党章党规模块点击事件
-     *
-     * @return
-     */
-    public RecyclerView.OnItemTouchListener rulesToucnListener() {
-        return new OnItemClickListener() {
             @Override
-            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                super.onItemChildClick(adapter, view, position);
+                switch (view.getId()) {
+                    case R.id.tv_speech:
+                        int id = (Integer) view.getTag();
+                        ToastUtil.toast(id + "");
+                        break;
+                }
             }
         };
     }
+
 
     /**
      * 新闻快报模块点击事件
@@ -117,6 +195,7 @@ public class IndexViewModel implements ViewModel {
         return new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ActivityUtil.startHeadWebActivity(fragment.getActivity(), newsAdapter.getData().get(position).getContentId(), "新闻快报");
             }
         };
     }
@@ -166,27 +245,19 @@ public class IndexViewModel implements ViewModel {
         switch (view.getId()) {
             case R.id.tv_news_more:
                 //新闻 更多
-                ActivityUtil.startNewsActivity(fragment.getActivity());
+                ActivityUtil.startNewsActivity(fragment.getActivity(), 8);
                 break;
             case R.id.tv_study_state_more:
                 //学习动态
-                ActivityUtil.startStudyStateActivity(fragment.getActivity());
+                ActivityUtil.startNewsActivity(fragment.getActivity(), 9);
                 break;
             case R.id.tv_study_video:
                 //学习视频
                 ActivityUtil.startVideoStudyActivity(fragment.getActivity());
                 break;
-            case R.id.tv_study_practice:
-                //两学一做
-
-                break;
             case R.id.tv_speech:
                 //系列讲话
                 ActivityUtil.startSpeechStudyActivity(fragment.getActivity());
-                break;
-            case R.id.tv_rules:
-                //党章党规
-
                 break;
         }
     }
@@ -194,31 +265,5 @@ public class IndexViewModel implements ViewModel {
     @Override
     public void destroy() {
 
-    }
-
-    public void testNew() {
-        List<RxIndexNews> news = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            if (i == 0) {
-                RxIndexNews topNews = new RxIndexNews(RxIndexNews.ITEM_TOP);
-                topNews.setPicUrl("http://pic.qiantucdn.com/58pic/14/78/41/77358PICZaq_1024.jpg");
-                news.add(topNews);
-            } else {
-                RxIndexNews bottomNews = new RxIndexNews(RxIndexNews.ITEM_BOTTOM);
-                bottomNews.setPicUrl("http://pic.qiantucdn.com/58pic/14/78/41/77358PICZaq_1024.jpg");
-                news.add(bottomNews);
-            }
-        }
-        newsAdapter.setNewData(news);
-    }
-
-    public List<RxVideoStudy> testData() {
-        List<RxVideoStudy> videoStudies = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            RxVideoStudy rxVideoStudy = new RxVideoStudy();
-            rxVideoStudy.setPicUrl("http://pic.qiantucdn.com/58pic/14/78/41/77358PICZaq_1024.jpg");
-            videoStudies.add(rxVideoStudy);
-        }
-        return videoStudies;
     }
 }

@@ -132,10 +132,6 @@
             android:name=".module.index.view.NewsActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".module.index.view.StudyStateActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
 
         <activity
             android:name=".module.index.view.RankActivity"
@@ -315,6 +311,12 @@
             android:name=".module.assistant.view.ThinkingDetialActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".module.web.view.HeadWebActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
 
         <activity
             android:name=".module.index.view.VideoStudyDetialActivity"

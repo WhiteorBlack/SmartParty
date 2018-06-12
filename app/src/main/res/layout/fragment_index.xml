@@ -173,74 +173,10 @@
                     android:layout_height="20px"
                     android:background="@color/line" />
 
-                <TextView
-                    style="@style/indexClassTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="78px"
-                    android:background="@color/white"
-                    android:drawableLeft="@drawable/index_title_red"
-                    android:drawablePadding="18px"
-                    android:gravity="center_vertical"
-                    android:text="两学一做" />
-
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_study_practice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2px"
-                    android:layout_below="@+id/tv_date"
-                    android:background="@color/line" />
-
-                <TextView
-                    android:id="@+id/tv_study_practice"
-                    style="@style/indexClassTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="78px"
-                    android:background="@color/white"
-                    android:gravity="center"
-                    android:onClick="@{viewModel.onClick}"
-                    android:text="查看更多 ＞＞"
-                    android:textSize="24px" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="20px"
-                    android:background="@color/line" />
-
-                <TextView
-                    style="@style/indexClassTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="78px"
-                    android:background="@color/white"
-                    android:drawableLeft="@drawable/index_title_red"
-                    android:drawablePadding="18px"
-                    android:gravity="center_vertical"
-                    android:text="党章党规" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_rules"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2px"
-                    android:layout_below="@+id/tv_date"
-                    android:background="@color/line" />
-
-                <TextView
-                    android:id="@+id/tv_rules"
-                    style="@style/indexClassTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="78px"
-                    android:background="@color/white"
-                    android:gravity="center"
-                    android:onClick="@{viewModel.onClick}"
-                    android:text="查看更多 ＞＞"
-                    android:textSize="24px" />
 
                 <View
                     android:layout_width="match_parent"

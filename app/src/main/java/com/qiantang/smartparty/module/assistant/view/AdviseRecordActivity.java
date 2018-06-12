@@ -35,7 +35,7 @@ public class AdviseRecordActivity extends BaseBindActivity {
     private void initRv(RecyclerView rv) {
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adviseRecordAdapter);
-        viewModel.testData();
+        viewModel.getData();
     }
 
     @Override

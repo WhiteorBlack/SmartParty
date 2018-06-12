@@ -9,10 +9,8 @@ import android.view.View;
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.databinding.ActivityNewsBinding;
-import com.qiantang.smartparty.databinding.ActivitySpeechStudyBinding;
 import com.qiantang.smartparty.module.index.adapter.IndexCommonAdapter;
 import com.qiantang.smartparty.module.index.viewmodel.NewsViewModel;
-import com.qiantang.smartparty.module.index.viewmodel.SpeechStudyViewModel;
 import com.qiantang.smartparty.utils.RecycleViewUtils;
 
 /**
@@ -23,10 +21,11 @@ public class NewsActivity extends BaseBindActivity {
     private NewsViewModel viewModel;
     private IndexCommonAdapter adapter;
     private ActivityNewsBinding binding;
+    private int type;
 
     @Override
     protected void initBind() {
-        adapter = new IndexCommonAdapter(R.layout.item_news_common);
+        adapter = new IndexCommonAdapter(R.layout.item_news);
         viewModel = new NewsViewModel(this, adapter);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_news);
         binding.setViewModel(viewModel);
@@ -34,11 +33,25 @@ public class NewsActivity extends BaseBindActivity {
 
     @Override
     public void initView() {
-        binding.toolbar.setTitle("系列讲话");
-        binding.toolbar.setIsHide(false);
+        type = getIntent().getIntExtra("type", 0);
         binding.toolbar.setResId(R.mipmap.icon_search_black);
         initRv(binding.rv);
-        viewModel.testData();
+        initData();
+    }
+
+    private void initData() {
+        String title = "";
+
+        switch (type) {
+            case 8:
+                title = "新闻快报";
+                break;
+            case 9:
+                title = "学习动态";
+                break;
+        }
+        viewModel.testData(type);
+        binding.toolbar.setTitle(title);
     }
 
     private void initRv(RecyclerView rv) {
@@ -48,7 +61,6 @@ public class NewsActivity extends BaseBindActivity {
         rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rv.setAdapter(adapter);
         rv.addOnItemTouchListener(viewModel.onItemTouchListener());
-        rv.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
 
     public void onClick(View view) {

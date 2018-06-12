@@ -37,7 +37,11 @@ public class AdviseActivity extends BaseBindActivity {
             case R.id.tv_right:
                 ActivityUtil.startAdviseRecordActivity(this);
                 break;
+            case R.id.btn_confirm:
+                viewModel.publish();
+                break;
         }
+
     }
 
     @Override

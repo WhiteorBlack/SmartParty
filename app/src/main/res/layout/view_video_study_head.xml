@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
-            type="com.qiantang.smartparty.module.index.viewmodel.VideoDetialViewMdoel"/>
+            type="com.qiantang.smartparty.module.index.viewmodel.VideoDetialViewMdoel" />
     </data>
 
     <RelativeLayout
@@ -18,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40px"
+            android:text="@{viewModel.videoInfo.title}"
             android:paddingLeft="@dimen/sideMargin"
             android:paddingRight="@dimen/sideMargin" />
 
@@ -30,7 +33,7 @@
             android:layout_marginTop="@dimen/sideMargin"
             android:paddingLeft="@dimen/sideMargin"
             android:paddingRight="@dimen/sideMargin"
-            android:text="222" />
+            android:text="@{viewModel.videoInfo.creationtime}" />
 
         <TextView
             android:id="@+id/tv_comment"
@@ -41,7 +44,7 @@
             android:layout_below="@+id/tv_title"
             android:layout_marginRight="@dimen/sideMargin"
             android:layout_marginTop="@dimen/sideMargin"
-            android:text="222" />
+            android:text="@{viewModel.videoInfo.review+`评论`}" />
 
         <TextView
             android:id="@+id/tv_view"
@@ -52,7 +55,7 @@
             android:layout_marginRight="40px"
             android:layout_marginTop="@dimen/sideMargin"
             android:layout_toLeftOf="@id/tv_comment"
-            android:text="222" />
+            android:text="@{viewModel.videoInfo.number+`次播放`}" />
 
         <View
             android:id="@+id/line1"
@@ -64,7 +67,7 @@
             android:layout_marginTop="28px"
             android:background="@color/line" />
 
-        <TextView
+        <com.qiantang.smartparty.utils.fullhtml.TextViewForFullHtml
             android:id="@+id/tv_info"
             style="@style/gray24"
             android:layout_width="match_parent"
@@ -73,7 +76,7 @@
             android:layout_marginLeft="@dimen/sideMargin"
             android:layout_marginRight="@dimen/sideMargin"
             android:layout_marginTop="30px"
-            android:text="极少信息" />
+            bind:loadContent="@{viewModel.videoInfo.intro}" />
 
         <View
             android:id="@+id/line2"

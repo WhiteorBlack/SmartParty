@@ -1,5 +1,6 @@
 package com.qiantang.smartparty.module.assistant.view;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,9 +10,11 @@ import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.databinding.ActivityRecycleviewBinding;
+import com.qiantang.smartparty.modle.RxIndexCommon;
 import com.qiantang.smartparty.module.assistant.viewmodel.MienViewModel;
 import com.qiantang.smartparty.module.index.adapter.IndexCommonAdapter;
 import com.qiantang.smartparty.utils.ActivityUtil;
+import com.qiantang.smartparty.utils.AppUtil;
 import com.qiantang.smartparty.utils.RecycleViewUtils;
 
 /**
@@ -44,6 +47,22 @@ public class ThinkingActivity extends BaseBindActivity {
         adapter.setLoadMoreView(RecycleViewUtils.getLoadMoreView());
         rv.addOnItemTouchListener(viewModel.onItemTouchListener());
         adapter.setOnLoadMoreListener(() -> viewModel.loadMore(), rv);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100 && resultCode == RESULT_OK) {
+            String title = data.getStringExtra("title");
+            String id = data.getStringExtra("id");
+            String time = AppUtil.getNowDate();
+            time = time.substring(time.indexOf("-")+1, time.indexOf(" "));
+            RxIndexCommon indexCommon = new RxIndexCommon();
+            indexCommon.setContentId(id);
+            indexCommon.setTitle(title);
+            indexCommon.setCreateTime(time);
+            viewModel.insertData(indexCommon);
+        }
     }
 
     @Override

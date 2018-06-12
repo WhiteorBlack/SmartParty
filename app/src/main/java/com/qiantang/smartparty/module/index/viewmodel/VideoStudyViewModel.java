@@ -11,7 +11,11 @@ import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.modle.RxVideoStudy;
 import com.qiantang.smartparty.module.index.adapter.IndexCommonAdapter;
 import com.qiantang.smartparty.module.index.adapter.VideoStudyAdapter;
+import com.qiantang.smartparty.network.NetworkSubscriber;
+import com.qiantang.smartparty.network.retrofit.ApiWrapper;
+import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
 import com.qiantang.smartparty.utils.ActivityUtil;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +26,7 @@ import java.util.List;
 public class VideoStudyViewModel implements ViewModel {
     private BaseBindActivity activity;
     private VideoStudyAdapter adapter;
-
+    private int pageNo = 1;
 
     public VideoStudyViewModel(BaseBindActivity activity, VideoStudyAdapter adapter) {
         this.activity = activity;
@@ -30,19 +34,25 @@ public class VideoStudyViewModel implements ViewModel {
     }
 
     public void onLoadMore() {
-
+        pageNo++;
+        getData();
     }
 
-    public void testData() {
-        List<RxVideoStudy> monthScores = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            RxVideoStudy rxVideoStudy = new RxVideoStudy();
-            rxVideoStudy.setPicUrl("http://pic.qiantucdn.com/58pic/14/78/41/77358PICZaq_1024.jpg");
-            rxVideoStudy.setVideoUrl("http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4");
-            rxVideoStudy.setTitle("这里是标题" + i);
-            monthScores.add(rxVideoStudy);
-        }
-        adapter.setNewData(monthScores);
+    public void getData() {
+        ApiWrapper.getInstance().videoList(pageNo)
+                .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
+                .subscribe(new NetworkSubscriber<List<RxVideoStudy>>() {
+                    @Override
+                    public void onFail(RetrofitUtil.APIException e) {
+                        super.onFail(e);
+                        adapter.loadMoreEnd();
+                    }
+
+                    @Override
+                    public void onSuccess(List<RxVideoStudy> data) {
+                        adapter.setPagingData(data, pageNo);
+                    }
+                });
     }
 
     public RecyclerView.OnItemTouchListener onItemTouchListener() {
@@ -58,7 +68,7 @@ public class VideoStudyViewModel implements ViewModel {
                 RxVideoStudy rxVideoStudy = adapter.getData().get(position);
                 switch (view.getId()) {
                     case R.id.tv_name:
-                        ActivityUtil.startVideoDetialActivity(activity, rxVideoStudy.getVideoUrl(), rxVideoStudy.getTitle(), rxVideoStudy.getId());
+                        ActivityUtil.startVideoDetialActivity(activity, rxVideoStudy.getVideourl(), rxVideoStudy.getTitle(), rxVideoStudy.getVideo_id());
                         break;
                 }
             }

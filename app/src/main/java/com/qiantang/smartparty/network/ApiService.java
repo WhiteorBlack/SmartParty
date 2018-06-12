@@ -4,8 +4,10 @@ package com.qiantang.smartparty.network;
 import com.qiantang.smartparty.modle.HttpResult;
 import com.qiantang.smartparty.modle.RxActivity;
 import com.qiantang.smartparty.modle.RxActivityDetial;
+import com.qiantang.smartparty.modle.RxAdviseRecord;
 import com.qiantang.smartparty.modle.RxAssientHome;
 import com.qiantang.smartparty.modle.RxCharacterDetial;
+import com.qiantang.smartparty.modle.RxIndex;
 import com.qiantang.smartparty.modle.RxIndexCommon;
 import com.qiantang.smartparty.modle.RxMsg;
 import com.qiantang.smartparty.modle.RxMyStudy;
@@ -16,6 +18,8 @@ import com.qiantang.smartparty.modle.RxStudy;
 import com.qiantang.smartparty.modle.RxStudyUnreadMsg;
 import com.qiantang.smartparty.modle.RxThinkDetial;
 import com.qiantang.smartparty.modle.RxUploadUrl;
+import com.qiantang.smartparty.modle.RxVideoDetial;
+import com.qiantang.smartparty.modle.RxVideoStudy;
 
 import java.util.List;
 import java.util.Map;
@@ -169,4 +173,73 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("app/partyBuild/thinkingDetails")
     Observable<HttpResult<RxThinkDetial>> thinkingDetails(@Field("contentId") String contentId);
+
+    //思想汇报发表
+    @FormUrlEncoded
+    @POST("app/partyBuild/insertThinking")
+    Observable<HttpResult<String>> insertThinking(@Field("title") String title,
+                                                  @Field("content") String content,
+                                                  @Field("userId") String userId);
+
+    //反馈发表
+    @FormUrlEncoded
+    @POST("app/partyBuild/insertIdea")
+    Observable<HttpResult<String>> insertIdea(@Field("content") String content,
+                                              @Field("userId") String userId);
+
+    //反馈列表
+    @FormUrlEncoded
+    @POST("app/partyBuild/ideaList")
+    Observable<HttpResult<List<RxAdviseRecord>>> ideaList(@Field("pageNum") int page,
+                                                          @Field("userId") String userId);
+
+    //反馈列表
+    @POST("app/home/ShowHomePage")
+    Observable<HttpResult<List<RxIndex>>> ShowHomePage();
+
+    //视频学习列表
+    @FormUrlEncoded
+    @POST("app/video/list")
+    Observable<HttpResult<List<RxVideoStudy>>> videoList(@Field("pageNum") int page);
+
+    //视频学习详情
+    @FormUrlEncoded
+    @POST("app/video/details")
+    Observable<HttpResult<RxVideoDetial>> videoDetails(@Field("pageNum") int page,
+                                                       @Field("videoId") String videoId,
+                                                       @Field("userId") String userId);
+
+    //视频学习点赞
+    @FormUrlEncoded
+    @POST("app/video/like")
+    Observable<HttpResult<String>> videoLike(@Field("userId") String userId,
+                                             @Field("comment_id") String comment_id);
+
+    //视频学习点赞取消
+    @FormUrlEncoded
+    @POST("app/video/remove")
+    Observable<HttpResult<String>> removeVideoLike(@Field("userId") String userId,
+                                                   @Field("comment_id") String comment_id);
+
+
+    //收藏
+    @FormUrlEncoded
+    @POST("app/questionnaire/collectSave")
+    Observable<HttpResult<String>> collectSave(@Field("type") int type,
+                                               @Field("userId") String userId,
+                                               @Field("contentId") String contentId);
+
+    //取消收藏
+    @FormUrlEncoded
+    @POST("app/questionnaire/collectAbolish")
+    Observable<HttpResult<String>> collectAbolish(@Field("type") int type,
+                                                  @Field("userId") String userId,
+                                                  @Field("contentId") String contentId);
+
+    //视频学习评论
+    @FormUrlEncoded
+    @POST("app/video/comment")
+    Observable<HttpResult<String>> commentVideo(@Field("essay_id") String essay_id,
+                                           @Field("content") String content,
+                                           @Field("userId") String userId);
 }

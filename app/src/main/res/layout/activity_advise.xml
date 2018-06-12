@@ -49,6 +49,7 @@
             android:gravity="left"
             android:hint="请输入您想反馈的问题"
             android:paddingBottom="32px"
+            android:text="@={viewModel.content}"
             android:paddingLeft="@dimen/sideMargin"
             android:paddingRight="@dimen/sideMargin"
             android:paddingTop="32px" />
@@ -62,6 +63,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="72px"
             android:background="@drawable/btn_confirm"
+            android:onClick="onClick"
             android:text="提交" />
     </RelativeLayout>
 </layout>

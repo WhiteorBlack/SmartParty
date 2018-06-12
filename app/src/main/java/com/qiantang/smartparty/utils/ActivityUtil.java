@@ -38,7 +38,6 @@ import com.qiantang.smartparty.module.index.view.NewsActivity;
 import com.qiantang.smartparty.module.index.view.RankActivity;
 import com.qiantang.smartparty.module.index.view.SignActivity;
 import com.qiantang.smartparty.module.index.view.SpeechStudyActivity;
-import com.qiantang.smartparty.module.index.view.StudyStateActivity;
 import com.qiantang.smartparty.module.index.view.VideoStudyActivity;
 import com.qiantang.smartparty.module.index.view.VideoStudyDetialActivity;
 import com.qiantang.smartparty.module.login.view.CompeteInfoActivity;
@@ -59,6 +58,7 @@ import com.qiantang.smartparty.module.search.view.SearchActivity;
 import com.qiantang.smartparty.module.study.view.PublishActivity;
 import com.qiantang.smartparty.module.study.view.StudyMyActivity;
 import com.qiantang.smartparty.module.study.view.StudyUnReadMsgActivity;
+import com.qiantang.smartparty.module.web.view.HeadWebActivity;
 import com.qiantang.smartparty.module.web.view.WebViewNew;
 
 import java.util.HashMap;
@@ -303,20 +303,12 @@ public class ActivityUtil {
      *
      * @param activity
      */
-    public static void startNewsActivity(Activity activity) {
+    public static void startNewsActivity(Activity activity, int type) {
         Intent intent = new Intent(activity, NewsActivity.class);
+        intent.putExtra("type", type);
         activity.startActivity(intent);
     }
 
-    /**
-     * 学习动态
-     *
-     * @param activity
-     */
-    public static void startStudyStateActivity(Activity activity) {
-        Intent intent = new Intent(activity, StudyStateActivity.class);
-        activity.startActivity(intent);
-    }
 
     /**
      * 学习排行
@@ -499,9 +491,9 @@ public class ActivityUtil {
      *
      * @param activity
      */
-    public static void startMeetingDetialActivity(Activity activity,String id) {
+    public static void startMeetingDetialActivity(Activity activity, String id) {
         Intent intent = new Intent(activity, MeetingDetialActivity.class);
-        intent.putExtra("id",id);
+        intent.putExtra("id", id);
         activity.startActivity(intent);
     }
 
@@ -513,7 +505,7 @@ public class ActivityUtil {
      */
     public static void startReportActivity(Activity activity) {
         Intent intent = new Intent(activity, ReportActivity.class);
-        activity.startActivity(intent);
+        activity.startActivityForResult(intent, 100);
     }
 
     /**
@@ -531,9 +523,9 @@ public class ActivityUtil {
      *
      * @param activity
      */
-    public static void startThinkingDetialActivity(Activity activity,String id) {
+    public static void startThinkingDetialActivity(Activity activity, String id) {
         Intent intent = new Intent(activity, ThinkingDetialActivity.class);
-        intent.putExtra("id",id);
+        intent.putExtra("id", id);
         activity.startActivity(intent);
     }
 
@@ -657,10 +649,24 @@ public class ActivityUtil {
      *
      * @param activity
      */
-    public static void startCharacterDetialActivity(Activity activity, String id,String printUrl) {
+    public static void startCharacterDetialActivity(Activity activity, String id, String printUrl) {
         Intent intent = new Intent(activity, CharacterDetialActivity.class);
         intent.putExtra("id", id);
-        intent.putExtra("printurl",printUrl);
+        intent.putExtra("printurl", printUrl);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 用于上部分为H5,下部分为评论原生的页面
+     *
+     * @param activity
+     * @param id
+     * @param title
+     */
+    public static void startHeadWebActivity(Activity activity, String id, String title) {
+        Intent intent = new Intent(activity, HeadWebActivity.class);
+        intent.putExtra("id", id);
+        intent.putExtra("title", title);
         activity.startActivity(intent);
     }
 }

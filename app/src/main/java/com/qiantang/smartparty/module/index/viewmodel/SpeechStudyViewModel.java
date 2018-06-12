@@ -7,12 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.base.ViewModel;
-import com.qiantang.smartparty.modle.RxVideoStudy;
 import com.qiantang.smartparty.module.index.adapter.IndexCommonAdapter;
-import com.qiantang.smartparty.module.index.adapter.VideoStudyAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by zhaoyong bai on 2018/5/22.

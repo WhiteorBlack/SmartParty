@@ -40,7 +40,7 @@ public class VideoStudyActivity extends BaseBindActivity {
         binding.toolbar.setIsHide(false);
         binding.toolbar.setResId(R.mipmap.icon_search_black);
         initRv(binding.rv);
-        viewModel.testData();
+        viewModel.getData();
     }
 
     private void initRv(RecyclerView rv) {

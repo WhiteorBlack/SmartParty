@@ -58,8 +58,6 @@ public class VideoStudyDetialActivity extends BaseBindActivity {
     @Override
     public void initView() {
         inputViewModel.setHint("发表学习感悟...");
-        String url = getIntent().getStringExtra("url");
-        String title = getIntent().getStringExtra("title");
         resolveNormalVideoUI();
 
         //外部辅助的旋转，帮助全屏
@@ -75,8 +73,8 @@ public class VideoStudyDetialActivity extends BaseBindActivity {
                 .setAutoFullWithSize(true)
                 .setShowFullAnimation(false)
                 .setNeedLockFull(true)
-                .setUrl(url)
-                .setVideoTitle(title)
+                .setUrl("")
+                .setVideoTitle("")
                 .setCacheWithPlay(false)
                 .setVideoAllCallBack(new GSYSampleCallBack() {
                     @Override
@@ -157,22 +155,37 @@ public class VideoStudyDetialActivity extends BaseBindActivity {
     }
 
     public void startVideo(String url, String title) {
-//        gsyVideoOption.setUrl(url).setVideoTitle(title);
-//        getCurPlay().setUpLazy(url,false,null,null,title);
-//        getCurPlay().startPlayLogic();
+        getCurPlay().setUpLazy(url, false, null, null, title);
+        getCurPlay().startPlayLogic();
     }
 
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
                 onBackPressed();
                 break;
             case R.id.tv_send:
-
+                viewMdoel.comment(inputViewModel.getTextString());
                 inputViewModel.setTextString("");
+                closeInput();
+                break;
+            case R.id.iv_share:
+
+                break;
+            case R.id.iv_collect:
+                viewMdoel.cancelPrase();
+                break;
+            case R.id.iv_uncollect:
+                viewMdoel.prase();
                 break;
         }
     }
+
+    public void updateCollect(boolean isCollect) {
+        inputViewModel.setIsCollect(isCollect);
+    }
+
 
     @Override
     public void onBackPressed() {

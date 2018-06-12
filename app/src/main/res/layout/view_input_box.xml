@@ -60,8 +60,17 @@
                 android:id="@+id/iv_collect"
                 android:layout_width="40px"
                 android:layout_height="40px"
+                android:background="@mipmap/icon_collect_red"
+                android:onClick="onClick"
+                android:visibility="@{viewModel.isCollect?View.VISIBLE:View.GONE}" />
+
+            <ImageView
+                android:id="@+id/iv_uncollect"
+                android:layout_width="40px"
+                android:layout_height="40px"
                 android:background="@mipmap/icon_collect_black"
-                android:onClick="onClick" />
+                android:onClick="onClick"
+                android:visibility="@{!viewModel.isCollect?View.VISIBLE:View.GONE}" />
 
             <ImageView
                 android:id="@+id/iv_share"

@@ -1,4 +1,4 @@
-package com.qiantang.smartparty.module.assistant.viewmodel;
+package com.qiantang.smartparty.module.web.viewmodel;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -13,7 +13,7 @@ import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.config.CacheKey;
 import com.qiantang.smartparty.modle.RxActivityDetial;
 import com.qiantang.smartparty.modle.RxComment;
-import com.qiantang.smartparty.module.assistant.view.MienDetialActivity;
+import com.qiantang.smartparty.module.web.view.HeadWebActivity;
 import com.qiantang.smartparty.network.NetworkSubscriber;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
 import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Created by zhaoyong bai on 2018/6/11.
  */
-public class MienDetialViewModel implements ViewModel {
+public class WebHeadViewModel implements ViewModel {
     private BaseBindActivity activity;
     private CommentAdapter commentAdapter;
     private int pageNo = 1;
@@ -35,7 +35,7 @@ public class MienDetialViewModel implements ViewModel {
     private boolean isDealing = false;
     private int addCommentCount = 0;
 
-    public MienDetialViewModel(BaseBindActivity activity, CommentAdapter commentAdapter) {
+    public WebHeadViewModel(BaseBindActivity activity, CommentAdapter commentAdapter) {
         this.activity = activity;
         this.commentAdapter = commentAdapter;
         initData();
@@ -63,7 +63,7 @@ public class MienDetialViewModel implements ViewModel {
                     @Override
                     public void onSuccess(RxActivityDetial data) {
                         commentCount = data.getCount();
-                        ((MienDetialActivity) activity).updateCount(data.getCount());
+                        ((HeadWebActivity) activity).updateCount(data.getCount());
                         if (addCommentCount > 0) {
                             List<RxComment> comments = commentAdapter.getData();
                             for (int i = 0; i < addCommentCount; i++) {
@@ -93,8 +93,8 @@ public class MienDetialViewModel implements ViewModel {
                     public void onSuccess(String data) {
                         addCommentCount++;
                         commentCount+=1;
-                        ((MienDetialActivity) activity).updateCount(commentCount);
-                        ((MienDetialActivity) activity).dissmissCommentBox();
+                        ((HeadWebActivity) activity).updateCount(commentCount);
+                        ((HeadWebActivity) activity).dissmissCommentBox();
                         RxComment rxComment = new RxComment();
                         rxComment.setUsername(MyApplication.mCache.getAsString(CacheKey.USER_NAME));
                         rxComment.setUserId(MyApplication.mCache.getAsString(CacheKey.USER_ID));

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="item"
+            type="com.qiantang.smartparty.modle.RxIndexSection" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/tv_speech"
+            android:background="@color/line" />
+
+        <TextView
+            android:id="@+id/tv_speech"
+            style="@style/indexClassTitle"
+            android:layout_width="match_parent"
+            android:layout_height="78px"
+            android:layout_below="@+id/line"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="查看更多 ＞＞"
+            android:textSize="24px"
+            android:visibility="@{item.top?View.GONE:View.VISIBLE}" />
+
+        <View
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="20px"
+            android:layout_below="@+id/tv_speech"
+            android:background="@color/line" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/indexClassTitle"
+            android:layout_width="match_parent"
+            android:layout_height="78px"
+            android:layout_below="@+id/line1"
+            android:background="@color/white"
+            android:drawableLeft="@drawable/index_title_red"
+            android:drawablePadding="18px"
+            android:gravity="center_vertical"
+            android:text="@{item.header}"
+            android:visibility="@{item.bottom?View.GONE:View.VISIBLE}" />
+    </LinearLayout>
+</layout>

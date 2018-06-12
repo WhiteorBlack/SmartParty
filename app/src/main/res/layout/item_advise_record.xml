@@ -3,7 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.qiantang.smartparty.utils.MyTextUtils"/>
+
+        <import type="com.qiantang.smartparty.utils.MyTextUtils" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="android.view.View" />
+
         <variable
             name="item"
             type="com.qiantang.smartparty.modle.RxAdviseRecord" />
@@ -12,8 +18,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="30px"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:paddingBottom="30px">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/sdv"
@@ -31,7 +37,7 @@
             android:layout_alignTop="@+id/sdv"
             android:layout_marginLeft="20px"
             android:layout_toRightOf="@+id/sdv"
-            android:text="测试" />
+            android:text="@{item.username}" />
 
         <TextView
             android:id="@+id/tv_date"
@@ -41,19 +47,20 @@
             android:layout_alignBaseline="@+id/tv_name"
             android:layout_alignParentRight="true"
             android:layout_marginRight="30px"
-            android:text="22" />
+            android:text="@{item.createTime}" />
 
         <TextView
             android:id="@+id/tv_content"
+            style="@style/black24"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_name"
             android:layout_marginLeft="20px"
             android:layout_marginRight="30px"
-            style="@style/black24"
-            android:text="反馈内容"
             android:layout_marginTop="20px"
-            android:layout_toRightOf="@+id/sdv" />
+            android:layout_toRightOf="@+id/sdv"
+            android:text="@{item.content}" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -61,28 +68,30 @@
             android:layout_alignRight="@+id/tv_content"
             android:layout_below="@+id/tv_content"
             android:layout_marginTop="20px"
-            android:background="@color/edit_bg">
+            android:background="@color/edit_bg"
+            android:visibility="@{TextUtils.isEmpty(item.reply)?View.GONE:View.VISIBLE}">
+
             <TextView
+                android:id="@+id/tv_reword"
+                style="@style/black24"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_reword"
-                android:layout_marginTop="@dimen/sideMargin"
-                android:layout_marginRight="30px"
-                android:text="@{MyTextUtils.getCommentText(`回复`,`回复内容`)}"
                 android:layout_marginLeft="20px"
-                style="@style/black24"/>
+                android:layout_marginRight="30px"
+                android:layout_marginTop="@dimen/sideMargin"
+                android:text="@{MyTextUtils.getCommentText(`回复`,item.reply)}" />
 
             <TextView
                 android:id="@+id/tv_date_reword"
                 style="@style/gray22"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_reword"
-                android:layout_marginTop="20px"
-                android:layout_marginBottom="20px"
                 android:layout_alignLeft="@+id/tv_reword"
+                android:layout_below="@+id/tv_reword"
+                android:layout_marginBottom="20px"
                 android:layout_marginRight="30px"
-                android:text="22" />
+                android:layout_marginTop="20px"
+                android:text="@{item.replyTime}" />
         </RelativeLayout>
     </RelativeLayout>
 </layout>

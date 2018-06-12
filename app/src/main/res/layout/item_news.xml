@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.qiantang.smartparty.modle.RxIndexNews" />
+            type="com.qiantang.smartparty.modle.RxIndexCommon" />
     </data>
 
     <RelativeLayout
@@ -29,7 +29,7 @@
 
         <TextView
             android:id="@+id/tv_name"
-            style="@style/indexNewsTitle"
+            style="@style/black30"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5px"

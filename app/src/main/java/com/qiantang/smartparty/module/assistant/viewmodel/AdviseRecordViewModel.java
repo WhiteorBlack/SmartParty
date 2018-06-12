@@ -4,6 +4,9 @@ import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.modle.RxAdviseRecord;
 import com.qiantang.smartparty.module.assistant.adapter.AdviseRecordAdapter;
+import com.qiantang.smartparty.network.NetworkSubscriber;
+import com.qiantang.smartparty.network.retrofit.ApiWrapper;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,14 +17,16 @@ import java.util.List;
 public class AdviseRecordViewModel implements ViewModel {
     private BaseBindActivity activity;
     private AdviseRecordAdapter adviseRecordAdapter;
+    private int pageNo = 1;
 
     public AdviseRecordViewModel(BaseBindActivity activity, AdviseRecordAdapter adviseRecordAdapter) {
         this.activity = activity;
         this.adviseRecordAdapter = adviseRecordAdapter;
     }
 
-    public void onLoadMore(){
-
+    public void onLoadMore() {
+        pageNo++;
+        getData();
     }
 
     @Override
@@ -29,11 +34,14 @@ public class AdviseRecordViewModel implements ViewModel {
 
     }
 
-    public void testData() {
-        List<RxAdviseRecord> records=new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            records.add(new RxAdviseRecord());
-        }
-        adviseRecordAdapter.setNewData(records);
+    public void getData() {
+        ApiWrapper.getInstance().ideaList(pageNo)
+                .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
+                .subscribe(new NetworkSubscriber<List<RxAdviseRecord>>() {
+                    @Override
+                    public void onSuccess(List<RxAdviseRecord> data) {
+                        adviseRecordAdapter.setPagingData(data,pageNo);
+                    }
+                });
     }
 }

@@ -14,8 +14,12 @@ import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.databinding.FragmentIndexBinding;
 import com.qiantang.smartparty.module.index.adapter.ClassAdapter;
+import com.qiantang.smartparty.module.index.adapter.IndexSectionAdapter;
+import com.qiantang.smartparty.module.index.adapter.IndexVideoAdapter;
 import com.qiantang.smartparty.module.index.adapter.NewsAdapter;
 import com.qiantang.smartparty.module.index.adapter.IndexCommonAdapter;
+import com.qiantang.smartparty.module.index.adapter.SpechAdapter;
+import com.qiantang.smartparty.module.index.adapter.VideoStudyAdapter;
 import com.qiantang.smartparty.module.index.viewmodel.HeadBannerViewModel;
 import com.qiantang.smartparty.module.index.viewmodel.IndexViewModel;
 import com.qiantang.smartparty.utils.ActivityUtil;
@@ -30,7 +34,10 @@ public class IndexFragment extends BaseBindFragment {
     private IndexViewModel viewModel;
     private HeadBannerViewModel headBannerViewModel;
     private NewsAdapter newsAdapter;
-    private IndexCommonAdapter studyStateAdapter, studyVideoAdapter, speechAdapter, studyProAdapter, rulesAdapter;
+    private IndexCommonAdapter studyStateAdapter;
+    private IndexVideoAdapter studyVideoAdapter;
+    private SpechAdapter speechAdapter;
+    private IndexSectionAdapter sectionAdapter;
 
     @Override
     public View initBinding(LayoutInflater inflater, ViewGroup container) {
@@ -57,33 +64,22 @@ public class IndexFragment extends BaseBindFragment {
         initStudyVideo(binding.rvStudyVideo);
         initSpeech(binding.rvSpeech);
         initStudyPro(binding.rvStudyPractice);
-        initRules(binding.rvRules);
+        viewModel.setAdater(newsAdapter,studyStateAdapter,studyVideoAdapter,speechAdapter,sectionAdapter);
+        viewModel.getData();
     }
 
-    /**
-     * 党章党规
-     *
-     * @param rvRules
-     */
-    private void initRules(RecyclerView rvRules) {
-        rulesAdapter = new IndexCommonAdapter(R.layout.item_index_rules);
-        rvRules.setNestedScrollingEnabled(false);
-        rvRules.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        rvRules.addOnItemTouchListener(viewModel.rulesToucnListener());
-        rvRules.setAdapter(rulesAdapter);
-    }
 
     /**
-     * 两学一做
+     * 底部动态数据
      *
      * @param rvStudyPractice
      */
     private void initStudyPro(RecyclerView rvStudyPractice) {
-        studyProAdapter = new IndexCommonAdapter(R.layout.item_index_rules);
-        rvStudyPractice.setNestedScrollingEnabled(false);
+        sectionAdapter=new IndexSectionAdapter(R.layout.item_index_bottom,R.layout.item_index_study_header,null);
         rvStudyPractice.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        rvStudyPractice.setNestedScrollingEnabled(false);
+        rvStudyPractice.setAdapter(sectionAdapter);
         rvStudyPractice.addItemDecoration(new SpaceItemDecoration(0, 0, 12, 0));
-        rvStudyPractice.setAdapter(studyProAdapter);
         rvStudyPractice.addOnItemTouchListener(viewModel.studyProToucnListener());
     }
 
@@ -93,7 +89,7 @@ public class IndexFragment extends BaseBindFragment {
      * @param rvSpeech
      */
     private void initSpeech(RecyclerView rvSpeech) {
-        speechAdapter = new IndexCommonAdapter(R.layout.item_study_state);
+        speechAdapter = new SpechAdapter(R.layout.item_index_speech);
         rvSpeech.setNestedScrollingEnabled(false);
         rvSpeech.setLayoutManager(new LinearLayoutManager(getContext()));
         rvSpeech.setAdapter(speechAdapter);
@@ -106,7 +102,7 @@ public class IndexFragment extends BaseBindFragment {
      * @param rvStudyVideo
      */
     private void initStudyVideo(RecyclerView rvStudyVideo) {
-        studyVideoAdapter = new IndexCommonAdapter(R.layout.item_index_rules);
+        studyVideoAdapter = new IndexVideoAdapter(R.layout.item_index_rules);
         rvStudyVideo.setNestedScrollingEnabled(false);
         rvStudyVideo.setLayoutManager(new GridLayoutManager(getContext(), 2));
         rvStudyVideo.setAdapter(studyVideoAdapter);
@@ -137,7 +133,6 @@ public class IndexFragment extends BaseBindFragment {
         rvNews.setLayoutManager(new LinearLayoutManager(getContext()));
         rvNews.addOnItemTouchListener(viewModel.newsToucnListener());
         rvNews.setAdapter(newsAdapter);
-        viewModel.testNew();
     }
 
     /**

@@ -48,7 +48,8 @@
             android:background="@color/edit_bg"
             android:hint="填写思想汇报标题"
             android:paddingLeft="@dimen/sideMargin"
-            android:paddingRight="@dimen/sideMargin" />
+            android:paddingRight="@dimen/sideMargin"
+            android:text="@={viewModel.title}" />
 
         <View
             android:id="@+id/line1"
@@ -84,13 +85,15 @@
             android:paddingBottom="32px"
             android:paddingLeft="@dimen/sideMargin"
             android:paddingRight="@dimen/sideMargin"
-            android:paddingTop="32px" />
+            android:paddingTop="32px"
+            android:text="@={viewModel.content}" />
 
         <Button
             style="@style/confirmBtn"
+            android:onClick="onClick"
             android:layout_below="@+id/et_content"
             android:layout_centerHorizontal="true"
-            android:text="提交"
-            android:layout_marginTop="200px" />
+            android:layout_marginTop="200px"
+            android:text="提交" />
     </RelativeLayout>
 </layout>

@@ -7,7 +7,6 @@ import com.qiantang.smartparty.adapter.BindingViewHolder;
 import com.qiantang.smartparty.adapter.EasyBindQuickAdapter;
 import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.modle.RxIndexCommon;
-import com.qiantang.smartparty.modle.RxVideoStudy;
 
 /**
  * Created by zhaoyong bai on 2018/5/22.

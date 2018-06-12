@@ -35,7 +35,7 @@
             android:layout_marginLeft="5px"
             android:layout_marginRight="5px"
             android:layout_marginTop="@dimen/sideMargin"
-            android:text="标题" />
+            android:text="@{item.title}" />
 
         <TextView
             android:id="@+id/tv_date"
@@ -46,7 +46,7 @@
             android:layout_marginLeft="5px"
             android:layout_marginRight="5px"
             android:layout_marginTop="27px"
-            android:text="2-22" />
+            android:text="@{item.createTime}" />
 
         <TextView
             android:id="@+id/tv_comment"
@@ -58,7 +58,7 @@
             android:layout_marginLeft="5px"
             android:layout_marginRight="5px"
             android:layout_marginTop="27px"
-            android:text="2评论" />
+            android:text="@{item.pl+`评论`}" />
 
         <TextView
             android:id="@+id/tv_read"
@@ -69,7 +69,7 @@
             android:layout_marginRight="27px"
             android:layout_marginTop="27px"
             android:layout_toLeftOf="@+id/tv_comment"
-            android:text="2阅读" />
+            android:text="@{item.read+`阅读`}" />
 
         <View
             android:layout_width="match_parent"

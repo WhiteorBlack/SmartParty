@@ -18,6 +18,7 @@ public class InputViewModel extends BaseObservable implements ViewModel {
     public ObservableField<String> hint = new ObservableField<>("");
     private BaseBindActivity activity;
     private ObservableField<String> textString = new ObservableField<>("");
+    private ObservableBoolean isCollect=new ObservableBoolean(false);
 
     public InputViewModel(BaseBindActivity activity) {
         this.activity = activity;
@@ -31,6 +32,15 @@ public class InputViewModel extends BaseObservable implements ViewModel {
     public void setIsPop(boolean isPop) {
         this.isPop.set(isPop);
         notifyPropertyChanged(BR.isPop);
+    }
+
+    @Bindable
+    public boolean getIsCollect() {
+        return isCollect.get();
+    }
+
+    public void setIsCollect(boolean isCollect) {
+        this.isCollect.set(isCollect);
     }
 
     @Bindable

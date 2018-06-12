@@ -12,10 +12,7 @@ import com.qiantang.smartparty.modle.RxActivity;
 import com.qiantang.smartparty.modle.RxAssientHome;
 import com.qiantang.smartparty.modle.RxIndexClass;
 import com.qiantang.smartparty.modle.RxIndexCommon;
-import com.qiantang.smartparty.modle.RxIndexNews;
 import com.qiantang.smartparty.modle.RxMsg;
-import com.qiantang.smartparty.modle.RxMsgList;
-import com.qiantang.smartparty.modle.RxVideoStudy;
 import com.qiantang.smartparty.module.assistant.adapter.ActivityAdapter;
 import com.qiantang.smartparty.module.assistant.adapter.MsgAdapter;
 import com.qiantang.smartparty.module.index.adapter.IndexCommonAdapter;
@@ -23,7 +20,6 @@ import com.qiantang.smartparty.network.NetworkSubscriber;
 import com.qiantang.smartparty.network.URLs;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
 import com.qiantang.smartparty.utils.ActivityUtil;
-import com.qiantang.smartparty.utils.WebUtil;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import java.util.ArrayList;
@@ -48,7 +44,7 @@ public class AssisantViewModel implements ViewModel {
         classes.add(new RxIndexClass("党建活动", R.mipmap.icon_party_activity, 4));
         classes.add(new RxIndexClass("会议纪要", R.mipmap.icon_meeting_record, 5));
         classes.add(new RxIndexClass("人物表彰", R.mipmap.icon_praise_man, 6));
-        classes.add(new RxIndexClass("意见反馈", R.mipmap.icon_maind_report, 7));
+        classes.add(new RxIndexClass("意见反馈", R.mipmap.icon_advice, 7));
         return classes;
     }
 
@@ -136,7 +132,7 @@ public class AssisantViewModel implements ViewModel {
 
                         break;
                     case 4:
-
+                        ActivityUtil.startPartyActivity(fragment.getActivity());
                         break;
                     case 5:
                         ActivityUtil.startMeetingActivity(fragment.getActivity());

@@ -32,7 +32,7 @@
             android:layout_marginTop="15px"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="视频" />
+            android:text="@{item.title}" />
 
         <TextView
             android:id="@+id/tv_date"
@@ -41,7 +41,7 @@
             android:layout_below="@+id/tv_name"
             android:layout_marginLeft="@dimen/sideMargin"
             android:layout_marginTop="15px"
-            android:text="2-12"
+            android:text="@{item.creationtime}"
             android:textSize="22px" />
 
 
@@ -54,7 +54,7 @@
             android:layout_marginLeft="80px"
             android:layout_marginRight="@dimen/sideMargin"
             android:layout_marginTop="15px"
-            android:text="12次"
+            android:text="@{item.review+` 评论`}"
             android:textSize="22px" />
 
         <TextView
@@ -64,7 +64,7 @@
             android:layout_below="@+id/tv_name"
             android:layout_marginTop="15px"
             android:layout_toLeftOf="@+id/tv_comment"
-            android:text="12次"
+            android:text="@{item.number+` 次播放`}"
             android:textSize="22px" />
     </RelativeLayout>
 </layout>

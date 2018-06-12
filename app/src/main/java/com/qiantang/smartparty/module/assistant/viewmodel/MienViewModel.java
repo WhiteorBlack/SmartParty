@@ -74,22 +74,34 @@ public class MienViewModel implements ViewModel {
                 });
     }
 
+    public void insertData(RxIndexCommon rxIndexCommon) {
+        if (type == 7) {
+            adapter.getData().add(0, rxIndexCommon);
+            adapter.notifyItemInserted(0);
+        }
+    }
+
     public RecyclerView.OnItemTouchListener onItemTouchListener() {
         return new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adaptert, View view, int position) {
                 String id = adapter.getData().get(position).getContentId();
+                String title = "";
                 switch (type) {
                     case 4: //党建风采
-                        ActivityUtil.startMienDetialActivity(activity, id);
+                        title = "党建风采";
+//                        ActivityUtil.startMienDetialActivity(activity, id);
                         break;
                     case 6: //会议纪要
-                        ActivityUtil.startMeetingDetialActivity(activity, id);
+                        title = "会议纪要";
+//                        ActivityUtil.startMeetingDetialActivity(activity, id);
                         break;
                     case 7://思想汇报
-                        ActivityUtil.startThinkingDetialActivity(activity, id);
+                        title = "思想汇报";
+//                        ActivityUtil.startThinkingDetialActivity(activity, id);
                         break;
                 }
+                ActivityUtil.startHeadWebActivity(activity, id, title);
             }
         };
     }

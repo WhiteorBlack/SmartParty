@@ -11,6 +11,7 @@ import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.BindingViewHolder;
 import com.qiantang.smartparty.adapter.EasyBindQuickAdapter;
+import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.modle.RxVideoStudy;
 import com.qiantang.smartparty.widget.SampleCoverVideo;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
@@ -42,7 +43,7 @@ public class VideoStudyAdapter extends EasyBindQuickAdapter<RxVideoStudy> {
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) sampleCoverVideo.getLayoutParams();
         params.height = MyApplication.widthPixels * 214 / 375;
         sampleCoverVideo.setLayoutParams(params);
-        sampleCoverVideo.setUpLazy(item.getVideoUrl(), false, null, null, item.getTitle());
+        sampleCoverVideo.setUpLazy(item.getVideourl(), false, null, null, item.getTitle());
         sampleCoverVideo.getTitleTextView().setVisibility(View.GONE);
         sampleCoverVideo.getBackButton().setVisibility(View.GONE);
         //设置全屏按键功能
@@ -52,6 +53,7 @@ public class VideoStudyAdapter extends EasyBindQuickAdapter<RxVideoStudy> {
                 resolveFullBtn(sampleCoverVideo);
             }
         });
+        sampleCoverVideo.loadCoverImage(Config.IMAGE_HOST+item.getPicUrl(),0);
         sampleCoverVideo.setRotateViewAuto(!getListNeedAutoLand());
         sampleCoverVideo.setLockLand(!getListNeedAutoLand());
         sampleCoverVideo.setPlayTag(TAG);

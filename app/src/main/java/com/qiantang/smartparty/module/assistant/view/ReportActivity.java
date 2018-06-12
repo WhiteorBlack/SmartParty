@@ -1,6 +1,7 @@
 package com.qiantang.smartparty.module.assistant.view;
 
 import android.databinding.DataBindingUtil;
+import android.view.View;
 
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.R;
@@ -28,7 +29,17 @@ public class ReportActivity extends BaseBindActivity {
     }
 
     @Override
-    protected void viewModelDestroy() {
+    public void onClick(View view) {
+        super.onClick(view);
+        switch (view.getId()) {
+            case R.id.btn_confirm:
+                viewModel.publish();
+                break;
+        }
+    }
 
+    @Override
+    protected void viewModelDestroy() {
+        viewModel.destroy();
     }
 }

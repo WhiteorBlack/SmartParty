@@ -4,8 +4,11 @@ package com.qiantang.smartparty.network.retrofit;
 import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.modle.RxActivity;
 import com.qiantang.smartparty.modle.RxActivityDetial;
+import com.qiantang.smartparty.modle.RxAdviseRecord;
 import com.qiantang.smartparty.modle.RxAssientHome;
 import com.qiantang.smartparty.modle.RxCharacterDetial;
+import com.qiantang.smartparty.modle.RxComment;
+import com.qiantang.smartparty.modle.RxIndex;
 import com.qiantang.smartparty.modle.RxIndexCommon;
 import com.qiantang.smartparty.modle.RxMsg;
 import com.qiantang.smartparty.modle.RxMyStudy;
@@ -16,6 +19,8 @@ import com.qiantang.smartparty.modle.RxStudy;
 import com.qiantang.smartparty.modle.RxStudyUnreadMsg;
 import com.qiantang.smartparty.modle.RxThinkDetial;
 import com.qiantang.smartparty.modle.RxUploadUrl;
+import com.qiantang.smartparty.modle.RxVideoDetial;
+import com.qiantang.smartparty.modle.RxVideoStudy;
 import com.qiantang.smartparty.utils.luban.Luban;
 
 import java.io.File;
@@ -282,5 +287,98 @@ public class ApiWrapper extends RetrofitUtil {
      */
     public Observable<RxThinkDetial> thinkingDetails(String id) {
         return getService().thinkingDetails(id).compose(this.applySchedulers());
+    }
+
+    /**
+     * 发表思想汇报
+     *
+     * @param title
+     * @param content
+     * @return
+     */
+    public Observable<String> insertThinking(String title, String content) {
+        return getService().insertThinking(title, content, MyApplication.USER_ID).compose(this.applySchedulers());
+    }
+
+    /**
+     * 发表反馈内容
+     *
+     * @param content
+     * @return
+     */
+    public Observable<String> insertIdea(String content) {
+        return getService().insertIdea(content, MyApplication.USER_ID).compose(this.applySchedulers());
+    }
+
+    /**
+     * 反馈列表
+     *
+     * @param pageNo
+     * @return
+     */
+    public Observable<List<RxAdviseRecord>> ideaList(int pageNo) {
+        return getService().ideaList(pageNo, MyApplication.USER_ID).compose(this.applySchedulers());
+    }
+
+    /**
+     * 首页数据
+     *
+     * @return
+     */
+    public Observable<List<RxIndex>> showHomePage() {
+        return getService().ShowHomePage().compose(this.applySchedulers());
+    }
+
+    /**
+     * 视频学习列表
+     *
+     * @param pageNo
+     * @return
+     */
+    public Observable<List<RxVideoStudy>> videoList(int pageNo) {
+        return getService().videoList(pageNo).compose(this.applySchedulers());
+    }
+
+    /**
+     * 视频详情
+     *
+     * @param pageNo
+     * @param id
+     * @return
+     */
+    public Observable<RxVideoDetial> videoDetial(int pageNo, String id) {
+        return getService().videoDetails(pageNo, id, MyApplication.USER_ID).compose(this.applySchedulers());
+    }
+
+    /**
+     * 视频学习 评论点赞
+     *
+     * @param id
+     * @return
+     */
+    public Observable<String> videoLike(String id) {
+        return getService().videoLike(MyApplication.USER_ID, id).compose(this.applySchedulers());
+    }
+
+    /**
+     * 视频学习 取消评论点赞
+     *
+     * @param id
+     * @return
+     */
+    public Observable<String> removeVideoLike(String id) {
+        return getService().removeVideoLike(MyApplication.USER_ID, id).compose(this.applySchedulers());
+    }
+
+
+    /**
+     * 视频学习评论
+     *
+     * @param id
+     * @param content
+     * @return
+     */
+    public Observable<String> commentVideo(String id, String content) {
+        return getService().commentVideo(id, content, MyApplication.USER_ID).compose(this.applySchedulers());
     }
 }

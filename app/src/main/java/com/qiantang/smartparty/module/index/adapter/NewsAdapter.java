@@ -52,7 +52,7 @@ public class NewsAdapter extends BaseMultiItemQuickAdapter<RxIndexNews, BaseView
     protected void convert(BaseViewHolder helper, RxIndexNews item) {
         ViewDataBinding binding = ((BindingViewHolder) helper).getBinding();
         binding.setVariable(BR.item, item);
-        ((SimpleDraweeView) binding.getRoot().findViewById(R.id.sdv)).setImageURI(Config.IMAGE_HOST+item.getPicUrl());
+        ((SimpleDraweeView) binding.getRoot().findViewById(R.id.sdv)).setImageURI(Config.IMAGE_HOST+item.getImgSrc());
         binding.executePendingBindings();
     }
 }

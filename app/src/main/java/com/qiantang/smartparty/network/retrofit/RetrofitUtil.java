@@ -262,7 +262,7 @@ public class RetrofitUtil {
                 }
                 if (!subscriber.isDisposed()) {
                     T object = response.getReturnObject();
-                    subscriber.onNext(object == null ? ((T) "0") : object);
+                    subscriber.onNext(object == null ? ((T) response.getErrorMessage()) : object);
                 }
             } else {
                 int errorCode = response.getErrorCode();
