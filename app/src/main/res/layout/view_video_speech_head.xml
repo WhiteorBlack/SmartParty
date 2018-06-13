@@ -6,7 +6,7 @@
         <import type="com.qiantang.smartparty.utils.StringUtil"/>
         <variable
             name="viewModel"
-            type="com.qiantang.smartparty.module.index.viewmodel.VideoDetialViewMdoel" />
+            type="com.qiantang.smartparty.module.index.viewmodel.VideoSpeechDetialViewMdoel" />
     </data>
 
     <RelativeLayout

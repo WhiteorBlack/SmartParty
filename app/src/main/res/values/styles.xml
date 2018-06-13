@@ -161,6 +161,21 @@
         <item name="android:textSize">24px</item>
     </style>
 
+    <style name="red22">
+        <item name="android:textColor">@color/paleRed</item>
+        <item name="android:textSize">22px</item>
+    </style>
+
+    <style name="red20">
+        <item name="android:textColor">@color/paleRed</item>
+        <item name="android:textSize">20px</item>
+    </style>
+
+    <style name="red18">
+        <item name="android:textColor">@color/paleRed</item>
+        <item name="android:textSize">18px</item>
+    </style>
+
     <style name="red30">
         <item name="android:textColor">@color/paleRed</item>
         <item name="android:textSize">30px</item>
@@ -261,5 +276,9 @@
 
     <style name="indicatorStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
         <item name="android:textSize">16sp</item>
+    </style>
+    <style name="seekbarStyle" parent="Base.Widget.AppCompat.SeekBar">
+        <item name="android:thumb">@drawable/seekbar_thumb</item>
+        <item name="android:progressDrawable">@drawable/second_seekbar</item>
     </style>
 </resources>

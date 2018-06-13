@@ -41,6 +41,7 @@ public class InputViewModel extends BaseObservable implements ViewModel {
 
     public void setIsCollect(boolean isCollect) {
         this.isCollect.set(isCollect);
+        notifyPropertyChanged(BR.isCollect);
     }
 
     @Bindable
@@ -50,6 +51,7 @@ public class InputViewModel extends BaseObservable implements ViewModel {
 
     public void setHint(String hint) {
         this.hint.set(hint);
+        notifyPropertyChanged(BR.hint);
     }
 
     @Bindable

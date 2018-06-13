@@ -54,7 +54,7 @@ public class PartyActivity extends BaseBindActivity {
         super.onClick(view);
         switch (view.getId()) {
             case R.id.iv_right:
-                ActivityUtil.startSearchActivity(this, Config.MIEN_TYPE);
+                ActivityUtil.startSearchActivity(this, Config.PARTY_ACTIVITY);
                 break;
         }
     }

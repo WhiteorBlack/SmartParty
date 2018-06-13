@@ -10,11 +10,15 @@ import com.qiantang.smartparty.modle.RxCharacterDetial;
 import com.qiantang.smartparty.modle.RxComment;
 import com.qiantang.smartparty.modle.RxIndex;
 import com.qiantang.smartparty.modle.RxIndexCommon;
+import com.qiantang.smartparty.modle.RxIndexSpeak;
+import com.qiantang.smartparty.modle.RxLearningClass;
+import com.qiantang.smartparty.modle.RxLearningList;
 import com.qiantang.smartparty.modle.RxMsg;
 import com.qiantang.smartparty.modle.RxMyStudy;
 import com.qiantang.smartparty.modle.RxRankBranch;
 import com.qiantang.smartparty.modle.RxRankPersonal;
 import com.qiantang.smartparty.modle.RxSignList;
+import com.qiantang.smartparty.modle.RxSpeechDetial;
 import com.qiantang.smartparty.modle.RxStudy;
 import com.qiantang.smartparty.modle.RxStudyUnreadMsg;
 import com.qiantang.smartparty.modle.RxThinkDetial;
@@ -381,4 +385,61 @@ public class ApiWrapper extends RetrofitUtil {
     public Observable<String> commentVideo(String id, String content) {
         return getService().commentVideo(id, content, MyApplication.USER_ID).compose(this.applySchedulers());
     }
+
+    /**
+     * 取消收藏
+     *
+     * @param id
+     * @param type
+     * @return
+     */
+    public Observable<String> collectAbolish(String id, int type) {
+        return getService().collectAbolish(type, MyApplication.USER_ID, id).compose(this.applySchedulers());
+    }
+
+    /**
+     * 收藏
+     *
+     * @param id
+     * @param type
+     * @return
+     */
+    public Observable<String> collectSave(String id, int type) {
+        return getService().collectSave(type, MyApplication.USER_ID, id).compose(this.applySchedulers());
+    }
+
+    /**
+     * 系列讲话
+     *
+     * @param pageNo
+     * @return
+     */
+    public Observable<List<RxIndexSpeak>> speechList(int pageNo) {
+        return getService().speakList(pageNo).compose(this.applySchedulers());
+    }
+
+    /**
+     * 系列讲话详情
+     *
+     * @param pageNo
+     * @param id
+     * @return
+     */
+    public Observable<RxSpeechDetial> speechDetial(int pageNo, String id) {
+        return getService().speechDetails(pageNo, id, MyApplication.USER_ID).compose(this.applySchedulers());
+    }
+
+    /**
+     * 获取专题学习类别
+     *
+     * @return
+     */
+    public Observable<List<RxLearningClass>> specialClassify() {
+        return getService().specialClassify().compose(this.applySchedulers());
+    }
+
+    public Observable<List<RxLearningList>> special(int pageNo, int id) {
+        return getService().special(pageNo, id).compose(this.applySchedulers());
+    }
+
 }

@@ -24,6 +24,7 @@ import com.qiantang.smartparty.module.index.viewmodel.HeadBannerViewModel;
 import com.qiantang.smartparty.module.index.viewmodel.IndexViewModel;
 import com.qiantang.smartparty.utils.ActivityUtil;
 import com.qiantang.smartparty.widget.MyBanner;
+import com.qiantang.smartparty.widget.SectionItemDecoration;
 import com.qiantang.smartparty.widget.SpaceItemDecoration;
 
 /**
@@ -79,7 +80,7 @@ public class IndexFragment extends BaseBindFragment {
         rvStudyPractice.setLayoutManager(new GridLayoutManager(getContext(), 2));
         rvStudyPractice.setNestedScrollingEnabled(false);
         rvStudyPractice.setAdapter(sectionAdapter);
-        rvStudyPractice.addItemDecoration(new SpaceItemDecoration(0, 0, 12, 0));
+//        rvStudyPractice.addItemDecoration(new SectionItemDecoration(0, 0, 12, 0));
         rvStudyPractice.addOnItemTouchListener(viewModel.studyProToucnListener());
     }
 

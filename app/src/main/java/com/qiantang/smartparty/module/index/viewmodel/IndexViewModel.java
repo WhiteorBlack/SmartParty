@@ -12,7 +12,9 @@ import com.qiantang.smartparty.modle.RxIndex;
 import com.qiantang.smartparty.modle.RxIndexClass;
 import com.qiantang.smartparty.modle.RxIndexNews;
 import com.qiantang.smartparty.modle.RxIndexSection;
+import com.qiantang.smartparty.modle.RxIndexSpeak;
 import com.qiantang.smartparty.modle.RxIndexStudy;
+import com.qiantang.smartparty.modle.RxVideoStudy;
 import com.qiantang.smartparty.module.index.adapter.IndexCommonAdapter;
 import com.qiantang.smartparty.module.index.adapter.IndexSectionAdapter;
 import com.qiantang.smartparty.module.index.adapter.IndexVideoAdapter;
@@ -87,7 +89,7 @@ public class IndexViewModel implements ViewModel {
                                     if (i != 0) {
                                         classifyId = data.get(3 + i).getClassifyId();
                                     }
-                                    classifyId = data.get(4 + i).getClassifyId();
+                                    lastId = data.get(4 + i).getClassifyId();
                                     sectionList.add(new RxIndexSection(true, data.get(4 + i).getTitle(), i == 0, false, classifyId));
                                     for (int j = 0; j < studyList.size(); j++) {
                                         RxIndexSection rxIndexSection = new RxIndexSection(false);
@@ -144,6 +146,8 @@ public class IndexViewModel implements ViewModel {
         return new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                RxVideoStudy rxVideoStudy = videoStudyAdapter.getData().get(position);
+                ActivityUtil.startVideoDetialActivity(fragment.getActivity(), rxVideoStudy.getPicUrl(), rxVideoStudy.getTitle(), rxVideoStudy.getVideo_id());
             }
         };
     }
@@ -157,6 +161,13 @@ public class IndexViewModel implements ViewModel {
         return new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                RxIndexSpeak rxIndexSpeak = spechAdapter.getData().get(position);
+                if (rxIndexSpeak.getSpeaktype() == 1) {
+                    //视频
+                    ActivityUtil.startVideoSpeechDetialActivity(fragment.getActivity(), rxIndexSpeak.getSpeakurl(), rxIndexSpeak.getTitle(), rxIndexSpeak.getSpeak_id());
+                } else {
+                    ActivityUtil.startVoiceSpeechDetialActivity(fragment.getActivity(), rxIndexSpeak.getSpeakurl(), rxIndexSpeak.getTitle(), rxIndexSpeak.getSpeak_id());
+                }
             }
         };
     }
@@ -170,6 +181,9 @@ public class IndexViewModel implements ViewModel {
         return new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (!sectionAdapter.getData().get(position).isHeader) {
+                    ActivityUtil.startHeadWebActivity(fragment.getActivity(), sectionAdapter.getData().get(position).getRxIndexStudy().getContentId(), "专题学习");
+                }
             }
 
             @Override
@@ -178,7 +192,7 @@ public class IndexViewModel implements ViewModel {
                 switch (view.getId()) {
                     case R.id.tv_speech:
                         int id = (Integer) view.getTag();
-                        ToastUtil.toast(id + "");
+                       ActivityUtil.startLearnListActivity(fragment.getActivity(),id);
                         break;
                 }
             }
@@ -218,7 +232,7 @@ public class IndexViewModel implements ViewModel {
                         ActivityUtil.startSpeechStudyActivity(fragment.getActivity());
                         break;
                     case 2:
-
+                        ActivityUtil.startLearnListActivity(fragment.getActivity(), -1);
                         break;
                     case 3:
 

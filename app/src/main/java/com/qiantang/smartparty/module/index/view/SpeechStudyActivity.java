@@ -8,11 +8,14 @@ import android.view.View;
 
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.R;
+import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.databinding.ActivitySpeechStudyBinding;
 import com.qiantang.smartparty.databinding.ActivityVideoStudyBinding;
 import com.qiantang.smartparty.module.index.adapter.IndexCommonAdapter;
+import com.qiantang.smartparty.module.index.adapter.SpechAdapter;
 import com.qiantang.smartparty.module.index.viewmodel.SpeechStudyViewModel;
 import com.qiantang.smartparty.module.index.viewmodel.VideoStudyViewModel;
+import com.qiantang.smartparty.utils.ActivityUtil;
 import com.qiantang.smartparty.utils.RecycleViewUtils;
 
 /**
@@ -21,12 +24,12 @@ import com.qiantang.smartparty.utils.RecycleViewUtils;
  */
 public class SpeechStudyActivity extends BaseBindActivity {
     private SpeechStudyViewModel viewModel;
-    private IndexCommonAdapter adapter;
+    private SpechAdapter adapter;
     private ActivitySpeechStudyBinding binding;
 
     @Override
     protected void initBind() {
-        adapter = new IndexCommonAdapter(R.layout.item_study_state);
+        adapter = new SpechAdapter(R.layout.item_index_speech);
         viewModel = new SpeechStudyViewModel(this, adapter);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_speech_study);
         binding.setViewModel(viewModel);
@@ -48,16 +51,13 @@ public class SpeechStudyActivity extends BaseBindActivity {
         rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rv.setAdapter(adapter);
         rv.addOnItemTouchListener(viewModel.onItemTouchListener());
-        rv.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
 
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.iv_back:
-                onBackPressed();
-                break;
             case R.id.tv_right:
-
+                ActivityUtil.startSearchActivity(this, Config.SPEECH_STUDY);
                 break;
         }
     }

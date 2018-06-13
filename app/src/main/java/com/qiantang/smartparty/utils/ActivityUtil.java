@@ -34,12 +34,15 @@ import com.qiantang.smartparty.module.assistant.view.ReportActivity;
 import com.qiantang.smartparty.module.assistant.view.SignListActivity;
 import com.qiantang.smartparty.module.assistant.view.ThinkingActivity;
 import com.qiantang.smartparty.module.assistant.view.ThinkingDetialActivity;
+import com.qiantang.smartparty.module.index.view.LearningListActivity;
 import com.qiantang.smartparty.module.index.view.NewsActivity;
 import com.qiantang.smartparty.module.index.view.RankActivity;
 import com.qiantang.smartparty.module.index.view.SignActivity;
 import com.qiantang.smartparty.module.index.view.SpeechStudyActivity;
+import com.qiantang.smartparty.module.index.view.VideoSpeechDetialActivity;
 import com.qiantang.smartparty.module.index.view.VideoStudyActivity;
 import com.qiantang.smartparty.module.index.view.VideoStudyDetialActivity;
+import com.qiantang.smartparty.module.index.view.VoiceSpeechDetialActivity;
 import com.qiantang.smartparty.module.login.view.CompeteInfoActivity;
 import com.qiantang.smartparty.module.login.view.LoginActivity;
 import com.qiantang.smartparty.module.login.view.RegisterActivity;
@@ -299,6 +302,17 @@ public class ActivityUtil {
     }
 
     /**
+     * 专题学习
+     *
+     * @param activity
+     */
+    public static void startLearnListActivity(Activity activity, int id) {
+        Intent intent = new Intent(activity, LearningListActivity.class);
+        intent.putExtra("id", id);
+        activity.startActivity(intent);
+    }
+
+    /**
      * 新闻快报
      *
      * @param activity
@@ -327,6 +341,32 @@ public class ActivityUtil {
      */
     public static void startVideoDetialActivity(Activity activity, String url, String title, String id) {
         Intent intent = new Intent(activity, VideoStudyDetialActivity.class);
+        intent.putExtra("url", url);
+        intent.putExtra("id", id);
+        intent.putExtra("title", title);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 系列讲话详情
+     *
+     * @param activity
+     */
+    public static void startVideoSpeechDetialActivity(Activity activity, String url, String title, String id) {
+        Intent intent = new Intent(activity, VideoSpeechDetialActivity.class);
+        intent.putExtra("url", url);
+        intent.putExtra("id", id);
+        intent.putExtra("title", title);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 系列讲话详情
+     *
+     * @param activity
+     */
+    public static void startVoiceSpeechDetialActivity(Activity activity, String url, String title, String id) {
+        Intent intent = new Intent(activity, VoiceSpeechDetialActivity.class);
         intent.putExtra("url", url);
         intent.putExtra("id", id);
         intent.putExtra("title", title);

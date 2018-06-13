@@ -32,6 +32,8 @@ public class Config {
     public static final int PUBLISH_REQUEST = 101;
     public static final String PRODUCTORDER = "productOrder";
     public static final int MIEN_TYPE = 1; //党建风采搜索
+    public static final int PARTY_ACTIVITY = 2;//党建活动
+    public static final int SPEECH_STUDY = 3;//系列讲话
 
     public static String[] getAuthKey() {
         return new String[]{"wxcf7500ef8e821ee4", "58d211ef47461b1d08c75ca3bb30bbfe", "101445135", "1f2753cdb7cd8b8de261d78c73908ca3  ", "", "", "", "", "http://api.esomic.com/weibo/callback.do"};

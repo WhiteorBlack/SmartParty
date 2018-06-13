@@ -6,21 +6,19 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.orhanobut.logger.Logger;
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.CommentAdapter;
 import com.qiantang.smartparty.databinding.ActivityStudyVideoDetialBinding;
+import com.qiantang.smartparty.databinding.ViewVideoSpeechHeadBinding;
 import com.qiantang.smartparty.databinding.ViewVideoStudyHeadBinding;
 import com.qiantang.smartparty.module.index.adapter.VideoDetialAdapter;
 import com.qiantang.smartparty.module.index.viewmodel.VideoDetialViewMdoel;
+import com.qiantang.smartparty.module.index.viewmodel.VideoSpeechDetialViewMdoel;
 import com.qiantang.smartparty.module.input.viewmodel.InputViewModel;
-import com.qiantang.smartparty.utils.AppUtil;
 import com.qiantang.smartparty.utils.AutoUtils;
 import com.qiantang.smartparty.utils.RecycleViewUtils;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
@@ -32,10 +30,10 @@ import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
 /**
  * Created by zhaoyong bai on 2018/5/25.
  */
-public class VideoStudyDetialActivity extends BaseBindActivity {
+public class VideoSpeechDetialActivity extends BaseBindActivity {
     private ActivityStudyVideoDetialBinding binding;
-    private ViewVideoStudyHeadBinding headBinding;
-    private VideoDetialViewMdoel viewMdoel;
+    private ViewVideoSpeechHeadBinding headBinding;
+    private VideoSpeechDetialViewMdoel viewMdoel;
     private CommentAdapter adapter;
     private InputViewModel inputViewModel;
     private boolean isPlay;
@@ -46,11 +44,12 @@ public class VideoStudyDetialActivity extends BaseBindActivity {
     @Override
     protected void initBind() {
         adapter = new CommentAdapter(R.layout.item_comment);
-        viewMdoel = new VideoDetialViewMdoel(this, adapter);
+        viewMdoel = new VideoSpeechDetialViewMdoel(this, adapter);
         inputViewModel = new InputViewModel(this);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_study_video_detial);
         binding.input.setViewModel(inputViewModel);
-        headBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.view_video_study_head, null, false);
+
+        headBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.view_video_speech_head, null, false);
         headBinding.setViewModel(viewMdoel);
     }
 
@@ -123,7 +122,7 @@ public class VideoStudyDetialActivity extends BaseBindActivity {
             orientationUtils.resolveByClick();
 
             //第一个true是否需要隐藏actionbar，第二个true是否需要隐藏statusbar
-            binding.scv.startWindowFullscreen(VideoStudyDetialActivity.this, true, true);
+            binding.scv.startWindowFullscreen(VideoSpeechDetialActivity.this, true, true);
         });
         binding.scv.getBackButton().setOnClickListener(this::onClick);
         viewMdoel.initData();

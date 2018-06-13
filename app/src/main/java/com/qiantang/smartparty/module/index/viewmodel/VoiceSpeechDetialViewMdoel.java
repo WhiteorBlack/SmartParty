@@ -5,11 +5,14 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
+import android.databinding.ObservableInt;
+import android.databinding.ObservableLong;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.qiantang.smartparty.BR;
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.MyApplication;
@@ -17,12 +20,12 @@ import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.CommentAdapter;
 import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.config.CacheKey;
+import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.modle.RxComment;
-import com.qiantang.smartparty.modle.RxVideoDetial;
-import com.qiantang.smartparty.modle.RxVideoInfo;
-import com.qiantang.smartparty.module.index.adapter.VideoDetialAdapter;
-import com.qiantang.smartparty.module.index.view.VideoStudyDetialActivity;
-import com.qiantang.smartparty.module.web.view.HeadWebActivity;
+import com.qiantang.smartparty.modle.RxSpeechDetial;
+import com.qiantang.smartparty.modle.RxSpeechInfo;
+import com.qiantang.smartparty.module.index.view.VideoSpeechDetialActivity;
+import com.qiantang.smartparty.module.index.view.VoiceSpeechDetialActivity;
 import com.qiantang.smartparty.network.NetworkSubscriber;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
 import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
@@ -30,24 +33,23 @@ import com.qiantang.smartparty.utils.AppUtil;
 import com.qiantang.smartparty.utils.fullhtml.TextViewForFullHtml;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by zhaoyong bai on 2018/5/25.
  */
-public class VideoDetialViewMdoel extends BaseObservable implements ViewModel {
+public class VoiceSpeechDetialViewMdoel extends BaseObservable implements ViewModel {
     private BaseBindActivity activity;
     private CommentAdapter adapter;
     private String id;
     private int pageNo = 1;
-    private ObservableField<RxVideoInfo> videoInfo = new ObservableField<>();
+    private ObservableField<RxSpeechInfo> videoInfo = new ObservableField<>();
+    private ObservableLong totalTime = new ObservableLong(0);
+    private ObservableLong playTime = new ObservableLong(0);
     private boolean isDealing = false;
     private int addCommentCount = 0;
     private int commentCount = 0;
     private int commentPos = 0;
 
-    public VideoDetialViewMdoel(BaseBindActivity activity, CommentAdapter adapter) {
+    public VoiceSpeechDetialViewMdoel(BaseBindActivity activity, CommentAdapter adapter) {
         this.activity = activity;
         this.adapter = adapter;
     }
@@ -58,17 +60,18 @@ public class VideoDetialViewMdoel extends BaseObservable implements ViewModel {
     }
 
     public void testData() {
-        ApiWrapper.getInstance().videoDetial(pageNo, id)
+        ApiWrapper.getInstance().speechDetial(pageNo, id)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribe(new NetworkSubscriber<RxVideoDetial>() {
+                .subscribe(new NetworkSubscriber<RxSpeechDetial>() {
                     @Override
-                    public void onSuccess(RxVideoDetial data) {
+                    public void onSuccess(RxSpeechDetial data) {
                         adapter.setPagingData(data.getComment(), pageNo);
                         if (pageNo == 1) {
                             setVideoInfo(data.getVideo());
+                            ((VoiceSpeechDetialActivity) activity).setPopInfo(data.getVideo().getTitle(), data.getVideo().getContent());
                             commentCount = data.getVideo().getReview();
-                            ((VideoStudyDetialActivity) activity).startVideo(data.getVideo().getVideourl(), data.getVideo().getTitle());
-                            ((VideoStudyDetialActivity) activity).updateCollect(data.getVideo().getCollect() != 0);
+                            ((VoiceSpeechDetialActivity) activity).startVideo(data.getVideo().getSpeakurl());
+                            ((VoiceSpeechDetialActivity) activity).updateCollect(data.getVideo().getCollect() != 0);
                         }
                     }
                 });
@@ -93,7 +96,7 @@ public class VideoDetialViewMdoel extends BaseObservable implements ViewModel {
                     @Override
                     public void onSuccess(String data) {
                         addCommentCount++;
-                        RxVideoInfo rxVideoInfo = getVideoInfo();
+                        RxSpeechInfo rxVideoInfo = getVideoInfo();
                         commentCount += 1;
                         rxVideoInfo.setReview(commentCount);
                         RxComment rxComment = new RxComment();
@@ -166,7 +169,7 @@ public class VideoDetialViewMdoel extends BaseObservable implements ViewModel {
      * 点赞
      */
     public void prase() {
-        ApiWrapper.getInstance().collectSave(id, 1)
+        ApiWrapper.getInstance().collectSave(id, 2)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new NetworkSubscriber<String>() {
                     @Override
@@ -176,18 +179,18 @@ public class VideoDetialViewMdoel extends BaseObservable implements ViewModel {
 
                     @Override
                     public void onSuccess(String data) {
-                        ((VideoStudyDetialActivity) activity).updateCollect(true);
+                        ((VoiceSpeechDetialActivity) activity).updateCollect(true);
                     }
                 });
     }
 
     public void cancelPrase() {
-        ApiWrapper.getInstance().collectAbolish(id, 1)
+        ApiWrapper.getInstance().collectAbolish(id, 2)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new NetworkSubscriber<String>() {
                     @Override
                     public void onSuccess(String data) {
-                        ((VideoStudyDetialActivity) activity).updateCollect(false);
+                        ((VoiceSpeechDetialActivity) activity).updateCollect(false);
                     }
                 });
     }
@@ -220,18 +223,42 @@ public class VideoDetialViewMdoel extends BaseObservable implements ViewModel {
         testData();
     }
 
+    @Bindable
+    public long getTotalTime() {
+        return totalTime.get();
+    }
+
+    public void setTotalTime(long totalTime) {
+        this.totalTime.set(totalTime);
+        notifyPropertyChanged(BR.totalTime);
+    }
+
+    @Bindable
+    public long getPlayTime() {
+        return playTime.get();
+    }
+
+    public void setPlayTime(long playTime) {
+        this.playTime.set(playTime);
+        notifyPropertyChanged(BR.playTime);
+    }
+
     @BindingAdapter("loadContent")
     public static void loadContent(TextViewForFullHtml textViewForFullHtml, String content) {
         textViewForFullHtml.loadContent(content);
     }
 
+    @BindingAdapter("topPic")
+    public static void topPic(SimpleDraweeView simpleDraweeView, String url) {
+        simpleDraweeView.setImageURI(Config.IMAGE_HOST + url);
+    }
 
     @Bindable
-    public RxVideoInfo getVideoInfo() {
+    public RxSpeechInfo getVideoInfo() {
         return videoInfo.get();
     }
 
-    public void setVideoInfo(RxVideoInfo videoInfo) {
+    public void setVideoInfo(RxSpeechInfo videoInfo) {
         this.videoInfo.set(videoInfo);
         notifyPropertyChanged(BR.videoInfo);
     }

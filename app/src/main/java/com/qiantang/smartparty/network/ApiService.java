@@ -9,11 +9,15 @@ import com.qiantang.smartparty.modle.RxAssientHome;
 import com.qiantang.smartparty.modle.RxCharacterDetial;
 import com.qiantang.smartparty.modle.RxIndex;
 import com.qiantang.smartparty.modle.RxIndexCommon;
+import com.qiantang.smartparty.modle.RxIndexSpeak;
+import com.qiantang.smartparty.modle.RxLearningClass;
+import com.qiantang.smartparty.modle.RxLearningList;
 import com.qiantang.smartparty.modle.RxMsg;
 import com.qiantang.smartparty.modle.RxMyStudy;
 import com.qiantang.smartparty.modle.RxRankBranch;
 import com.qiantang.smartparty.modle.RxRankPersonal;
 import com.qiantang.smartparty.modle.RxSignList;
+import com.qiantang.smartparty.modle.RxSpeechDetial;
 import com.qiantang.smartparty.modle.RxStudy;
 import com.qiantang.smartparty.modle.RxStudyUnreadMsg;
 import com.qiantang.smartparty.modle.RxThinkDetial;
@@ -209,6 +213,13 @@ public interface ApiService {
                                                        @Field("videoId") String videoId,
                                                        @Field("userId") String userId);
 
+    //系列讲话详情
+    @FormUrlEncoded
+    @POST("app/speak/details")
+    Observable<HttpResult<RxSpeechDetial>> speechDetails(@Field("pageNum") int page,
+                                                         @Field("speakId") String videoId,
+                                                         @Field("userId") String userId);
+
     //视频学习点赞
     @FormUrlEncoded
     @POST("app/video/like")
@@ -240,6 +251,22 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("app/video/comment")
     Observable<HttpResult<String>> commentVideo(@Field("essay_id") String essay_id,
-                                           @Field("content") String content,
-                                           @Field("userId") String userId);
+                                                @Field("content") String content,
+                                                @Field("userId") String userId);
+
+    //视频学习列表
+    @FormUrlEncoded
+    @POST("app/speak/list")
+    Observable<HttpResult<List<RxIndexSpeak>>> speakList(@Field("pageNum") int page);
+
+    //专题学习类别
+    @POST("app/content/specialClassify")
+    Observable<HttpResult<List<RxLearningClass>>> specialClassify();
+
+    //专题学习列表
+    @FormUrlEncoded
+    @POST("app/content/special")
+    Observable<HttpResult<List<RxLearningList>>> special(@Field("pageNum") int pageNum,
+                                                   @Field("classifyId") int classifyId);
+
 }

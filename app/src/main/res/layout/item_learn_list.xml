@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.qiantang.smartparty.modle.RxIndexCommon" />
+            type="com.qiantang.smartparty.modle.RxLearningList" />
     </data>
 
     <RelativeLayout
@@ -26,17 +26,6 @@
             android:layout_marginRight="5px"
             app:actualImageScaleType="centerInside"
             app:viewAspectRatio="1.32" />
-
-        <TextView
-            android:id="@+id/tv_time"
-            style="@style/indexNewsInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/sdv"
-            android:layout_alignRight="@+id/sdv"
-            android:layout_margin="5px"
-            android:text=""
-            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/tv_name"
@@ -62,7 +51,7 @@
             android:layout_marginRight="5px"
             android:layout_toRightOf="@+id/sdv"
             android:gravity="bottom"
-            android:text="@{item.createTime}" />
+            android:text="@{item.creationtime}" />
 
         <TextView
             android:id="@+id/tv_comment"
@@ -76,7 +65,7 @@
             android:layout_marginLeft="5px"
             android:layout_toLeftOf="@+id/sdv"
             android:gravity="bottom"
-            android:text="@{item.pl+`评论`}" />
+            android:text="@{item.commentSum+`评论`}" />
 
         <TextView
             android:id="@+id/tv_read"

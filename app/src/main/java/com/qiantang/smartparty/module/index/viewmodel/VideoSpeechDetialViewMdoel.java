@@ -18,11 +18,13 @@ import com.qiantang.smartparty.adapter.CommentAdapter;
 import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.config.CacheKey;
 import com.qiantang.smartparty.modle.RxComment;
+import com.qiantang.smartparty.modle.RxSpeechDetial;
+import com.qiantang.smartparty.modle.RxSpeechInfo;
 import com.qiantang.smartparty.modle.RxVideoDetial;
 import com.qiantang.smartparty.modle.RxVideoInfo;
 import com.qiantang.smartparty.module.index.adapter.VideoDetialAdapter;
+import com.qiantang.smartparty.module.index.view.VideoSpeechDetialActivity;
 import com.qiantang.smartparty.module.index.view.VideoStudyDetialActivity;
-import com.qiantang.smartparty.module.web.view.HeadWebActivity;
 import com.qiantang.smartparty.network.NetworkSubscriber;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
 import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
@@ -30,24 +32,21 @@ import com.qiantang.smartparty.utils.AppUtil;
 import com.qiantang.smartparty.utils.fullhtml.TextViewForFullHtml;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by zhaoyong bai on 2018/5/25.
  */
-public class VideoDetialViewMdoel extends BaseObservable implements ViewModel {
+public class VideoSpeechDetialViewMdoel extends BaseObservable implements ViewModel {
     private BaseBindActivity activity;
     private CommentAdapter adapter;
     private String id;
     private int pageNo = 1;
-    private ObservableField<RxVideoInfo> videoInfo = new ObservableField<>();
+    private ObservableField<RxSpeechInfo> videoInfo = new ObservableField<>();
     private boolean isDealing = false;
     private int addCommentCount = 0;
     private int commentCount = 0;
     private int commentPos = 0;
 
-    public VideoDetialViewMdoel(BaseBindActivity activity, CommentAdapter adapter) {
+    public VideoSpeechDetialViewMdoel(BaseBindActivity activity, CommentAdapter adapter) {
         this.activity = activity;
         this.adapter = adapter;
     }
@@ -58,17 +57,17 @@ public class VideoDetialViewMdoel extends BaseObservable implements ViewModel {
     }
 
     public void testData() {
-        ApiWrapper.getInstance().videoDetial(pageNo, id)
+        ApiWrapper.getInstance().speechDetial(pageNo, id)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribe(new NetworkSubscriber<RxVideoDetial>() {
+                .subscribe(new NetworkSubscriber<RxSpeechDetial>() {
                     @Override
-                    public void onSuccess(RxVideoDetial data) {
+                    public void onSuccess(RxSpeechDetial data) {
                         adapter.setPagingData(data.getComment(), pageNo);
                         if (pageNo == 1) {
                             setVideoInfo(data.getVideo());
                             commentCount = data.getVideo().getReview();
-                            ((VideoStudyDetialActivity) activity).startVideo(data.getVideo().getVideourl(), data.getVideo().getTitle());
-                            ((VideoStudyDetialActivity) activity).updateCollect(data.getVideo().getCollect() != 0);
+                            ((VideoSpeechDetialActivity) activity).startVideo(data.getVideo().getSpeakurl(), data.getVideo().getTitle());
+                            ((VideoSpeechDetialActivity) activity).updateCollect(data.getVideo().getCollect() != 0);
                         }
                     }
                 });
@@ -93,7 +92,7 @@ public class VideoDetialViewMdoel extends BaseObservable implements ViewModel {
                     @Override
                     public void onSuccess(String data) {
                         addCommentCount++;
-                        RxVideoInfo rxVideoInfo = getVideoInfo();
+                        RxSpeechInfo rxVideoInfo = getVideoInfo();
                         commentCount += 1;
                         rxVideoInfo.setReview(commentCount);
                         RxComment rxComment = new RxComment();
@@ -166,7 +165,7 @@ public class VideoDetialViewMdoel extends BaseObservable implements ViewModel {
      * 点赞
      */
     public void prase() {
-        ApiWrapper.getInstance().collectSave(id, 1)
+        ApiWrapper.getInstance().collectSave(id, 2)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new NetworkSubscriber<String>() {
                     @Override
@@ -182,7 +181,7 @@ public class VideoDetialViewMdoel extends BaseObservable implements ViewModel {
     }
 
     public void cancelPrase() {
-        ApiWrapper.getInstance().collectAbolish(id, 1)
+        ApiWrapper.getInstance().collectAbolish(id, 2)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new NetworkSubscriber<String>() {
                     @Override
@@ -227,11 +226,11 @@ public class VideoDetialViewMdoel extends BaseObservable implements ViewModel {
 
 
     @Bindable
-    public RxVideoInfo getVideoInfo() {
+    public RxSpeechInfo getVideoInfo() {
         return videoInfo.get();
     }
 
-    public void setVideoInfo(RxVideoInfo videoInfo) {
+    public void setVideoInfo(RxSpeechInfo videoInfo) {
         this.videoInfo.set(videoInfo);
         notifyPropertyChanged(BR.videoInfo);
     }
