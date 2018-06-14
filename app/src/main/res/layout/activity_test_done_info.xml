@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="com.qiantang.smartparty.utils.AppUtil" />
+
+        <variable
+            name="viewModel"
+            type="com.qiantang.smartparty.module.index.viewmodel.TestDoneViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_common" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="300px"
+            android:layout_below="@+id/toolbar"
+            android:background="@color/barColor" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/white32"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+            android:layout_marginLeft="100px"
+            android:layout_marginRight="100px"
+            android:layout_marginTop="42px"
+            android:gravity="center"
+            android:text="@{viewModel.testInfo.title}" />
+
+        <RelativeLayout
+            android:id="@+id/rl_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_title"
+            android:layout_marginLeft="45px"
+            android:layout_marginRight="45px"
+            android:layout_marginTop="40px"
+            android:background="@drawable/bg_score_info_white"
+            android:elevation="10px">
+
+            <ImageView
+                android:id="@+id/iv_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60px"
+                android:layout_marginTop="70px"
+                android:background="@mipmap/icon_score_100" />
+
+            <TextView
+                android:id="@+id/tv_total_title"
+                style="@style/gray26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="33px"
+                android:layout_marginTop="66px"
+                android:layout_toRightOf="@+id/iv_total"
+                android:text="考试总分" />
+
+            <TextView
+                android:id="@+id/tv_total"
+                style="@style/black26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_total_title"
+                android:layout_marginLeft="33px"
+                android:layout_marginTop="19px"
+                android:layout_toRightOf="@+id/iv_total"
+                android:text="@{viewModel.testInfo.grade+`分`}" />
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="1px"
+                android:layout_height="200px"
+                android:layout_centerHorizontal="true"
+                android:background="@color/line" />
+
+            <ImageView
+                android:id="@+id/iv_pass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60px"
+                android:layout_marginTop="70px"
+                android:layout_toRightOf="@+id/line"
+                android:background="@mipmap/icon_socre_60" />
+
+            <TextView
+                android:id="@+id/tv_pass_title"
+                style="@style/gray26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="33px"
+                android:layout_marginTop="66px"
+                android:layout_toRightOf="@+id/iv_pass"
+                android:text="及格分" />
+
+            <TextView
+                android:id="@+id/tv_pass"
+                style="@style/black26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_total_title"
+                android:layout_marginLeft="33px"
+                android:layout_marginTop="19px"
+                android:layout_toRightOf="@+id/iv_pass"
+                android:text="@{viewModel.testInfo.pass+`分`}" />
+
+            <View
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@+id/line"
+                android:background="@color/line" />
+
+            <ImageView
+                android:id="@+id/iv_total_question"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line1"
+                android:layout_marginLeft="60px"
+                android:layout_marginTop="70px"
+                android:background="@mipmap/icon_socre_question" />
+
+            <TextView
+                android:id="@+id/tv_total_question"
+                style="@style/gray26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line1"
+                android:layout_marginLeft="33px"
+                android:layout_marginTop="66px"
+                android:layout_toRightOf="@+id/iv_total"
+                android:text="总题数" />
+
+            <TextView
+                android:id="@+id/tv_question"
+                style="@style/black26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_total_question"
+                android:layout_marginLeft="33px"
+                android:layout_marginTop="19px"
+                android:layout_toRightOf="@+id/iv_total"
+                android:text="@{viewModel.testInfo.number+`题`}" />
+
+            <View
+                android:id="@+id/line2"
+                android:layout_width="1px"
+                android:layout_height="200px"
+                android:layout_below="@+id/line1"
+                android:layout_centerHorizontal="true"
+                android:background="@color/line" />
+
+            <ImageView
+                android:id="@+id/iv_total_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line1"
+                android:layout_marginLeft="60px"
+                android:layout_marginTop="80px"
+                android:layout_toRightOf="@+id/line2"
+                android:background="@mipmap/icon_socre_time" />
+
+            <TextView
+                android:id="@+id/tv_total_time"
+                style="@style/gray26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line1"
+                android:layout_marginLeft="33px"
+                android:layout_marginTop="76px"
+                android:layout_toRightOf="@+id/iv_total_time"
+                android:text="答题时长" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                style="@style/black26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_total_time"
+                android:layout_marginLeft="33px"
+                android:layout_marginTop="19px"
+                android:layout_toRightOf="@+id/iv_total_time"
+                android:text="@{viewModel.testInfo.clippingtime+`分钟`}" />
+
+            <View
+                android:id="@+id/line3"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@+id/line2"
+                android:background="@color/line" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                style="@style/gray26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line3"
+                android:layout_marginLeft="50px"
+                android:layout_marginTop="40px"
+                android:text="考试时间" />
+
+            <TextView
+                android:id="@+id/tv_date_test"
+                style="@style/black26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_date"
+                android:layout_marginLeft="50px"
+                android:layout_marginTop="17px"
+                android:text="@{viewModel.testInfo.releasetime+`至`+viewModel.testInfo.validtime}" />
+
+            <View
+                android:id="@+id/line4"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@+id/tv_date_test"
+                android:layout_marginTop="40px"
+                android:background="@color/line" />
+
+            <TextView
+                android:id="@+id/tv_intro"
+                style="@style/gray26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/line4"
+                android:layout_marginLeft="50px"
+                android:layout_marginTop="40px"
+                android:text="考试说明" />
+
+            <TextView
+                android:id="@+id/tv_intro_content"
+                style="@style/black26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_intro"
+                android:layout_marginBottom="52px"
+                android:layout_marginLeft="53px"
+                android:layout_marginRight="53px"
+                android:layout_marginTop="17px"
+                android:text="@{viewModel.testInfo.explains}" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/iv_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/toolbar"
+            android:layout_marginRight="37px"
+            android:layout_marginTop="55px"
+            android:background="@{AppUtil.getTest(viewModel.testInfo.grade)}"
+            android:elevation="12px" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rl_info"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                style="@style/confirmBtn"
+                android:onClick="onClick"
+                android:text="开始答题" />
+
+            <Button
+                style="@style/confirmBtn"
+                android:layout_marginLeft="30px"
+                android:background="@drawable/bg_test_retry"
+                android:onClick="onClick"
+                android:text="重新测试"
+                android:textColor="@color/paleRed" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>

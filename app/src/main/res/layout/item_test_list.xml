@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.qiantang.smartparty.utils.AppUtil" />
+
+        <import type="com.qiantang.smartparty.R" />
+
+        <variable
+            name="item"
+            type="com.qiantang.smartparty.modle.RxTest" />
+
+        <import type="com.qiantang.smartparty.utils.StringUtil" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30px"
+            android:layout_marginTop="42px"
+            android:background="@mipmap/icon_test_word" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/black30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="50px"
+            android:layout_marginTop="42px"
+            android:layout_toRightOf="@+id/iv_test"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="@{item.title}" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            style="@style/gray20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_title"
+            android:layout_marginLeft="30px"
+            android:layout_marginTop="60px"
+            android:text="@{StringUtil.getTestDate(item.releasetime,item.validtime)}" />
+
+        <TextView
+            android:id="@+id/tv_join"
+            style="@style/gray20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_title"
+            android:layout_marginLeft="50px"
+            android:layout_marginTop="60px"
+            android:layout_toRightOf="@+id/tv_date"
+            android:text="@{item.number+`人参与`}" />
+
+        <Button
+            android:id="@+id/btn_test"
+            style="@style/white24"
+            android:layout_width="154px"
+            android:layout_height="54px"
+            android:layout_alignBaseline="@+id/tv_join"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30px"
+            android:background="@drawable/btn_confirm"
+            android:text="开始评测"
+            android:visibility="@{item.status==1?View.VISIBLE:View.GONE}" />
+
+        <TextView
+            android:id="@+id/tv_check"
+            style="@style/red24"
+            android:layout_width="154px"
+            android:layout_height="54px"
+            android:layout_alignBaseline="@+id/tv_join"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30px"
+            android:background="@drawable/bg_send_code"
+            android:gravity="center"
+            android:text="查看"
+            android:visibility="@{item.status==2?View.VISIBLE:View.GONE}" />
+
+        <TextView
+            android:id="@+id/tv_gone"
+            style="@style/white24"
+            android:layout_width="154px"
+            android:layout_height="54px"
+            android:layout_alignBaseline="@+id/tv_date"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30px"
+            android:background="@drawable/bg_test_gray"
+            android:gravity="center"
+            android:text="已失效"
+            android:visibility="@{item.status==0?View.VISIBLE:View.GONE}" />
+
+        <ImageView
+            android:id="@+id/iv_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="12px"
+            android:layout_marginTop="26px"
+            android:background="@{AppUtil.getTest(item.grade)}"
+            android:visibility="@{item.status==2?View.VISIBLE:View.GONE}" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/tv_date"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:layout_marginTop="56px"
+            android:background="@color/line" />
+    </RelativeLayout>
+</layout>

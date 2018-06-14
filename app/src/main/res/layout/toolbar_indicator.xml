@@ -7,7 +7,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolBarSizeHeight"
-        android:background="@color/paleRed">
+        android:background="@color/barColor">
 
         <ImageButton
             style="@style/ToolbarBackBtnWhiteStyle"

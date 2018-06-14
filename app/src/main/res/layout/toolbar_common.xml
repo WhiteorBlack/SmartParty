@@ -29,7 +29,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolBarSizeHeight"
-        android:background="@color/toolbar_color">
+        android:background="@color/barColor">
 
         <ImageButton
             style="@style/ToolbarBackBtnWhiteStyle"
@@ -55,6 +55,7 @@
             android:layout_marginRight="40px"
             android:gravity="center"
             android:onClick="onClick"
+            android:background="@color/white"
             android:text="@{right}"
             android:textSize="26px"
             android:visibility="@{TextUtils.isEmpty(right)?View.GONE:View.VISIBLE}" />
@@ -74,6 +75,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"
+            android:visibility="gone"
             android:layout_alignParentBottom="true"
             android:background="@color/line" />
     </RelativeLayout>

@@ -98,6 +98,12 @@ public class AppUtil {
     }
 
 
+    /**
+     * 学习排行
+     *
+     * @param rank
+     * @return
+     */
     public static Drawable getRank(int rank) {
         int resId = 0;
         switch (rank) {
@@ -112,6 +118,32 @@ public class AppUtil {
                 break;
         }
 
+        return getDrawable(resId);
+    }
+
+    /**
+     * 考试评测
+     *
+     * @param rank
+     * @return
+     */
+    public static Drawable getTest(String rank) {
+        int resId = 0;
+        if (TextUtils.equals(rank, "1")) {
+            resId = R.mipmap.icon_socre_bad;
+        }
+
+        if (TextUtils.equals(rank, "2")) {
+            resId = R.mipmap.icon_score_common;
+        }
+
+        if (TextUtils.equals(rank, "3")) {
+            resId = R.mipmap.icon_score_goods;
+        }
+
+        if (TextUtils.equals(rank, "4")) {
+            resId = R.mipmap.icon_score_best;
+        }
         return getDrawable(resId);
     }
 
@@ -175,6 +207,7 @@ public class AppUtil {
         public UnLeakHandler(Context context) {
             this.context = new WeakReference<>(context);
         }
+
     }
 
     //精确到小数点后几位,不四舍五入,直接废弃后面的值
@@ -304,23 +337,24 @@ public class AppUtil {
 
     /**
      * 把毫秒转换成：1：20：30这样的形式
+     *
      * @param timeMs
      * @return
      */
-    public static String stringForTime(long timeMs){
+    public static String stringForTime(long timeMs) {
         Formatter mFormatter;
         StringBuilder mFormatBuilder;
         mFormatBuilder = new StringBuilder();
         mFormatter = new Formatter(mFormatBuilder, Locale.getDefault());
-        int totalSeconds = (int) (timeMs/1000);
+        int totalSeconds = (int) (timeMs / 1000);
         int seconds = totalSeconds % 60;
-        int minutes = (totalSeconds/60)%60;
-        int hours = totalSeconds/3600;
+        int minutes = (totalSeconds / 60) % 60;
+        int hours = totalSeconds / 3600;
         mFormatBuilder.setLength(0);
-        if(hours>0){
-            return mFormatter.format("%d:%02d:%02d",hours,minutes,seconds).toString();
+        if (hours > 0) {
+            return mFormatter.format("%d:%02d:%02d", hours, minutes, seconds).toString();
         } else {
-            return mFormatter.format("%02d:%02d",minutes,seconds).toString();
+            return mFormatter.format("%02d:%02d", minutes, seconds).toString();
         }
     }
 }

@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
@@ -114,7 +115,7 @@ public class VoiceSpeechDetialActivity extends BaseBindActivity implements Compo
                 viewMdoel.prase();
                 break;
             case R.id.ll_info:
-                speechPop.show();
+                speechPop.showAtLocation(Gravity.BOTTOM,0,0);
                 break;
         }
     }

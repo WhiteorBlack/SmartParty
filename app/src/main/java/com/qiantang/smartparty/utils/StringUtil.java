@@ -74,8 +74,12 @@ public class StringUtil {
         return text;
     }
 
-    public static String getCommentCount(int count){
-        return "("+count+"条)";
+    public static String getTestDate(String start, String end) {
+        return "考试时间  " + start + "至" + end;
+    }
+
+    public static String getCommentCount(int count) {
+        return "(" + count + "条)";
     }
 
     public static boolean isContains(String shareUrl, String... keys) {
@@ -87,5 +91,8 @@ public class StringUtil {
         return false;
     }
 
+    public static String getTestType(int type) {
+        return type == 1 ? "单选" : "多选";
+    }
 
 }

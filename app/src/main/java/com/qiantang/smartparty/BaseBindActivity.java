@@ -45,7 +45,7 @@ public abstract class BaseBindActivity extends RxAppCompatActivity implements Re
         super.onCreate(savedInstanceState);
         TAG = this.getClass().getSimpleName();
         mImmersionBar = ImmersionBar.with(this);
-        mImmersionBar.keyboardEnable(true).keyboardMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE).init();
+        mImmersionBar.statusBarDarkFont(false).flymeOSStatusBarFontColor(R.color.white).keyboardEnable(true).keyboardMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE).init();
         initBind();
         rootView = (ViewGroup) getWindow().getDecorView();
         //是否自动适配

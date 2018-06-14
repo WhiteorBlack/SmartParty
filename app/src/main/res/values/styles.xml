@@ -32,7 +32,7 @@
     </style>
 
     <style name="toolbarTitleStyle">
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textSize">36px</item>
     </style>
 
@@ -69,6 +69,11 @@
     <style name="white24">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">24px</item>
+    </style>
+
+    <style name="white26">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">26px</item>
     </style>
 
     <style name="white20">
@@ -280,5 +285,9 @@
     <style name="seekbarStyle" parent="Base.Widget.AppCompat.SeekBar">
         <item name="android:thumb">@drawable/seekbar_thumb</item>
         <item name="android:progressDrawable">@drawable/second_seekbar</item>
+    </style>
+
+    <style name="testProgress" parent="Base.Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/btn_confirm</item>
     </style>
 </resources>

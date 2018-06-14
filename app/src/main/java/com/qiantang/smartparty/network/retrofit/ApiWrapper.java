@@ -21,6 +21,10 @@ import com.qiantang.smartparty.modle.RxSignList;
 import com.qiantang.smartparty.modle.RxSpeechDetial;
 import com.qiantang.smartparty.modle.RxStudy;
 import com.qiantang.smartparty.modle.RxStudyUnreadMsg;
+import com.qiantang.smartparty.modle.RxTest;
+import com.qiantang.smartparty.modle.RxTestDetial;
+import com.qiantang.smartparty.modle.RxTestDoneInfo;
+import com.qiantang.smartparty.modle.RxTestInfo;
 import com.qiantang.smartparty.modle.RxThinkDetial;
 import com.qiantang.smartparty.modle.RxUploadUrl;
 import com.qiantang.smartparty.modle.RxVideoDetial;
@@ -438,8 +442,54 @@ public class ApiWrapper extends RetrofitUtil {
         return getService().specialClassify().compose(this.applySchedulers());
     }
 
+    /**
+     * 专题学习列表
+     *
+     * @param pageNo
+     * @param id
+     * @return
+     */
     public Observable<List<RxLearningList>> special(int pageNo, int id) {
         return getService().special(pageNo, id).compose(this.applySchedulers());
     }
 
+    /**
+     * 考试评测表
+     *
+     * @param pageNo
+     * @return
+     */
+    public Observable<List<RxTest>> testList(int pageNo) {
+        return getService().testList(pageNo, MyApplication.USER_ID).compose(this.applySchedulers());
+    }
+
+    /**
+     * 考试评测信息
+     *
+     * @param id
+     * @return
+     */
+    public Observable<RxTestInfo> questionnaireDetails(String id) {
+        return getService().questionnaireDetails(id).compose(this.applySchedulers());
+    }
+
+    /**
+     * 考试评测信息
+     *
+     * @param id
+     * @return
+     */
+    public Observable<RxTestDoneInfo> questionnaireDoneDetails(String id) {
+        return getService().questionnaireRecord(id).compose(this.applySchedulers());
+    }
+
+    /**
+     * 考试评测信息
+     *
+     * @param id
+     * @return
+     */
+    public Observable<List<RxTestDetial>> questionnairecheck(String id) {
+        return getService().questionnairecheck(id).compose(this.applySchedulers());
+    }
 }

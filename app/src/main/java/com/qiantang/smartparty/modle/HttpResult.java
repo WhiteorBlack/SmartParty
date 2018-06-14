@@ -32,7 +32,15 @@ public class HttpResult<T> {
     private String msg;
     private String token;
     private int status;
+    private String title;
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     //用来模仿Data
     private T data;

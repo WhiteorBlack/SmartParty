@@ -20,6 +20,10 @@ import com.qiantang.smartparty.modle.RxSignList;
 import com.qiantang.smartparty.modle.RxSpeechDetial;
 import com.qiantang.smartparty.modle.RxStudy;
 import com.qiantang.smartparty.modle.RxStudyUnreadMsg;
+import com.qiantang.smartparty.modle.RxTest;
+import com.qiantang.smartparty.modle.RxTestDetial;
+import com.qiantang.smartparty.modle.RxTestDoneInfo;
+import com.qiantang.smartparty.modle.RxTestInfo;
 import com.qiantang.smartparty.modle.RxThinkDetial;
 import com.qiantang.smartparty.modle.RxUploadUrl;
 import com.qiantang.smartparty.modle.RxVideoDetial;
@@ -267,6 +271,26 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("app/content/special")
     Observable<HttpResult<List<RxLearningList>>> special(@Field("pageNum") int pageNum,
-                                                   @Field("classifyId") int classifyId);
+                                                         @Field("classifyId") int classifyId);
 
+    //评测列表
+    @FormUrlEncoded
+    @POST("app/questionnaire/list")
+    Observable<HttpResult<List<RxTest>>> testList(@Field("pageNum") int pageNum,
+                                                  @Field("userId") String userId);
+
+    //评测详情
+    @FormUrlEncoded
+    @POST("app/questionnaire/questionnaireDetails")
+    Observable<HttpResult<RxTestInfo>> questionnaireDetails(@Field("questionnaire_id") String questionnaire_id);
+
+    //评测详情
+    @FormUrlEncoded
+    @POST("app/questionnaire/questionnaireRecord")
+    Observable<HttpResult<RxTestDoneInfo>> questionnaireRecord(@Field("userquestionnaire_id") String userquestionnaire_id);
+
+    //评测详情
+    @FormUrlEncoded
+    @POST("app/questionnaire/questionnairecheck")
+    Observable<HttpResult<List<RxTestDetial>>> questionnairecheck(@Field("questionnaire_id") String questionnaire_id);
 }

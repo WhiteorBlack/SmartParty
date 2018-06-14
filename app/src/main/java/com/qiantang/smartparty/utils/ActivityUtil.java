@@ -39,6 +39,10 @@ import com.qiantang.smartparty.module.index.view.NewsActivity;
 import com.qiantang.smartparty.module.index.view.RankActivity;
 import com.qiantang.smartparty.module.index.view.SignActivity;
 import com.qiantang.smartparty.module.index.view.SpeechStudyActivity;
+import com.qiantang.smartparty.module.index.view.TestDetialActivity;
+import com.qiantang.smartparty.module.index.view.TestDoneInfoActivity;
+import com.qiantang.smartparty.module.index.view.TestInfoActivity;
+import com.qiantang.smartparty.module.index.view.TestListActivity;
 import com.qiantang.smartparty.module.index.view.VideoSpeechDetialActivity;
 import com.qiantang.smartparty.module.index.view.VideoStudyActivity;
 import com.qiantang.smartparty.module.index.view.VideoStudyDetialActivity;
@@ -331,6 +335,52 @@ public class ActivityUtil {
      */
     public static void startRankActivity(Activity activity) {
         Intent intent = new Intent(activity, RankActivity.class);
+        activity.startActivity(intent);
+    }
+
+
+    /**
+     * 考试评测
+     *
+     * @param activity
+     */
+    public static void startTestListActivity(Activity activity) {
+        Intent intent = new Intent(activity, TestListActivity.class);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 考试评测
+     *
+     * @param activity
+     */
+    public static void startTestInfoActivity(Activity activity,String id) {
+        Intent intent = new Intent(activity, TestInfoActivity.class);
+        intent.putExtra("id",id);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 考试评测 已完成
+     *
+     * @param activity
+     */
+    public static void startTestDoneInfoActivity(Activity activity,String id) {
+        Intent intent = new Intent(activity, TestDoneInfoActivity.class);
+        intent.putExtra("id",id);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 考试评测 详情
+     *
+     * @param activity
+     */
+    public static void startTestDeitalInfoActivity(Activity activity,String id,int time,int count) {
+        Intent intent = new Intent(activity, TestDetialActivity.class);
+        intent.putExtra("time",time);
+        intent.putExtra("count",count);
+        intent.putExtra("id",id);
         activity.startActivity(intent);
     }
 

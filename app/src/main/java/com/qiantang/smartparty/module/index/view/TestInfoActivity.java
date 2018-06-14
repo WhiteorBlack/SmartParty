@@ -1,0 +1,45 @@
+package com.qiantang.smartparty.module.index.view;
+
+import android.databinding.DataBindingUtil;
+import android.view.View;
+
+import com.qiantang.smartparty.BaseBindActivity;
+import com.qiantang.smartparty.R;
+import com.qiantang.smartparty.databinding.ActivityTestInfoBinding;
+import com.qiantang.smartparty.module.index.viewmodel.TestInfoViewModel;
+import com.qiantang.smartparty.utils.ActivityUtil;
+
+/**
+ * Created by zhaoyong bai on 2018/6/14.
+ */
+public class TestInfoActivity extends BaseBindActivity {
+    private ActivityTestInfoBinding binding;
+    private TestInfoViewModel viewModel;
+    @Override
+    protected void initBind() {
+        viewModel=new TestInfoViewModel(this);
+        binding=DataBindingUtil.setContentView(this, R.layout.activity_test_info);
+        binding.setViewModel(viewModel);
+    }
+
+    @Override
+    public void initView() {
+        binding.toolbar.setTitle("考试评测");
+        viewModel.getData();
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        switch (view.getId()){
+            case R.id.btn_confirm:
+                ActivityUtil.startTestDeitalInfoActivity(this,viewModel.getTestInfo().getQuestionnaire_id(),viewModel.getTestInfo().getClippingtime()*60,viewModel.getTestInfo().getNumber());
+                break;
+        }
+    }
+
+    @Override
+    protected void viewModelDestroy() {
+        viewModel.destroy();
+    }
+}

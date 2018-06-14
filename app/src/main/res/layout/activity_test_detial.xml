@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.qiantang.smartparty.module.index.viewmodel.TestDetialViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:id="@+id/rl_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolBarSizeHeight"
+            android:background="@color/barColor">
+
+            <ImageButton
+                style="@style/ToolbarBackBtnWhiteStyle"
+                android:layout_alignParentBottom="true"
+                android:src="@mipmap/back_black" />
+
+            <TextView
+                style="@style/toolbarTitleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="80px"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="@{viewModel.countTime}" />
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/tv_progress"
+            style="@style/red20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/rl_bar"
+            android:layout_marginRight="30px"
+            android:layout_marginTop="51px"
+            android:text="22" />
+
+        <SeekBar
+            android:id="@+id/progress"
+            style="@style/seekbarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_bar"
+            android:layout_marginLeft="30px"
+            android:layout_marginRight="30px"
+            android:layout_marginTop="60px"
+            android:layout_toLeftOf="@+id/tv_progress"
+            android:max="100"
+            android:maxHeight="8px"
+            android:minHeight="8px"
+            android:progress="10"
+            android:thumb="@drawable/red_point" />
+
+        <com.qiantang.smartparty.widget.NoScrollRecycleView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/progress"
+            android:layout_marginBottom="300px"
+            android:layout_marginTop="70px" />
+
+        <Button
+            style="@style/confirmBtn"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="130px"
+            android:onClick="onClick"
+            android:text="下一题" />
+    </RelativeLayout>
+</layout>

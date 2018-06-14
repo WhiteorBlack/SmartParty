@@ -192,7 +192,7 @@ public class IndexViewModel implements ViewModel {
                 switch (view.getId()) {
                     case R.id.tv_speech:
                         int id = (Integer) view.getTag();
-                       ActivityUtil.startLearnListActivity(fragment.getActivity(),id);
+                        ActivityUtil.startLearnListActivity(fragment.getActivity(), id);
                         break;
                 }
             }
@@ -235,7 +235,7 @@ public class IndexViewModel implements ViewModel {
                         ActivityUtil.startLearnListActivity(fragment.getActivity(), -1);
                         break;
                     case 3:
-
+                        ActivityUtil.startTestListActivity(fragment.getActivity());
                         break;
                     case 4://学习排行
                         ActivityUtil.startRankActivity(fragment.getActivity());

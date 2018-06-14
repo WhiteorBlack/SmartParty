@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="com.qiantang.smartparty.utils.StringUtil"/>
+        <variable
+            name="item"
+            type="com.qiantang.smartparty.modle.RxTestDetial" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_content"
+            style="@style/black26"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.5"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:layout_marginTop="38px"
+            android:text="@{`           `+item.content}" />
+
+        <TextView
+            android:id="@+id/tv_type"
+            style="@style/white20"
+            android:layout_width="70px"
+            android:layout_height="32px"
+            android:layout_alignLeft="@+id/tv_content"
+            android:layout_marginTop="36px"
+            android:background="@drawable/bg_test_type"
+            android:gravity="center"
+            android:text="@{StringUtil.getTestType(item.type)}" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_content" />
+    </RelativeLayout>
+</layout>
