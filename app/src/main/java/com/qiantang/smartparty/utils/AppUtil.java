@@ -121,6 +121,51 @@ public class AppUtil {
         return getDrawable(resId);
     }
 
+
+    /**
+     * 学习排行
+     *
+     * @return
+     */
+    public static Drawable getTestSelect(boolean isAnswer, boolean isSelected) {
+        int resId = 0;
+        if (isAnswer) {
+            resId = R.mipmap.test_selected_green;
+        } else if ( isSelected) {
+            resId = R.mipmap.test_selected_wrong;
+        } else {
+            resId = R.mipmap.test_unselected;
+        }
+
+        return getDrawable(resId);
+    }
+
+    /**
+     * 考试评测
+     *
+     * @param rank
+     * @return
+     */
+    public static Drawable getTestDone(String rank) {
+        int resId = 0;
+        if (TextUtils.equals(rank, "1")) {
+            resId = R.mipmap.icon_socre_bad;
+        }
+
+        if (TextUtils.equals(rank, "2")) {
+            resId = R.mipmap.icon_score_common_dark;
+        }
+
+        if (TextUtils.equals(rank, "3")) {
+            resId = R.mipmap.icon_score_goods_dark;
+        }
+
+        if (TextUtils.equals(rank, "4")) {
+            resId = R.mipmap.icon_score_best_dark;
+        }
+        return getDrawable(resId);
+    }
+
     /**
      * 考试评测
      *
@@ -347,6 +392,30 @@ public class AppUtil {
         mFormatBuilder = new StringBuilder();
         mFormatter = new Formatter(mFormatBuilder, Locale.getDefault());
         int totalSeconds = (int) (timeMs / 1000);
+        int seconds = totalSeconds % 60;
+        int minutes = (totalSeconds / 60) % 60;
+        int hours = totalSeconds / 3600;
+        mFormatBuilder.setLength(0);
+        if (hours > 0) {
+            return mFormatter.format("%d:%02d:%02d", hours, minutes, seconds).toString();
+        } else {
+            return mFormatter.format("%02d:%02d", minutes, seconds).toString();
+        }
+    }
+
+
+    /**
+     * 把秒转换成：1：20：30这样的形式
+     *
+     * @param timeMs
+     * @return
+     */
+    public static String stringForTime(int timeMs) {
+        Formatter mFormatter;
+        StringBuilder mFormatBuilder;
+        mFormatBuilder = new StringBuilder();
+        mFormatter = new Formatter(mFormatBuilder, Locale.getDefault());
+        int totalSeconds = timeMs;
         int seconds = totalSeconds % 60;
         int minutes = (totalSeconds / 60) % 60;
         int hours = totalSeconds / 3600;

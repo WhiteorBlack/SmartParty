@@ -9,6 +9,7 @@ import android.databinding.ObservableInt;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
+import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
@@ -34,7 +35,7 @@ public class HeadWebViewModel extends BaseObservable implements ViewModel {
     private AgentWeb mAgentWeb;
     private String url = "";
     private ObservableInt commentCount = new ObservableInt(0);
-    public ObservableBoolean isFinish=new ObservableBoolean(false); //判断是否H5加载完毕,完毕之后在展示评论内容
+    public ObservableBoolean isFinish = new ObservableBoolean(false); //判断是否H5加载完毕,完毕之后在展示评论内容
 
     public HeadWebViewModel(BaseBindActivity activity) {
         this.activity = activity;
@@ -42,7 +43,7 @@ public class HeadWebViewModel extends BaseObservable implements ViewModel {
     }
 
     private void initData() {
-        url = URLs.DETIAL_TOP + activity.getIntent().getStringExtra("id");
+        url = activity.getIntent().getStringExtra("url") + activity.getIntent().getStringExtra("id");
     }
 
     public void initWev(ViewGroup viewGroup) {
@@ -56,7 +57,9 @@ public class HeadWebViewModel extends BaseObservable implements ViewModel {
                 .setOpenOtherPageWays(DefaultWebClient.OpenOtherPageWays.ASK)//打开其他应用时，弹窗咨询用户是否前往其他应用
                 .interceptUnkownUrl() //拦截找不到相关页面的Scheme
                 .createAgentWeb()
-                .go(url);
+                .go("");
+        mAgentWeb.getWebCreator().getWebView().setLayerType(View.LAYER_TYPE_NONE, null);
+        setUrl(url);
     }
 
     public void setUrl(String url) {
@@ -66,7 +69,7 @@ public class HeadWebViewModel extends BaseObservable implements ViewModel {
     private WebChromeClient mWebChromeClient = new WebChromeClient() {
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
-           mAgentWeb.getIndicatorController().progress(view,newProgress);
+            mAgentWeb.getIndicatorController().progress(view, newProgress);
         }
 
         @Override
@@ -90,7 +93,6 @@ public class HeadWebViewModel extends BaseObservable implements ViewModel {
                 super.onPageFinished(view, url);
                 isFinish.set(true);
             }
-
 
 
             @Override //网页加载 禁止在浏览器打开在本应用打开

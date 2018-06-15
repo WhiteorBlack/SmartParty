@@ -343,6 +343,16 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".module.index.view.TestRecordActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".module.index.view.OnlineListActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".module.index.view.VideoSpeechDetialActivity"
             android:configChanges="orientation|screenSize"
             android:launchMode="singleTask"

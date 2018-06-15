@@ -12,6 +12,7 @@ import com.qiantang.smartparty.modle.RxMsg;
 import com.qiantang.smartparty.module.assistant.adapter.MsgAdapter;
 import com.qiantang.smartparty.module.index.adapter.IndexCommonAdapter;
 import com.qiantang.smartparty.network.NetworkSubscriber;
+import com.qiantang.smartparty.network.URLs;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
 import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
 import com.qiantang.smartparty.utils.ActivityUtil;
@@ -101,7 +102,7 @@ public class MienViewModel implements ViewModel {
 //                        ActivityUtil.startThinkingDetialActivity(activity, id);
                         break;
                 }
-                ActivityUtil.startHeadWebActivity(activity, id, title);
+                ActivityUtil.startHeadWebActivity(activity, id, title, URLs.NOTICE_DETIAL);
             }
         };
     }

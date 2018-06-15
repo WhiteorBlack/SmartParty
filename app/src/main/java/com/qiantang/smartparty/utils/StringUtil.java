@@ -74,6 +74,55 @@ public class StringUtil {
         return text;
     }
 
+    public static String getTestSelection(int pos) {
+        String select = "A";
+        switch (pos) {
+            case 0:
+                select = "A";
+                break;
+            case 1:
+                select = "B";
+                break;
+            case 2:
+                select = "C";
+                break;
+            case 3:
+                select = "D";
+                break;
+            case 4:
+                select = "E";
+                break;
+            case 5:
+                select = "F";
+                break;
+        }
+        return select;
+    }
+
+    public static String getTestResult(int pos) {
+        String select = "";
+        switch (pos) {
+            case 1:
+                select = "不及格";
+                break;
+            case 2:
+                select = "及格";
+                break;
+            case 3:
+                select = "良好";
+                break;
+            case 4:
+                select = "优秀";
+                break;
+
+        }
+        return "恭喜您,完成评测,并获得了\"" + select + "\",希望再接再厉,继续学习";
+    }
+
+    public static String getTestResultString(boolean isCorrect){
+        return isCorrect?"回答正确":"回答错误";
+    }
+
     public static String getTestDate(String start, String end) {
         return "考试时间  " + start + "至" + end;
     }

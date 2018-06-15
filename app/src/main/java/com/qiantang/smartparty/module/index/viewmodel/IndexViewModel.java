@@ -21,6 +21,7 @@ import com.qiantang.smartparty.module.index.adapter.IndexVideoAdapter;
 import com.qiantang.smartparty.module.index.adapter.NewsAdapter;
 import com.qiantang.smartparty.module.index.adapter.SpechAdapter;
 import com.qiantang.smartparty.network.NetworkSubscriber;
+import com.qiantang.smartparty.network.URLs;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
 import com.qiantang.smartparty.utils.ActivityUtil;
 import com.qiantang.smartparty.utils.ToastUtil;
@@ -132,7 +133,7 @@ public class IndexViewModel implements ViewModel {
         return new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ActivityUtil.startHeadWebActivity(fragment.getActivity(), studyAdapter.getData().get(position).getContentId(), "学习动态");
+                ActivityUtil.startHeadWebActivity(fragment.getActivity(), studyAdapter.getData().get(position).getContentId(), "学习动态", URLs.NOTICE_DETIAL);
             }
         };
     }
@@ -182,7 +183,7 @@ public class IndexViewModel implements ViewModel {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (!sectionAdapter.getData().get(position).isHeader) {
-                    ActivityUtil.startHeadWebActivity(fragment.getActivity(), sectionAdapter.getData().get(position).getRxIndexStudy().getContentId(), "专题学习");
+                    ActivityUtil.startHeadWebActivity(fragment.getActivity(), sectionAdapter.getData().get(position).getRxIndexStudy().getContentId(), "专题学习", URLs.SPECIALORTHEORY);
                 }
             }
 
@@ -209,7 +210,7 @@ public class IndexViewModel implements ViewModel {
         return new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ActivityUtil.startHeadWebActivity(fragment.getActivity(), newsAdapter.getData().get(position).getContentId(), "新闻快报");
+                ActivityUtil.startHeadWebActivity(fragment.getActivity(), newsAdapter.getData().get(position).getContentId(), "新闻快报", URLs.NOTICE_DETIAL);
             }
         };
     }
@@ -241,7 +242,7 @@ public class IndexViewModel implements ViewModel {
                         ActivityUtil.startRankActivity(fragment.getActivity());
                         break;
                     case 5:
-
+                        ActivityUtil.startOnlineActivity(fragment.getActivity());
                         break;
                     case 6:
 

@@ -7,8 +7,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.qiantang.smartparty.BaseBindFragment;
 import com.qiantang.smartparty.base.ViewModel;
+import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.modle.RxLearningList;
+import com.qiantang.smartparty.modle.RxOnline;
 import com.qiantang.smartparty.module.index.adapter.LearnAdapter;
+import com.qiantang.smartparty.module.index.fragment.FragmentOnline;
 import com.qiantang.smartparty.network.NetworkSubscriber;
 import com.qiantang.smartparty.network.URLs;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
@@ -21,13 +24,13 @@ import java.util.List;
 /**
  * Created by zhaoyong bai on 2018/6/13.
  */
-public class LearnFragmentViewModel implements ViewModel {
+public class OnlineFragmentViewModel implements ViewModel {
     private BaseBindFragment fragment;
     private LearnAdapter learnAdapter;
     private int pageNo = 1;
     private int classId = -1;
 
-    public LearnFragmentViewModel(BaseBindFragment fragment, LearnAdapter learnAdapter) {
+    public OnlineFragmentViewModel(BaseBindFragment fragment, LearnAdapter learnAdapter) {
         this.fragment = fragment;
         this.learnAdapter = learnAdapter;
         initData();
@@ -35,6 +38,7 @@ public class LearnFragmentViewModel implements ViewModel {
 
     private void initData() {
         classId = fragment.getArguments().getInt("id", -1);
+        String imgUrl = fragment.getArguments().getString("img");
         if (classId > 0) {
             getData();
         }
@@ -51,9 +55,9 @@ public class LearnFragmentViewModel implements ViewModel {
     }
 
     private void getData() {
-        ApiWrapper.getInstance().special(pageNo, classId)
+        ApiWrapper.getInstance().theory(pageNo, classId)
                 .compose(fragment.bindUntilEvent(FragmentEvent.DESTROY))
-                .subscribe(new NetworkSubscriber<List<RxLearningList>>() {
+                .subscribe(new NetworkSubscriber<RxOnline>() {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
@@ -61,8 +65,11 @@ public class LearnFragmentViewModel implements ViewModel {
                     }
 
                     @Override
-                    public void onSuccess(List<RxLearningList> data) {
-                        learnAdapter.setPagingData(data, pageNo);
+                    public void onSuccess(RxOnline data) {
+                        if (pageNo == 1) {
+                            ((FragmentOnline) fragment).setHeadImage(Config.IMAGE_HOST + data.getPictureurl());
+                        }
+                        learnAdapter.setPagingData(data.getList(), pageNo);
                     }
                 });
     }
@@ -71,7 +78,7 @@ public class LearnFragmentViewModel implements ViewModel {
         return new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ActivityUtil.startHeadWebActivity(fragment.getActivity(), learnAdapter.getData().get(position).getContentId(), "专题学习", URLs.SPECIALORTHEORY);
+                ActivityUtil.startHeadWebActivity(fragment.getActivity(), learnAdapter.getData().get(position).getContentId(), "理论在线", URLs.SPECIALORTHEORY);
             }
         };
     }

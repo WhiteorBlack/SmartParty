@@ -71,7 +71,7 @@ public class AssisantViewModel implements ViewModel {
         return new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ActivityUtil.jumpWeb(fragment.getActivity(), URLs.NOTICE_DETIAL + ((RxMsg) adapter.getData().get(position)).getNoticeId());
+                ActivityUtil.jumpWeb(fragment.getActivity(), URLs.MESSAGE_DETIAL + ((RxMsg) adapter.getData().get(position)).getNoticeId());
             }
         };
     }

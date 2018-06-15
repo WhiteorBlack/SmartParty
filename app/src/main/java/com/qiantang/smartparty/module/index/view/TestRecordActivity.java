@@ -10,29 +10,28 @@ import android.view.View;
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.databinding.ActivityTestDetialBinding;
+import com.qiantang.smartparty.databinding.ActivityTestRecordBinding;
 import com.qiantang.smartparty.databinding.ViewTestDetialResultBinding;
 import com.qiantang.smartparty.module.index.adapter.TestDetialAdapter;
+import com.qiantang.smartparty.module.index.adapter.TestRecordAdapter;
 import com.qiantang.smartparty.module.index.viewmodel.TestDetialViewModel;
-import com.qiantang.smartparty.utils.ActivityUtil;
+import com.qiantang.smartparty.module.index.viewmodel.TestRecordViewModel;
 import com.qiantang.smartparty.utils.AutoUtils;
 import com.qiantang.smartparty.widget.NoScorllLinealayout;
 
 /**
  * Created by zhaoyong bai on 2018/6/14.
  */
-public class TestDetialActivity extends BaseBindActivity {
-    private ActivityTestDetialBinding binding;
-    private TestDetialAdapter adapter;
-    private TestDetialViewModel viewModel;
-    private ViewTestDetialResultBinding resultBinding;
+public class TestRecordActivity extends BaseBindActivity {
+    private ActivityTestRecordBinding binding;
+    private TestRecordAdapter adapter;
+    private TestRecordViewModel viewModel;
 
     @Override
     protected void initBind() {
-        adapter = new TestDetialAdapter(R.layout.item_test_detial);
-        viewModel = new TestDetialViewModel(this, adapter);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_test_detial);
-        resultBinding=DataBindingUtil.inflate(getLayoutInflater(),R.layout.view_test_detial_result,null,false);
-        resultBinding.setViewModel(viewModel);
+        adapter = new TestRecordAdapter(R.layout.item_test_record);
+        viewModel = new TestRecordViewModel(this, adapter);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_test_record);
         binding.setViewModel(viewModel);
     }
 
@@ -40,13 +39,10 @@ public class TestDetialActivity extends BaseBindActivity {
     @Override
     public void initView() {
         initRv(binding.rv);
-       binding.progress.setEnabled(false);
     }
 
     private void initRv(RecyclerView rv) {
-        AutoUtils.auto(resultBinding.getRoot());
-        adapter.setEmptyView(resultBinding.getRoot());
-        rv.setLayoutManager(new NoScorllLinealayout(this,LinearLayoutManager.HORIZONTAL,false));
+        rv.setLayoutManager(new NoScorllLinealayout(this, LinearLayoutManager.HORIZONTAL, false));
         rv.setAdapter(adapter);
         rv.setNestedScrollingEnabled(false);
     }
@@ -54,7 +50,7 @@ public class TestDetialActivity extends BaseBindActivity {
     @Override
     public void onClick(View view) {
         super.onClick(view);
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btn_confirm:
                 viewModel.next(binding.rv);
                 break;

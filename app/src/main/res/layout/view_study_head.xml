@@ -71,6 +71,7 @@
             android:layout_alignBottom="@+id/sdv"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="-60px"
+            app:placeholderImage="@mipmap/mine_head"
             android:layout_marginRight="17px"
             android:onClick="@{viewModel.onClick}"
             app:roundAsCircle="true"
@@ -80,8 +81,8 @@
             style="@style/white32"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/ll_content"
             android:layout_marginBottom="66px"
+            android:layout_alignBottom="@+id/sdv_avatar"
             android:layout_marginRight="42px"
             android:layout_toLeftOf="@+id/sdv_avatar"
             android:text="@{viewModel.userMap.userName}" />

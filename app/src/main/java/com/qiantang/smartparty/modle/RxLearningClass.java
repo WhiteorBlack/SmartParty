@@ -6,6 +6,15 @@ package com.qiantang.smartparty.modle;
 public class RxLearningClass {
     private int classifyId;
     private String content;
+    private String pictureurl;
+
+    public String getPictureurl() {
+        return pictureurl;
+    }
+
+    public void setPictureurl(String pictureurl) {
+        this.pictureurl = pictureurl;
+    }
 
     public int getClassifyId() {
         return classifyId;

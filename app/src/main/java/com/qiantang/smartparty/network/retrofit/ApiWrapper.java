@@ -2,6 +2,7 @@ package com.qiantang.smartparty.network.retrofit;
 
 
 import com.qiantang.smartparty.MyApplication;
+import com.qiantang.smartparty.modle.HttpResult;
 import com.qiantang.smartparty.modle.RxActivity;
 import com.qiantang.smartparty.modle.RxActivityDetial;
 import com.qiantang.smartparty.modle.RxAdviseRecord;
@@ -15,8 +16,10 @@ import com.qiantang.smartparty.modle.RxLearningClass;
 import com.qiantang.smartparty.modle.RxLearningList;
 import com.qiantang.smartparty.modle.RxMsg;
 import com.qiantang.smartparty.modle.RxMyStudy;
+import com.qiantang.smartparty.modle.RxOnline;
 import com.qiantang.smartparty.modle.RxRankBranch;
 import com.qiantang.smartparty.modle.RxRankPersonal;
+import com.qiantang.smartparty.modle.RxRecordDetial;
 import com.qiantang.smartparty.modle.RxSignList;
 import com.qiantang.smartparty.modle.RxSpeechDetial;
 import com.qiantang.smartparty.modle.RxStudy;
@@ -434,6 +437,26 @@ public class ApiWrapper extends RetrofitUtil {
     }
 
     /**
+     * 理论在线类别
+     *
+     * @return
+     */
+    public Observable<List<RxLearningClass>> theoryClassify() {
+        return getService().theoryClassify().compose(this.applySchedulers());
+    }
+
+    /**
+     * 理论在线列表
+     *
+     * @param pageNo
+     * @param id
+     * @return
+     */
+    public Observable<RxOnline> theory(int pageNo, int id) {
+        return getService().theory(pageNo, id).compose(this.applySchedulers());
+    }
+
+    /**
      * 获取专题学习类别
      *
      * @return
@@ -491,5 +514,27 @@ public class ApiWrapper extends RetrofitUtil {
      */
     public Observable<List<RxTestDetial>> questionnairecheck(String id) {
         return getService().questionnairecheck(id).compose(this.applySchedulers());
+    }
+
+    /**
+     * 考试评测信息
+     *
+     * @param id
+     * @return
+     */
+    public Observable<List<RxRecordDetial>> questionnaireStatistics(String id) {
+        return getService().questionnaireStatistics(id).compose(this.applySchedulers());
+    }
+
+    /**
+     * 提交评测
+     *
+     * @param id
+     * @param sub
+     * @param time
+     * @return
+     */
+    public Observable<HttpResult> questionnaireSave(String id, String sub, int time) {
+        return getService().questionnaireSave(id, sub, time, MyApplication.USER_ID).compose(this.applySchedulers());
     }
 }

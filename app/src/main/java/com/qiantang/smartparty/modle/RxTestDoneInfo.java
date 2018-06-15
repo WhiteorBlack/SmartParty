@@ -4,12 +4,12 @@ package com.qiantang.smartparty.modle;
  * Created by zhaoyong bai on 2018/6/14.
  */
 public class RxTestDoneInfo {
-    private String number;
+    private int number;
     private String releasetime;
     private String questionnaire_id;
     private String pass;
     private String grade;
-    private String clippingtime;
+    private int clippingtime;
     private String validtime;
     private String title;
     private String explains;
@@ -32,11 +32,11 @@ public class RxTestDoneInfo {
         this.level = level;
     }
 
-    public String getNumber() {
+    public int getNumber() {
         return number;
     }
 
-    public void setNumber(String number) {
+    public void setNumber(int number) {
         this.number = number;
     }
 
@@ -72,11 +72,11 @@ public class RxTestDoneInfo {
         this.grade = grade;
     }
 
-    public String getClippingtime() {
+    public int getClippingtime() {
         return clippingtime;
     }
 
-    public void setClippingtime(String clippingtime) {
+    public void setClippingtime(int clippingtime) {
         this.clippingtime = clippingtime;
     }
 

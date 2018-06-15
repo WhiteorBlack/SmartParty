@@ -36,6 +36,7 @@ import com.qiantang.smartparty.module.assistant.view.ThinkingActivity;
 import com.qiantang.smartparty.module.assistant.view.ThinkingDetialActivity;
 import com.qiantang.smartparty.module.index.view.LearningListActivity;
 import com.qiantang.smartparty.module.index.view.NewsActivity;
+import com.qiantang.smartparty.module.index.view.OnlineListActivity;
 import com.qiantang.smartparty.module.index.view.RankActivity;
 import com.qiantang.smartparty.module.index.view.SignActivity;
 import com.qiantang.smartparty.module.index.view.SpeechStudyActivity;
@@ -43,6 +44,7 @@ import com.qiantang.smartparty.module.index.view.TestDetialActivity;
 import com.qiantang.smartparty.module.index.view.TestDoneInfoActivity;
 import com.qiantang.smartparty.module.index.view.TestInfoActivity;
 import com.qiantang.smartparty.module.index.view.TestListActivity;
+import com.qiantang.smartparty.module.index.view.TestRecordActivity;
 import com.qiantang.smartparty.module.index.view.VideoSpeechDetialActivity;
 import com.qiantang.smartparty.module.index.view.VideoStudyActivity;
 import com.qiantang.smartparty.module.index.view.VideoStudyDetialActivity;
@@ -338,6 +340,16 @@ public class ActivityUtil {
         activity.startActivity(intent);
     }
 
+    /**
+     * 理论在线
+     *
+     * @param activity
+     */
+    public static void startOnlineActivity(Activity activity) {
+        Intent intent = new Intent(activity, OnlineListActivity.class);
+        activity.startActivity(intent);
+    }
+
 
     /**
      * 考试评测
@@ -354,9 +366,9 @@ public class ActivityUtil {
      *
      * @param activity
      */
-    public static void startTestInfoActivity(Activity activity,String id) {
+    public static void startTestInfoActivity(Activity activity, String id) {
         Intent intent = new Intent(activity, TestInfoActivity.class);
-        intent.putExtra("id",id);
+        intent.putExtra("id", id);
         activity.startActivity(intent);
     }
 
@@ -365,9 +377,9 @@ public class ActivityUtil {
      *
      * @param activity
      */
-    public static void startTestDoneInfoActivity(Activity activity,String id) {
+    public static void startTestDoneInfoActivity(Activity activity, String id) {
         Intent intent = new Intent(activity, TestDoneInfoActivity.class);
-        intent.putExtra("id",id);
+        intent.putExtra("id", id);
         activity.startActivity(intent);
     }
 
@@ -376,11 +388,23 @@ public class ActivityUtil {
      *
      * @param activity
      */
-    public static void startTestDeitalInfoActivity(Activity activity,String id,int time,int count) {
+    public static void startTestDeitalInfoActivity(Activity activity, String id, int time, int count) {
         Intent intent = new Intent(activity, TestDetialActivity.class);
-        intent.putExtra("time",time);
-        intent.putExtra("count",count);
-        intent.putExtra("id",id);
+        intent.putExtra("time", time);
+        intent.putExtra("count", count);
+        intent.putExtra("id", id);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 考试评测 记录
+     *
+     * @param activity
+     */
+    public static void startTestRecordActivity(Activity activity, String id) {
+        Intent intent = new Intent(activity, TestRecordActivity.class);
+
+        intent.putExtra("id", id);
         activity.startActivity(intent);
     }
 
@@ -753,10 +777,11 @@ public class ActivityUtil {
      * @param id
      * @param title
      */
-    public static void startHeadWebActivity(Activity activity, String id, String title) {
+    public static void startHeadWebActivity(Activity activity, String id, String title, String url) {
         Intent intent = new Intent(activity, HeadWebActivity.class);
         intent.putExtra("id", id);
         intent.putExtra("title", title);
+        intent.putExtra("url", url);
         activity.startActivity(intent);
     }
 }

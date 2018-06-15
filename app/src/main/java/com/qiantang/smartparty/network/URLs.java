@@ -11,7 +11,8 @@ public class URLs {
     public static final int PAGE_SIZE = 8;
     //版本检测
     public static final String GET_VERSION = Config.SERVER_HOST + "";
-    public static final String NOTICE_DETIAL = Config.SERVER_HOST + "app/partyBuild/shareTZ?noticeId=";
-    public static final String DETIAL_TOP = Config.SERVER_HOST + "app/partyBuild/share?contentId=";
+    public static final String NOTICE_DETIAL = Config.SERVER_HOST + "app/partyBuild/share?contentId=";
+    public static final String SPECIALORTHEORY=Config.SERVER_HOST+"app/content/specialOrTheoryShare?contentId=";
+    public static final String MESSAGE_DETIAL=Config.SERVER_HOST+"app/partyBuild/shareTZ?contentId=";
 }
 

@@ -1,5 +1,6 @@
 package com.qiantang.smartparty.module.index.adapter;
 
+import com.facebook.common.references.SharedReference;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.BindingViewHolder;
@@ -18,8 +19,12 @@ public class LearnAdapter extends EasyBindQuickAdapter<RxLearningList> {
 
     @Override
     protected void easyConvert(BindingViewHolder holder, RxLearningList item) {
-        holder.getBinding().setVariable(BR.item,item);
+        holder.getBinding().setVariable(BR.item, item);
         holder.getBinding().executePendingBindings();
-        ((SimpleDraweeView)holder.getBinding().getRoot().findViewById(R.id.sdv)).setImageURI(Config.IMAGE_HOST,item.getPrinturl());
+        try {
+            ((SimpleDraweeView) holder.getBinding().getRoot().findViewById(R.id.sdv)).setImageURI(Config.IMAGE_HOST, item.getPrinturl());
+        } catch (NullPointerException e) {
+
+        }
     }
 }

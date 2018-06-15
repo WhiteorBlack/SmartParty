@@ -57,8 +57,10 @@
             android:id="@+id/rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/tv_content"
-            android:layout_alignRight="@+id/tv_content"
+            android:layout_marginTop="30px"
+            android:layout_toRightOf="@+id/sdv"
+            android:layout_marginLeft="10px"
+            android:layout_marginRight="26px"
             android:layout_below="@+id/tv_content"
             android:visibility="@{TextUtils.isEmpty(item.image)?View.INVISIBLE:View.VISIBLE}" />
 

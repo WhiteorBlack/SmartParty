@@ -33,6 +33,24 @@ public class HttpResult<T> {
     private String token;
     private int status;
     private String title;
+    private int grade;
+    private String userquestionnaire_id;
+
+    public int getGrade() {
+        return grade;
+    }
+
+    public void setGrade(int grade) {
+        this.grade = grade;
+    }
+
+    public String getUserquestionnaire_id() {
+        return userquestionnaire_id;
+    }
+
+    public void setUserquestionnaire_id(String userquestionnaire_id) {
+        this.userquestionnaire_id = userquestionnaire_id;
+    }
 
     public String getTitle() {
         return title;

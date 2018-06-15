@@ -19,6 +19,7 @@ import com.qiantang.smartparty.BaseBindFragment;
 import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.base.ViewModel;
+import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.modle.RxStudy;
 import com.qiantang.smartparty.modle.RxStudyComment;
 import com.qiantang.smartparty.modle.RxStudyList;
@@ -178,7 +179,7 @@ public class StudyViewModel extends BaseObservable implements ViewModel, Comment
 
     @BindingAdapter("avatar")
     public static void setAvatar(SimpleDraweeView simpleDraweeView, String url) {
-        simpleDraweeView.setImageURI(url);
+        simpleDraweeView.setImageURI(Config.IMAGE_HOST+url);
     }
 
     public RecyclerView.OnItemTouchListener onItemTouchListener() {

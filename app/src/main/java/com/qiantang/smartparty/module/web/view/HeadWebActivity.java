@@ -44,7 +44,7 @@ public class HeadWebActivity extends BaseBindActivity implements CommentBox.OnCo
         String title = getIntent().getStringExtra("title");
         AutoUtils.auto(headBinding.getRoot());
         binding.toolbar.setTitle(title);
-        binding.toolbar.setResId(R.mipmap.icon_share_black);
+        binding.toolbar.setResId(R.mipmap.icon_share_white);
         headViewModel.initWev(headBinding.llContent);
         initRv(binding.rv);
         binding.input.setOnCommentSendClickListener(this);

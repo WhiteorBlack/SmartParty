@@ -1,6 +1,7 @@
 package com.qiantang.smartparty.network.retrofit;
 
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.franmontiel.persistentcookiejar.ClearableCookieJar;
@@ -262,7 +263,11 @@ public class RetrofitUtil {
                 }
                 if (!subscriber.isDisposed()) {
                     T object = response.getReturnObject();
-                    subscriber.onNext(object == null ? ((T) response.getErrorMessage()) : object);
+                    if (!TextUtils.isEmpty(response.getUserquestionnaire_id())) {
+                        subscriber.onNext(object == null ? ((T) response) : object);
+                    } else {
+                        subscriber.onNext(object == null ? ((T) response.getErrorMessage()) : object);
+                    }
                 }
             } else {
                 int errorCode = response.getErrorCode();

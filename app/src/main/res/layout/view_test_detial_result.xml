@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.qiantang.smartparty.utils.AppUtil" />
+
+        <import type="com.qiantang.smartparty.utils.StringUtil" />
+
+        <variable
+            name="viewModel"
+            type="com.qiantang.smartparty.module.index.viewmodel.TestDetialViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="@{viewModel.isCommit?View.VISIBLE:View.GONE}">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90px"
+            android:background="@{AppUtil.getTest(viewModel.resultGrad+``)}" />
+
+        <TextView
+            style="@style/gray32"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="70px"
+            android:layout_marginRight="70px"
+            android:layout_marginTop="80px"
+            android:text="@{StringUtil.getTestResult(viewModel.resultGrad)}" />
+
+        <Button
+            style="@style/confirmBtn"
+            android:layout_marginTop="60px"
+            android:onClick="@{viewModel.onClick}"
+            android:text="查看记录" />
+    </LinearLayout>
+</layout>

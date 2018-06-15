@@ -116,6 +116,11 @@
         <item name="android:textSize">28px</item>
     </style>
 
+    <style name="gray32">
+        <item name="android:textColor">@color/infoColor</item>
+        <item name="android:textSize">32px</item>
+    </style>
+
     <style name="gray20">
         <item name="android:textColor">@color/infoColor</item>
         <item name="android:textSize">20px</item>
@@ -222,6 +227,15 @@
         <item name="android:background">@drawable/btn_confirm</item>
     </style>
 
+    <style name="retryBtn">
+        <item name="android:id">@+id/btn_retry</item>
+        <item name="android:layout_width">300px</item>
+        <item name="android:layout_height">75px</item>
+        <item name="android:textColor">@color/paleRed</item>
+        <item name="android:textSize">24px</item>
+        <item name="android:background">@drawable/bg_test_retry</item>
+    </style>
+
     <style name="BannerDefaultStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">300px</item>
@@ -282,6 +296,7 @@
     <style name="indicatorStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
         <item name="android:textSize">16sp</item>
     </style>
+
     <style name="seekbarStyle" parent="Base.Widget.AppCompat.SeekBar">
         <item name="android:thumb">@drawable/seekbar_thumb</item>
         <item name="android:progressDrawable">@drawable/second_seekbar</item>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.qiantang.smartparty.modle.RxLearningList" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/black30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25px"
+            android:layout_marginRight="25px"
+            android:layout_marginTop="24px"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{item.title}" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            style="@style/gray22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_name"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginTop="24px"
+            android:text="@{item.creationtime}" />
+
+        <TextView
+            android:id="@+id/tv_comment"
+            style="@style/gray22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginRight="25px"
+            android:layout_marginTop="24px"
+            android:text="@{item.commentSum+`评论`}" />
+
+        <TextView
+            android:id="@+id/tv_read"
+            style="@style/gray22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_comment"
+            android:layout_marginRight="57px"
+            android:layout_toLeftOf="@+id/tv_comment"
+            android:text="@{item.read+`阅读`}" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_below="@+id/tv_date"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:layout_marginTop="@dimen/sideMargin"
+            android:background="@color/line" />
+    </RelativeLayout>
+</layout>

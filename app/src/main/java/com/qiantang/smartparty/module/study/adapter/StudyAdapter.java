@@ -15,15 +15,18 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.qiantang.smartparty.BR;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.BindingViewHolder;
 import com.qiantang.smartparty.adapter.EasyBindQuickAdapter;
+import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.modle.RxStudy;
 import com.qiantang.smartparty.modle.RxStudyList;
 import com.qiantang.smartparty.utils.AutoUtils;
 import com.qiantang.smartparty.utils.ToastUtil;
 import com.qiantang.smartparty.widget.AutoLinearLayout;
+import com.qiantang.smartparty.widget.SpaceItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +44,7 @@ public class StudyAdapter extends EasyBindQuickAdapter<RxStudyList> {
     protected void easyConvert(BindingViewHolder holder, RxStudyList item) {
         holder.getBinding().setVariable(BR.item, item);
         holder.getBinding().executePendingBindings();
+        ((SimpleDraweeView) holder.getBinding().getRoot().findViewById(R.id.sdv)).setImageURI(Config.IMAGE_HOST + item.getAvatar());
         holder.addOnClickListener(R.id.iv_comment)
                 .addOnClickListener(R.id.tv_del);
         if (item.getZanAppMap().size() > 0) {  //填充赞的人 数据
@@ -90,6 +94,7 @@ public class StudyAdapter extends EasyBindQuickAdapter<RxStudyList> {
             }
             StudyImageAdapter imageAdapter = new StudyImageAdapter(R.layout.item_study_image, imgList);
             rvImage.setAdapter(imageAdapter);
+            rvImage.addItemDecoration(new SpaceItemDecoration(0, 0, 20, 20));
             rvImage.addOnItemTouchListener(new com.chad.library.adapter.base.listener.OnItemClickListener() {
                 @Override
                 public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {

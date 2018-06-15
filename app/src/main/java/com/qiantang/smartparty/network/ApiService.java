@@ -14,8 +14,10 @@ import com.qiantang.smartparty.modle.RxLearningClass;
 import com.qiantang.smartparty.modle.RxLearningList;
 import com.qiantang.smartparty.modle.RxMsg;
 import com.qiantang.smartparty.modle.RxMyStudy;
+import com.qiantang.smartparty.modle.RxOnline;
 import com.qiantang.smartparty.modle.RxRankBranch;
 import com.qiantang.smartparty.modle.RxRankPersonal;
+import com.qiantang.smartparty.modle.RxRecordDetial;
 import com.qiantang.smartparty.modle.RxSignList;
 import com.qiantang.smartparty.modle.RxSpeechDetial;
 import com.qiantang.smartparty.modle.RxStudy;
@@ -267,6 +269,16 @@ public interface ApiService {
     @POST("app/content/specialClassify")
     Observable<HttpResult<List<RxLearningClass>>> specialClassify();
 
+    //理论在线类别
+    @POST("app/content/theoryClassify")
+    Observable<HttpResult<List<RxLearningClass>>> theoryClassify();
+
+    //专题学习列表
+    @FormUrlEncoded
+    @POST("app/content/theory")
+    Observable<HttpResult<RxOnline>> theory(@Field("pageNum") int pageNum,
+                                            @Field("classifyId") int classifyId);
+
     //专题学习列表
     @FormUrlEncoded
     @POST("app/content/special")
@@ -293,4 +305,17 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("app/questionnaire/questionnairecheck")
     Observable<HttpResult<List<RxTestDetial>>> questionnairecheck(@Field("questionnaire_id") String questionnaire_id);
+
+    //答题记录
+    @FormUrlEncoded
+    @POST("app/questionnaire/questionnaireStatistics")
+    Observable<HttpResult<List<RxRecordDetial>>> questionnaireStatistics(@Field("userquestionnaire_id") String userquestionnaire_id);
+
+    //评测详情
+    @FormUrlEncoded
+    @POST("app/questionnaire/questionnaireSave")
+    Observable<HttpResult<HttpResult>> questionnaireSave(@Field("questionnaire_id") String questionnaire_id,
+                                                         @Field("subject") String subject,
+                                                         @Field("quizTime") int quizTime,
+                                                         @Field("userId") String userId);
 }
