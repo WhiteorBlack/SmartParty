@@ -1,111 +1,49 @@
 package com.qiantang.smartparty.modle;
 
 public class RxAds {
+    private String image;
+    private String image_text;
+    private String id;
+    private int sort;
+    private int type;
 
-    /**
-     * text :
-     * linkUrl : http://m.esomic.com/mission_center.html
-     * picUrl : http://somicshop.oss-cn-shenzhen.aliyuncs.com/attached/images/201611/777c48fbceb6449483a1d16d726abc9710829.png
-     * channelCode : indexNavigate
-     * linkContent :
-     * contentType : integralTask
-     * adCode : integral
-     * contentId :
-     * adName : 去赚积分
-     */
-
-
-    public String channelCode;
-    public String adCode;
-    public String adName;
-    public String picUrl;
-    public String text;
-    public String linkUrl;
-    public String linkContent;
-    public String contentType;
-    public String contentId;
-    public String keyword;
-    private int resId;
-
-    public int getResId() {
-        return resId;
+    public String getImage() {
+        return image;
     }
 
-    public void setResId(int resId) {
-        this.resId = resId;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-
-    public String getText() {
-        return text;
+    public String getImage_text() {
+        return image_text;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setImage_text(String image_text) {
+        this.image_text = image_text;
     }
 
-    public String getLinkUrl() {
-        return linkUrl;
+    public String getId() {
+        return id;
     }
 
-    public void setLinkUrl(String linkUrl) {
-        this.linkUrl = linkUrl;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getPicUrl() {
-        return picUrl;
+    public int getSort() {
+        return sort;
     }
 
-    public void setPicUrl(String picUrl) {
-        this.picUrl = picUrl;
+    public void setSort(int sort) {
+        this.sort = sort;
     }
 
-    public String getChannelCode() {
-        return channelCode;
+    public int getType() {
+        return type;
     }
 
-    public void setChannelCode(String channelCode) {
-        this.channelCode = channelCode;
+    public void setType(int type) {
+        this.type = type;
     }
-
-    public String getLinkContent() {
-        return linkContent;
-    }
-
-    public void setLinkContent(String linkContent) {
-        this.linkContent = linkContent;
-    }
-
-    public String getContentType() {
-        return contentType;
-    }
-
-    public void setContentType(String contentType) {
-        this.contentType = contentType;
-    }
-
-    public String getAdCode() {
-        return adCode;
-    }
-
-    public void setAdCode(String adCode) {
-        this.adCode = adCode;
-    }
-
-    public String getContentId() {
-        return contentId;
-    }
-
-    public void setContentId(String contentId) {
-        this.contentId = contentId;
-    }
-
-    public String getAdName() {
-        return adName;
-    }
-
-    public void setAdName(String adName) {
-        this.adName = adName;
-    }
-
 }

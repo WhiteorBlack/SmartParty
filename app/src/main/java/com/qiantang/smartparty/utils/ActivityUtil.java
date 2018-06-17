@@ -32,11 +32,16 @@ import com.qiantang.smartparty.module.assistant.view.PartyActivity;
 import com.qiantang.smartparty.module.assistant.view.PartyfeeActivity;
 import com.qiantang.smartparty.module.assistant.view.ReportActivity;
 import com.qiantang.smartparty.module.assistant.view.SignListActivity;
+import com.qiantang.smartparty.module.assistant.view.StructureActivity;
 import com.qiantang.smartparty.module.assistant.view.ThinkingActivity;
 import com.qiantang.smartparty.module.assistant.view.ThinkingDetialActivity;
+import com.qiantang.smartparty.module.index.view.BookDetialActivity;
+import com.qiantang.smartparty.module.index.view.BookRecommendActivity;
 import com.qiantang.smartparty.module.index.view.LearningListActivity;
 import com.qiantang.smartparty.module.index.view.NewsActivity;
 import com.qiantang.smartparty.module.index.view.OnlineListActivity;
+import com.qiantang.smartparty.module.index.view.ParagonActivity;
+import com.qiantang.smartparty.module.index.view.ParagonDetialActivity;
 import com.qiantang.smartparty.module.index.view.RankActivity;
 import com.qiantang.smartparty.module.index.view.SignActivity;
 import com.qiantang.smartparty.module.index.view.SpeechStudyActivity;
@@ -633,6 +638,16 @@ public class ActivityUtil {
     }
 
     /**
+     * 组织架构页面
+     *
+     * @param activity
+     */
+    public static void startStructureActivity(Activity activity) {
+        Intent intent = new Intent(activity, StructureActivity.class);
+        activity.startActivity(intent);
+    }
+
+    /**
      * 思想汇报详情页面
      *
      * @param activity
@@ -759,7 +774,7 @@ public class ActivityUtil {
     }
 
     /**
-     * 党建风采详情
+     * 人物表彰详情
      *
      * @param activity
      */
@@ -782,6 +797,49 @@ public class ActivityUtil {
         intent.putExtra("id", id);
         intent.putExtra("title", title);
         intent.putExtra("url", url);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 先进典范
+     *
+     * @param activity
+     */
+    public static void startParagonActivity(Activity activity) {
+        Intent intent = new Intent(activity, ParagonActivity.class);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 先进典范详情
+     *
+     * @param activity
+     */
+    public static void startParagonDetialActivity(Activity activity, String id, String printUrl) {
+        Intent intent = new Intent(activity, ParagonDetialActivity.class);
+        intent.putExtra("id", id);
+        intent.putExtra("printurl", printUrl);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 好书推荐
+     *
+     * @param activity
+     */
+    public static void startBookRecommendActivity(Activity activity) {
+        Intent intent = new Intent(activity, BookRecommendActivity.class);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 好书推荐详情
+     *
+     * @param activity
+     */
+    public static void startBookDetialActivity(Activity activity, String id) {
+        Intent intent = new Intent(activity, BookDetialActivity.class);
+        intent.putExtra("id", id);
         activity.startActivity(intent);
     }
 }

@@ -1,4 +1,4 @@
-package com.qiantang.smartparty.module.assistant.view;
+package com.qiantang.smartparty.module.index.view;
 
 import android.databinding.DataBindingUtil;
 import android.support.v4.view.ViewPager;
@@ -13,8 +13,10 @@ import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.CommentAdapter;
 import com.qiantang.smartparty.databinding.ActivityCharacterDetialBinding;
 import com.qiantang.smartparty.databinding.ViewCharacterdetialHeadBinding;
-import com.qiantang.smartparty.databinding.ViewHeadBannerBinding;
+import com.qiantang.smartparty.databinding.ViewParagonHeadBinding;
 import com.qiantang.smartparty.module.assistant.viewmodel.CharacterDetialViewModel;
+import com.qiantang.smartparty.module.index.viewmodel.ParagonDetialViewModel;
+import com.qiantang.smartparty.module.index.viewmodel.ParagonViewModel;
 import com.qiantang.smartparty.utils.AutoUtils;
 import com.qiantang.smartparty.utils.RecycleViewUtils;
 import com.qiantang.smartparty.widget.MyBanner;
@@ -25,24 +27,24 @@ import com.qiantang.smartparty.widget.commentwidget.IComment;
  * Created by zhaoyong bai on 2018/5/28.
  * 人物表彰详情
  */
-public class CharacterDetialActivity extends BaseBindActivity implements CommentBox.OnCommentSendClickListener, ViewPager.OnPageChangeListener {
-    private CharacterDetialViewModel viewModel;
+public class ParagonDetialActivity extends BaseBindActivity implements CommentBox.OnCommentSendClickListener, ViewPager.OnPageChangeListener {
+    private ParagonDetialViewModel viewModel;
     private ActivityCharacterDetialBinding binding;
-    private ViewCharacterdetialHeadBinding headBinding;
+    private ViewParagonHeadBinding headBinding;
     private CommentAdapter adapter;
 
     @Override
     protected void initBind() {
         adapter = new CommentAdapter(R.layout.item_comment);
-        viewModel = new CharacterDetialViewModel(this, adapter);
+        viewModel = new ParagonDetialViewModel(this, adapter);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_character_detial);
-        headBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.view_characterdetial_head, null, false);
+        headBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.view_paragon_head, null, false);
         headBinding.setViewModel(viewModel);
     }
 
     @Override
     public void initView() {
-        binding.toolbar.setTitle("人物表彰");
+        binding.toolbar.setTitle("先进典范");
         binding.toolbar.setResId(R.mipmap.icon_share_white);
         initRv(binding.rv);
         binding.input.setOnCommentSendClickListener(this);
@@ -102,7 +104,7 @@ public class CharacterDetialActivity extends BaseBindActivity implements Comment
 
     @Override
     public void onPageSelected(int position) {
-        viewModel.setPicCount(position+1+"/"+viewModel.picListSize);
+        viewModel.setPicCount(position+1 + "/" + viewModel.picListSize);
     }
 
     @Override

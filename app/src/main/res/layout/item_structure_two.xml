@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.qiantang.smartparty.modle.RxStructureLevelTwo" />
+
+        <import type="com.qiantang.smartparty.utils.StringUtil" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120px">
+
+        <TextView
+            android:id="@+id/tv_head"
+            style="@style/white36"
+            android:layout_width="68px"
+            android:layout_height="68px"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="60px"
+            android:background="@drawable/red_point_structure"
+            android:gravity="center"
+            android:text="@{StringUtil.getTitleHead(item.dept_name)}" />
+
+        <TextView
+            style="@style/black30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20px"
+            android:layout_toRightOf="@+id/tv_head"
+            android:text="@{item.dept_name}" />
+
+        <ImageView
+            android:id="@+id/iv_level_two"
+            android:layout_width="60px"
+            android:layout_height="60px"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="50px"
+            android:scaleType="centerInside"
+            android:src="@mipmap/icon_arrow_black_right" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:background="@color/line" />
+    </RelativeLayout>
+</layout>

@@ -29,7 +29,8 @@
     <RelativeLayout
         android:id="@+id/rl_parent"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolBarSizeHeight">
+        android:layout_height="@dimen/toolBarSizeHeight"
+        android:background="@color/barColor">
 
         <ImageButton
             style="@style/ToolbarBackBtnWhiteStyle"
@@ -49,7 +50,7 @@
             android:id="@+id/tv_right"
             style="@style/toolbarTitleStyle"
             android:layout_width="wrap_content"
-            android:layout_height="80px"
+            android:layout_height="70px"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="40px"
@@ -65,7 +66,7 @@
             android:layout_height="50px"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="22px"
+            android:layout_marginBottom="5px"
             android:layout_marginRight="@dimen/sideMargin"
             android:onClick="onClick"
             android:src="@{AppUtil.getDrawable(resId)}"

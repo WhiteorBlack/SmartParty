@@ -4,8 +4,11 @@ package com.qiantang.smartparty.network;
 import com.qiantang.smartparty.modle.HttpResult;
 import com.qiantang.smartparty.modle.RxActivity;
 import com.qiantang.smartparty.modle.RxActivityDetial;
+import com.qiantang.smartparty.modle.RxAds;
 import com.qiantang.smartparty.modle.RxAdviseRecord;
 import com.qiantang.smartparty.modle.RxAssientHome;
+import com.qiantang.smartparty.modle.RxBookDetial;
+import com.qiantang.smartparty.modle.RxBookRecommend;
 import com.qiantang.smartparty.modle.RxCharacterDetial;
 import com.qiantang.smartparty.modle.RxIndex;
 import com.qiantang.smartparty.modle.RxIndexCommon;
@@ -15,11 +18,15 @@ import com.qiantang.smartparty.modle.RxLearningList;
 import com.qiantang.smartparty.modle.RxMsg;
 import com.qiantang.smartparty.modle.RxMyStudy;
 import com.qiantang.smartparty.modle.RxOnline;
+import com.qiantang.smartparty.modle.RxParagonDetial;
 import com.qiantang.smartparty.modle.RxRankBranch;
 import com.qiantang.smartparty.modle.RxRankPersonal;
 import com.qiantang.smartparty.modle.RxRecordDetial;
 import com.qiantang.smartparty.modle.RxSignList;
 import com.qiantang.smartparty.modle.RxSpeechDetial;
+import com.qiantang.smartparty.modle.RxStructureLevelOne;
+import com.qiantang.smartparty.modle.RxStructureLevelTwo;
+import com.qiantang.smartparty.modle.RxStructurePerson;
 import com.qiantang.smartparty.modle.RxStudy;
 import com.qiantang.smartparty.modle.RxStudyUnreadMsg;
 import com.qiantang.smartparty.modle.RxTest;
@@ -318,4 +325,52 @@ public interface ApiService {
                                                          @Field("subject") String subject,
                                                          @Field("quizTime") int quizTime,
                                                          @Field("userId") String userId);
+
+    //先进典范
+    @FormUrlEncoded
+    @POST("app/content/paragon")
+    Observable<HttpResult<List<RxIndexCommon>>> paragonList(@Field("pageNum") int pageNum);
+
+    //先进典范详情
+    @FormUrlEncoded
+    @POST("app/content/paragonDetails")
+    Observable<HttpResult<RxParagonDetial>> paragonDetails(@Field("pageNum") int page,
+                                                           @Field("printurl") String printurl,
+                                                           @Field("contentId") String contentId,
+                                                           @Field("userId") String userId);
+
+    //好书推荐
+    @FormUrlEncoded
+    @POST("app/content/recommend")
+    Observable<HttpResult<List<RxBookRecommend>>> recommend(@Field("pageNum") int pageNum);
+
+    //好书推荐详情
+    @FormUrlEncoded
+    @POST("app/content/recommendDetails")
+    Observable<HttpResult<RxBookDetial>> recommendDetails(@Field("pageNum") int page,
+                                                          @Field("contentId") String contentId,
+                                                          @Field("userId") String userId);
+
+    //轮播图
+    @POST("app/agreement/advertising")
+    Observable<HttpResult<List<RxAds>>> advertising();
+
+    //学习值介绍/关于我们
+    @FormUrlEncoded
+    @POST("app/agreement/lookContent")
+    Observable<HttpResult<String>> lookContent(@Field("type") int type);
+
+    //组织架构 第一级
+    @POST("app/user/dept1")
+    Observable<HttpResult<List<RxStructureLevelOne>>> dept1();
+
+    //组织架构 第e二级
+    @FormUrlEncoded
+    @POST("app/user/dept2")
+    Observable<HttpResult<List<RxStructureLevelTwo>>> dept2(@Field("deptId") String deptId);
+
+    //组织架构 第三级
+    @FormUrlEncoded
+    @POST("app/user/dept3")
+    Observable<HttpResult<List<RxStructurePerson>>> dept3(@Field("deptId") String deptId);
 }

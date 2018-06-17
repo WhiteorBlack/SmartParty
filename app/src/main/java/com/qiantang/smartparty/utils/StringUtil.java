@@ -1,6 +1,9 @@
 package com.qiantang.smartparty.utils;
 
 
+import android.text.TextUtils;
+import android.widget.TextView;
+
 import com.qiantang.smartparty.MyApplication;
 
 import java.util.regex.Matcher;
@@ -138,6 +141,18 @@ public class StringUtil {
             }
         }
         return false;
+    }
+
+    /**
+     * 获取标题第一个字
+     * @param title
+     * @return
+     */
+    public static String getTitleHead(String title){
+        if (TextUtils.isEmpty(title)){
+            return "党";
+        }
+        return title.substring(0,1);
     }
 
     public static String getTestType(int type) {

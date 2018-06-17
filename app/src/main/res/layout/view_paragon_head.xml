@@ -13,7 +13,7 @@
 
         <variable
             name="viewModel"
-            type="com.qiantang.smartparty.module.assistant.viewmodel.CharacterDetialViewModel" />
+            type="com.qiantang.smartparty.module.index.viewmodel.ParagonDetialViewModel" />
     </data>
 
     <RelativeLayout
@@ -26,7 +26,7 @@
             style="@style/BannerDefaultStyle"
             app:banner_indicatorGravity="bottom|left"
             app:banner_transitionEffect="alpha"
-            bind:headBanner="@{viewModel.detials.imgSrc}" />
+            bind:headBanner="@{viewModel.picList}" />
 
         <TextView
             android:id="@+id/tv_pic_count"
@@ -53,7 +53,7 @@
             android:layout_marginLeft="30px"
             android:layout_marginRight="30px"
             android:layout_marginTop="32px"
-            android:text="@{viewModel.detials.rw.title}" />
+            android:text="@{viewModel.detials.title}" />
 
         <TextView
             android:id="@+id/tv_date"
@@ -65,7 +65,7 @@
             android:layout_below="@+id/tv_name"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="22px"
-            android:text="@{viewModel.detials.rw.intro}" />
+            android:text="@{viewModel.detials.intro}" />
 
 
         <View
@@ -112,7 +112,7 @@
             android:layout_below="@+id/ll_info"
             android:layout_marginLeft="@dimen/sideMargin"
             android:layout_marginRight="@dimen/sideMargin"
-            bind:loadContent="@{viewModel.detials.rw.content}" />
+            bind:loadContent="@{viewModel.detials.content}" />
 
         <View
             android:id="@+id/line4"
@@ -152,7 +152,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10px"
-                android:text="@{StringUtil.getCommentCount(viewModel.commentCount)}" />
+                android:text="@{StringUtil.getCommentCount(viewModel.detials.commentSum)}" />
         </LinearLayout>
     </RelativeLayout>
 </layout>

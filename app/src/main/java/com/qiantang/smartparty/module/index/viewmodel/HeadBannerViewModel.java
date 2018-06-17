@@ -4,14 +4,17 @@ import android.app.Activity;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
+import android.databinding.ObservableField;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.qiantang.smartparty.BR;
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.BaseBindFragment;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.base.ViewModel;
+import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.modle.RxAds;
 import com.qiantang.smartparty.network.NetworkSubscriber;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
@@ -34,12 +37,12 @@ public class HeadBannerViewModel extends BaseObservable implements ViewModel, BG
     private Activity activity;
     private BaseBindActivity bindActivity;
     private BaseBindFragment fragment;
-    public List<RxAds> bannerList = new ArrayList<>();
-    private static String dataCode;
+    public ObservableField<List<RxAds>> bannerList = new ObservableField<>();
 
     public HeadBannerViewModel(BaseBindFragment fragment) {
         this.fragment = fragment;
         this.activity = fragment.getActivity();
+        getBannerData();
     }
 
     public HeadBannerViewModel(BaseBindActivity activity) {
@@ -54,11 +57,7 @@ public class HeadBannerViewModel extends BaseObservable implements ViewModel, BG
 
     @Override
     public void fillBannerItem(BGABanner banner, View itemView, Object model, int position) {
-        if (TextUtils.equals(dataCode, "classfy")) {
-            ((SimpleDraweeView) itemView).setImageURI(AppUtil.getResUri(((RxAds) model).getResId()));
-        } else {
-            ((SimpleDraweeView) itemView).setImageURI(((RxAds) model).getPicUrl());
-        }
+            ((SimpleDraweeView) itemView).setImageURI(Config.IMAGE_HOST+((RxAds)model).getImage());
     }
 
     @BindingAdapter("headBanner")
@@ -70,7 +69,7 @@ public class HeadBannerViewModel extends BaseObservable implements ViewModel, BG
 
 
             for (RxAds ads : list) {
-                tips.add(ads.getText());
+                tips.add(ads.getImage_text());
             }
 
 
@@ -80,14 +79,25 @@ public class HeadBannerViewModel extends BaseObservable implements ViewModel, BG
     /**
      * 获取轮播图数据
      */
-    public void getBannerData(String channelCode) {
-        dataCode = channelCode;
-
+    public void getBannerData() {
+       ApiWrapper.getInstance().advertising()
+               .compose(fragment.bindUntilEvent(FragmentEvent.DESTROY))
+               .subscribe(new NetworkSubscriber<List<RxAds>>() {
+                   @Override
+                   public void onSuccess(List<RxAds> data) {
+                       setBannerList(data);
+                   }
+               });
     }
 
     @Bindable
-    public List<RxAds> getHeadBanner() {
-        return bannerList;
+    public List<RxAds> getBannerList() {
+        return bannerList.get();
+    }
+
+    public void setBannerList(List<RxAds> bannerList) {
+        this.bannerList.set(bannerList);
+        notifyPropertyChanged(BR.bannerList);
     }
 
     @Override

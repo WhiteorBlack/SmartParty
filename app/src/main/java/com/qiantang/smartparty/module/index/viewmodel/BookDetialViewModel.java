@@ -1,11 +1,10 @@
-package com.qiantang.smartparty.module.assistant.viewmodel;
+package com.qiantang.smartparty.module.index.viewmodel;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
-import android.databinding.ObservableInt;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,25 +14,20 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.qiantang.smartparty.BR;
 import com.qiantang.smartparty.BaseBindActivity;
-import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.CommentAdapter;
 import com.qiantang.smartparty.base.ViewModel;
-import com.qiantang.smartparty.config.CacheKey;
 import com.qiantang.smartparty.config.Config;
-import com.qiantang.smartparty.modle.RxActivityDetial;
-import com.qiantang.smartparty.modle.RxAds;
-import com.qiantang.smartparty.modle.RxCharacterDetial;
-import com.qiantang.smartparty.modle.RxPartyActivityDetial;
+import com.qiantang.smartparty.modle.RxBookDetial;
+import com.qiantang.smartparty.modle.RxBookInfo;
+import com.qiantang.smartparty.modle.RxParagonDetial;
+import com.qiantang.smartparty.modle.RxParagonInfo;
 import com.qiantang.smartparty.modle.RxPicUrl;
-import com.qiantang.smartparty.modle.RxSignInfo;
-import com.qiantang.smartparty.module.assistant.adapter.SignRecordAdapter;
-import com.qiantang.smartparty.module.assistant.view.ActivityDetial;
-import com.qiantang.smartparty.module.assistant.view.CharacterDetialActivity;
+import com.qiantang.smartparty.module.index.view.BookDetialActivity;
+import com.qiantang.smartparty.module.index.view.ParagonDetialActivity;
 import com.qiantang.smartparty.network.NetworkSubscriber;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
 import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
-import com.qiantang.smartparty.utils.ActivityUtil;
 import com.qiantang.smartparty.utils.ToastUtil;
 import com.qiantang.smartparty.utils.fullhtml.TextViewForFullHtml;
 import com.qiantang.smartparty.widget.MyBanner;
@@ -47,22 +41,17 @@ import cn.bingoogolapple.bgabanner.BGABanner;
 /**
  * Created by zhaoyong bai on 2018/5/28.
  */
-public class CharacterDetialViewModel extends BaseObservable implements ViewModel, BGABanner.Delegate<View, RxPicUrl>, BGABanner.Adapter {
+public class BookDetialViewModel extends BaseObservable implements ViewModel {
     private BaseBindActivity activity;
     private CommentAdapter adapter;
     public ObservableBoolean isInput = new ObservableBoolean(false);
     private int pageNo = 1;
     private String id;
-    private ObservableField<RxCharacterDetial> detials = new ObservableField<>();
-    private ObservableInt commentCount = new ObservableInt(0);
+    private ObservableField<RxBookInfo> detials = new ObservableField<>();
     private boolean isDealing = false;
     private int commentPos = 0;
-    private String printurl;
-    private ObservableField<String> picCount = new ObservableField<>();
-    public int picListSize = 0;
 
-
-    public CharacterDetialViewModel(BaseBindActivity activity, CommentAdapter adapter) {
+    public BookDetialViewModel(BaseBindActivity activity, CommentAdapter adapter) {
         this.activity = activity;
         this.adapter = adapter;
         initData();
@@ -70,7 +59,6 @@ public class CharacterDetialViewModel extends BaseObservable implements ViewMode
 
     private void initData() {
         id = activity.getIntent().getStringExtra("id");
-        printurl = activity.getIntent().getStringExtra("printurl");
     }
 
     public void loadMore() {
@@ -79,9 +67,9 @@ public class CharacterDetialViewModel extends BaseObservable implements ViewMode
     }
 
     public void getData() {
-        ApiWrapper.getInstance().rwNoticeDetails(pageNo, id, printurl)
+        ApiWrapper.getInstance().bookDetails(pageNo, id)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribe(new NetworkSubscriber<RxCharacterDetial>() {
+                .subscribe(new NetworkSubscriber<RxBookDetial>() {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
@@ -89,13 +77,10 @@ public class CharacterDetialViewModel extends BaseObservable implements ViewMode
                     }
 
                     @Override
-                    public void onSuccess(RxCharacterDetial data) {
-                        adapter.setPagingData(data.getPl(), pageNo);
+                    public void onSuccess(RxBookDetial data) {
+                        adapter.setPagingData(data.getComment(), pageNo);
                         if (pageNo == 1) {
-                            setCommentCount(data.getCount());
-                            picListSize = data.getImgSrc().size();
-                            setPicCount("1/" + picListSize);
-                            setDetials(data);
+                            setDetials(data.getDetail());
                         }
                     }
                 });
@@ -120,10 +105,10 @@ public class CharacterDetialViewModel extends BaseObservable implements ViewMode
 
                     @Override
                     public void onSuccess(String data) {
-                        RxCharacterDetial detial = getDetials();
-                        setCommentCount(getCommentCount() + 1);
+                        RxBookInfo detial = getDetials();
+                        detial.setCommentSum(detial.getCommentSum() + 1);
                         setDetials(detial);
-                        ((CharacterDetialActivity) activity).dissmissCommentBox();
+                        ((BookDetialActivity) activity).dissmissCommentBox();
                     }
                 });
     }
@@ -169,22 +154,13 @@ public class CharacterDetialViewModel extends BaseObservable implements ViewMode
                 });
     }
 
-    @Bindable
-    public String getPicCount() {
-        return picCount.get();
-    }
-
-    public void setPicCount(String picCount) {
-        this.picCount.set(picCount);
-        notifyPropertyChanged(BR.picCount);
-    }
 
     @Bindable
-    public RxCharacterDetial getDetials() {
+    public RxBookInfo getDetials() {
         return detials.get();
     }
 
-    public void setDetials(RxCharacterDetial detials) {
+    public void setDetials(RxBookInfo detials) {
         this.detials.set(detials);
         notifyPropertyChanged(BR.detials);
     }
@@ -227,39 +203,9 @@ public class CharacterDetialViewModel extends BaseObservable implements ViewMode
     }
 
 
-    @Bindable
-    public int getCommentCount() {
-        return commentCount.get();
-    }
-
-    public void setCommentCount(int commentCount) {
-        this.commentCount.set(commentCount);
-        notifyPropertyChanged(BR.commentCount);
-    }
-
-
     @Override
     public void destroy() {
 
     }
 
-    @BindingAdapter("headBanner")
-    public static void setBanner(MyBanner banner, List<RxPicUrl> list) {
-        List<String> tips = new ArrayList<>();
-        if (list == null || list.size() < 1) {
-            return;
-        }
-
-        banner.setData(R.layout.viewpager_img, list, null);
-    }
-
-    @Override
-    public void fillBannerItem(BGABanner banner, View itemView, Object model, int position) {
-        ((SimpleDraweeView) itemView).setImageURI(Config.IMAGE_HOST + ((RxPicUrl) model).getImg_src());
-    }
-
-    @Override
-    public void onBannerItemClick(BGABanner banner, View itemView, RxPicUrl model, int position) {
-
-    }
 }

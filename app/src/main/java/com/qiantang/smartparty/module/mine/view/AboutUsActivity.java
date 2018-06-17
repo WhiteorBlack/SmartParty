@@ -6,16 +6,20 @@ import android.view.View;
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.databinding.ActivityAboutUsBinding;
+import com.qiantang.smartparty.module.mine.viewmodel.AboutUsViewModel;
 
 /**
  * Created by zhaoyong bai on 2018/5/30.
  */
 public class AboutUsActivity extends BaseBindActivity {
     private ActivityAboutUsBinding binding;
+    private AboutUsViewModel viewModel;
 
     @Override
     protected void initBind() {
+        viewModel = new AboutUsViewModel(this);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_about_us);
+        binding.setViewModel(viewModel);
     }
 
     @Override
@@ -26,6 +30,6 @@ public class AboutUsActivity extends BaseBindActivity {
 
     @Override
     protected void viewModelDestroy() {
-
+        viewModel.destroy();
     }
 }

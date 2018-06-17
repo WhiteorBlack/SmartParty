@@ -1,12 +1,17 @@
 package com.qiantang.smartparty.network.retrofit;
 
 
+import android.databinding.ObservableField;
+
 import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.modle.HttpResult;
 import com.qiantang.smartparty.modle.RxActivity;
 import com.qiantang.smartparty.modle.RxActivityDetial;
+import com.qiantang.smartparty.modle.RxAds;
 import com.qiantang.smartparty.modle.RxAdviseRecord;
 import com.qiantang.smartparty.modle.RxAssientHome;
+import com.qiantang.smartparty.modle.RxBookDetial;
+import com.qiantang.smartparty.modle.RxBookRecommend;
 import com.qiantang.smartparty.modle.RxCharacterDetial;
 import com.qiantang.smartparty.modle.RxComment;
 import com.qiantang.smartparty.modle.RxIndex;
@@ -17,11 +22,15 @@ import com.qiantang.smartparty.modle.RxLearningList;
 import com.qiantang.smartparty.modle.RxMsg;
 import com.qiantang.smartparty.modle.RxMyStudy;
 import com.qiantang.smartparty.modle.RxOnline;
+import com.qiantang.smartparty.modle.RxParagonDetial;
 import com.qiantang.smartparty.modle.RxRankBranch;
 import com.qiantang.smartparty.modle.RxRankPersonal;
 import com.qiantang.smartparty.modle.RxRecordDetial;
 import com.qiantang.smartparty.modle.RxSignList;
 import com.qiantang.smartparty.modle.RxSpeechDetial;
+import com.qiantang.smartparty.modle.RxStructureLevelOne;
+import com.qiantang.smartparty.modle.RxStructureLevelTwo;
+import com.qiantang.smartparty.modle.RxStructurePerson;
 import com.qiantang.smartparty.modle.RxStudy;
 import com.qiantang.smartparty.modle.RxStudyUnreadMsg;
 import com.qiantang.smartparty.modle.RxTest;
@@ -536,5 +545,86 @@ public class ApiWrapper extends RetrofitUtil {
      */
     public Observable<HttpResult> questionnaireSave(String id, String sub, int time) {
         return getService().questionnaireSave(id, sub, time, MyApplication.USER_ID).compose(this.applySchedulers());
+    }
+
+    /**
+     * 先进典范列表
+     * @param pageNo
+     * @return
+     */
+    public Observable<List<RxIndexCommon>> paragonList(int pageNo){
+        return getService().paragonList(pageNo).compose(this.applySchedulers());
+    }
+
+    /**
+     * 典范详情
+     *
+     * @param page
+     * @param id
+     * @return
+     */
+    public Observable<RxParagonDetial> paragonDetails(int page, String id, String printurl) {
+        return getService().paragonDetails(page, printurl, id, MyApplication.USER_ID).compose(this.applySchedulers());
+    }
+
+    /**
+     * 好书推荐
+     * @param pageNo
+     * @return
+     */
+    public Observable<List<RxBookRecommend>> recommend(int pageNo){
+        return getService().recommend(pageNo).compose(this.applySchedulers());
+    }
+
+    /**
+     * 典范详情
+     *
+     * @param page
+     * @param id
+     * @return
+     */
+    public Observable<RxBookDetial> bookDetails(int page, String id) {
+        return getService().recommendDetails(page, id, MyApplication.USER_ID).compose(this.applySchedulers());
+    }
+
+
+    /**
+     * 轮播图
+     * @return
+     */
+    public Observable<List<RxAds>> advertising(){
+        return getService().advertising().compose(this.applySchedulers());
+    }
+
+    /**
+     * 学习值介绍/关于我们
+     * @return
+     */
+    public Observable<String> lookContent(int type){
+        return getService().lookContent(type).compose(this.applySchedulers());
+    }
+
+    /**
+     * 组织架构 第一级
+     * @return
+     */
+    public Observable<List<RxStructureLevelOne>> dept1(){
+        return getService().dept1().compose(this.applySchedulers());
+    }
+
+    /**
+     * 组织架构 第2级
+     * @return
+     */
+    public Observable<List<RxStructureLevelTwo>> dept2(String deptId){
+        return getService().dept2(deptId).compose(this.applySchedulers());
+    }
+
+    /**
+     * 组织架构 第3级
+     * @return
+     */
+    public Observable<List<RxStructurePerson>> dept3(String deptId){
+        return getService().dept3(deptId).compose(this.applySchedulers());
     }
 }

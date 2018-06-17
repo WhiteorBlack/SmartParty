@@ -129,7 +129,7 @@ public class AssisantViewModel implements ViewModel {
                         ActivityUtil.startThinkingActivity(fragment.getActivity());
                         break;
                     case 3:
-
+                        ActivityUtil.startStructureActivity(fragment.getActivity());
                         break;
                     case 4:
                         ActivityUtil.startPartyActivity(fragment.getActivity());

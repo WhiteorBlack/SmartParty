@@ -22,8 +22,8 @@
         <com.qiantang.smartparty.widget.MyBanner
             android:id="@+id/headBanner"
             style="@style/BannerDefaultStyle"
-            app:banner_indicatorGravity="bottom|left"
+            app:banner_indicatorGravity="bottom|center_horizontal"
             app:banner_transitionEffect="alpha"
-            bind:headBanner="@{viewModel.headBanner}" />
+            bind:headBanner="@{viewModel.bannerList}" />
     </LinearLayout>
 </layout>

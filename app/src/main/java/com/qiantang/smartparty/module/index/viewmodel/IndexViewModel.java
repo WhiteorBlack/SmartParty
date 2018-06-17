@@ -245,10 +245,10 @@ public class IndexViewModel implements ViewModel {
                         ActivityUtil.startOnlineActivity(fragment.getActivity());
                         break;
                     case 6:
-
+                        ActivityUtil.startParagonActivity(fragment.getActivity());
                         break;
                     case 7:
-
+                        ActivityUtil.startBookRecommendActivity(fragment.getActivity());
                         break;
 
                 }

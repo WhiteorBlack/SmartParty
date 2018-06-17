@@ -1,11 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
-    <data></data>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.qiantang.smartparty.module.mine.viewmodel.AboutUsViewModel" />
+    </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
-        <include layout="@layout/toolbar_common"
-            android:id="@+id/toolbar"/>
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_common" />
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar">
+
+            <com.qiantang.smartparty.utils.fullhtml.TextViewForFullHtml
+                android:id="@+id/tv_content"
+                style="@style/gray26"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/sideMargin"
+                android:layout_marginRight="@dimen/sideMargin"
+                android:layout_marginTop="15px"
+                bind:loadContent="@{viewModel.content}" />
+        </android.support.v4.widget.NestedScrollView>
     </RelativeLayout>
 </layout>

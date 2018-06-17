@@ -3,13 +3,11 @@ package com.qiantang.smartparty.modle;
 /**
  * Created by zhaoyong bai on 2018/6/8.
  */
-public class RxIndexCommon {
-    private int read;
-    private String createTime;
+public class RxBookRecommend {
+    private int commentCount;
+    private String creationtime;
     private String contentId;
     private String title;
-    private int pl;
-    private String imgSrc;
     private String printurl;
     private String intro;
 
@@ -29,21 +27,6 @@ public class RxIndexCommon {
         this.printurl = printurl;
     }
 
-    public int getRead() {
-        return read;
-    }
-
-    public void setRead(int read) {
-        this.read = read;
-    }
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
 
     public String getContentId() {
         return contentId;
@@ -61,19 +44,19 @@ public class RxIndexCommon {
         this.title = title;
     }
 
-    public int getPl() {
-        return pl;
+    public int getCommentCount() {
+        return commentCount;
     }
 
-    public void setPl(int pl) {
-        this.pl = pl;
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
     }
 
-    public String getImgSrc() {
-        return imgSrc;
+    public String getCreationtime() {
+        return creationtime;
     }
 
-    public void setImgSrc(String imgSrc) {
-        this.imgSrc = imgSrc;
+    public void setCreationtime(String creationtime) {
+        this.creationtime = creationtime;
     }
 }

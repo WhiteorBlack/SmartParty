@@ -244,7 +244,7 @@
         <!-- 开启自动轮播 -->
         <item name="banner_pointAutoPlayAble">true</item>
         <!-- 自动轮播的时间间隔 -->
-        <item name="banner_pointAutoPlayInterval">5000</item>
+        <item name="banner_pointAutoPlayInterval">3000</item>
         <!-- 指示点容器背景 -->
         <item name="banner_pointContainerBackground">#00aaaaaa</item>
         <!-- 指示点背景 -->
@@ -254,7 +254,7 @@
         <!-- 指示点上下外间距 -->
         <item name="banner_pointTopBottomMargin">5px</item>
         <!-- 指示点左右外间距 -->
-        <item name="banner_pointLeftRightMargin">-5px</item>
+        <item name="banner_pointLeftRightMargin">10px</item>
         <!-- 指示器的位置 -->
         <item name="banner_indicatorGravity">bottom|center_horizontal</item>
         <!-- 页码切换过程的时间长度 -->

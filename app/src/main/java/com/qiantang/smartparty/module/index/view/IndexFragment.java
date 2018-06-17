@@ -153,6 +153,7 @@ public class IndexFragment extends BaseBindFragment {
         LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) headBanner.getLayoutParams();
         params.height = (int) (MyApplication.widthPixels * 0.48);
         headBanner.setLayoutParams(params);
+        headBanner.setAdapter(headBannerViewModel);
     }
 
     public void onClick(View view) {

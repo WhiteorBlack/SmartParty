@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.qiantang.smartparty.modle.RxIndexCommon" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="33px"
+        android:paddingRight="33px"
+        android:paddingTop="@dimen/sideMargin">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv"
+            android:layout_width="210px"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="5px"
+            app:actualImageScaleType="centerInside"
+            app:viewAspectRatio="1.32" />
+
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/black28"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20px"
+            android:layout_marginTop="7px"
+            android:layout_toRightOf="@+id/sdv"
+            android:ellipsize="end"
+            android:lines="2"
+            android:text="@{item.title}" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            style="@style/gray22"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_name"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginBottom="5px"
+            android:layout_marginRight="5px"
+            android:layout_marginTop="18px"
+            android:layout_toRightOf="@+id/sdv"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@{item.intro}" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_below="@+id/sdv"
+            android:layout_marginTop="@dimen/sideMargin"
+            android:background="@color/line" />
+    </RelativeLayout>
+</layout>
