@@ -38,7 +38,8 @@
             android:background="@null"
             android:gravity="right|center_vertical"
             android:hint="请输入您的姓名"
-            android:paddingRight="30px" />
+            android:paddingRight="30px"
+            android:text="@={viewModel.name}" />
 
         <View
             android:id="@+id/line"
@@ -81,7 +82,7 @@
             android:layout_toLeftOf="@+id/iv_arrow"
             android:gravity="right|center_vertical"
             android:onClick="onClick"
-            android:text="是" />
+            android:text="@{viewModel.isBelong?`是`:`否`}" />
 
         <View
             android:id="@+id/line1"
@@ -118,14 +119,14 @@
         <TextView
             android:id="@+id/tv_org"
             style="@style/black26"
-            android:layout_width="200px"
+            android:layout_width="400px"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/tv_org_title"
             android:layout_below="@id/line1"
             android:layout_toLeftOf="@+id/iv_arrow"
             android:gravity="right|center_vertical"
             android:onClick="onClick"
-            android:text="党支部" />
+            android:text="@{viewModel.org}" />
 
         <View
             android:id="@+id/line2"
@@ -158,7 +159,8 @@
             android:background="@null"
             android:gravity="right|center_vertical"
             android:hint="请输入您的职务"
-            android:paddingRight="30px" />
+            android:paddingRight="30px"
+            android:text="@={viewModel.postion}" />
 
         <View
             android:id="@+id/line3"
@@ -202,7 +204,7 @@
             android:layout_toLeftOf="@+id/iv_arrow_id"
             android:gravity="right|center_vertical"
             android:onClick="onClick"
-            android:text="党员" />
+            android:text="@{viewModel.isParty}" />
 
         <View
             android:id="@+id/line4"
@@ -246,7 +248,7 @@
             android:layout_toLeftOf="@+id/iv_arrow"
             android:gravity="right|center_vertical"
             android:onClick="onClick"
-            android:text="2018.10" />
+            android:text="@{viewModel.date}" />
 
         <View
             android:id="@+id/line5"
@@ -258,11 +260,46 @@
             android:layout_marginTop="40px"
             android:background="@color/line" />
 
+        <TextView
+            android:id="@+id/tv_pwd"
+            style="@style/gray24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line5"
+            android:layout_marginLeft="30px"
+            android:layout_marginTop="40px"
+            android:text="登录密码" />
+
+        <EditText
+            android:id="@+id/et_pwd"
+            style="@style/black26"
+            android:layout_width="400px"
+            android:layout_height="80px"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/line5"
+            android:layout_marginTop="13px"
+            android:background="@null"
+            android:gravity="right|center_vertical"
+            android:hint="请输入登录密码"
+            android:inputType="text"
+            android:paddingRight="30px"
+            android:text="@={viewModel.password}" />
+
+        <View
+            android:id="@+id/line6"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/tv_pwd"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:layout_marginTop="40px"
+            android:background="@color/line" />
+
         <Button
             style="@style/confirmBtn"
-            android:layout_below="@+id/line5"
+            android:layout_below="@+id/line6"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="200px"
+            android:layout_marginTop="80px"
             android:text="提交审核" />
     </RelativeLayout>
 </layout>

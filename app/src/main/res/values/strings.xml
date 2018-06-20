@@ -14,4 +14,5 @@
     <string name="fragment_rank_total_study">总学习值</string>
     <string name="fragment_rank_more_personal">超出个人数</string>
     <string name="item_rank_join_text">人参与</string>
+    <string name="overtime">已逾期</string>
 </resources>

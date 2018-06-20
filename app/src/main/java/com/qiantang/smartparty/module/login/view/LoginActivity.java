@@ -33,7 +33,7 @@ public class LoginActivity extends BaseBindActivity {
         super.onClick(view);
         switch (view.getId()) {
             case R.id.btn_confirm:
-
+                viewModel.getLogin();
                 break;
             case R.id.tv_register:
                 ActivityUtil.startRegisterActivity(this);
@@ -47,6 +47,16 @@ public class LoginActivity extends BaseBindActivity {
             case R.id.tv_count:
                 viewModel.sendMsg();
                 break;
+            case R.id.tv_password:
+                viewModel.pwdLogin();
+                break;
+            case R.id.tv_code:
+                viewModel.codeLogin();
+                break;
+            case R.id.iv_close:
+                onBackPressed();
+                break;
+
         }
     }
 

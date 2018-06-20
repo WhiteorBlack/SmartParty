@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
 
         <import type="android.view.View" />
+
+        <import type="com.qiantang.smartparty.utils.AppUtil" />
+
+        <import type="com.qiantang.smartparty.R" />
+
+        <import type="com.qiantang.smartparty.utils.StringUtil" />
 
         <variable
             name="viewModel"
@@ -31,7 +38,8 @@
                 android:layout_centerVertical="true"
                 app:placeholderImage="@mipmap/mine_head"
                 app:placeholderImageScaleType="fitXY"
-                app:roundAsCircle="true" />
+                app:roundAsCircle="true"
+                bind:avatar="@{viewModel.userBean.avatar}" />
 
             <TextView
                 android:id="@+id/tv_name"
@@ -41,7 +49,7 @@
                 android:layout_marginLeft="@dimen/sideMargin"
                 android:layout_marginTop="10px"
                 android:layout_toRightOf="@+id/my_pic"
-                android:text="名字"
+                android:text="@{viewModel.userBean.username}"
                 android:textColor="@color/white"
                 android:textSize="28px" />
 
@@ -55,7 +63,7 @@
                 android:layout_marginLeft="@dimen/sideMargin"
                 android:layout_toRightOf="@+id/my_pic"
                 android:gravity="bottom"
-                android:text="办公室"
+                android:text="@{viewModel.userBean.dept.deptName}"
                 android:textSize="22px" />
 
             <TextView
@@ -65,12 +73,12 @@
                 android:layout_alignBaseline="@+id/tv_name"
                 android:layout_marginLeft="@dimen/sideMargin"
                 android:layout_toRightOf="@+id/tv_name"
-                android:background="@drawable/bg_statue"
+                android:background="@{viewModel.userBean.status==0?AppUtil.getDrawable(R.drawable.bg_statue_red):AppUtil.getDrawable(R.drawable.bg_statue)}"
                 android:paddingBottom="5px"
                 android:paddingLeft="16px"
                 android:paddingRight="16px"
                 android:paddingTop="5px"
-                android:text="状态"
+                android:text="@{StringUtil.getUserPos(viewModel.userBean.status,viewModel.userBean.memeber)}"
                 android:textSize="24px" />
 
             <ImageView
@@ -88,11 +96,11 @@
             android:id="@+id/rl_score"
             android:layout_width="match_parent"
             android:layout_height="172px"
-            android:elevation="10px"
             android:layout_marginLeft="20px"
             android:layout_marginRight="20px"
             android:layout_marginTop="260px"
             android:background="@drawable/bg_mine_scoret"
+            android:elevation="10px"
             android:paddingLeft="160px"
             android:paddingRight="160px">
 
@@ -111,7 +119,7 @@
                     style="@style/red46"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0" />
+                    android:text="@{viewModel.userBean.learningability+``}" />
 
                 <TextView
                     style="@style/gray22"
@@ -142,7 +150,7 @@
                     style="@style/red46"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0" />
+                    android:text="@{viewModel.userBean.counts+``}" />
 
                 <TextView
                     style="@style/gray22"

@@ -43,14 +43,11 @@ public class MyApplication extends ApplicationLike {
     public static int widthPixels;
     public static String TOKEN = "";
     public static String USER_ID = "40";
-    public static String SHOP_ID = "";
     public static ACache mCache;
     private static Context context;
     public static String info = "";
 
-    public static boolean isFirst = false;
     public static boolean isInit = false;
-    public static boolean isHotFix = false;
     public static ObservableBoolean isRefreshing = new ObservableBoolean(false);
     public static ObservableBoolean isLoginOB = new ObservableBoolean(false);
     public static ObservableBoolean isPop = new ObservableBoolean(false);
@@ -83,7 +80,7 @@ public class MyApplication extends ApplicationLike {
     private void initNative() {
         context = application.getApplicationContext();
         mCache = ACache.get(application);
-        initCacheData();
+//        initCacheData();
         initPixels();
     }
 
@@ -99,7 +96,7 @@ public class MyApplication extends ApplicationLike {
     }
 
     public static boolean isLogin() {
-        return !StringUtil.isEmpty(MyApplication.TOKEN);
+        return !StringUtil.isEmpty(MyApplication.USER_ID);
     }
 
 
@@ -122,33 +119,12 @@ public class MyApplication extends ApplicationLike {
      * 初始化本地缓存策略
      */
     private void initCacheData() {
-        //  MD5_Utils.test();
         String userId = mCache.getAsString(CacheKey.USER_ID);
-        String token = mCache.getAsString(CacheKey.TOKEN);
-        String info = mCache.getAsString(CacheKey.INFO);
-        String rongToken = mCache.getAsString(CacheKey.RONG_TOKEN);
-        // Log.e(TAG, "onCreate: " + userId + "----" + token);
-//        if (!StringUtil.isEmpty(userId)) {
-//            USER_ID = userId;
-//        } else {
-//            USER_ID = "";
-//        }
-//        if (!StringUtil.isEmpty(token)) {
-//            TOKEN = token;
-//        } else {
-//            TOKEN = "";
-//        }
-//        if (!StringUtil.isEmpty(token)) {
-//            INFO = info;
-//        } else {
-//            INFO = "";
-//        }
-//
-//        if (TextUtils.isEmpty(rongToken)) {
-//            RONG_TOKEN = "";
-//        } else {
-//            RONG_TOKEN = rongToken;
-//        }
+        if (!StringUtil.isEmpty(userId)) {
+            USER_ID = userId;
+        } else {
+            USER_ID = "";
+        }
     }
 
 

@@ -277,8 +277,9 @@ public class ActivityUtil {
      *
      * @param activity
      */
-    public static void startCompeteActivity(Activity activity) {
+    public static void startCompeteActivity(Activity activity,String phone) {
         Intent intent = new Intent(activity, CompeteInfoActivity.class);
+        intent.putExtra("phone",phone);
         activity.startActivity(intent);
     }
 

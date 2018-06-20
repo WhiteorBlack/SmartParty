@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
 
@@ -40,7 +41,8 @@
                 android:layout_height="80px"
                 app:placeholderImage="@mipmap/mine_head"
                 app:placeholderImageScaleType="fitXY"
-                app:roundAsCircle="true" />
+                app:roundAsCircle="true"
+                bind:avatar="@{viewModel.userInfo.avatar}" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -72,6 +74,7 @@
                 android:id="@+id/tv_name"
                 style="@style/MineTextStyle"
                 android:layout_width="wrap_content"
+                android:text="@{viewModel.userInfo.username}"
                 android:layout_height="wrap_content"
                 android:textStyle="bold" />
 
@@ -107,6 +110,7 @@
                 style="@style/MineTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{viewModel.userInfo.dept.deptName}"
                 android:textStyle="bold" />
 
             <ImageView
@@ -140,6 +144,7 @@
                 android:id="@+id/tv_pos"
                 style="@style/MineTextStyle"
                 android:layout_width="wrap_content"
+                android:text="@{viewModel.userInfo.position}"
                 android:layout_height="wrap_content"
                 android:textStyle="bold" />
 
@@ -174,6 +179,7 @@
                 android:id="@+id/tv_date"
                 style="@style/MineTextStyle"
                 android:layout_width="wrap_content"
+                android:text="@{viewModel.userInfo.joinpatryTime}"
                 android:layout_height="wrap_content"
                 android:textStyle="bold" />
 

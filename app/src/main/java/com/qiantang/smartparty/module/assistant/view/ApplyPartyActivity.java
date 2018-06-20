@@ -4,7 +4,10 @@ import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.R;
@@ -20,7 +23,7 @@ import java.util.List;
 /**
  * Created by zhaoyong bai on 2018/5/30.
  */
-public class ApplyPartyActivity extends BaseBindActivity implements EasyPermission.PermissionCallback{
+public class ApplyPartyActivity extends BaseBindActivity implements EasyPermission.PermissionCallback {
     private PublishImgAdapter adapter;
     private ApplyPartyViewModel viewModel;
     private ActivityApplyPartyBinding binding;
@@ -35,8 +38,25 @@ public class ApplyPartyActivity extends BaseBindActivity implements EasyPermissi
 
     @Override
     public void initView() {
+        mImmersionBar.keyboardMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN).init();
         binding.toolbar.setTitle("入党申请");
         binding.toolbar.setIsHide(true);
+        binding.etContent.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                viewModel.setInputCount(charSequence.length());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         initRV();
     }
 
@@ -46,13 +66,13 @@ public class ApplyPartyActivity extends BaseBindActivity implements EasyPermissi
         binding.rv.addOnItemTouchListener(viewModel.itemClickListener());
     }
 
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.iv_back:
                 onBackPressed();
                 break;
             case R.id.btn_confirm:
-
+                viewModel.uploadImage();
                 break;
         }
     }

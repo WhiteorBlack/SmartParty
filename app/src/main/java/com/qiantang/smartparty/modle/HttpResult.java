@@ -35,6 +35,32 @@ public class HttpResult<T> {
     private String title;
     private int grade;
     private String userquestionnaire_id;
+    private String imgId;
+    private String imagePath;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public String getImgId() {
+        return imgId;
+    }
+
+    public void setImgId(String imgId) {
+        this.imgId = imgId;
+    }
 
     public int getGrade() {
         return grade;

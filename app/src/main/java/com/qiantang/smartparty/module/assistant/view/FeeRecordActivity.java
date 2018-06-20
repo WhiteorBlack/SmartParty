@@ -38,6 +38,7 @@ public class FeeRecordActivity extends BaseBindActivity {
     private void initRv(RecyclerView rv) {
         adapter.setEnableLoadMore(true);
         adapter.setLoadMoreView(RecycleViewUtils.getLoadMoreView());
+        adapter.setOnLoadMoreListener(()->viewModel.loadMore(),rv);
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
         rv.addOnItemTouchListener(viewModel.onItemTouchListener());

@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="42px"
             app:actualImageScaleType="centerCrop"
-            app:failureImage="@mipmap/bg_login_top"
+            app:failureImage="@mipmap/study_top_bg"
             app:failureImageScaleType="centerCrop"
             app:viewAspectRatio="1.84"
             bind:background="@{viewModel.userMap.background}" />

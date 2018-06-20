@@ -122,8 +122,8 @@ public class StringUtil {
         return "恭喜您,完成评测,并获得了\"" + select + "\",希望再接再厉,继续学习";
     }
 
-    public static String getTestResultString(boolean isCorrect){
-        return isCorrect?"回答正确":"回答错误";
+    public static String getTestResultString(boolean isCorrect) {
+        return isCorrect ? "回答正确" : "回答错误";
     }
 
     public static String getTestDate(String start, String end) {
@@ -145,14 +145,52 @@ public class StringUtil {
 
     /**
      * 获取标题第一个字
+     *
      * @param title
      * @return
      */
-    public static String getTitleHead(String title){
-        if (TextUtils.isEmpty(title)){
+    public static String getTitleHead(String title) {
+        if (TextUtils.isEmpty(title)) {
             return "党";
         }
-        return title.substring(0,1);
+        return title.substring(0, 1);
+    }
+
+    public static String getUserPos(int statue, int member) {
+        String pos = "";
+        if (!MyApplication.isLogin()) {
+            return pos;
+        }
+        if (statue == 0) {
+            switch (member) {
+                case 0:
+                    pos = "群众";
+                    break;
+                case 1:
+                    pos = "积极分子";
+                    break;
+                case 2:
+                    pos = "预备党员";
+                    break;
+                case 3:
+                    pos = "党员";
+                    break;
+
+            }
+        } else if (statue == 1) {
+            pos = "审核中";
+        } else {
+            pos = "已删除";
+        }
+        return pos;
+    }
+
+    public static String getPartyFee(int type){
+        return type==0?"党费":"特殊党费";
+    }
+
+    public static String getPartyMoney(double type){
+        return type==0?"自由金额":"¥"+type;
     }
 
     public static String getTestType(int type) {

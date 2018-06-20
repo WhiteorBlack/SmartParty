@@ -4,14 +4,21 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.text.TextUtils;
 
 import com.android.databinding.library.baseAdapters.BR;
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.base.ViewModel;
+import com.qiantang.smartparty.modle.HttpResult;
 import com.qiantang.smartparty.module.mine.viewmodel.ForgetRequest;
+import com.qiantang.smartparty.network.NetworkSubscriber;
+import com.qiantang.smartparty.network.retrofit.ApiWrapper;
+import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
+import com.qiantang.smartparty.utils.ActivityUtil;
 import com.qiantang.smartparty.utils.StringUtil;
 import com.qiantang.smartparty.utils.ToastUtil;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -28,9 +35,8 @@ public class RegisterViewModel extends BaseObservable implements ViewModel {
     private BaseBindActivity activity;
     public ObservableBoolean isCounting = new ObservableBoolean();
     public ObservableField<String> msg = new ObservableField<>("获取验证码");
-    public ObservableField<String> account = new ObservableField<>();
-    public ObservableField<String> smsCode = new ObservableField<>();
-    private HashMap<String, String> map;
+    public ObservableField<String> account = new ObservableField<>("");
+    public ObservableField<String> smsCode = new ObservableField<>("");
 
 
     public RegisterViewModel(BaseBindActivity activity) {
@@ -69,19 +75,61 @@ public class RegisterViewModel extends BaseObservable implements ViewModel {
             ToastUtil.toast(getString(R.string.phoneNumberInvalid));
             setIsCounting(false);
         } else {
-            if (map == null) {
-                map = new HashMap<>();
-            }
-            if (StringUtil.isEmpty(map.get(account))) {
-                ToastUtil.toast("发送成功");
-                ForgetRequest.smsCodeTime();
-                ForgetRequest.isStart = true;
-                isCounting.set(true);
-            } else {
-                setIsCounting(false);
-                ToastUtil.toast("该手机号码已经被注册");
-            }
+            getCode(account);
         }
+    }
+
+    private void getCode(String account) {
+        ApiWrapper.getInstance().registerCode(account)
+                .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
+                .subscribe(new NetworkSubscriber<HttpResult>() {
+                    @Override
+                    public void onFail(RetrofitUtil.APIException e) {
+                        super.onFail(e);
+                    }
+
+                    @Override
+                    public void onSuccess(HttpResult data) {
+                        ToastUtil.toast("发送成功");
+                        ForgetRequest.smsCodeTime();
+                        ForgetRequest.isStart = true;
+                        isCounting.set(true);
+                    }
+                });
+    }
+
+    public void register() {
+        if (TextUtils.isEmpty(account.get())) {
+            ToastUtil.toast("账号不能为空");
+            setIsCounting(false);
+        } else if (!StringUtil.isPhoneNumberValid(account.get())) {
+            ToastUtil.toast(getString(R.string.phoneNumberInvalid));
+            setIsCounting(false);
+        } else if (TextUtils.isEmpty(smsCode.get())) {
+            ToastUtil.toast("请输入收到的验证码");
+        }  else {
+            verifyCode(getAccount(), getSmsCode());
+        }
+    }
+
+    private void verifyCode(String s, String code) {
+        ApiWrapper.getInstance().userRegister(s, code)
+                .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
+                .subscribe(new NetworkSubscriber<HttpResult>() {
+                    @Override
+                    public void onFail(RetrofitUtil.APIException e) {
+                        super.onFail(e);
+                        if (e.getCode() == 1) {
+                            ToastUtil.toast("验证码过期，请重新获取！");
+                        }
+                    }
+
+                    @Override
+                    public void onSuccess(HttpResult data) {
+                        ActivityUtil.startCompeteActivity(activity,s);
+                        activity.onBackPressed();
+                    }
+                });
     }
 
     @Bindable
@@ -123,6 +171,7 @@ public class RegisterViewModel extends BaseObservable implements ViewModel {
         this.smsCode.set(smsCode);
         notifyPropertyChanged(BR.smsCode);
     }
+
 
     @Override
     public void destroy() {

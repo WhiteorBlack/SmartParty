@@ -9,8 +9,14 @@ import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.config.updata.NotificationDownloadCreator;
 import com.qiantang.smartparty.config.updata.NotificationInstallCreator;
+import com.qiantang.smartparty.modle.RxMyUserInfo;
+import com.qiantang.smartparty.modle.RxPersonalCenter;
+import com.qiantang.smartparty.network.NetworkSubscriber;
+import com.qiantang.smartparty.network.retrofit.ApiWrapper;
+import com.qiantang.smartparty.utils.ACache;
 import com.qiantang.smartparty.utils.permissions.EasyPermission;
 import com.qiantang.smartparty.utils.permissions.PermissionCode;
+import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import org.lzh.framework.updatepluginlib.UpdateBuilder;
 import org.lzh.framework.updatepluginlib.model.Update;
@@ -73,6 +79,28 @@ public class MainViewModel implements ViewModel {
                                 .installDialogCreator(new NotificationInstallCreator())
                                 .downloadDialogCreator(new NotificationDownloadCreator())
                                 .check();
+
+                    }
+                });
+    }
+
+    public void getUserInfo() {
+        ApiWrapper.getInstance().center()
+                .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
+                .subscribe(new NetworkSubscriber<RxMyUserInfo>() {
+                    @Override
+                    public void onSuccess(RxMyUserInfo data) {
+                        MyApplication.mCache.getAsJSONBean(MyApplication.USER_ID, RxMyUserInfo.class, new ACache.CacheResultListener<RxMyUserInfo>() {
+                            @Override
+                            public void onResult(RxMyUserInfo rxMyUserInfo) {
+                                rxMyUserInfo.setCounts(data.getCounts());
+                                rxMyUserInfo.setLearningability(data.getLearningability());
+                                rxMyUserInfo.setAvatar(data.getAvatar());
+                                rxMyUserInfo.setMemeber(data.getMemeber());
+                                rxMyUserInfo.setStatus(data.getSta());
+                                MyApplication.mCache.saveInfo(rxMyUserInfo, rxMyUserInfo.getUserId());
+                            }
+                        });
 
                     }
                 });

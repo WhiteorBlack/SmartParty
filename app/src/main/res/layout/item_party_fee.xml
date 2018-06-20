@@ -3,6 +3,12 @@
 
     <data>
 
+        <import type="com.qiantang.smartparty.utils.AppUtil" />
+
+        <import type="com.qiantang.smartparty.utils.StringUtil" />
+
+        <import type="com.qiantang.smartparty.R" />
+
         <variable
             name="item"
             type="com.qiantang.smartparty.modle.RxPartyFee" />
@@ -19,7 +25,7 @@
             android:layout_height="32px"
             android:layout_marginLeft="@dimen/sideMargin"
             android:layout_marginTop="30px"
-            android:src="@mipmap/icon_fee_party" />
+            android:src="@{item.type==0?AppUtil.getDrawable(R.mipmap.icon_fee_party):AppUtil.getDrawable(R.mipmap.icon_fee_donate)}" />
 
         <TextView
             android:id="@+id/tv_name"
@@ -31,7 +37,7 @@
             android:layout_marginTop="30px"
             android:layout_toRightOf="@+id/iv_icon"
             android:gravity="center"
-            android:text="党费" />
+            android:text="@{item.dues_name}" />
 
         <TextView
             android:id="@+id/tv_state"
@@ -41,7 +47,7 @@
             android:layout_alignBaseline="@+id/tv_name"
             android:layout_alignParentRight="true"
             android:layout_marginRight="34px"
-            android:text="已逾期" />
+            android:text="@{item.overdue==0?StringUtil.getString(R.string.overtime):``}" />
 
         <TextView
             android:id="@+id/tv_money"
@@ -51,7 +57,7 @@
             android:layout_alignLeft="@+id/tv_name"
             android:layout_below="@+id/tv_name"
             android:layout_marginTop="29px"
-            android:text="5" />
+            android:text="@{StringUtil.getPartyMoney(item.money)}" />
 
         <TextView
             android:id="@+id/tv_type"
@@ -62,7 +68,7 @@
             android:layout_below="@+id/tv_money"
             android:layout_marginRight="34px"
             android:layout_marginTop="23px"
-            android:text="党费" />
+            android:text="@{StringUtil.getPartyFee(item.type)}" />
 
         <TextView
             android:id="@+id/tv_date"
@@ -73,7 +79,7 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/tv_money"
             android:layout_marginRight="34px"
-            android:text="2018" />
+            android:text="@{item.dues_end}" />
 
         <View
             android:layout_width="match_parent"

@@ -47,4 +47,5 @@ public interface CacheKey {
     String ISMEMBER="isMember";
     String ISDEALER="isDealer";
     String SHOP_ID="shopId";
+    String PHONE="phone";
 }

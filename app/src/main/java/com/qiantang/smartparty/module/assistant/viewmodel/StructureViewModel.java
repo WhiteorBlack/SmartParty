@@ -11,6 +11,7 @@ import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.modle.RxStructureLevelOne;
 import com.qiantang.smartparty.modle.RxStructureLevelTwo;
+import com.qiantang.smartparty.modle.RxStructurePerson;
 import com.qiantang.smartparty.module.assistant.adapter.StructureAdapter;
 import com.qiantang.smartparty.network.NetworkSubscriber;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
@@ -27,7 +28,7 @@ public class StructureViewModel implements ViewModel {
     private StructureAdapter adapter;
     private BaseBindActivity activity;
     private List<MultiItemEntity> dataList = new ArrayList<>();
-    private boolean isDealing=false;
+    private boolean isDealing = false;
 
     public StructureViewModel(StructureAdapter adapter, BaseBindActivity activity) {
         this.adapter = adapter;
@@ -47,23 +48,34 @@ public class StructureViewModel implements ViewModel {
                 });
     }
 
-    private void getTwoData(String id,int pos) {
-        isDealing=true;
+    private void getTwoData(String id, int pos) {
+        isDealing = true;
         ApiWrapper.getInstance().dept2(id)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
-                .doOnTerminate(()->isDealing=false)
+                .doOnTerminate(() -> isDealing = false)
                 .subscribe(new NetworkSubscriber<List<RxStructureLevelTwo>>() {
                     @Override
                     public void onSuccess(List<RxStructureLevelTwo> data) {
-                        ((RxStructureLevelOne)dataList.get(pos)).setSubItems(data);
+                        ((RxStructureLevelOne) dataList.get(pos)).setSubItems(data);
                         adapter.notifyDataSetChanged();
                         adapter.expand(pos);
                     }
                 });
     }
 
-    private void getPerson(String id) {
-
+    private void getPerson(String id, int pos) {
+        isDealing = true;
+        ApiWrapper.getInstance().dept3(id)
+                .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
+                .doOnTerminate(() -> isDealing = false)
+                .subscribe(new NetworkSubscriber<List<RxStructurePerson>>() {
+                    @Override
+                    public void onSuccess(List<RxStructurePerson> data) {
+                        ((RxStructureLevelTwo) dataList.get(pos)).setSubItems(data);
+                        adapter.notifyDataSetChanged();
+                        adapter.expand(pos);
+                    }
+                });
     }
 
     public RecyclerView.OnItemTouchListener onItemTouchListener() {
@@ -76,16 +88,30 @@ public class StructureViewModel implements ViewModel {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 super.onItemChildClick(adapter, view, position);
-                ToastUtil.toast("position"+position);
                 switch (view.getId()) {
                     case R.id.iv_level_one:
                         RxStructureLevelOne rxStructureLevelOne = (RxStructureLevelOne) dataList.get(position);
                         if (rxStructureLevelOne.getSubItems() == null || rxStructureLevelOne.getSubItems().size() == 0) {
-                            getTwoData(rxStructureLevelOne.getDept_id(),position);
+                            getTwoData(rxStructureLevelOne.getDept_id(), position);
+                        } else {
+                            if (rxStructureLevelOne.isExpanded()) {
+                                adapter.collapse(position);
+                            } else {
+                                adapter.expand(position);
+                            }
                         }
                         break;
                     case R.id.iv_level_two:
-
+                        RxStructureLevelTwo rxStructureLevelTwo = (RxStructureLevelTwo) dataList.get(position);
+                        if (rxStructureLevelTwo.getSubItems() == null || rxStructureLevelTwo.getSubItems().size() == 0) {
+                            getPerson(rxStructureLevelTwo.getDept_id(), position);
+                        } else {
+                            if (rxStructureLevelTwo.isExpanded()) {
+                                adapter.collapse(position);
+                            } else {
+                                adapter.expand(position);
+                            }
+                        }
                         break;
                 }
             }

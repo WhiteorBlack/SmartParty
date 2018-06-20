@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
+
+        <import type="com.qiantang.smartparty.utils.StringUtil" />
 
         <variable
             name="viewModel"
@@ -35,7 +38,7 @@
             android:layout_alignBaseline="@+id/tv_name_title"
             android:layout_alignParentRight="true"
             android:layout_marginRight="32px"
-            android:text="测试"
+            android:text="@{viewModel.feeDetial.username}"
             android:textStyle="bold" />
 
         <View
@@ -66,7 +69,7 @@
             android:layout_alignBaseline="@+id/tv_nation_title"
             android:layout_alignParentRight="true"
             android:layout_marginRight="32px"
-            android:text="测试"
+            android:text="@{viewModel.feeDetial.dept_name}"
             android:textStyle="bold" />
 
         <View
@@ -95,7 +98,7 @@
             android:layout_alignBaseline="@+id/tv_fee_title"
             android:layout_alignParentRight="true"
             android:layout_marginRight="32px"
-            android:text="测试"
+            android:text="@{StringUtil.getPartyFee(viewModel.feeDetial.type)}"
             android:textStyle="bold" />
 
         <View
@@ -126,7 +129,7 @@
             android:layout_alignBaseline="@+id/tv_feep_title"
             android:layout_alignParentRight="true"
             android:layout_marginRight="32px"
-            android:text="测试"
+            android:text="@{viewModel.feeDetial.dues_name}"
             android:textStyle="bold" />
 
         <View
@@ -157,7 +160,7 @@
             android:layout_alignBaseline="@+id/tv_date_title"
             android:layout_alignParentRight="true"
             android:layout_marginRight="32px"
-            android:text="2018"
+            android:text="@{viewModel.feeDetial.dues_end}"
             android:textStyle="bold" />
 
         <View
@@ -180,7 +183,7 @@
             android:layout_marginTop="40px"
             android:text="交费说明" />
 
-        <TextView
+        <com.qiantang.smartparty.utils.fullhtml.TextViewForFullHtml
             android:id="@+id/tv_info"
             style="@style/black26"
             android:layout_width="wrap_content"
@@ -189,8 +192,8 @@
             android:layout_marginLeft="32px"
             android:layout_marginRight="32px"
             android:layout_marginTop="22px"
-            android:text="测试"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            bind:loadContent="@{viewModel.feeDetial.dues_remark}" />
 
         <View
             android:id="@+id/line5"
@@ -220,7 +223,7 @@
             android:layout_alignBaseline="@+id/tv_count_title"
             android:layout_alignParentRight="true"
             android:layout_marginRight="32px"
-            android:text="5.0"
+            android:text="@{StringUtil.getPartyMoney(viewModel.feeDetial.money)}"
             android:textStyle="bold" />
 
         <View

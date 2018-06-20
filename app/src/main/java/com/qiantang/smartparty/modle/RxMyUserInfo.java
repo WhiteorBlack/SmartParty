@@ -3,139 +3,80 @@ package com.qiantang.smartparty.modle;
 import java.util.List;
 
 public class RxMyUserInfo {
-    private String birthday;
-    private int sex;
-    private String nickname;
-    private String userImage;
-    private String postcode;
-    private String city;
-    private String regeistTime;
-    private String viewName;
-    private String address;
-    private String email;
-    private String county;
+    private int pageNum;
+    private int pageSize;
+    private String id;
     private String userId;
-    private String province;
-    private String userName;
-    private String realName;
-    private String mobile;
-    private String refCode;
-    private String refUserId;
-    private String refUserPhone;
+    private String avatar;
+    private String username;
+    private String password;
+    private String phone;
+    private String deptId;
+    private String createTime;
+    private String createBy;
+    private String updateTime;
+    private int cost;
+    private String position;
+    private int memeber;
+    private String openId;
+    private int status;
+    private String collect;
+    private String parentId;
+    private String joinpatryTime;
+    private String nation;
+    private int education;
+    private String college;
+    private Dept dept;
+    private int counts;
+    private int learningability;
+    private int sta;
 
-    public String getRefUserId() {
-        return refUserId;
+    public int getSta() {
+        return sta;
     }
 
-    public void setRefUserId(String refUserId) {
-        this.refUserId = refUserId;
+    public void setSta(int sta) {
+        this.sta = sta;
     }
 
-    public String getRefUserPhone() {
-        return refUserPhone;
+    public int getCounts() {
+        return counts;
     }
 
-    public void setRefUserPhone(String refUserPhone) {
-        this.refUserPhone = refUserPhone;
+    public void setCounts(int counts) {
+        this.counts = counts;
     }
 
-    public String getRefCode() {
-        return refCode;
+    public int getLearningability() {
+        return learningability;
     }
 
-    public void setRefCode(String refCode) {
-        this.refCode = refCode;
+    public void setLearningability(int learningability) {
+        this.learningability = learningability;
     }
 
-
-
-
-    public String getBirthday() {
-        return birthday;
+    public int getPageNum() {
+        return pageNum;
     }
 
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
     }
 
-    public int getSex() {
-        return sex;
+    public int getPageSize() {
+        return pageSize;
     }
 
-    public void setSex(int sex) {
-        this.sex = sex;
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getId() {
+        return id;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getUserImage() {
-        return userImage;
-    }
-
-    public void setUserImage(String userImage) {
-        this.userImage = userImage;
-    }
-
-    public String getPostcode() {
-        return postcode;
-    }
-
-    public void setPostcode(String postcode) {
-        this.postcode = postcode;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getRegeistTime() {
-        return regeistTime;
-    }
-
-    public void setRegeistTime(String regeistTime) {
-        this.regeistTime = regeistTime;
-    }
-
-    public String getViewName() {
-        return viewName;
-    }
-
-    public void setViewName(String viewName) {
-        this.viewName = viewName;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getCounty() {
-        return county;
-    }
-
-    public void setCounty(String county) {
-        this.county = county;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUserId() {
@@ -146,55 +87,220 @@ public class RxMyUserInfo {
         this.userId = userId;
     }
 
-    public String getProvince() {
-        return province;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setProvince(String province) {
-        this.province = province;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getRealName() {
-        return realName;
+    public String getPassword() {
+        return password;
     }
 
-    public void setRealName(String realName) {
-        this.realName = realName;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    @Override
-    public String toString() {
-        return "{\"birthday\":\"" + getBirthday()
-                + "\",\"sex\":" + getSex()
-                + ",\"nickname\":\"" + getNickname()
-                + "\",\"userImage\":\"" + getUserImage()
-                + "\",\"postcode\":" + getPostcode()
-                + ",\"city\":\"" + getCity()
-                + "\",\"regeistTime\":\"" + getRegeistTime()
-                + "\",\"viewName\":\"" + getViewName()
-                + "\",\"address\":" + getAddress()
-                + ",\"email\":\"" + getEmail()
-                + "\",\"county\":\"" + getCounty()
-                + "\",\"userId\":" + getUserId()
-                + ",\"province\":\"" + getProvince()
-                + "\",\"userName\":\"" + getUserName()
-                + "\",\"realName\":\"" + getRealName()
-                + "\",\"mobile\":\"" + getMobile() + "\"}";
+    public String getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(String deptId) {
+        this.deptId = deptId;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public int getMemeber() {
+        return memeber;
+    }
+
+    public void setMemeber(int memeber) {
+        this.memeber = memeber;
+    }
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getCollect() {
+        return collect;
+    }
+
+    public void setCollect(String collect) {
+        this.collect = collect;
+    }
+
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
+    }
+
+    public String getJoinpatryTime() {
+        return joinpatryTime;
+    }
+
+    public void setJoinpatryTime(String joinpatryTime) {
+        this.joinpatryTime = joinpatryTime;
+    }
+
+    public String getNation() {
+        return nation;
+    }
+
+    public void setNation(String nation) {
+        this.nation = nation;
+    }
+
+    public int getEducation() {
+        return education;
+    }
+
+    public void setEducation(int education) {
+        this.education = education;
+    }
+
+    public String getCollege() {
+        return college;
+    }
+
+    public void setCollege(String college) {
+        this.college = college;
+    }
+
+    public Dept getDept() {
+        return dept;
+    }
+
+    public void setDept(Dept dept) {
+        this.dept = dept;
+    }
+
+    public static class Dept {
+        private String deptId;
+        private String deptName;
+        private int leader;
+        private String phone;
+        private String email;
+        private int status;
+
+        public String getDeptId() {
+            return deptId;
+        }
+
+        public void setDeptId(String deptId) {
+            this.deptId = deptId;
+        }
+
+        public String getDeptName() {
+            return deptName;
+        }
+
+        public void setDeptName(String deptName) {
+            this.deptName = deptName;
+        }
+
+        public int getLeader() {
+            return leader;
+        }
+
+        public void setLeader(int leader) {
+            this.leader = leader;
+        }
+
+        public String getPhone() {
+            return phone;
+        }
+
+        public void setPhone(String phone) {
+            this.phone = phone;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
     }
 }

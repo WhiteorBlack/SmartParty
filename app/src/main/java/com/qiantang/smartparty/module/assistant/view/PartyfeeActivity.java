@@ -11,6 +11,7 @@ import com.qiantang.smartparty.databinding.ActivityPartyFeeBinding;
 import com.qiantang.smartparty.module.assistant.adapter.PartyFeeAdapter;
 import com.qiantang.smartparty.module.assistant.viewmodel.PartyfeeViewModel;
 import com.qiantang.smartparty.utils.ActivityUtil;
+import com.qiantang.smartparty.utils.RecycleViewUtils;
 
 
 /**
@@ -39,6 +40,9 @@ public class PartyfeeActivity extends BaseBindActivity {
     }
 
     private void initRv(RecyclerView rv) {
+        adapter.setEnableLoadMore(true);
+        adapter.setLoadMoreView(RecycleViewUtils.getLoadMoreView());
+        adapter.setOnLoadMoreListener(() -> viewModel.loadMore(), rv);
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
         rv.addOnItemTouchListener(viewModel.onItemTouchListener());

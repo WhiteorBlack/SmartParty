@@ -125,6 +125,8 @@ dependencies {
     implementation files('libs/wechat-sdk-android-with-mta-1.1.6.jar')
 
     implementation 'com.github.nanchen2251:CompressHelper:1.0.5'
+    //城市三级联动
+    implementation 'com.contrarywind:Android-PickerView:3.2.7'
 }
 repositories {
     mavenCentral()

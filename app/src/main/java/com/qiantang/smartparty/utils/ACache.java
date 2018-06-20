@@ -31,6 +31,7 @@ import com.qiantang.smartparty.config.CacheKey;
 import com.qiantang.smartparty.config.Event;
 import com.qiantang.smartparty.modle.HttpResult;
 import com.qiantang.smartparty.modle.RxMyUserInfo;
+import com.qiantang.smartparty.modle.RxPersonalCenter;
 import com.qiantang.smartparty.network.NetworkSubscriber;
 
 import org.greenrobot.eventbus.EventBus;
@@ -96,21 +97,23 @@ public class ACache {
         saveInfo(myUserInfo, result.getToken());
     }
 
-    public static void saveInfo(RxMyUserInfo myUserInfo, String token) {
+    public static void saveInfo(RxMyUserInfo myUserInfo, String userId) {
         MyApplication.isLoginOB.set(true);
         MyApplication.mCache.put(CacheKey.USER_INFO, myUserInfo);
         WebUtil.removeCookie();
-        String userId = myUserInfo.getUserId();
         String info = myUserInfo.toString();
         MyApplication.mCache.put(CacheKey.USER_ID, userId);
-        MyApplication.mCache.put(CacheKey.TOKEN, token);
         MyApplication.mCache.put(CacheKey.INFO, info);
         MyApplication.USER_ID = userId;
-        MyApplication.TOKEN = token;
         MyApplication.INFO = info;
         update(myUserInfo);
     }
 
+    public static void update(RxPersonalCenter myUserInfo) {
+        //请求MyFragment刷新数据
+        EventBus.getDefault().postSticky(myUserInfo);
+        MyApplication.isLoginOB.set(true);
+    }
 
     public static void update(RxMyUserInfo myUserInfo) {
         //请求MyFragment刷新数据

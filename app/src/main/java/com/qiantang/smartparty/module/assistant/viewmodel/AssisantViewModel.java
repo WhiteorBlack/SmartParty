@@ -6,6 +6,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.qiantang.smartparty.BaseBindFragment;
+import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.modle.RxActivity;
@@ -13,6 +14,7 @@ import com.qiantang.smartparty.modle.RxAssientHome;
 import com.qiantang.smartparty.modle.RxIndexClass;
 import com.qiantang.smartparty.modle.RxIndexCommon;
 import com.qiantang.smartparty.modle.RxMsg;
+import com.qiantang.smartparty.modle.RxMyUserInfo;
 import com.qiantang.smartparty.module.assistant.adapter.ActivityAdapter;
 import com.qiantang.smartparty.module.assistant.adapter.MsgAdapter;
 import com.qiantang.smartparty.module.index.adapter.IndexCommonAdapter;
@@ -121,9 +123,22 @@ public class AssisantViewModel implements ViewModel {
                         ActivityUtil.startPartyFeeActivity(fragment.getActivity());
                         break;
                     case 1:
-                        ActivityUtil.startApplyPartyActivity(fragment.getActivity());
-                        ActivityUtil.startApplyPartyDeitalActivity(fragment.getActivity());
-                        ActivityUtil.startApplyPartySuccessActivity(fragment.getActivity());
+                        if (MyApplication.isLogin()) {
+                            RxMyUserInfo rxMyUserInfo = MyApplication.mCache.getAsJSONBean(MyApplication.USER_ID, RxMyUserInfo.class);
+                            if (rxMyUserInfo.getMemeber() == 3) {
+                                ActivityUtil.startApplyPartySuccessActivity(fragment.getActivity());
+                            } else {
+                                if (rxMyUserInfo.getStatus() == 0) {
+                                    ActivityUtil.startApplyPartyActivity(fragment.getActivity());
+                                }
+                                if (rxMyUserInfo.getStatus() == 1) {
+                                    ActivityUtil.startApplyPartyDeitalActivity(fragment.getActivity());
+                                }
+                            }
+                        } else {
+                            ActivityUtil.startLoginActivity(fragment.getActivity());
+                        }
+
                         break;
                     case 2:
                         ActivityUtil.startThinkingActivity(fragment.getActivity());

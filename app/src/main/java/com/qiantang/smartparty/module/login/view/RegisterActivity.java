@@ -33,10 +33,11 @@ public class RegisterActivity extends BaseBindActivity {
         super.onClick(view);
         switch (view.getId()) {
             case R.id.btn_confirm:
-                ActivityUtil.startCompeteActivity(this);
+              viewModel.register();
                 break;
             case R.id.tv_count:
                 viewModel.sendMsg();
+                closeInput();
                 break;
         }
     }

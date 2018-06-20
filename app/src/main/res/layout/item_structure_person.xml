@@ -10,13 +10,15 @@
     </data>
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/sdv"
             android:layout_width="80px"
             android:layout_height="80px"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10px"
             app:roundAsCircle="true" />
 
         <TextView
@@ -28,5 +30,14 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20px"
             android:text="@{item.username}" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:layout_marginTop="10px"
+            android:background="@color/line" />
     </RelativeLayout>
 </layout>

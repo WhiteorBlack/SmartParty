@@ -3,9 +3,15 @@
 
     <data>
 
+        <import type="com.qiantang.smartparty.utils.StringUtil" />
+
+        <import type="com.qiantang.smartparty.utils.AppUtil"/>
+
+        <import type="com.qiantang.smartparty.R" />
+
         <variable
             name="item"
-            type="com.qiantang.smartparty.modle.RxPartyFee" />
+            type="com.qiantang.smartparty.modle.RxFeeRecord" />
     </data>
 
     <RelativeLayout
@@ -19,7 +25,7 @@
             android:layout_height="70px"
             android:layout_marginLeft="@dimen/sideMargin"
             android:layout_marginTop="@dimen/sideMargin"
-            android:src="@mipmap/icon_fee_party" />
+            android:src="@{item.type==0?AppUtil.getDrawable(R.mipmap.icon_fee_party):AppUtil.getDrawable(R.mipmap.icon_fee_donate)}" />
 
         <TextView
             android:id="@+id/tv_name"
@@ -31,7 +37,7 @@
             android:layout_marginTop="25px"
             android:layout_toRightOf="@+id/iv_icon"
             android:gravity="center"
-            android:text="党费" />
+            android:text="@{item.dues_name}" />
 
 
         <TextView
@@ -43,7 +49,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/iv_icon"
             android:layout_marginRight="30px"
-            android:text="5" />
+            android:text="@{`¥`+item.money}" />
 
         <TextView
             android:id="@+id/tv_type"
@@ -54,7 +60,7 @@
             android:layout_alignLeft="@+id/tv_name"
             android:layout_below="@+id/tv_money"
             android:layout_toRightOf="@+id/iv_icon"
-            android:text="党费" />
+            android:text="@{StringUtil.getPartyFee(item.type)}" />
 
         <TextView
             android:id="@+id/tv_date"
@@ -65,7 +71,7 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/tv_money"
             android:layout_marginRight="34px"
-            android:text="2018" />
+            android:text="@{item.endtime}" />
 
         <View
             android:layout_width="match_parent"

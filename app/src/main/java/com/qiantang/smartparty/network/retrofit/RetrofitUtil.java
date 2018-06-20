@@ -1,5 +1,6 @@
 package com.qiantang.smartparty.network.retrofit;
 
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
@@ -258,15 +259,16 @@ public class RetrofitUtil {
             if (response.isSuccess()) {
                 String errorMessage = response.getErrorMessage();
                 if (!StringUtil.isEmpty(errorMessage)) {
-//                    ToastUtil.toast(errorMessage);
                     Logger.e(errorMessage);
                 }
                 if (!subscriber.isDisposed()) {
                     T object = response.getReturnObject();
                     if (!TextUtils.isEmpty(response.getUserquestionnaire_id())) {
                         subscriber.onNext(object == null ? ((T) response) : object);
-                    } else {
-                        subscriber.onNext(object == null ? ((T) response.getErrorMessage()) : object);
+                    } else if (!TextUtils.isEmpty(response.getImgId())) {
+                        subscriber.onNext(object == null ? ((T) response) : object);
+                    }  else {
+                        subscriber.onNext(object == null ? ((T) response) : object);
                     }
                 }
             } else {
@@ -463,15 +465,4 @@ public class RetrofitUtil {
         return RequestBody.create(MediaType.parse("image/*"), param);
     }
 
-    /**
-     * 已二进制传递图片文件，对图片文件进行了压缩
-     *
-     * @param path 文件路径
-     * @return
-     */
-//    protected RequestBody createPictureRequestBody(String path) {
-//        Bitmap bitmap = ClippingPicture.decodeResizeBitmapSd(path, 400, 800);
-//        return RequestBody.create(MediaType.parse("image/*"), ClippingPicture.bitmapToBytes
-// (bitmap));
-//    }
 }

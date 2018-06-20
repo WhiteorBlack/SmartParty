@@ -59,6 +59,13 @@ public class MainActivity extends BaseBindActivity implements IndicatorViewPager
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (MyApplication.isLogin()){
+            viewModel.getUserInfo();
+        }
+    }
 
     @Override
     protected void viewModelDestroy() {
