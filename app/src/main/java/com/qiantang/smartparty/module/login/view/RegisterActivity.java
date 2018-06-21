@@ -25,7 +25,6 @@ public class RegisterActivity extends BaseBindActivity {
 
     @Override
     public void initView() {
-
     }
 
     @Override

@@ -62,9 +62,9 @@
     <application
         android:name=".SampleApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
@@ -226,6 +226,7 @@
         <activity
             android:name=".module.login.view.CompeteInfoActivity"
             android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize|stateUnspecified"
             android:screenOrientation="portrait" />
 
         <activity
@@ -391,6 +392,11 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".module.mine.view.ShowHeadPicActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".module.index.view.BookDetialActivity"
             android:configChanges="orientation|screenSize"
             android:launchMode="singleTask"
@@ -399,6 +405,15 @@
 
         <activity
             android:name=".module.assistant.view.StructureActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".module.mine.view.NamePositionActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".module.mine.view.DateDeptActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
     </application>

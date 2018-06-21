@@ -27,9 +27,9 @@
             android:text="账户安全" />
 
         <LinearLayout
+            android:id="@+id/ll_modify_phone"
             style="@style/Mine_list"
             android:layout_height="104px"
-            android:id="@+id/ll_modify_phone"
             android:onClick="onClick"
             android:paddingRight="@dimen/sideMargin">
 
@@ -122,5 +122,17 @@
                 android:layout_height="wrap_content"
                 android:background="@mipmap/icon_step_arrow" />
         </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                style="@style/confirmBtn"
+                android:layout_gravity="center"
+                android:onClick="onClick"
+                android:text="退出登录" />
+        </FrameLayout>
     </LinearLayout>
 </layout>

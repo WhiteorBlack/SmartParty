@@ -2,6 +2,7 @@ package com.qiantang.smartparty.module.login.view;
 
 import android.databinding.DataBindingUtil;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.R;
@@ -24,6 +25,7 @@ public class CompeteInfoActivity extends BaseBindActivity {
 
     @Override
     public void initView() {
+//        mImmersionBar.keyboardMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE).init();
         binding.toolbar.setTitle("完善信息");
     }
 

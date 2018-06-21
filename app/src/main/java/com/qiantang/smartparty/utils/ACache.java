@@ -104,6 +104,7 @@ public class ACache {
         String info = myUserInfo.toString();
         MyApplication.mCache.put(CacheKey.USER_ID, userId);
         MyApplication.mCache.put(CacheKey.INFO, info);
+        MyApplication.mCache.put(CacheKey.PHONE,myUserInfo.getPhone());
         MyApplication.USER_ID = userId;
         MyApplication.INFO = info;
         update(myUserInfo);

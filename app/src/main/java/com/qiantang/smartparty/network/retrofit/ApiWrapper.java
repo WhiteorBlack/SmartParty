@@ -119,6 +119,48 @@ public class ApiWrapper extends RetrofitUtil {
                 .compose(this.apply());
     }
 
+    /**
+     * 删除用户头像
+     *
+     * @param path
+     * @return
+     */
+    public synchronized Observable<HttpResult> setUploadUrl(final String path) {
+        final File file = new File(path);
+        return Luban.get(MyApplication.getContext())
+                .load(file)
+                .putGear(Luban.THIRD_GEAR)
+                .asObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .doOnError(Throwable::printStackTrace)
+                .onErrorResumeNext(throwable -> {
+                    return Observable.empty();
+                })
+                .flatMap(bytes -> {
+                    RequestBody requestFile = RequestBody.create(MediaType.parse
+                            ("multipart/form-data"), bytes);
+
+                    String fileName = file.getName().replaceFirst("gif$", "png");
+                    MultipartBody.Part body =
+                            MultipartBody.Part.createFormData("file", fileName, requestFile);
+                    return ApiWrapper.getInstance().uploadUrl(body);
+                })
+                .map(uploadUrls -> {
+                    HttpResult uploadUrl = uploadUrls;
+                    uploadUrl.setImagePath(path);
+                    return uploadUrl;
+                });
+    }
+
+    /**
+     * 上传头像文件
+     */
+    public Observable<HttpResult> uploadUrl(MultipartBody.Part file) {
+        return getService().uploadUrl(file)
+                .compose(this.apply());
+    }
+
 
     /**
      * 个人排行
@@ -195,7 +237,7 @@ public class ApiWrapper extends RetrofitUtil {
      *
      * @return
      */
-    public Observable<String> addCommentApp(String content, String image) {
+    public Observable<HttpResult> addCommentApp(String content, String image) {
         return getService().addCommentApp(MyApplication.USER_ID, content, image).compose(this.applySchedulers());
     }
 
@@ -408,7 +450,7 @@ public class ApiWrapper extends RetrofitUtil {
      * @param id
      * @return
      */
-    public Observable<String> videoLike(String id) {
+    public Observable<HttpResult> videoLike(String id) {
         return getService().videoLike(MyApplication.USER_ID, id).compose(this.applySchedulers());
     }
 
@@ -418,7 +460,7 @@ public class ApiWrapper extends RetrofitUtil {
      * @param id
      * @return
      */
-    public Observable<String> removeVideoLike(String id) {
+    public Observable<HttpResult> removeVideoLike(String id) {
         return getService().removeVideoLike(MyApplication.USER_ID, id).compose(this.applySchedulers());
     }
 
@@ -430,7 +472,7 @@ public class ApiWrapper extends RetrofitUtil {
      * @param content
      * @return
      */
-    public Observable<String> commentVideo(String id, String content) {
+    public Observable<HttpResult> commentVideo(String id, String content) {
         return getService().commentVideo(id, content, MyApplication.USER_ID).compose(this.applySchedulers());
     }
 
@@ -441,7 +483,7 @@ public class ApiWrapper extends RetrofitUtil {
      * @param type
      * @return
      */
-    public Observable<String> collectAbolish(String id, int type) {
+    public Observable<HttpResult> collectAbolish(String id, int type) {
         return getService().collectAbolish(type, MyApplication.USER_ID, id).compose(this.applySchedulers());
     }
 
@@ -452,7 +494,7 @@ public class ApiWrapper extends RetrofitUtil {
      * @param type
      * @return
      */
-    public Observable<String> collectSave(String id, int type) {
+    public Observable<HttpResult> collectSave(String id, int type) {
         return getService().collectSave(type, MyApplication.USER_ID, id).compose(this.applySchedulers());
     }
 
@@ -817,6 +859,7 @@ public class ApiWrapper extends RetrofitUtil {
 
     /**
      * 完善个人信息
+     *
      * @param phone
      * @param username
      * @param bl
@@ -833,33 +876,55 @@ public class ApiWrapper extends RetrofitUtil {
 
     /**
      * 获取个人信息
+     *
      * @return
      */
-    public Observable<RxMyUserInfo> center(){
+    public Observable<RxPersonalCenter> center() {
         return getService().center(MyApplication.mCache.getAsString(CacheKey.PHONE)).compose(this.applySchedulers());
     }
 
     /**
      * 党费列表
+     *
      * @return
      */
-    public Observable<List<RxPartyFee>> partyMoney(){
+    public Observable<List<RxPartyFee>> partyMoney() {
         return getService().partyMoney(MyApplication.USER_ID).compose(this.applySchedulers());
     }
 
     /**
      * 党费列表
+     *
      * @return
      */
-    public Observable<RxPartyFeeDetial> partyMoneyDetails(String id){
-        return getService().partyMoneyDetails(MyApplication.USER_ID,id).compose(this.applySchedulers());
+    public Observable<RxPartyFeeDetial> partyMoneyDetails(String id) {
+        return getService().partyMoneyDetails(MyApplication.USER_ID, id).compose(this.applySchedulers());
     }
 
     /**
      * 缴费记录
+     *
      * @return
      */
-    public Observable<List<RxFeeRecord>> partyMoneyList(int no){
-        return getService().partyMoneyList(MyApplication.USER_ID,no).compose(this.applySchedulers());
+    public Observable<List<RxFeeRecord>> partyMoneyList(int no) {
+        return getService().partyMoneyList(MyApplication.USER_ID, no).compose(this.applySchedulers());
+    }
+
+    /**
+     * 更改用户头像
+     *
+     * @return
+     */
+    public Observable<HttpResult> avatar(String avatar) {
+        return getService().avatar(MyApplication.mCache.getAsString(CacheKey.PHONE), avatar).compose(this.applySchedulers());
+    }
+
+    /**
+     * 更改用户头像
+     *
+     * @return
+     */
+    public Observable<HttpResult> modifyArchives(String date,String username,String pos,String deptId) {
+        return getService().modifyArchives(MyApplication.mCache.getAsString(CacheKey.PHONE), date,username,pos,deptId).compose(this.applySchedulers());
     }
 }

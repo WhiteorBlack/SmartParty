@@ -303,4 +303,17 @@ public class RxMyUserInfo {
             this.status = status;
         }
     }
+
+    @Override
+    public String toString() {
+        return "{\"phone\":\"" + getPhone()
+                + "\",\"deptName\":" + getDept().getDeptName()
+                + ",\"position\":\"" + getPosition()
+                + "\",\"deptId\":\"" + getDept().getDeptId()
+                + "\",\"memeber\":" + getMemeber()
+                + ",\"cost\":\"" + getCost()
+                + "\",\"status\":\"" + getStatus()
+                + "\",\"userId\":" + getUserId()
+                + "\",\"username\":\"" + getUsername() + "\"}";
+    }
 }

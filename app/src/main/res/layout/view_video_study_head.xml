@@ -3,7 +3,9 @@
     xmlns:bind="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="com.qiantang.smartparty.utils.StringUtil"/>
+
+        <import type="com.qiantang.smartparty.utils.StringUtil" />
+
         <variable
             name="viewModel"
             type="com.qiantang.smartparty.module.index.viewmodel.VideoDetialViewMdoel" />
@@ -20,9 +22,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40px"
-            android:text="@{viewModel.videoInfo.title}"
             android:paddingLeft="@dimen/sideMargin"
-            android:paddingRight="@dimen/sideMargin" />
+            android:paddingRight="@dimen/sideMargin"
+            android:text="@{viewModel.videoInfo.title}" />
 
         <TextView
             android:id="@+id/tv_date"
@@ -76,6 +78,7 @@
             android:layout_marginLeft="@dimen/sideMargin"
             android:layout_marginRight="@dimen/sideMargin"
             android:layout_marginTop="30px"
+            android:lineSpacingMultiplier="1.5"
             bind:loadContent="@{viewModel.videoInfo.intro}" />
 
         <View

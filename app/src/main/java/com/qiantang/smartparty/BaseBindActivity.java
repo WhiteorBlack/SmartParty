@@ -262,7 +262,7 @@ public abstract class BaseBindActivity extends RxAppCompatActivity implements Re
     @Override
     public void refreshOK() {
         if (mPtrFrame != null && mPtrFrame.isRefreshing()) {
-            ToastUtil.toast("更新完成");
+//            ToastUtil.toast("更新完成");
             mPtrFrame.refreshComplete();
         }
     }

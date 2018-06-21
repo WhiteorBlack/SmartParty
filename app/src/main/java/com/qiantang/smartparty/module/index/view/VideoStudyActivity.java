@@ -40,8 +40,21 @@ public class VideoStudyActivity extends BaseBindActivity {
         binding.toolbar.setIsHide(false);
         binding.toolbar.setResId(R.mipmap.icon_search_black);
         initRv(binding.rv);
-        viewModel.getData();
+        initRefresh(binding.cptr);
     }
+
+    @Override
+    public void update() {
+        super.update();
+        binding.cptr.autoRefresh();
+    }
+
+    @Override
+    public void refreshData() {
+        super.refreshData();
+        viewModel.getData(1);
+    }
+
 
     private void initRv(RecyclerView rv) {
         adapter.setLoadMoreView(RecycleViewUtils.getLoadMoreView());
@@ -60,9 +73,9 @@ public class VideoStudyActivity extends BaseBindActivity {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                LinearLayoutManager manager= (LinearLayoutManager) recyclerView.getLayoutManager();
-                int firstVisibleItem=manager.findFirstVisibleItemPosition();
-                int lastVisibleItem=manager.findLastVisibleItemPosition();
+                LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                int firstVisibleItem = manager.findFirstVisibleItemPosition();
+                int lastVisibleItem = manager.findLastVisibleItemPosition();
                 //大于0说明有播放
                 if (GSYVideoManager.instance().getPlayPosition() >= 0) {
                     //当前播放的位置
@@ -70,7 +83,7 @@ public class VideoStudyActivity extends BaseBindActivity {
                     //对应的播放列表TAG
                     if (GSYVideoManager.instance().getPlayTag().equals(VideoStudyAdapter.TAG)
                             && (position < firstVisibleItem || position > lastVisibleItem)) {
-                        if(adapter.isFull()) {
+                        if (adapter.isFull()) {
                             return;
                         }
                         //如果滑出去了上面和下面就是否，和今日头条一样

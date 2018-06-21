@@ -94,7 +94,6 @@ public class StudyAdapter extends EasyBindQuickAdapter<RxStudyList> {
             }
             StudyImageAdapter imageAdapter = new StudyImageAdapter(R.layout.item_study_image, imgList);
             rvImage.setAdapter(imageAdapter);
-            rvImage.addItemDecoration(new SpaceItemDecoration(0, 0, 20, 20));
             rvImage.addOnItemTouchListener(new com.chad.library.adapter.base.listener.OnItemClickListener() {
                 @Override
                 public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {

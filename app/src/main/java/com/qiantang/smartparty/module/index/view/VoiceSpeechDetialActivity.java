@@ -48,7 +48,7 @@ public class VoiceSpeechDetialActivity extends BaseBindActivity implements Compo
 
     @Override
     public void initView() {
-        speechPop=new SpeechPop(this);
+        speechPop = new SpeechPop(this);
         player = new Player(headBinding.seekbar);
         player.setTimeChangerListener(this);
         headBinding.seekbar.setOnSeekBarChangeListener(this);
@@ -68,6 +68,7 @@ public class VoiceSpeechDetialActivity extends BaseBindActivity implements Compo
         adapter.setOnLoadMoreListener(() -> viewMdoel.loadMore(), rv);
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
+        rv.addOnItemTouchListener(viewMdoel.onItemTouchListener());
         rv.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
             int heightDiff = MyApplication.heightPixels - rv.getHeight() - MyApplication.widthPixels * 9 / 16; //计算键盘占用高度
             if (heightDiff > MyApplication.heightPixels / 3) { //键盘弹出
@@ -87,8 +88,8 @@ public class VoiceSpeechDetialActivity extends BaseBindActivity implements Compo
         viewMdoel.setTotalTime(player.mediaPlayer.getDuration());
     }
 
-    public void setPopInfo(String title,String content){
-        if (speechPop!=null){
+    public void setPopInfo(String title, String content) {
+        if (speechPop != null) {
             speechPop.setTitle(title);
             speechPop.setContent(content);
         }
@@ -97,7 +98,7 @@ public class VoiceSpeechDetialActivity extends BaseBindActivity implements Compo
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.back:
+            case R.id.iv_back:
                 onBackPressed();
                 break;
             case R.id.tv_send:
@@ -115,7 +116,7 @@ public class VoiceSpeechDetialActivity extends BaseBindActivity implements Compo
                 viewMdoel.prase();
                 break;
             case R.id.ll_info:
-                speechPop.showAtLocation(Gravity.BOTTOM,0,0);
+                speechPop.showAtLocation(Gravity.BOTTOM, 0, 0);
                 break;
         }
     }

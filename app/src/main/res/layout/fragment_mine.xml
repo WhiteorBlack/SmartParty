@@ -7,6 +7,8 @@
 
         <import type="android.view.View" />
 
+        <import type="com.qiantang.smartparty.MyApplication" />
+
         <import type="com.qiantang.smartparty.utils.AppUtil" />
 
         <import type="com.qiantang.smartparty.R" />
@@ -51,7 +53,8 @@
                 android:layout_toRightOf="@+id/my_pic"
                 android:text="@{viewModel.userBean.username}"
                 android:textColor="@color/white"
-                android:textSize="28px" />
+                android:textSize="28px"
+                android:visibility="@{MyApplication.isLoginOB?View.VISIBLE:View.INVISIBLE}" />
 
             <TextView
                 android:id="@+id/tv_role"
@@ -64,7 +67,8 @@
                 android:layout_toRightOf="@+id/my_pic"
                 android:gravity="bottom"
                 android:text="@{viewModel.userBean.dept.deptName}"
-                android:textSize="22px" />
+                android:textSize="22px"
+                android:visibility="@{MyApplication.isLoginOB?View.VISIBLE:View.INVISIBLE}" />
 
             <TextView
                 style="@style/white20"
@@ -79,7 +83,20 @@
                 android:paddingRight="16px"
                 android:paddingTop="5px"
                 android:text="@{StringUtil.getUserPos(viewModel.userBean.status,viewModel.userBean.memeber)}"
-                android:textSize="24px" />
+                android:textSize="24px"
+                android:visibility="@{MyApplication.isLoginOB?View.VISIBLE:View.INVISIBLE}" />
+
+            <TextView
+                android:id="@+id/tv_login"
+                style="@style/white32"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16px"
+                android:layout_toRightOf="@+id/my_pic"
+                android:gravity="center"
+                android:text="登录"
+                android:visibility="@{!MyApplication.isLoginOB?View.VISIBLE:View.GONE}" />
 
             <ImageView
                 android:id="@+id/iv_arrow"

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.qiantang.smartparty.module.mine.viewmodel.NamePositionViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_common" />
+
+        <EditText
+            android:id="@+id/et_info"
+            style="@style/black30"
+            android:layout_width="match_parent"
+            android:layout_height="104px"
+            android:background="@null"
+            android:hint="请输入要修改的信息"
+            android:maxLength="16"
+            android:paddingLeft="24px"
+            android:paddingRight="24px"
+            android:text="@={viewModel.info}" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:background="@color/line" />
+
+    </LinearLayout>
+</layout>

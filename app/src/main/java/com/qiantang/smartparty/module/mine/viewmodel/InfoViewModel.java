@@ -10,30 +10,37 @@ import com.qiantang.smartparty.BR;
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.base.ViewModel;
+import com.qiantang.smartparty.config.CacheKey;
 import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.modle.RxMyUserInfo;
+import com.qiantang.smartparty.utils.ACache;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Created by zhaoyong bai on 2018/5/22.
  */
 public class InfoViewModel extends BaseObservable implements ViewModel {
     private BaseBindActivity activity;
-    private ObservableField<RxMyUserInfo> userInfo=new ObservableField<>();
+    private ObservableField<RxMyUserInfo> userInfo = new ObservableField<>();
 
     public InfoViewModel(BaseBindActivity activity) {
         this.activity = activity;
         initData();
     }
 
-    private void initData() {
-        RxMyUserInfo rxMyUserInfo= MyApplication.mCache.getAsJSONBean(MyApplication.USER_ID,RxMyUserInfo.class);
-        setUserInfo(rxMyUserInfo);
+    public void initData() {
+        MyApplication.mCache.getAsJSONBean(CacheKey.USER_INFO, RxMyUserInfo.class, rxMyUserInfo -> setUserInfo(rxMyUserInfo));
     }
 
+
     @BindingAdapter("avatar")
-    public static void avatar(SimpleDraweeView sdv,String avatar){
-        sdv.setImageURI(Config.IMAGE_HOST+avatar);
+    public static void avatar(SimpleDraweeView sdv, String avatar) {
+        sdv.setImageURI(Config.IMAGE_HOST + avatar);
     }
+
 
     @Bindable
     public RxMyUserInfo getUserInfo() {
@@ -47,6 +54,5 @@ public class InfoViewModel extends BaseObservable implements ViewModel {
 
     @Override
     public void destroy() {
-
     }
 }

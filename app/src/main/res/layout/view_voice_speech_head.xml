@@ -150,7 +150,7 @@
             android:layout_below="@id/rl_top_info"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingBottom="30px"
+            android:paddingBottom="28px"
             android:paddingTop="30px">
 
             <View
@@ -178,7 +178,7 @@
             android:layout_below="@+id/ll_intro"
             android:layout_marginLeft="@dimen/sideMargin"
             android:layout_marginRight="@dimen/sideMargin"
-            android:layout_marginTop="30px"
+            android:lineSpacingMultiplier="1.5"
             bind:loadContent="@{viewModel.videoInfo.intro}" />
 
         <View

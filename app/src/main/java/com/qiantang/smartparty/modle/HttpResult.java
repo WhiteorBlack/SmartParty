@@ -4,6 +4,16 @@ package com.qiantang.smartparty.modle;
 import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
 
 public class HttpResult<T> {
+    private String avatar;
+    private String msg;
+    private String token;
+    private int status;
+    private String title;
+    private int grade;
+    private String userquestionnaire_id;
+    private String imgId;
+    private String imagePath;
+    private String id;
 
     public String getErrorMessage() {
         return msg;
@@ -29,14 +39,14 @@ public class HttpResult<T> {
         this.status = errorCode;
     }
 
-    private String msg;
-    private String token;
-    private int status;
-    private String title;
-    private int grade;
-    private String userquestionnaire_id;
-    private String imgId;
-    private String imagePath;
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
 
     public int getStatus() {
         return status;

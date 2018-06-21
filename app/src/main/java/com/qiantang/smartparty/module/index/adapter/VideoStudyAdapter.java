@@ -53,7 +53,7 @@ public class VideoStudyAdapter extends EasyBindQuickAdapter<RxVideoStudy> {
                 resolveFullBtn(sampleCoverVideo);
             }
         });
-        sampleCoverVideo.loadCoverImage(Config.IMAGE_HOST+item.getPicUrl(),0);
+        sampleCoverVideo.loadCoverImage(Config.IMAGE_HOST+item.getImg(),0);
         sampleCoverVideo.setRotateViewAuto(!getListNeedAutoLand());
         sampleCoverVideo.setLockLand(!getListNeedAutoLand());
         sampleCoverVideo.setPlayTag(TAG);

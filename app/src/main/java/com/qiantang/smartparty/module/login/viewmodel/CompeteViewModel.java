@@ -21,6 +21,7 @@ import com.qiantang.smartparty.modle.RxDeptName;
 import com.qiantang.smartparty.modle.RxPartyPos;
 import com.qiantang.smartparty.network.NetworkSubscriber;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
+import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
 import com.qiantang.smartparty.utils.ToastUtil;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
@@ -101,12 +102,9 @@ public class CompeteViewModel extends BaseObservable implements ViewModel {
 
     //所属组织
     private void initOrgView() {
-        orgPickerView = new OptionsPickerView.Builder(activity, new OptionsPickerView.OnOptionsSelectListener() {
-            @Override
-            public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                setOrg(deptNames.get(options1).getDept_name());
-                deptId = deptNames.get(options1).getDept_id();
-            }
+        orgPickerView = new OptionsPickerView.Builder(activity, (options1, options2, options3, v) -> {
+            setOrg(deptNames.get(options1).getDept_name());
+            deptId = deptNames.get(options1).getDept_id();
         })
                 .setTitleText("所属组织")
                 .setDividerColor(Color.BLACK)
@@ -246,7 +244,7 @@ public class CompeteViewModel extends BaseObservable implements ViewModel {
                         deptId = deptNames.get(0).getDept_id();
                         if (orgPickerView != null) {
                             orgPickerView.setPicker(deptNames);
-                            orgPickerView.show();
+//                            orgPickerView.show();
                         }
                     }
                 });
@@ -286,6 +284,11 @@ public class CompeteViewModel extends BaseObservable implements ViewModel {
         ApiWrapper.getInstance().perfect(phone, getName(), getIsBelong(), deptId, getPostion(), posId, getDate(), getPassword())
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new NetworkSubscriber<HttpResult>() {
+                    @Override
+                    public void onFail(RetrofitUtil.APIException e) {
+                        super.onFail(e);
+                    }
+
                     @Override
                     public void onSuccess(HttpResult data) {
                         activity.onBackPressed();

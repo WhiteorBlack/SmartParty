@@ -19,7 +19,7 @@ public class PublishAdapter extends EasyBindQuickAdapter<PhotoInfo> {
     protected void easyConvert(BindingViewHolder holder, PhotoInfo item) {
         holder.getBinding().setVariable(BR.item,item);
         holder.getBinding().executePendingBindings();
-        ((SimpleDraweeView)holder.getView(R.id.sdv)).setImageURI(DraweeViewUtils.getUriPath(Config.IMAGE_HOST+item.getPhotoPath()));
+        ((SimpleDraweeView)holder.getView(R.id.sdv)).setImageURI(DraweeViewUtils.getUriPath(item.getPhotoPath()));
         holder.addOnClickListener(R.id.publish_item_lose)
                 .addOnClickListener(R.id.sdv_item_pic);
     }

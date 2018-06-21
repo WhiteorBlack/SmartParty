@@ -154,7 +154,7 @@ public class PhotoEditActivity extends CropImageActivity implements AdapterView.
                     }
                 } catch (Exception e) {
                 }
-                toast(getString(R.string.crop_suc));
+//                toast(getString(R.string.crop_suc));
 
                 Message message = mHanlder.obtainMessage();
                 message.what = UPDATE_PATH;

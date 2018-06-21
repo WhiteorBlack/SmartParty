@@ -17,6 +17,7 @@ import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.CommentAdapter;
 import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.config.CacheKey;
+import com.qiantang.smartparty.modle.HttpResult;
 import com.qiantang.smartparty.modle.RxComment;
 import com.qiantang.smartparty.modle.RxVideoDetial;
 import com.qiantang.smartparty.modle.RxVideoInfo;
@@ -26,7 +27,9 @@ import com.qiantang.smartparty.module.web.view.HeadWebActivity;
 import com.qiantang.smartparty.network.NetworkSubscriber;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
 import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
+import com.qiantang.smartparty.utils.ActivityUtil;
 import com.qiantang.smartparty.utils.AppUtil;
+import com.qiantang.smartparty.utils.ToastUtil;
 import com.qiantang.smartparty.utils.fullhtml.TextViewForFullHtml;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
@@ -57,17 +60,27 @@ public class VideoDetialViewMdoel extends BaseObservable implements ViewModel {
         id = intent.getStringExtra("id");
     }
 
-    public void testData() {
+    public void testData(int pageNo, boolean isRefresh) {
+        this.pageNo = pageNo;
         ApiWrapper.getInstance().videoDetial(pageNo, id)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new NetworkSubscriber<RxVideoDetial>() {
                     @Override
+                    public void onFail(RetrofitUtil.APIException e) {
+                        super.onFail(e);
+                        activity.refreshFail();
+                    }
+
+                    @Override
                     public void onSuccess(RxVideoDetial data) {
                         adapter.setPagingData(data.getComment(), pageNo);
                         if (pageNo == 1) {
+                            activity.refreshOK();
                             setVideoInfo(data.getVideo());
                             commentCount = data.getVideo().getReview();
-                            ((VideoStudyDetialActivity) activity).startVideo(data.getVideo().getVideourl(), data.getVideo().getTitle());
+                            if (!isRefresh) {
+                                ((VideoStudyDetialActivity) activity).startVideo(data.getVideo().getVideourl(), data.getVideo().getTitle());
+                            }
                             ((VideoStudyDetialActivity) activity).updateCollect(data.getVideo().getCollect() != 0);
                         }
                     }
@@ -81,17 +94,18 @@ public class VideoDetialViewMdoel extends BaseObservable implements ViewModel {
      */
     public void comment(String content) {
         isDealing = true;
-        ApiWrapper.getInstance().commentVideo(content, id)
+        ApiWrapper.getInstance().commentVideo(id, content)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .doOnTerminate(() -> isDealing = false)
-                .subscribe(new NetworkSubscriber<String>() {
+                .subscribe(new NetworkSubscriber<HttpResult>() {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
+                        ToastUtil.toast("评论发表失败");
                     }
 
                     @Override
-                    public void onSuccess(String data) {
+                    public void onSuccess(HttpResult data) {
                         addCommentCount++;
                         RxVideoInfo rxVideoInfo = getVideoInfo();
                         commentCount += 1;
@@ -120,14 +134,14 @@ public class VideoDetialViewMdoel extends BaseObservable implements ViewModel {
         ApiWrapper.getInstance().videoLike(id)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .doOnTerminate(() -> isDealing = false)
-                .subscribe(new NetworkSubscriber<String>() {
+                .subscribe(new NetworkSubscriber<HttpResult>() {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                     }
 
                     @Override
-                    public void onSuccess(String data) {
+                    public void onSuccess(HttpResult data) {
                         adapter.getData().get(commentPos).setIsDz(1);
                         adapter.getData().get(commentPos).setDz(adapter.getData().get(commentPos).getDz() + 1);
                         adapter.notifyItemChanged(commentPos + 1);
@@ -146,14 +160,14 @@ public class VideoDetialViewMdoel extends BaseObservable implements ViewModel {
         ApiWrapper.getInstance().removeVideoLike(id)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .doOnTerminate(() -> isDealing = false)
-                .subscribe(new NetworkSubscriber<String>() {
+                .subscribe(new NetworkSubscriber<HttpResult>() {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                     }
 
                     @Override
-                    public void onSuccess(String data) {
+                    public void onSuccess(HttpResult data) {
                         //取消点赞成功
                         adapter.getData().get(commentPos).setIsDz(0);
                         adapter.getData().get(commentPos).setDz(adapter.getData().get(commentPos).getDz() - 1);
@@ -168,14 +182,14 @@ public class VideoDetialViewMdoel extends BaseObservable implements ViewModel {
     public void prase() {
         ApiWrapper.getInstance().collectSave(id, 1)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribe(new NetworkSubscriber<String>() {
+                .subscribe(new NetworkSubscriber<HttpResult>() {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                     }
 
                     @Override
-                    public void onSuccess(String data) {
+                    public void onSuccess(HttpResult data) {
                         ((VideoStudyDetialActivity) activity).updateCollect(true);
                     }
                 });
@@ -184,9 +198,9 @@ public class VideoDetialViewMdoel extends BaseObservable implements ViewModel {
     public void cancelPrase() {
         ApiWrapper.getInstance().collectAbolish(id, 1)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribe(new NetworkSubscriber<String>() {
+                .subscribe(new NetworkSubscriber<HttpResult>() {
                     @Override
-                    public void onSuccess(String data) {
+                    public void onSuccess(HttpResult data) {
                         ((VideoStudyDetialActivity) activity).updateCollect(false);
                     }
                 });
@@ -202,6 +216,10 @@ public class VideoDetialViewMdoel extends BaseObservable implements ViewModel {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapterq, View view, int position) {
                 super.onItemChildClick(adapterq, view, position);
+                if (!MyApplication.isLogin()) {
+                    ActivityUtil.startLoginActivity(activity);
+                    return;
+                }
                 commentPos = position;
                 switch (view.getId()) {
                     case R.id.iv_praise:
@@ -217,7 +235,7 @@ public class VideoDetialViewMdoel extends BaseObservable implements ViewModel {
 
     public void loadMore() {
         pageNo++;
-        testData();
+        testData(pageNo, false);
     }
 
     @BindingAdapter("loadContent")

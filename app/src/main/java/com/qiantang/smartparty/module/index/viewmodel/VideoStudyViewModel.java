@@ -46,10 +46,11 @@ public class VideoStudyViewModel implements ViewModel {
 
     public void onLoadMore() {
         pageNo++;
-        getData();
+        getData(pageNo);
     }
 
-    public void getData() {
+    public void getData(int pageNo) {
+        this.pageNo = pageNo;
         ApiWrapper.getInstance().videoList(pageNo)
                 .compose(fragment == null ? activity.bindUntilEvent(ActivityEvent.DESTROY) : fragment.bindUntilEvent(FragmentEvent.DESTROY))
                 .subscribe(new NetworkSubscriber<List<RxVideoStudy>>() {
@@ -61,10 +62,12 @@ public class VideoStudyViewModel implements ViewModel {
                             return;
                         }
                         adapter.loadMoreEnd();
+                        activity.refreshFail();
                     }
 
                     @Override
                     public void onSuccess(List<RxVideoStudy> data) {
+                        activity.refreshOK();
                         if (fragmentAdapter != null) {
                             fragmentAdapter.setPagingData(data, pageNo);
                             return;

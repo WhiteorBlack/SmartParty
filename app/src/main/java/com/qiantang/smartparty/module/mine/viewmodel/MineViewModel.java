@@ -11,9 +11,10 @@ import com.qiantang.smartparty.BaseBindFragment;
 import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.base.ViewModel;
+import com.qiantang.smartparty.config.CacheKey;
 import com.qiantang.smartparty.config.Config;
+import com.qiantang.smartparty.config.Event;
 import com.qiantang.smartparty.modle.RxMyUserInfo;
-import com.qiantang.smartparty.modle.RxPersonalCenter;
 import com.qiantang.smartparty.utils.ACache;
 import com.qiantang.smartparty.utils.ActivityUtil;
 import com.qiantang.smartparty.BR;
@@ -36,12 +37,14 @@ public class MineViewModel extends BaseObservable implements ViewModel {
     }
 
     private void initData() {
-        MyApplication.mCache.getAsJSONBean(MyApplication.USER_ID, RxMyUserInfo.class, new ACache.CacheResultListener<RxMyUserInfo>() {
-            @Override
-            public void onResult(RxMyUserInfo rxMyUserInfo) {
-                setUserBean(rxMyUserInfo);
-            }
-        });
+        if (MyApplication.isLogin()) {
+            MyApplication.mCache.getAsJSONBean(CacheKey.USER_INFO, RxMyUserInfo.class, new ACache.CacheResultListener<RxMyUserInfo>() {
+                @Override
+                public void onResult(RxMyUserInfo rxMyUserInfo) {
+                    setUserBean(rxMyUserInfo);
+                }
+            });
+        }
     }
 
     public void onClick(View view) {
@@ -69,7 +72,7 @@ public class MineViewModel extends BaseObservable implements ViewModel {
                 ActivityUtil.startMyActivity(fragment.getActivity());
                 break;
             case R.id.fl_test:
-
+                ActivityUtil.startMyTestActivity(fragment.getActivity());
                 break;
             case R.id.fl_about_us:
                 ActivityUtil.startAboutUsActivity(fragment.getActivity());
@@ -93,6 +96,15 @@ public class MineViewModel extends BaseObservable implements ViewModel {
             setUserBean(myUserInfo);
         }
     }
+
+    //接收更新请求
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(Integer integer) {
+        if (integer == Event.LOGOUT) {
+            setUserBean(new RxMyUserInfo());
+        }
+    }
+
 
     @Bindable
     public RxMyUserInfo getUserBean() {

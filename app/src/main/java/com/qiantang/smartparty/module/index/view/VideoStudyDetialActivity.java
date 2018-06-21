@@ -56,6 +56,7 @@ public class VideoStudyDetialActivity extends BaseBindActivity {
 
     @Override
     public void initView() {
+        initRefresh(binding.cptr);
         inputViewModel.setHint("发表学习感悟...");
         resolveNormalVideoUI();
 
@@ -128,8 +129,20 @@ public class VideoStudyDetialActivity extends BaseBindActivity {
         binding.scv.getBackButton().setOnClickListener(this::onClick);
         viewMdoel.initData();
         initRv(binding.rv);
-        viewMdoel.testData();
+        viewMdoel.testData(1,false);
     }
+
+    @Override
+    public void update() {
+        super.update();
+    }
+
+    @Override
+    public void refreshData() {
+        super.refreshData();
+        viewMdoel.testData(1,true);
+    }
+
 
     private void initRv(RecyclerView rv) {
         AutoUtils.auto(headBinding.getRoot());
@@ -137,6 +150,7 @@ public class VideoStudyDetialActivity extends BaseBindActivity {
         adapter.setEnableLoadMore(true);
         adapter.setLoadMoreView(RecycleViewUtils.getLoadMoreView());
         adapter.setOnLoadMoreListener(() -> viewMdoel.loadMore(), rv);
+        rv.addOnItemTouchListener(viewMdoel.onItemTouchListener());
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
         rv.getViewTreeObserver().addOnGlobalLayoutListener(() -> {

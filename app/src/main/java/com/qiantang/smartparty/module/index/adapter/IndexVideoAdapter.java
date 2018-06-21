@@ -5,6 +5,7 @@ import com.qiantang.smartparty.BR;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.BindingViewHolder;
 import com.qiantang.smartparty.adapter.EasyBindQuickAdapter;
+import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.modle.RxVideoStudy;
 
 /**
@@ -20,7 +21,7 @@ public class IndexVideoAdapter extends EasyBindQuickAdapter<RxVideoStudy> {
     protected void easyConvert(BindingViewHolder holder, RxVideoStudy item) {
         holder.getBinding().setVariable(BR.item, item);
         holder.getBinding().executePendingBindings();
-        ((SimpleDraweeView)holder.getBinding().getRoot().findViewById(R.id.sdv)).setImageURI(item.getImg());
+        ((SimpleDraweeView)holder.getBinding().getRoot().findViewById(R.id.sdv)).setImageURI(Config.IMAGE_HOST+item.getImg());
     }
 
 }

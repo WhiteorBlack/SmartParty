@@ -4,7 +4,9 @@ import android.databinding.DataBindingUtil;
 import android.view.View;
 
 import com.qiantang.smartparty.BaseBindActivity;
+import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
+import com.qiantang.smartparty.config.CacheKey;
 import com.qiantang.smartparty.databinding.ActivitySettingBinding;
 import com.qiantang.smartparty.module.mine.viewmodel.SettingViewModel;
 import com.qiantang.smartparty.utils.ActivityUtil;
@@ -29,6 +31,7 @@ public class SettingActivity extends BaseBindActivity {
         binding.toolbar.setTitle("设置");
     }
 
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -37,7 +40,15 @@ public class SettingActivity extends BaseBindActivity {
             case R.id.ll_modify_phone:
                 ActivityUtil.startModifyPhoneActivity(this);
                 break;
+            case R.id.btn_confirm:
+                viewModel.logout();
+                break;
         }
+
+    }
+
+    private void logout() {
+        MyApplication.mCache.remove(CacheKey.USER_ID);
     }
 
     @Override

@@ -69,6 +69,11 @@ public interface ApiService {
     @POST("app/userCenter/upload")
     Observable<HttpResult<HttpResult>> upload(@Part MultipartBody.Part files);
 
+    //上传用户头像
+    @Multipart
+    @POST("app/userCenter/uploadUrl")
+    Observable<HttpResult<HttpResult>> uploadUrl(@Part MultipartBody.Part file);
+
     //个人排行
     @FormUrlEncoded
     @POST("app/learningability/peopleRanking")
@@ -120,7 +125,7 @@ public interface ApiService {
     //发表感想
     @FormUrlEncoded
     @POST("app/comment/addCommentApp")
-    Observable<HttpResult<String>> addCommentApp(@Field("userId") String userId,
+    Observable<HttpResult<HttpResult>> addCommentApp(@Field("userId") String userId,
                                                  @Field("content") String content,
                                                  @Field("image") String image);
 
@@ -259,34 +264,34 @@ public interface ApiService {
     //视频学习点赞
     @FormUrlEncoded
     @POST("app/video/like")
-    Observable<HttpResult<String>> videoLike(@Field("userId") String userId,
+    Observable<HttpResult<HttpResult>> videoLike(@Field("userId") String userId,
                                              @Field("comment_id") String comment_id);
 
     //视频学习点赞取消
     @FormUrlEncoded
     @POST("app/video/remove")
-    Observable<HttpResult<String>> removeVideoLike(@Field("userId") String userId,
+    Observable<HttpResult<HttpResult>> removeVideoLike(@Field("userId") String userId,
                                                    @Field("comment_id") String comment_id);
 
 
     //收藏
     @FormUrlEncoded
     @POST("app/questionnaire/collectSave")
-    Observable<HttpResult<String>> collectSave(@Field("type") int type,
+    Observable<HttpResult<HttpResult>> collectSave(@Field("type") int type,
                                                @Field("userId") String userId,
                                                @Field("contentId") String contentId);
 
     //取消收藏
     @FormUrlEncoded
     @POST("app/questionnaire/collectAbolish")
-    Observable<HttpResult<String>> collectAbolish(@Field("type") int type,
+    Observable<HttpResult<HttpResult>> collectAbolish(@Field("type") int type,
                                                   @Field("userId") String userId,
                                                   @Field("contentId") String contentId);
 
     //视频学习评论
     @FormUrlEncoded
     @POST("app/video/comment")
-    Observable<HttpResult<String>> commentVideo(@Field("essay_id") String essay_id,
+    Observable<HttpResult<HttpResult>> commentVideo(@Field("essay_id") String essay_id,
                                                 @Field("content") String content,
                                                 @Field("userId") String userId);
 
@@ -474,7 +479,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("app/user/passwordLogin")
     Observable<HttpResult<RxMyUserInfo>> passwordLogin(@Field("phone") String phone,
-                                               @Field("password") String password);
+                                                       @Field("password") String password);
 
     //注册
     @FormUrlEncoded
@@ -507,7 +512,7 @@ public interface ApiService {
     //个人信息
     @FormUrlEncoded
     @POST("app/userCenter/center")
-    Observable<HttpResult<RxMyUserInfo>> center(@Field("phone") String phone);
+    Observable<HttpResult<RxPersonalCenter>> center(@Field("phone") String phone);
 
     //党费缴纳
     @FormUrlEncoded
@@ -525,4 +530,20 @@ public interface ApiService {
     @POST("app/partyBuild/partyMoneyList")
     Observable<HttpResult<List<RxFeeRecord>>> partyMoneyList(@Field("userId") String userId,
                                                              @Field("pageNum") int pageNum);
+
+
+    //更改用户头像
+    @FormUrlEncoded
+    @POST("app/userCenter/avatar")
+    Observable<HttpResult<HttpResult>> avatar(@Field("phone") String phone,
+                                              @Field("avatar") String avatar);
+
+    //更改用户信息
+    @FormUrlEncoded
+    @POST("app/userCenter/modifyArchives")
+    Observable<HttpResult<HttpResult>> modifyArchives(@Field("phone") String phone,
+                                                      @Field("joinpatryTime") String joinpatryTime,
+                                                      @Field("username ") String username,
+                                                      @Field("position") String position,
+                                                      @Field("deptId ") String deptId);
 }

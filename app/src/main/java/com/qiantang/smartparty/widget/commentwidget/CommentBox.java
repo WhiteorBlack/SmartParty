@@ -1,5 +1,6 @@
 package com.qiantang.smartparty.widget.commentwidget;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
@@ -11,7 +12,9 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
+import com.qiantang.smartparty.utils.ActivityUtil;
 import com.qiantang.smartparty.utils.UIHelper;
 
 import java.lang.annotation.Retention;
@@ -78,6 +81,10 @@ public class CommentBox extends FrameLayout {
         mSend.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!MyApplication.isLogin()){
+                    ActivityUtil.startLoginActivity((Activity) context);
+                    return;
+                }
                 if (onCommentSendClickListener != null)
                     onCommentSendClickListener.onCommentSendClick(v,
                             mIComment,

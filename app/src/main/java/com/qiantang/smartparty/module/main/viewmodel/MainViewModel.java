@@ -7,12 +7,14 @@ import android.support.annotation.RequiresApi;
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.base.ViewModel;
+import com.qiantang.smartparty.config.CacheKey;
 import com.qiantang.smartparty.config.updata.NotificationDownloadCreator;
 import com.qiantang.smartparty.config.updata.NotificationInstallCreator;
 import com.qiantang.smartparty.modle.RxMyUserInfo;
 import com.qiantang.smartparty.modle.RxPersonalCenter;
 import com.qiantang.smartparty.network.NetworkSubscriber;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
+import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
 import com.qiantang.smartparty.utils.ACache;
 import com.qiantang.smartparty.utils.permissions.EasyPermission;
 import com.qiantang.smartparty.utils.permissions.PermissionCode;
@@ -37,7 +39,7 @@ public class MainViewModel implements ViewModel {
     public MainViewModel(BaseBindActivity activity) {
         this.activity = activity;
         checkPermission();
-        versionCheck();
+//        versionCheck();
     }
 
     /**
@@ -87,19 +89,22 @@ public class MainViewModel implements ViewModel {
     public void getUserInfo() {
         ApiWrapper.getInstance().center()
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribe(new NetworkSubscriber<RxMyUserInfo>() {
+                .subscribe(new NetworkSubscriber<RxPersonalCenter>() {
                     @Override
-                    public void onSuccess(RxMyUserInfo data) {
-                        MyApplication.mCache.getAsJSONBean(MyApplication.USER_ID, RxMyUserInfo.class, new ACache.CacheResultListener<RxMyUserInfo>() {
-                            @Override
-                            public void onResult(RxMyUserInfo rxMyUserInfo) {
-                                rxMyUserInfo.setCounts(data.getCounts());
-                                rxMyUserInfo.setLearningability(data.getLearningability());
-                                rxMyUserInfo.setAvatar(data.getAvatar());
-                                rxMyUserInfo.setMemeber(data.getMemeber());
-                                rxMyUserInfo.setStatus(data.getSta());
-                                MyApplication.mCache.saveInfo(rxMyUserInfo, rxMyUserInfo.getUserId());
-                            }
+                    public void onFail(RetrofitUtil.APIException e) {
+                        super.onFail(e);
+                    }
+
+                    @Override
+                    public void onSuccess(RxPersonalCenter data) {
+
+                        MyApplication.mCache.getAsJSONBean(CacheKey.USER_INFO, RxMyUserInfo.class, rxMyUserInfo1 -> {
+                            rxMyUserInfo1.setCounts(data.getCounts());
+                            rxMyUserInfo1.setLearningability(data.getLearningability());
+                            rxMyUserInfo1.setAvatar(data.getAvatar());
+                            rxMyUserInfo1.setMemeber(data.getMember());
+                            rxMyUserInfo1.setStatus(data.getSta());
+                            MyApplication.mCache.saveInfo(rxMyUserInfo1, rxMyUserInfo1.getId());
                         });
 
                     }

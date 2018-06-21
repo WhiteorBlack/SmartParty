@@ -60,12 +60,16 @@ import com.qiantang.smartparty.module.login.view.RegisterActivity;
 import com.qiantang.smartparty.module.login.view.SimpleInfoActivity;
 import com.qiantang.smartparty.module.main.view.MainActivity;
 import com.qiantang.smartparty.module.mine.view.AboutUsActivity;
+import com.qiantang.smartparty.module.mine.view.DateDeptActivity;
 import com.qiantang.smartparty.module.mine.view.InfoActivity;
 import com.qiantang.smartparty.module.mine.view.ModifyPhoneActivity;
 import com.qiantang.smartparty.module.mine.view.MonthScoreActivity;
 import com.qiantang.smartparty.module.mine.view.MyActivity;
 import com.qiantang.smartparty.module.mine.view.MyCollectionActivity;
+import com.qiantang.smartparty.module.mine.view.MyTestActivity;
+import com.qiantang.smartparty.module.mine.view.NamePositionActivity;
 import com.qiantang.smartparty.module.mine.view.SettingActivity;
+import com.qiantang.smartparty.module.mine.view.ShowHeadPicActivity;
 import com.qiantang.smartparty.module.mine.view.TotalScoreActivity;
 import com.qiantang.smartparty.module.scan.view.QRCodeActivity;
 import com.qiantang.smartparty.module.search.view.SearchActivity;
@@ -280,6 +284,17 @@ public class ActivityUtil {
     public static void startCompeteActivity(Activity activity,String phone) {
         Intent intent = new Intent(activity, CompeteInfoActivity.class);
         intent.putExtra("phone",phone);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 修改头像
+     *
+     * @param activity
+     */
+    public static void startChangeAvatarActivity(Activity activity,String url) {
+        Intent intent = new Intent(activity, ShowHeadPicActivity.class);
+        intent.putExtra("url",url);
         activity.startActivity(intent);
     }
 
@@ -523,6 +538,16 @@ public class ActivityUtil {
      */
     public static void startMyActivity(Activity activity) {
         Intent intent = new Intent(activity, MyActivity.class);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 我的评测
+     *
+     * @param activity
+     */
+    public static void startMyTestActivity(Activity activity) {
+        Intent intent = new Intent(activity, MyTestActivity.class);
         activity.startActivity(intent);
     }
 
@@ -841,6 +866,30 @@ public class ActivityUtil {
     public static void startBookDetialActivity(Activity activity, String id) {
         Intent intent = new Intent(activity, BookDetialActivity.class);
         intent.putExtra("id", id);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 信息修改
+     *
+     * @param activity
+     */
+    public static void startNamePosActivity(Activity activity, int type,String info) {
+        Intent intent = new Intent(activity, NamePositionActivity.class);
+        intent.putExtra("type", type);
+        intent.putExtra("info",info);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 信息修改
+     *
+     * @param activity
+     */
+    public static void startDateDeptActivity(Activity activity, int type,String info) {
+        Intent intent = new Intent(activity, DateDeptActivity.class);
+        intent.putExtra("type", type);
+        intent.putExtra("info",info);
         activity.startActivity(intent);
     }
 }

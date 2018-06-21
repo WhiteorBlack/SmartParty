@@ -70,10 +70,10 @@
             android:layout_height="136px"
             android:layout_alignBottom="@+id/sdv"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="-60px"
-            app:placeholderImage="@mipmap/mine_head"
+            android:layout_marginBottom="-80px"
             android:layout_marginRight="17px"
             android:onClick="@{viewModel.onClick}"
+            app:placeholderImage="@mipmap/mine_head"
             app:roundAsCircle="true"
             bind:avatar="@{viewModel.userMap.avatar}" />
 
@@ -81,8 +81,8 @@
             style="@style/white32"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="66px"
             android:layout_alignBottom="@+id/sdv_avatar"
+            android:layout_marginBottom="56px"
             android:layout_marginRight="42px"
             android:layout_toLeftOf="@+id/sdv_avatar"
             android:text="@{viewModel.userMap.userName}" />

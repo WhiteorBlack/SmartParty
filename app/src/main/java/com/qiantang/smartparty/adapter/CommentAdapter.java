@@ -3,6 +3,7 @@ package com.qiantang.smartparty.adapter;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.qiantang.smartparty.BR;
 import com.qiantang.smartparty.R;
+import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.modle.RxComment;
 
 /**
@@ -19,6 +20,6 @@ public class CommentAdapter extends EasyBindQuickAdapter<RxComment> {
         holder.getBinding().executePendingBindings();
         holder.addOnClickListener(R.id.iv_praise)
                 .addOnClickListener(R.id.iv_unpraise);
-        ((SimpleDraweeView) holder.getBinding().getRoot().findViewById(R.id.sdv)).setImageURI(item.getAvatar());
+        ((SimpleDraweeView) holder.getBinding().getRoot().findViewById(R.id.sdv)).setImageURI(Config.IMAGE_HOST+item.getAvatar());
     }
 }

@@ -17,6 +17,7 @@ import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.CommentAdapter;
 import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.config.CacheKey;
+import com.qiantang.smartparty.modle.HttpResult;
 import com.qiantang.smartparty.modle.RxComment;
 import com.qiantang.smartparty.modle.RxSpeechDetial;
 import com.qiantang.smartparty.modle.RxSpeechInfo;
@@ -83,14 +84,14 @@ public class VideoSpeechDetialViewMdoel extends BaseObservable implements ViewMo
         ApiWrapper.getInstance().commentVideo(content, id)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .doOnTerminate(() -> isDealing = false)
-                .subscribe(new NetworkSubscriber<String>() {
+                .subscribe(new NetworkSubscriber<HttpResult>() {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                     }
 
                     @Override
-                    public void onSuccess(String data) {
+                    public void onSuccess(HttpResult data) {
                         addCommentCount++;
                         RxSpeechInfo rxVideoInfo = getVideoInfo();
                         commentCount += 1;
@@ -119,14 +120,14 @@ public class VideoSpeechDetialViewMdoel extends BaseObservable implements ViewMo
         ApiWrapper.getInstance().videoLike(id)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .doOnTerminate(() -> isDealing = false)
-                .subscribe(new NetworkSubscriber<String>() {
+                .subscribe(new NetworkSubscriber<HttpResult>() {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                     }
 
                     @Override
-                    public void onSuccess(String data) {
+                    public void onSuccess(HttpResult data) {
                         adapter.getData().get(commentPos).setIsDz(1);
                         adapter.getData().get(commentPos).setDz(adapter.getData().get(commentPos).getDz() + 1);
                         adapter.notifyItemChanged(commentPos + 1);
@@ -145,14 +146,14 @@ public class VideoSpeechDetialViewMdoel extends BaseObservable implements ViewMo
         ApiWrapper.getInstance().removeVideoLike(id)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .doOnTerminate(() -> isDealing = false)
-                .subscribe(new NetworkSubscriber<String>() {
+                .subscribe(new NetworkSubscriber<HttpResult>() {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                     }
 
                     @Override
-                    public void onSuccess(String data) {
+                    public void onSuccess(HttpResult data) {
                         //取消点赞成功
                         adapter.getData().get(commentPos).setIsDz(0);
                         adapter.getData().get(commentPos).setDz(adapter.getData().get(commentPos).getDz() - 1);
@@ -167,14 +168,14 @@ public class VideoSpeechDetialViewMdoel extends BaseObservable implements ViewMo
     public void prase() {
         ApiWrapper.getInstance().collectSave(id, 2)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribe(new NetworkSubscriber<String>() {
+                .subscribe(new NetworkSubscriber<HttpResult>() {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                     }
 
                     @Override
-                    public void onSuccess(String data) {
+                    public void onSuccess(HttpResult data) {
                         ((VideoStudyDetialActivity) activity).updateCollect(true);
                     }
                 });
@@ -183,9 +184,9 @@ public class VideoSpeechDetialViewMdoel extends BaseObservable implements ViewMo
     public void cancelPrase() {
         ApiWrapper.getInstance().collectAbolish(id, 2)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribe(new NetworkSubscriber<String>() {
+                .subscribe(new NetworkSubscriber<HttpResult>() {
                     @Override
-                    public void onSuccess(String data) {
+                    public void onSuccess(HttpResult data) {
                         ((VideoStudyDetialActivity) activity).updateCollect(false);
                     }
                 });

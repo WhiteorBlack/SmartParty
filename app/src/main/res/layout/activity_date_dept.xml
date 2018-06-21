@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.qiantang.smartparty.module.mine.viewmodel.DateDeptViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_common" />
+
+        <LinearLayout
+            android:id="@+id/ll_name"
+            style="@style/Mine_list"
+            android:layout_height="102px"
+            android:onClick="onClick">
+
+            <TextView
+                style="@style/gray28"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+                android:layout_weight="1"
+                android:text="@{viewModel.infoTitle}" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/black30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewModel.info}" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/sideMargin"
+                android:layout_marginRight="@dimen/sideMargin"
+                android:background="@mipmap/icon_step_arrow" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px"
+            android:background="@color/line" />
+
+    </LinearLayout>
+</layout>

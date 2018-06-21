@@ -73,6 +73,9 @@ public class StringUtil {
             case 5:
                 text = "已结束";
                 break;
+            case 6:
+                text="报名已结束";
+                break;
         }
         return text;
     }

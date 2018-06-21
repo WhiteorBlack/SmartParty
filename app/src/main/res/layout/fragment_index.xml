@@ -66,7 +66,7 @@
                     android:background="@color/white"
                     android:gravity="center"
                     android:onClick="@{viewModel.onClick}"
-                    android:text="查看更多 ＞＞"
+                    android:text="查看更多"
                     android:textSize="24px" />
 
                 <View
@@ -97,7 +97,7 @@
                     android:background="@color/white"
                     android:gravity="center"
                     android:onClick="@{viewModel.onClick}"
-                    android:text="查看更多 ＞＞"
+                    android:text="查看更多"
                     android:textSize="24px" />
 
                 <View
@@ -134,7 +134,7 @@
                     android:background="@color/white"
                     android:gravity="center"
                     android:onClick="@{viewModel.onClick}"
-                    android:text="查看更多 ＞＞"
+                    android:text="查看更多"
                     android:textSize="24px" />
 
                 <View
@@ -165,7 +165,7 @@
                     android:background="@color/white"
                     android:gravity="center"
                     android:onClick="@{viewModel.onClick}"
-                    android:text="查看更多 ＞＞"
+                    android:text="查看更多"
                     android:textSize="24px" />
 
                 <View

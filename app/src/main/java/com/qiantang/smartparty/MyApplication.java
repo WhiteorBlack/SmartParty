@@ -42,7 +42,7 @@ public class MyApplication extends ApplicationLike {
     public static int heightPixels;
     public static int widthPixels;
     public static String TOKEN = "";
-    public static String USER_ID = "40";
+    public static String USER_ID = "";
     public static ACache mCache;
     private static Context context;
     public static String info = "";
@@ -80,7 +80,7 @@ public class MyApplication extends ApplicationLike {
     private void initNative() {
         context = application.getApplicationContext();
         mCache = ACache.get(application);
-//        initCacheData();
+        initCacheData();
         initPixels();
     }
 
@@ -122,6 +122,7 @@ public class MyApplication extends ApplicationLike {
         String userId = mCache.getAsString(CacheKey.USER_ID);
         if (!StringUtil.isEmpty(userId)) {
             USER_ID = userId;
+            MyApplication.isLoginOB.set(true);
         } else {
             USER_ID = "";
         }

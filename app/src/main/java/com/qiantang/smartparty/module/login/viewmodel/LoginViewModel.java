@@ -163,7 +163,7 @@ public class LoginViewModel extends BaseObservable implements ViewModel {
     }
 
     private void loginSuccess(RxMyUserInfo data) {
-        MyApplication.mCache.saveInfo(data, data.getUserId());
+        MyApplication.mCache.saveInfo(data, data.getId());
         activity.onBackPressed();
     }
 

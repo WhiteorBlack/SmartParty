@@ -20,6 +20,8 @@ import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.config.Config;
+import com.qiantang.smartparty.config.Event;
+import com.qiantang.smartparty.modle.RxMyUserInfo;
 import com.qiantang.smartparty.modle.RxStudy;
 import com.qiantang.smartparty.modle.RxStudyComment;
 import com.qiantang.smartparty.modle.RxStudyList;
@@ -33,6 +35,10 @@ import com.qiantang.smartparty.network.retrofit.ApiWrapper;
 import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
 import com.qiantang.smartparty.utils.ActivityUtil;
 import com.trello.rxlifecycle2.android.FragmentEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -57,8 +63,33 @@ public class StudyViewModel extends BaseObservable implements ViewModel, Comment
     public StudyViewModel(BaseBindFragment fragment, StudyAdapter adapter) {
         this.fragment = fragment;
         this.adapter = adapter;
+        EventBus.getDefault().register(this);
         commentPop = new CommentPop(fragment.getContext());
         commentPop.setmOnCommentPopupClickListener(this);
+    }
+
+    //接收更新请求
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(Integer i) {
+        if (i== Event.RELOAD) {
+            getData(1);
+        }
+    }
+
+    //接收更新请求
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onEvent(RxMyUserInfo myUserInfo) {
+        if (myUserInfo != null) {
+            RxStudyUserMap rxStudyUserMap=getUserMap();
+          if (!TextUtils.equals(myUserInfo.getAvatar(),rxStudyUserMap.getAvatar())){
+             rxStudyUserMap.setAvatar(myUserInfo.getAvatar());
+             setUserMap(rxStudyUserMap);
+          }
+          if (!TextUtils.equals(myUserInfo.getUsername(),rxStudyUserMap.getUserName())){
+              rxStudyUserMap.setUserName(myUserInfo.getUsername());
+              setUserMap(rxStudyUserMap);
+          }
+        }
     }
 
     public void loadMore() {
@@ -77,6 +108,7 @@ public class StudyViewModel extends BaseObservable implements ViewModel, Comment
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                         fragment.refreshFail();
+                        adapter.loadMoreEnd();
                     }
 
                     @Override
@@ -256,7 +288,7 @@ public class StudyViewModel extends BaseObservable implements ViewModel, Comment
 
     @Override
     public void destroy() {
-
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
