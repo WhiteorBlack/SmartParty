@@ -102,7 +102,7 @@ public class MienViewModel implements ViewModel {
 //                        ActivityUtil.startThinkingDetialActivity(activity, id);
                         break;
                 }
-                ActivityUtil.startHeadWebActivity(activity, id, title, URLs.NOTICE_DETIAL);
+                ActivityUtil.startHeadWebActivity(activity, id, title, URLs.NOTICE_DETIAL,0);
             }
         };
     }

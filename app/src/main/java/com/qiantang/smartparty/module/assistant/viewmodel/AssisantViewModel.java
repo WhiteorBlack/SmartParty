@@ -21,6 +21,7 @@ import com.qiantang.smartparty.module.index.adapter.IndexCommonAdapter;
 import com.qiantang.smartparty.network.NetworkSubscriber;
 import com.qiantang.smartparty.network.URLs;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
+import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
 import com.qiantang.smartparty.utils.ActivityUtil;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
@@ -55,7 +56,14 @@ public class AssisantViewModel implements ViewModel {
                 .compose(fragment.bindUntilEvent(FragmentEvent.DESTROY))
                 .subscribe(new NetworkSubscriber<RxAssientHome>() {
                     @Override
+                    public void onFail(RetrofitUtil.APIException e) {
+                        super.onFail(e);
+                        fragment.refreshFail();
+                    }
+
+                    @Override
                     public void onSuccess(RxAssientHome data) {
+                        fragment.refreshOK();
                         msgAdapter.setNewData(data.getTz());
                         activityAdapter.setNewData(data.getDj());
                         indexCommonAdapter.setNewData(data.getFc());

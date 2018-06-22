@@ -19,133 +19,139 @@
             android:id="@+id/toolbar"
             layout="@layout/toolbar_index" />
 
-        <com.qiantang.smartparty.widget.MyNestScrollView
+        <com.qiantang.smartparty.widget.CusPtrFrameLayout
+            android:id="@+id/cptr"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <com.qiantang.smartparty.widget.MyNestScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
-                <com.facebook.drawee.view.SimpleDraweeView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:placeholderImageScaleType="centerInside"
-                    app:placeholderImage="@mipmap/bg_assistant_top"
-                    app:viewAspectRatio="2.5"/>
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_class"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:placeholderImage="@mipmap/bg_assistant_top"
+                        app:placeholderImageScaleType="centerInside"
+                        app:viewAspectRatio="2.5" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="20px"
-                    android:layout_marginTop="40px"
-                    android:background="@color/line" />
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_class"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
-                <TextView
-                    style="@style/indexClassTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="78px"
-                    android:background="@color/white"
-                    android:drawableLeft="@drawable/index_title_red"
-                    android:drawablePadding="18px"
-                    android:gravity="center_vertical"
-                    android:text="通知公告" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="20px"
+                        android:layout_marginTop="40px"
+                        android:background="@color/line" />
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_msg"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    <TextView
+                        style="@style/indexClassTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="78px"
+                        android:background="@color/white"
+                        android:drawableLeft="@drawable/index_title_red"
+                        android:drawablePadding="18px"
+                        android:gravity="center_vertical"
+                        android:text="通知公告" />
 
-                <TextView
-                    android:id="@+id/tv_news_more"
-                    style="@style/indexClassTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="78px"
-                    android:background="@color/white"
-                    android:gravity="center"
-                    android:onClick="@{viewModel.onClick}"
-                    android:text="查看更多"
-                    android:textSize="24px" />
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_msg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="20px"
-                    android:background="@color/line" />
+                    <TextView
+                        android:id="@+id/tv_news_more"
+                        style="@style/indexClassTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="78px"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:onClick="@{viewModel.onClick}"
+                        android:text="查看更多"
+                        android:textSize="24px" />
 
-                <TextView
-                    style="@style/indexClassTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="78px"
-                    android:background="@color/white"
-                    android:drawableLeft="@drawable/index_title_red"
-                    android:drawablePadding="18px"
-                    android:gravity="center_vertical"
-                    android:text="党建活动" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="20px"
+                        android:background="@color/line" />
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_activity"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    <TextView
+                        style="@style/indexClassTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="78px"
+                        android:background="@color/white"
+                        android:drawableLeft="@drawable/index_title_red"
+                        android:drawablePadding="18px"
+                        android:gravity="center_vertical"
+                        android:text="党建活动" />
 
-                <TextView
-                    android:id="@+id/tv_study_state_more"
-                    style="@style/indexClassTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="78px"
-                    android:background="@color/white"
-                    android:gravity="center"
-                    android:onClick="@{viewModel.onClick}"
-                    android:text="查看更多"
-                    android:textSize="24px" />
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_activity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="20px"
-                    android:background="@color/line" />
+                    <TextView
+                        android:id="@+id/tv_study_state_more"
+                        style="@style/indexClassTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="78px"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:onClick="@{viewModel.onClick}"
+                        android:text="查看更多"
+                        android:textSize="24px" />
 
-                <TextView
-                    style="@style/indexClassTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="78px"
-                    android:background="@color/white"
-                    android:drawableLeft="@drawable/index_title_red"
-                    android:drawablePadding="18px"
-                    android:gravity="center_vertical"
-                    android:text="党建风采" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="20px"
+                        android:background="@color/line" />
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_state"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    <TextView
+                        style="@style/indexClassTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="78px"
+                        android:background="@color/white"
+                        android:drawableLeft="@drawable/index_title_red"
+                        android:drawablePadding="18px"
+                        android:gravity="center_vertical"
+                        android:text="党建风采" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2px"
-                    android:layout_below="@+id/tv_date"
-                    android:background="@color/line" />
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_state"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
-                <TextView
-                    android:id="@+id/tv_study_video"
-                    style="@style/indexClassTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="78px"
-                    android:background="@color/white"
-                    android:gravity="center"
-                    android:onClick="@{viewModel.onClick}"
-                    android:text="查看更多"
-                    android:textSize="24px" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2px"
+                        android:layout_below="@+id/tv_date"
+                        android:background="@color/line" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="20px"
-                    android:background="@color/line" />
+                    <TextView
+                        android:id="@+id/tv_study_video"
+                        style="@style/indexClassTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="78px"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:onClick="@{viewModel.onClick}"
+                        android:text="查看更多"
+                        android:textSize="24px" />
 
-            </LinearLayout>
-        </com.qiantang.smartparty.widget.MyNestScrollView>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="20px"
+                        android:background="@color/line" />
+
+                </LinearLayout>
+            </com.qiantang.smartparty.widget.MyNestScrollView>
+        </com.qiantang.smartparty.widget.CusPtrFrameLayout>
     </LinearLayout>
 </layout>

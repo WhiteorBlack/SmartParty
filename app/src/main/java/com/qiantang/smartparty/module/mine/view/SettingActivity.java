@@ -1,6 +1,8 @@
 package com.qiantang.smartparty.module.mine.view;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.view.View;
 
 import com.qiantang.smartparty.BaseBindActivity;
@@ -43,12 +45,17 @@ public class SettingActivity extends BaseBindActivity {
             case R.id.btn_confirm:
                 viewModel.logout();
                 break;
+            case R.id.ll_service:
+                callPhone(viewModel.servicePhone.get());
+                break;
         }
 
     }
 
-    private void logout() {
-        MyApplication.mCache.remove(CacheKey.USER_ID);
+    private void callPhone(String phone) {
+        Intent intent1 = new Intent(Intent.ACTION_DIAL);
+        intent1.setData(Uri.parse("tel:" + phone));
+        startActivity(intent1);
     }
 
     @Override

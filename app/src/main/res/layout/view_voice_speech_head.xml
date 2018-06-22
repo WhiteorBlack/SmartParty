@@ -186,7 +186,7 @@
             android:layout_width="match_parent"
             android:layout_height="20px"
             android:layout_below="@+id/tv_info"
-            android:layout_marginTop="32px"
+            android:layout_marginTop="12px"
             android:background="@color/line" />
 
         <LinearLayout

@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.view.WindowManager;
 
+import com.orhanobut.logger.Logger;
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
@@ -16,6 +17,7 @@ import com.qiantang.smartparty.config.updata.NotificationInstallCreator;
 import com.qiantang.smartparty.databinding.ActivityMainBinding;
 import com.qiantang.smartparty.module.main.adapter.ViewPagerAdapter;
 import com.qiantang.smartparty.module.main.viewmodel.MainViewModel;
+import com.qiantang.smartparty.utils.ActivityUtil;
 import com.qiantang.smartparty.utils.WebUtil;
 import com.qiantang.smartparty.utils.permissions.EasyPermission;
 import com.shizhefei.view.indicator.IndicatorViewPager;
@@ -56,7 +58,6 @@ public class MainActivity extends BaseBindActivity implements IndicatorViewPager
         binding.viewpager.setOffscreenPageLimit(icons.length);
         indicatorViewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), icons, names));
         indicatorViewPager.setOnIndicatorPageChangeListener(this);
-
     }
 
     @Override
@@ -75,7 +76,6 @@ public class MainActivity extends BaseBindActivity implements IndicatorViewPager
 
     @Override
     public void onIndicatorPageChange(int preItem, int currentItem) {
-
     }
 
     @Override

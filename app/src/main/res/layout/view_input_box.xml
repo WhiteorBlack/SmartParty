@@ -4,7 +4,9 @@
     <data>
 
         <import type="android.view.View" />
-
+        <variable
+            name="share"
+            type="boolean"/>
         <variable
             name="viewModel"
             type="com.qiantang.smartparty.module.input.viewmodel.InputViewModel" />
@@ -77,6 +79,7 @@
                 android:layout_width="40px"
                 android:layout_height="40px"
                 android:layout_marginLeft="30px"
+                android:visibility="@{viewModel.shareVis?View.VISIBLE:View.GONE}"
                 android:background="@mipmap/icon_share_black"
                 android:onClick="onClick" />
         </LinearLayout>

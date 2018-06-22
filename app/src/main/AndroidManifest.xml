@@ -416,6 +416,12 @@
             android:name=".module.mine.view.DateDeptActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".module.spalsh.view.GuideActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

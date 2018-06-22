@@ -6,4 +6,4 @@
     android:layout_height="match_parent"
     android:scaleType="fitXY"
     fresco:placeholderImage="@mipmap/ic_launcher"
-    fresco:placeholderImageScaleType="centerInside" />
+    fresco:placeholderImageScaleType="fitXY" />

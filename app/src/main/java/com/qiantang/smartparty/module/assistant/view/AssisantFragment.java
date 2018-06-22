@@ -44,7 +44,14 @@ public class AssisantFragment extends BaseBindFragment {
         initMsgRv(binding.rvMsg);
         initActivityRv(binding.rvActivity);
         initStateRv(binding.rvState);
-        viewModel.getListData(msgAdapter,activityAdapter,stateAdapter);
+        viewModel.getListData(msgAdapter, activityAdapter, stateAdapter);
+        initRefresh(binding.cptr);
+    }
+
+    @Override
+    public void refreshData() {
+        super.refreshData();
+        viewModel.getListData(msgAdapter, activityAdapter, stateAdapter);
     }
 
     /**
@@ -93,7 +100,7 @@ public class AssisantFragment extends BaseBindFragment {
      */
     private void initClassRv(RecyclerView rvClass) {
         rvClass.setLayoutManager(new GridLayoutManager(getContext(), 4));
-        rvClass.setAdapter(new ClassAdapter(R.layout.item_index_class, viewModel.getClassData()));
+        rvClass.setAdapter(new ClassAdapter(R.layout.item_assent_class, viewModel.getClassData()));
         rvClass.setNestedScrollingEnabled(false);
         rvClass.addOnItemTouchListener(viewModel.classToucnListener());
     }

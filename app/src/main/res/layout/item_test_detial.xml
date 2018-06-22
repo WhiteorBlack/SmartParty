@@ -5,7 +5,7 @@
         <import type="com.qiantang.smartparty.utils.StringUtil"/>
         <variable
             name="item"
-            type="com.qiantang.smartparty.modle.RxRecordDetial" />
+            type="com.qiantang.smartparty.modle.RxTestDetial" />
     </data>
 
     <RelativeLayout

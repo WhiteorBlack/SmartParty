@@ -37,6 +37,13 @@ public class NewsActivity extends BaseBindActivity {
         binding.toolbar.setResId(R.mipmap.icon_search_black);
         initRv(binding.rv);
         initData();
+        initRefresh(binding.cptr);
+    }
+
+    @Override
+    public void refreshData() {
+        super.refreshData();
+        viewModel.testData(type,1);
     }
 
     private void initData() {
@@ -50,7 +57,7 @@ public class NewsActivity extends BaseBindActivity {
                 title = "学习动态";
                 break;
         }
-        viewModel.testData(type);
+        viewModel.testData(type,1);
         binding.toolbar.setTitle(title);
     }
 

@@ -68,7 +68,7 @@ public class WebViewNew extends BaseBindActivity {
 
     @Override
     public void initView() {
-        binding.toolbar.setResId(R.mipmap.icon_share_black);
+        binding.toolbar.setResId(R.mipmap.icon_share_white);
         viewModel.initData();
     }
 

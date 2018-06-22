@@ -21,6 +21,7 @@ import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.config.Event;
+import com.qiantang.smartparty.modle.HttpResult;
 import com.qiantang.smartparty.modle.RxMyUserInfo;
 import com.qiantang.smartparty.modle.RxStudy;
 import com.qiantang.smartparty.modle.RxStudyComment;
@@ -101,6 +102,9 @@ public class StudyViewModel extends BaseObservable implements ViewModel, Comment
         if (i == 1) {
             pageNo = 1;
         }
+        if (!MyApplication.isLogin()){
+            return;
+        }
         ApiWrapper.getInstance().getStudyList(i)
                 .compose(fragment.bindUntilEvent(FragmentEvent.DESTROY))
                 .subscribe(new NetworkSubscriber<RxStudy>() {
@@ -143,14 +147,14 @@ public class StudyViewModel extends BaseObservable implements ViewModel, Comment
         ApiWrapper.getInstance().commentLike(type, id, content)
                 .compose(fragment.bindUntilEvent(FragmentEvent.DESTROY))
                 .doOnTerminate(() -> isDealing = false)
-                .subscribe(new NetworkSubscriber<String>() {
+                .subscribe(new NetworkSubscriber<HttpResult>() {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                     }
 
                     @Override
-                    public void onSuccess(String data) {
+                    public void onSuccess(HttpResult data) {
                         if (type == 1) {
                             //点赞成功
                             adapter.getData().get(commentPos).getZanAppMap().add(new RxStudyZan(adapter.getData().get(commentPos).getUsername(), "", MyApplication.USER_ID));
@@ -168,14 +172,14 @@ public class StudyViewModel extends BaseObservable implements ViewModel, Comment
         ApiWrapper.getInstance().cancelLike(id)
                 .compose(fragment.bindUntilEvent(FragmentEvent.DESTROY))
                 .doOnTerminate(() -> isDealing = false)
-                .subscribe(new NetworkSubscriber<String>() {
+                .subscribe(new NetworkSubscriber<HttpResult>() {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                     }
 
                     @Override
-                    public void onSuccess(String data) {
+                    public void onSuccess(HttpResult data) {
 
                         //取消点赞成功
                         List<RxStudyZan> zanList = adapter.getData().get(commentPos).getZanAppMap();

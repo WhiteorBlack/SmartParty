@@ -82,21 +82,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@mipmap/icon_comment_praise_red"
-                android:visibility="@{item.isDz==1?View.VISIBLE:View.GONE}" />
+                android:visibility="@{(item.isDz&gt;0||item.iszan&gt;0)?View.VISIBLE:View.GONE}" />
 
             <ImageView
                 android:id="@+id/iv_unpraise"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@mipmap/icon_comment_praise_gray"
-                android:visibility="@{item.isDz==0?View.VISIBLE:View.GONE}" />
+                android:visibility="@{(item.isDz==0&amp;&amp;item.iszan==0)?View.VISIBLE:View.GONE}" />
 
             <TextView
                 android:id="@+id/tv_praise"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="9px"
-                android:text="@{item.dz+``}"
+                android:text="@{item.dz+item.thumbs+``}"
                 android:textSize="22px" />
         </LinearLayout>
     </RelativeLayout>

@@ -24,6 +24,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginRight="5px"
+            app:placeholderImage="@mipmap/ic_launcher"
+            app:placeholderImageScaleType="fitXY"
             app:actualImageScaleType="centerInside"
             app:viewAspectRatio="1.32" />
 

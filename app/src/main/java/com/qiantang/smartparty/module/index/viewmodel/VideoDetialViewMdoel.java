@@ -46,8 +46,6 @@ public class VideoDetialViewMdoel extends BaseObservable implements ViewModel {
     private int pageNo = 1;
     private ObservableField<RxVideoInfo> videoInfo = new ObservableField<>();
     private boolean isDealing = false;
-    private int addCommentCount = 0;
-    private int commentCount = 0;
     private int commentPos = 0;
 
     public VideoDetialViewMdoel(BaseBindActivity activity, CommentAdapter adapter) {
@@ -74,10 +72,9 @@ public class VideoDetialViewMdoel extends BaseObservable implements ViewModel {
                     @Override
                     public void onSuccess(RxVideoDetial data) {
                         adapter.setPagingData(data.getComment(), pageNo);
+                        setVideoInfo(data.getVideo());
                         if (pageNo == 1) {
                             activity.refreshOK();
-                            setVideoInfo(data.getVideo());
-                            commentCount = data.getVideo().getReview();
                             if (!isRefresh) {
                                 ((VideoStudyDetialActivity) activity).startVideo(data.getVideo().getVideourl(), data.getVideo().getTitle());
                             }
@@ -106,20 +103,22 @@ public class VideoDetialViewMdoel extends BaseObservable implements ViewModel {
 
                     @Override
                     public void onSuccess(HttpResult data) {
-                        addCommentCount++;
-                        RxVideoInfo rxVideoInfo = getVideoInfo();
-                        commentCount += 1;
-                        rxVideoInfo.setReview(commentCount);
-                        RxComment rxComment = new RxComment();
-                        rxComment.setUsername(MyApplication.mCache.getAsString(CacheKey.USER_NAME));
-                        rxComment.setUserId(MyApplication.mCache.getAsString(CacheKey.USER_ID));
-                        rxComment.setContent(content);
-                        rxComment.setAvatar(MyApplication.mCache.getAsString(CacheKey.USER_AVATAR));
-                        rxComment.setIsDz(0);
-                        rxComment.setDz(0);
-                        rxComment.setCreationtime(AppUtil.getNowDate());
-                        adapter.getData().add(adapter.getData().size(), rxComment);
-                        adapter.notifyItemInserted(adapter.getData().size());
+                        testData(pageNo + 1, false);
+//                        addCommentCount++;
+//                        RxVideoInfo rxVideoInfo = getVideoInfo();
+//                        commentCount += 1;
+//                        rxVideoInfo.setReview(commentCount);
+//                        setVideoInfo(rxVideoInfo);
+//                        RxComment rxComment = new RxComment();
+//                        rxComment.setUsername(MyApplication.mCache.getAsString(CacheKey.USER_NAME));
+//                        rxComment.setUserId(MyApplication.mCache.getAsString(CacheKey.USER_ID));
+//                        rxComment.setContent(content);
+//                        rxComment.setAvatar(MyApplication.mCache.getAsString(CacheKey.USER_AVATAR));
+//                        rxComment.setIsDz(0);
+//                        rxComment.setDz(0);
+//                        rxComment.setCreationtime(AppUtil.getNowDate());
+//                        adapter.getData().add(adapter.getData().size(), rxComment);
+//                        adapter.notifyItemInserted(adapter.getData().size());
                     }
                 });
     }

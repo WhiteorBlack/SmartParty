@@ -32,7 +32,14 @@ public class BookRecommendActivity extends BaseBindActivity {
         binding.toolbar.setTitle("好书推荐");
         binding.toolbar.setResId(R.mipmap.icon_search_black);
         initRv(binding.rv);
-        viewModel.getData();
+        viewModel.getData(1);
+        initRefresh(binding.cptr);
+    }
+
+    @Override
+    public void refreshData() {
+        super.refreshData();
+        viewModel.getData(1);
     }
 
     private void initRv(RecyclerView rv) {

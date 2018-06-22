@@ -17,10 +17,14 @@
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar_common" />
-
+        <com.qiantang.smartparty.widget.CusPtrFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/cptr">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+        </com.qiantang.smartparty.widget.CusPtrFrameLayout>
     </LinearLayout>
 </layout>

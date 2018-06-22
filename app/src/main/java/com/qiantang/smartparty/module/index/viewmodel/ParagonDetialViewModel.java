@@ -18,10 +18,12 @@ import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.CommentAdapter;
 import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.config.Config;
+import com.qiantang.smartparty.modle.HttpResult;
 import com.qiantang.smartparty.modle.RxParagonDetial;
 import com.qiantang.smartparty.modle.RxParagonInfo;
 import com.qiantang.smartparty.modle.RxPicUrl;
 import com.qiantang.smartparty.module.index.view.ParagonDetialActivity;
+import com.qiantang.smartparty.module.index.view.VoiceSpeechDetialActivity;
 import com.qiantang.smartparty.network.NetworkSubscriber;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
 import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
@@ -66,10 +68,11 @@ public class ParagonDetialViewModel extends BaseObservable implements ViewModel,
 
     public void loadMore() {
         pageNo++;
-        getData();
+        getData(pageNo);
     }
 
-    public void getData() {
+    public void getData(int pageNo) {
+        this.pageNo = pageNo;
         ApiWrapper.getInstance().paragonDetails(pageNo, id, printurl)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new NetworkSubscriber<RxParagonDetial>() {
@@ -77,14 +80,17 @@ public class ParagonDetialViewModel extends BaseObservable implements ViewModel,
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                         adapter.loadMoreEnd();
+                        activity.refreshFail();
                     }
 
                     @Override
                     public void onSuccess(RxParagonDetial data) {
                         adapter.setPagingData(data.getComment(), pageNo);
-                        if (pageNo == 1) {
+                        activity.refreshOK();
+                        ((ParagonDetialActivity) activity).updateCollect(data.getDetail().getCollect() != 0);
+                        setDetials(data.getDetail());
+                        if (pageNo == 1 && picListSize == 0) {
                             picListSize = data.getImgSrc().size();
-                            setDetials(data.getDetail());
                             setPicList(data.getImgSrc());
                             setPicCount("1/" + picListSize);
                         }
@@ -102,7 +108,7 @@ public class ParagonDetialViewModel extends BaseObservable implements ViewModel,
         ApiWrapper.getInstance().comment(content, id)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .doOnTerminate(() -> isDealing = false)
-                .subscribe(new NetworkSubscriber<String>() {
+                .subscribe(new NetworkSubscriber<HttpResult>() {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
@@ -110,10 +116,11 @@ public class ParagonDetialViewModel extends BaseObservable implements ViewModel,
                     }
 
                     @Override
-                    public void onSuccess(String data) {
-                        RxParagonInfo detial = getDetials();
-                        detial.setCommentSum(detial.getCommentSum() + 1);
-                        setDetials(detial);
+                    public void onSuccess(HttpResult data) {
+//                        RxParagonInfo detial = getDetials();
+//                        detial.setCommentSum(detial.getCommentSum() + 1);
+//                        setDetials(detial);
+                        getData(pageNo + 1);
                         ((ParagonDetialActivity) activity).dissmissCommentBox();
                     }
                 });
@@ -121,17 +128,17 @@ public class ParagonDetialViewModel extends BaseObservable implements ViewModel,
 
     public void commentLike(String id) {
         isDealing = true;
-        ApiWrapper.getInstance().commentLike(1, id, "")
+        ApiWrapper.getInstance().videoLike(id)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .doOnTerminate(() -> isDealing = false)
-                .subscribe(new NetworkSubscriber<String>() {
+                .subscribe(new NetworkSubscriber<HttpResult>() {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                     }
 
                     @Override
-                    public void onSuccess(String data) {
+                    public void onSuccess(HttpResult data) {
                         adapter.getData().get(commentPos).setIsDz(1);
                         adapter.getData().get(commentPos).setDz(adapter.getData().get(commentPos).getDz() + 1);
                         adapter.notifyItemChanged(commentPos + 1);
@@ -141,21 +148,51 @@ public class ParagonDetialViewModel extends BaseObservable implements ViewModel,
 
     private void cancelLike(String id) {
         isDealing = true;
-        ApiWrapper.getInstance().cancelLike(id)
+        ApiWrapper.getInstance().removeVideoLike(id)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .doOnTerminate(() -> isDealing = false)
-                .subscribe(new NetworkSubscriber<String>() {
+                .subscribe(new NetworkSubscriber<HttpResult>() {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                     }
 
                     @Override
-                    public void onSuccess(String data) {
+                    public void onSuccess(HttpResult data) {
                         //取消点赞成功
                         adapter.getData().get(commentPos).setIsDz(0);
                         adapter.getData().get(commentPos).setDz(adapter.getData().get(commentPos).getDz() - 1);
                         adapter.notifyItemChanged(commentPos + 1);
+                    }
+                });
+    }
+
+    /**
+     * 收藏
+     */
+    public void prase() {
+        ApiWrapper.getInstance().collectSave(id, 5)
+                .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
+                .subscribe(new NetworkSubscriber<HttpResult>() {
+                    @Override
+                    public void onFail(RetrofitUtil.APIException e) {
+                        super.onFail(e);
+                    }
+
+                    @Override
+                    public void onSuccess(HttpResult data) {
+                        ((ParagonDetialActivity) activity).updateCollect(true);
+                    }
+                });
+    }
+
+    public void cancelPrase() {
+        ApiWrapper.getInstance().collectAbolish(id, 5)
+                .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
+                .subscribe(new NetworkSubscriber<HttpResult>() {
+                    @Override
+                    public void onSuccess(HttpResult data) {
+                        ((ParagonDetialActivity) activity).updateCollect(false);
                     }
                 });
     }
@@ -209,13 +246,12 @@ public class ParagonDetialViewModel extends BaseObservable implements ViewModel,
                     return;
                 }
                 commentPos = position;
-
                 switch (view.getId()) {
                     case R.id.iv_praise:
-                        cancelLike(adapter.getData().get(position).getContentId());
+                        cancelLike(adapter.getData().get(position).getComment_id());
                         break;
                     case R.id.iv_unpraise:
-                        commentLike(adapter.getData().get(position).getContentId());
+                        commentLike(adapter.getData().get(position).getComment_id());
                         break;
                 }
             }

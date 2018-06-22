@@ -37,6 +37,18 @@ public class FragmentLearn extends BaseBindFragment {
         learnAdapter.setLoadMoreView(RecycleViewUtils.getLoadMoreView());
         learnAdapter.setOnLoadMoreListener(() -> viewModel.loadMore(), binding.rv);
         binding.rv.addOnItemTouchListener(viewModel.onItemTouchListener());
+        initRefresh(binding.cptr);
+    }
+
+    @Override
+    public void update() {
+        super.update();
+    }
+
+    @Override
+    public void refreshData() {
+        super.refreshData();
+        viewModel.getData(1);
     }
 
     @Override

@@ -20,7 +20,7 @@
             android:layout_height="102px"
             android:layout_marginLeft="29px"
             android:gravity="left|center_vertical"
-            android:text="123456789" />
+            android:text="@{viewModel.phone}" />
 
         <View
             android:id="@+id/line"

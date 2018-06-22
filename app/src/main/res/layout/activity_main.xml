@@ -24,7 +24,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
-        <com.shizhefei.view.indicator.FixedIndicatorView
+        <com.qiantang.smartparty.widget.FixedIndicatorView
             android:id="@+id/indicator"
             android:layout_width="match_parent"
             android:layout_height="98px"

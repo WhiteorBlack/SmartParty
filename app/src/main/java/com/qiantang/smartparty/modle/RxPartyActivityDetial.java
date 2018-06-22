@@ -15,7 +15,16 @@ public class RxPartyActivityDetial {
     private String imgSrc;
     private String content;
     private int count;
+    private int collect;
     private String deptName;
+
+    public int getCollect() {
+        return collect;
+    }
+
+    public void setCollect(int collect) {
+        this.collect = collect;
+    }
 
     public int getCount() {
         return count;

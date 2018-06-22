@@ -65,6 +65,7 @@
             android:layout_below="@+id/tv_name"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="22px"
+            android:lineSpacingMultiplier="1.5"
             android:text="@{viewModel.detials.intro}" />
 
 
@@ -112,6 +113,7 @@
             android:layout_below="@+id/ll_info"
             android:layout_marginLeft="@dimen/sideMargin"
             android:layout_marginRight="@dimen/sideMargin"
+            android:lineSpacingMultiplier="1.5"
             bind:loadContent="@{viewModel.detials.content}" />
 
         <View

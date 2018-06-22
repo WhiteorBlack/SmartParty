@@ -21,6 +21,7 @@ import com.qiantang.smartparty.adapter.CommentAdapter;
 import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.config.CacheKey;
 import com.qiantang.smartparty.config.Config;
+import com.qiantang.smartparty.modle.HttpResult;
 import com.qiantang.smartparty.modle.RxActivityDetial;
 import com.qiantang.smartparty.modle.RxAds;
 import com.qiantang.smartparty.modle.RxCharacterDetial;
@@ -75,10 +76,11 @@ public class CharacterDetialViewModel extends BaseObservable implements ViewMode
 
     public void loadMore() {
         pageNo++;
-        getData();
+        getData(pageNo);
     }
 
-    public void getData() {
+    public void getData(int pageNo) {
+        this.pageNo=pageNo;
         ApiWrapper.getInstance().rwNoticeDetails(pageNo, id, printurl)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new NetworkSubscriber<RxCharacterDetial>() {
@@ -86,13 +88,15 @@ public class CharacterDetialViewModel extends BaseObservable implements ViewMode
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                         adapter.loadMoreEnd();
+                        activity.refreshFail();
                     }
 
                     @Override
                     public void onSuccess(RxCharacterDetial data) {
+                        activity.refreshOK();
                         adapter.setPagingData(data.getPl(), pageNo);
-                        if (pageNo == 1) {
-                            setCommentCount(data.getCount());
+                        setCommentCount(data.getCount());
+                        if (pageNo == 1&&picListSize==0) {
                             picListSize = data.getImgSrc().size();
                             setPicCount("1/" + picListSize);
                             setDetials(data);
@@ -111,7 +115,7 @@ public class CharacterDetialViewModel extends BaseObservable implements ViewMode
         ApiWrapper.getInstance().comment(content, id)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .doOnTerminate(() -> isDealing = false)
-                .subscribe(new NetworkSubscriber<String>() {
+                .subscribe(new NetworkSubscriber<HttpResult>() {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
@@ -119,7 +123,7 @@ public class CharacterDetialViewModel extends BaseObservable implements ViewMode
                     }
 
                     @Override
-                    public void onSuccess(String data) {
+                    public void onSuccess(HttpResult data) {
                         RxCharacterDetial detial = getDetials();
                         setCommentCount(getCommentCount() + 1);
                         setDetials(detial);
@@ -133,14 +137,14 @@ public class CharacterDetialViewModel extends BaseObservable implements ViewMode
         ApiWrapper.getInstance().commentLike(1, id, "")
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .doOnTerminate(() -> isDealing = false)
-                .subscribe(new NetworkSubscriber<String>() {
+                .subscribe(new NetworkSubscriber<HttpResult>() {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                     }
 
                     @Override
-                    public void onSuccess(String data) {
+                    public void onSuccess(HttpResult data) {
                         adapter.getData().get(commentPos).setIsDz(1);
                         adapter.getData().get(commentPos).setDz(adapter.getData().get(commentPos).getDz() + 1);
                         adapter.notifyItemChanged(commentPos + 1);
@@ -153,14 +157,14 @@ public class CharacterDetialViewModel extends BaseObservable implements ViewMode
         ApiWrapper.getInstance().cancelLike(id)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .doOnTerminate(() -> isDealing = false)
-                .subscribe(new NetworkSubscriber<String>() {
+                .subscribe(new NetworkSubscriber<HttpResult>() {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                     }
 
                     @Override
-                    public void onSuccess(String data) {
+                    public void onSuccess(HttpResult data) {
                         //取消点赞成功
                         adapter.getData().get(commentPos).setIsDz(0);
                         adapter.getData().get(commentPos).setDz(adapter.getData().get(commentPos).getDz() - 1);

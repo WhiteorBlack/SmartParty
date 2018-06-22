@@ -6,6 +6,7 @@ import com.qiantang.smartparty.modle.RxActivity;
 import com.qiantang.smartparty.modle.RxActivityDetial;
 import com.qiantang.smartparty.modle.RxAds;
 import com.qiantang.smartparty.modle.RxAdviseRecord;
+import com.qiantang.smartparty.modle.RxApplyDetial;
 import com.qiantang.smartparty.modle.RxAssientHome;
 import com.qiantang.smartparty.modle.RxBookDetial;
 import com.qiantang.smartparty.modle.RxBookRecommend;
@@ -29,6 +30,7 @@ import com.qiantang.smartparty.modle.RxRankBranch;
 import com.qiantang.smartparty.modle.RxRankPersonal;
 import com.qiantang.smartparty.modle.RxRecordDetial;
 import com.qiantang.smartparty.modle.RxSignList;
+import com.qiantang.smartparty.modle.RxSpecialDetial;
 import com.qiantang.smartparty.modle.RxSpeechDetial;
 import com.qiantang.smartparty.modle.RxStructureLevelOne;
 import com.qiantang.smartparty.modle.RxStructureLevelTwo;
@@ -111,23 +113,23 @@ public interface ApiService {
     //点赞 评论
     @FormUrlEncoded
     @POST("app/comment/zanCommentAppOp")
-    Observable<HttpResult<String>> commentLike(@Field("userId") String userId,
-                                               @Field("type") int type,
-                                               @Field("commentId") String commentId,
-                                               @Field("content") String content);
+    Observable<HttpResult<HttpResult>> commentLike(@Field("userId") String userId,
+                                                   @Field("type") int type,
+                                                   @Field("commentId") String commentId,
+                                                   @Field("content") String content);
 
     //取消赞
     @FormUrlEncoded
     @POST("app/comment/deleteZanApp")
-    Observable<HttpResult<String>> cancelLike(@Field("userId") String userId,
-                                              @Field("commentId") String commentId);
+    Observable<HttpResult<HttpResult>> cancelLike(@Field("userId") String userId,
+                                                  @Field("commentId") String commentId);
 
     //发表感想
     @FormUrlEncoded
     @POST("app/comment/addCommentApp")
     Observable<HttpResult<HttpResult>> addCommentApp(@Field("userId") String userId,
-                                                 @Field("content") String content,
-                                                 @Field("image") String image);
+                                                     @Field("content") String content,
+                                                     @Field("image") String image);
 
     //党建助手首页
     @POST("app/partyBuild/homePage")
@@ -170,15 +172,15 @@ public interface ApiService {
     //评论
     @FormUrlEncoded
     @POST("app/partyBuild/comment")
-    Observable<HttpResult<String>> comment(@Field("contentId") String contentId,
-                                           @Field("content") String content,
-                                           @Field("userId") String userId);
+    Observable<HttpResult<HttpResult>> comment(@Field("contentId") String contentId,
+                                               @Field("content") String content,
+                                               @Field("userId") String userId);
 
     //活动报名
     @FormUrlEncoded
     @POST("app/partyBuild/enroll")
-    Observable<HttpResult<String>> enroll(@Field("activityNum") String activityNum,
-                                          @Field("userId") String userId);
+    Observable<HttpResult<HttpResult>> enroll(@Field("activityNum") String activityNum,
+                                              @Field("userId") String userId);
 
     //活动报名
     @FormUrlEncoded
@@ -265,35 +267,35 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("app/video/like")
     Observable<HttpResult<HttpResult>> videoLike(@Field("userId") String userId,
-                                             @Field("comment_id") String comment_id);
+                                                 @Field("comment_id") String comment_id);
 
     //视频学习点赞取消
     @FormUrlEncoded
     @POST("app/video/remove")
     Observable<HttpResult<HttpResult>> removeVideoLike(@Field("userId") String userId,
-                                                   @Field("comment_id") String comment_id);
+                                                       @Field("comment_id") String comment_id);
 
 
     //收藏
     @FormUrlEncoded
     @POST("app/questionnaire/collectSave")
     Observable<HttpResult<HttpResult>> collectSave(@Field("type") int type,
-                                               @Field("userId") String userId,
-                                               @Field("contentId") String contentId);
+                                                   @Field("userId") String userId,
+                                                   @Field("contentId") String contentId);
 
     //取消收藏
     @FormUrlEncoded
     @POST("app/questionnaire/collectAbolish")
     Observable<HttpResult<HttpResult>> collectAbolish(@Field("type") int type,
-                                                  @Field("userId") String userId,
-                                                  @Field("contentId") String contentId);
+                                                      @Field("userId") String userId,
+                                                      @Field("contentId") String contentId);
 
     //视频学习评论
     @FormUrlEncoded
     @POST("app/video/comment")
     Observable<HttpResult<HttpResult>> commentVideo(@Field("essay_id") String essay_id,
-                                                @Field("content") String content,
-                                                @Field("userId") String userId);
+                                                    @Field("content") String content,
+                                                    @Field("userId") String userId);
 
     //系列讲话列表
     @FormUrlEncoded
@@ -314,17 +316,31 @@ public interface ApiService {
     @POST("app/content/theoryClassify")
     Observable<HttpResult<List<RxLearningClass>>> theoryClassify();
 
-    //专题学习列表
+    //理论在线列表
     @FormUrlEncoded
     @POST("app/content/theory")
     Observable<HttpResult<RxOnline>> theory(@Field("pageNum") int pageNum,
                                             @Field("classifyId") int classifyId);
+
+    //理论在线详情
+    @FormUrlEncoded
+    @POST("app/content/theoryDetails")
+    Observable<HttpResult<RxSpecialDetial>> theoryDetails(@Field("pageNum") int pageNum,
+                                                   @Field("contentId") String contentId,
+                                                   @Field("userId") String userId);
 
     //专题学习列表 收藏
     @FormUrlEncoded
     @POST("app/content/userTheory")
     Observable<HttpResult<RxOnline>> userTheory(@Field("pageNum") int pageNum,
                                                 @Field("userId") String userId);
+
+    //专题学习列表
+    @FormUrlEncoded
+    @POST("app/content/specialDetails")
+    Observable<HttpResult<RxSpecialDetial>> specialDetails(@Field("pageNum") int pageNum,
+                                                           @Field("contentId") String contentId,
+                                                           @Field("userId") String userId);
 
     //专题学习列表
     @FormUrlEncoded
@@ -546,4 +562,27 @@ public interface ApiService {
                                                       @Field("username ") String username,
                                                       @Field("position") String position,
                                                       @Field("deptId ") String deptId);
+
+    //验证手机
+    @FormUrlEncoded
+    @POST("app/user/modifyPhone")
+    Observable<HttpResult<HttpResult>> modifyPhone(@Field("phone") String phone);
+
+    //验证手机
+    @FormUrlEncoded
+    @POST("app/user/bindPhone")
+    Observable<HttpResult<HttpResult>> bindPhone(@Field("phone") String phone);
+
+    //验证
+    @FormUrlEncoded
+    @POST("app/user/bindPhoneAfter")
+    Observable<HttpResult<HttpResult>> bindPhoneAfter(@Field("phone") String phone,
+                                                      @Field("code") String code,
+                                                      @Field("oldphone") String oldphone);
+
+    //入党申请详情
+    @FormUrlEncoded
+    @POST("app/userCenter/applyDetail")
+    Observable<HttpResult<RxApplyDetial>> applyDetail(@Field("userId") String userId);
+
 }

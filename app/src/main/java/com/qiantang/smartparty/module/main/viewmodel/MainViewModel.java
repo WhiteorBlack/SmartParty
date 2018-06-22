@@ -40,6 +40,18 @@ public class MainViewModel implements ViewModel {
         this.activity = activity;
         checkPermission();
 //        versionCheck();
+        getServicePhone();
+    }
+
+    private void getServicePhone() {
+        ApiWrapper.getInstance().lookContent(3)
+                .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
+                .subscribe(new NetworkSubscriber<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        MyApplication.mCache.put(CacheKey.SERVICE_PHONE, data);
+                    }
+                });
     }
 
     /**

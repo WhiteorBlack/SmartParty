@@ -1,5 +1,8 @@
 package com.qiantang.smartparty.module.mine.viewmodel;
 
+import android.databinding.ObservableField;
+import android.text.TextUtils;
+
 import com.orhanobut.logger.Logger;
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.MyApplication;
@@ -18,8 +21,17 @@ import org.greenrobot.eventbus.EventBus;
 public class SettingViewModel implements ViewModel {
     private BaseBindActivity activity;
     private DefaultDialog dialog;
+    public ObservableField<String> servicePhone=new ObservableField<>();
     public SettingViewModel(BaseBindActivity activity) {
         this.activity = activity;
+        initData();
+    }
+
+    private void initData() {
+        String phone=MyApplication.mCache.getAsString(CacheKey.SERVICE_PHONE);
+        if (!TextUtils.isEmpty(phone)){
+            servicePhone.set(phone);
+        }
     }
 
     /**

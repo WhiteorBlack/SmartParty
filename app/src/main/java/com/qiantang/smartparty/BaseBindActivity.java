@@ -273,7 +273,7 @@ public abstract class BaseBindActivity extends RxAppCompatActivity implements Re
     @Override
     public void refreshFail() {
         if (mPtrFrame != null && mPtrFrame.isRefreshing()) {
-            ToastUtil.toast("网络异常");
+//            ToastUtil.toast("网络异常");
             mPtrFrame.refreshComplete();
         }
     }

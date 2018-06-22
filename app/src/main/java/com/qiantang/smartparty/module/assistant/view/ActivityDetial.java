@@ -125,7 +125,7 @@ public class ActivityDetial extends BaseBindActivity implements CommentBox.OnCom
     /**
      * 提交成功之后隐藏键盘
      */
-    public void dissmissCommentBox(){
+    public void dissmissCommentBox() {
         binding.input.hideInput();
     }
 

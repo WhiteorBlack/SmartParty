@@ -98,6 +98,8 @@
             android:text="联系客服" />
 
         <LinearLayout
+            android:id="@+id/ll_service"
+            android:onClick="onClick"
             style="@style/Mine_list"
             android:layout_height="104px"
             android:paddingRight="@dimen/sideMargin">
@@ -115,6 +117,7 @@
                 style="@style/black26"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{viewModel.servicePhone}"
                 android:layout_marginRight="30px" />
 
             <ImageView

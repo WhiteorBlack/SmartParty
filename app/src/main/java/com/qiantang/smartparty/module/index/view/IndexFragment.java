@@ -65,7 +65,7 @@ public class IndexFragment extends BaseBindFragment {
         initStudyVideo(binding.rvStudyVideo);
         initSpeech(binding.rvSpeech);
         initStudyPro(binding.rvStudyPractice);
-        viewModel.setAdater(newsAdapter,studyStateAdapter,studyVideoAdapter,speechAdapter,sectionAdapter);
+        viewModel.setAdater(newsAdapter, studyStateAdapter, studyVideoAdapter, speechAdapter, sectionAdapter);
         viewModel.getData();
     }
 
@@ -76,7 +76,7 @@ public class IndexFragment extends BaseBindFragment {
      * @param rvStudyPractice
      */
     private void initStudyPro(RecyclerView rvStudyPractice) {
-        sectionAdapter=new IndexSectionAdapter(R.layout.item_index_bottom,R.layout.item_index_study_header,null);
+        sectionAdapter = new IndexSectionAdapter(R.layout.item_index_bottom, R.layout.item_index_study_header, null);
         rvStudyPractice.setLayoutManager(new GridLayoutManager(getContext(), 2));
         rvStudyPractice.setNestedScrollingEnabled(false);
         rvStudyPractice.setAdapter(sectionAdapter);
@@ -160,7 +160,7 @@ public class IndexFragment extends BaseBindFragment {
         switch (view.getId()) {
             case R.id.iv_scan:
                 ActivityUtil.startQRActivity(getActivity());
-//                ActivityUtil.startSignActivity(getActivity());
+//                ActivityUtil.startGuideActivity(getActivity());
                 break;
         }
     }

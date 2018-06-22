@@ -18,16 +18,22 @@
                 android:id="@+id/toolbar"
                 layout="@layout/toolbar_no_title" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv"
+            <com.qiantang.smartparty.widget.CusPtrFrameLayout
+                android:id="@+id/cptr"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1">
 
-            <com.qiantang.smartparty.widget.commentwidget.CommentBox
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                     />
+            </com.qiantang.smartparty.widget.CusPtrFrameLayout>
+
+            <include
                 android:id="@+id/input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                layout="@layout/view_input_box" />
         </LinearLayout>
 
 

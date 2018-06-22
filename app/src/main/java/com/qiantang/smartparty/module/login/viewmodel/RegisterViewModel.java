@@ -99,6 +99,7 @@ public class RegisterViewModel extends BaseObservable implements ViewModel {
                 });
     }
 
+
     public void register() {
         if (TextUtils.isEmpty(account.get())) {
             ToastUtil.toast("账号不能为空");

@@ -19,6 +19,7 @@ public class InputViewModel extends BaseObservable implements ViewModel {
     private BaseBindActivity activity;
     private ObservableField<String> textString = new ObservableField<>("");
     private ObservableBoolean isCollect=new ObservableBoolean(false);
+    private ObservableBoolean shareVis=new ObservableBoolean(true);
 
     public InputViewModel(BaseBindActivity activity) {
         this.activity = activity;
@@ -62,6 +63,16 @@ public class InputViewModel extends BaseObservable implements ViewModel {
     public void setTextString(String hint) {
         this.textString.set(hint);
         notifyPropertyChanged(BR.textString);
+    }
+
+    @Bindable
+    public boolean getShareVis() {
+        return shareVis.get();
+    }
+
+    public void setShareVis(boolean shareVis) {
+        this.shareVis.set(shareVis);
+        notifyPropertyChanged(BR.shareVis);
     }
 
     public BaseBindActivity getActivity() {

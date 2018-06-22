@@ -20,6 +20,7 @@ import com.qiantang.smartparty.adapter.CommentAdapter;
 import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.config.CacheKey;
 import com.qiantang.smartparty.config.Config;
+import com.qiantang.smartparty.modle.HttpResult;
 import com.qiantang.smartparty.modle.RxActivityDetial;
 import com.qiantang.smartparty.modle.RxComment;
 import com.qiantang.smartparty.modle.RxPartyActivityDetial;
@@ -32,6 +33,7 @@ import com.qiantang.smartparty.network.NetworkSubscriber;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
 import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
 import com.qiantang.smartparty.utils.ActivityUtil;
+import com.qiantang.smartparty.utils.ToastUtil;
 import com.qiantang.smartparty.utils.fullhtml.TextViewForFullHtml;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.qiantang.smartparty.BR;
@@ -108,7 +110,7 @@ public class ActivityDetialViewModel extends BaseObservable implements ViewModel
     public void comment(String content) {
         ApiWrapper.getInstance().comment(content, getDetials().getActivityId())
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribe(new NetworkSubscriber<String>() {
+                .subscribe(new NetworkSubscriber<HttpResult>() {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
@@ -116,11 +118,11 @@ public class ActivityDetialViewModel extends BaseObservable implements ViewModel
                     }
 
                     @Override
-                    public void onSuccess(String data) {
-                        RxPartyActivityDetial detial = getDetials();
-                        setCommentCount(getCommentCount() + 1);
-                        setDetials(detial);
-                        ((ActivityDetial)activity).dissmissCommentBox();
+                    public void onSuccess(HttpResult data) {
+//                        RxPartyActivityDetial detial = getDetials();
+//                        setCommentCount(getCommentCount() + 1);
+//                        setDetials(detial);
+                        ((ActivityDetial) activity).dissmissCommentBox();
                     }
                 });
     }
@@ -128,9 +130,16 @@ public class ActivityDetialViewModel extends BaseObservable implements ViewModel
     public void enroll() {
         ApiWrapper.getInstance().enroll(getDetials().getActivityId())
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribe(new NetworkSubscriber<String>() {
+                .subscribe(new NetworkSubscriber<HttpResult>() {
                     @Override
-                    public void onSuccess(String data) {
+                    public void onFail(RetrofitUtil.APIException e) {
+                        super.onFail(e);
+                        ToastUtil.toast("报名失败");
+                    }
+
+                    @Override
+                    public void onSuccess(HttpResult data) {
+                        ToastUtil.toast("报名成功");
                         setStatus(4);
                         List<RxSignInfo> signInfos = signRecordAdapter.getData();
                         if (signInfos.size() < 9) {
@@ -147,17 +156,17 @@ public class ActivityDetialViewModel extends BaseObservable implements ViewModel
 
     public void commentLike(String id) {
         isDealing = true;
-        ApiWrapper.getInstance().commentLike(1, id, "")
+        ApiWrapper.getInstance().videoLike(id)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .doOnTerminate(() -> isDealing = false)
-                .subscribe(new NetworkSubscriber<String>() {
+                .subscribe(new NetworkSubscriber<HttpResult>() {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                     }
 
                     @Override
-                    public void onSuccess(String data) {
+                    public void onSuccess(HttpResult data) {
                         adapter.getData().get(commentPos).setIsDz(1);
                         adapter.getData().get(commentPos).setDz(adapter.getData().get(commentPos).getDz() + 1);
                         adapter.notifyItemChanged(commentPos + 1);
@@ -167,17 +176,17 @@ public class ActivityDetialViewModel extends BaseObservable implements ViewModel
 
     private void cancelLike(String id) {
         isDealing = true;
-        ApiWrapper.getInstance().cancelLike(id)
+        ApiWrapper.getInstance().removeVideoLike(id)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .doOnTerminate(() -> isDealing = false)
-                .subscribe(new NetworkSubscriber<String>() {
+                .subscribe(new NetworkSubscriber<HttpResult>() {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                     }
 
                     @Override
-                    public void onSuccess(String data) {
+                    public void onSuccess(HttpResult data) {
                         //取消点赞成功
                         adapter.getData().get(commentPos).setIsDz(0);
                         adapter.getData().get(commentPos).setDz(adapter.getData().get(commentPos).getDz() - 1);
@@ -208,7 +217,7 @@ public class ActivityDetialViewModel extends BaseObservable implements ViewModel
 
     @BindingAdapter("topPic")
     public static void topPic(SimpleDraweeView sdv, String url) {
-        sdv.setImageURI(Config.IMAGE_HOST+url);
+        sdv.setImageURI(Config.IMAGE_HOST + url);
     }
 
     public RecyclerView.OnItemTouchListener onItemTouchListener() {

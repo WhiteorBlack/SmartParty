@@ -19,6 +19,7 @@ import com.qiantang.smartparty.BaseBindFragment;
 import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.base.ViewModel;
+import com.qiantang.smartparty.modle.HttpResult;
 import com.qiantang.smartparty.modle.RxMyStudy;
 import com.qiantang.smartparty.modle.RxStudy;
 import com.qiantang.smartparty.modle.RxStudyComment;
@@ -109,14 +110,14 @@ public class StudyMyViewModel extends BaseObservable implements ViewModel, Comme
         ApiWrapper.getInstance().commentLike(type, id, content)
                 .compose(fragment.bindUntilEvent(ActivityEvent.DESTROY))
                 .doOnTerminate(() -> isDealing = false)
-                .subscribe(new NetworkSubscriber<String>() {
+                .subscribe(new NetworkSubscriber<HttpResult>() {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                     }
 
                     @Override
-                    public void onSuccess(String data) {
+                    public void onSuccess(HttpResult data) {
                         if (type == 1) {
                             //点赞成功
                             adapter.getData().get(commentPos).getZanAppMap().add(new RxStudyZan(adapter.getData().get(commentPos).getUsername(), "", MyApplication.USER_ID));
@@ -134,14 +135,14 @@ public class StudyMyViewModel extends BaseObservable implements ViewModel, Comme
         ApiWrapper.getInstance().cancelLike(id)
                 .compose(fragment.bindUntilEvent(ActivityEvent.DESTROY))
                 .doOnTerminate(() -> isDealing = false)
-                .subscribe(new NetworkSubscriber<String>() {
+                .subscribe(new NetworkSubscriber<HttpResult>() {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                     }
 
                     @Override
-                    public void onSuccess(String data) {
+                    public void onSuccess(HttpResult data) {
 
                         //取消点赞成功
                         List<RxStudyZan> zanList = adapter.getData().get(commentPos).getZanAppMap();

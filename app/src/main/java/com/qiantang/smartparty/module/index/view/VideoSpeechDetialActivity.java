@@ -21,6 +21,7 @@ import com.qiantang.smartparty.module.index.viewmodel.VideoSpeechDetialViewMdoel
 import com.qiantang.smartparty.module.input.viewmodel.InputViewModel;
 import com.qiantang.smartparty.utils.AutoUtils;
 import com.qiantang.smartparty.utils.RecycleViewUtils;
+import com.qiantang.smartparty.widget.commentwidget.KeyboardControlMnanager;
 import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.builder.GSYVideoOptionBuilder;
 import com.shuyu.gsyvideoplayer.listener.GSYSampleCallBack;
@@ -127,7 +128,42 @@ public class VideoSpeechDetialActivity extends BaseBindActivity {
         binding.scv.getBackButton().setOnClickListener(this::onClick);
         viewMdoel.initData();
         initRv(binding.rv);
-        viewMdoel.testData();
+        viewMdoel.testData(1,false);
+        initRefresh(binding.cptr);
+        inputViewModel.setHint("发表学习感悟...");
+        initKeyboardHeightObserver();
+    }
+
+    private void initKeyboardHeightObserver() {
+        //观察键盘弹出与消退
+        KeyboardControlMnanager.observerKeyboardVisibleChange(this, new KeyboardControlMnanager.OnKeyboardStateChangeListener() {
+            View anchorView;
+
+            @Override
+            public void onKeyboardChange(int keyboardHeight, boolean isVisible) {
+                if (isVisible) { //键盘弹出
+                    inputViewModel.setIsPop(true);
+                } else { //键盘收起的时候判断是否有文字输入,如果有则继续展示发送按钮
+                    if (TextUtils.isEmpty(inputViewModel.getTextString())) {
+                        inputViewModel.setIsPop(false);
+                    } else {
+                        inputViewModel.setIsPop(true);
+                    }
+                }
+            }
+        });
+    }
+
+
+    @Override
+    public void update() {
+        super.update();
+    }
+
+    @Override
+    public void refreshData() {
+        super.refreshData();
+        viewMdoel.testData(1,true);
     }
 
     private void initRv(RecyclerView rv) {

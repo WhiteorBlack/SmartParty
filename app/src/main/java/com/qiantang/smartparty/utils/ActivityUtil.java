@@ -73,6 +73,7 @@ import com.qiantang.smartparty.module.mine.view.ShowHeadPicActivity;
 import com.qiantang.smartparty.module.mine.view.TotalScoreActivity;
 import com.qiantang.smartparty.module.scan.view.QRCodeActivity;
 import com.qiantang.smartparty.module.search.view.SearchActivity;
+import com.qiantang.smartparty.module.spalsh.view.GuideActivity;
 import com.qiantang.smartparty.module.study.view.PublishActivity;
 import com.qiantang.smartparty.module.study.view.StudyMyActivity;
 import com.qiantang.smartparty.module.study.view.StudyUnReadMsgActivity;
@@ -213,6 +214,16 @@ public class ActivityUtil {
     }
 
     /**
+     * 引导页
+     *
+     * @param activity
+     */
+    public static void startGuideActivity(Activity activity) {
+        Intent intent = new Intent(activity, GuideActivity.class);
+        activity.startActivity(intent);
+    }
+
+    /**
      * 每月学习值
      *
      * @param activity
@@ -281,9 +292,9 @@ public class ActivityUtil {
      *
      * @param activity
      */
-    public static void startCompeteActivity(Activity activity,String phone) {
+    public static void startCompeteActivity(Activity activity, String phone) {
         Intent intent = new Intent(activity, CompeteInfoActivity.class);
-        intent.putExtra("phone",phone);
+        intent.putExtra("phone", phone);
         activity.startActivity(intent);
     }
 
@@ -292,9 +303,9 @@ public class ActivityUtil {
      *
      * @param activity
      */
-    public static void startChangeAvatarActivity(Activity activity,String url) {
+    public static void startChangeAvatarActivity(Activity activity, String url) {
         Intent intent = new Intent(activity, ShowHeadPicActivity.class);
-        intent.putExtra("url",url);
+        intent.putExtra("url", url);
         activity.startActivity(intent);
     }
 
@@ -357,6 +368,10 @@ public class ActivityUtil {
      * @param activity
      */
     public static void startRankActivity(Activity activity) {
+        if (!MyApplication.isLogin()) {
+            startLoginActivity(activity);
+            return;
+        }
         Intent intent = new Intent(activity, RankActivity.class);
         activity.startActivity(intent);
     }
@@ -818,9 +833,10 @@ public class ActivityUtil {
      * @param id
      * @param title
      */
-    public static void startHeadWebActivity(Activity activity, String id, String title, String url) {
+    public static void startHeadWebActivity(Activity activity, String id, String title, String url, int type) {
         Intent intent = new Intent(activity, HeadWebActivity.class);
         intent.putExtra("id", id);
+        intent.putExtra("type", type);
         intent.putExtra("title", title);
         intent.putExtra("url", url);
         activity.startActivity(intent);
@@ -874,10 +890,10 @@ public class ActivityUtil {
      *
      * @param activity
      */
-    public static void startNamePosActivity(Activity activity, int type,String info) {
+    public static void startNamePosActivity(Activity activity, int type, String info) {
         Intent intent = new Intent(activity, NamePositionActivity.class);
         intent.putExtra("type", type);
-        intent.putExtra("info",info);
+        intent.putExtra("info", info);
         activity.startActivity(intent);
     }
 
@@ -886,10 +902,10 @@ public class ActivityUtil {
      *
      * @param activity
      */
-    public static void startDateDeptActivity(Activity activity, int type,String info) {
+    public static void startDateDeptActivity(Activity activity, int type, String info) {
         Intent intent = new Intent(activity, DateDeptActivity.class);
         intent.putExtra("type", type);
-        intent.putExtra("info",info);
+        intent.putExtra("info", info);
         activity.startActivity(intent);
     }
 }

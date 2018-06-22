@@ -43,8 +43,6 @@ public class VideoSpeechDetialViewMdoel extends BaseObservable implements ViewMo
     private int pageNo = 1;
     private ObservableField<RxSpeechInfo> videoInfo = new ObservableField<>();
     private boolean isDealing = false;
-    private int addCommentCount = 0;
-    private int commentCount = 0;
     private int commentPos = 0;
 
     public VideoSpeechDetialViewMdoel(BaseBindActivity activity, CommentAdapter adapter) {
@@ -57,17 +55,26 @@ public class VideoSpeechDetialViewMdoel extends BaseObservable implements ViewMo
         id = intent.getStringExtra("id");
     }
 
-    public void testData() {
+    public void testData(int pageNo, boolean isRefres) {
+        this.pageNo = pageNo;
         ApiWrapper.getInstance().speechDetial(pageNo, id)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new NetworkSubscriber<RxSpeechDetial>() {
                     @Override
+                    public void onFail(RetrofitUtil.APIException e) {
+                        super.onFail(e);
+                        activity.refreshFail();
+                    }
+
+                    @Override
                     public void onSuccess(RxSpeechDetial data) {
+                        activity.refreshOK();
                         adapter.setPagingData(data.getComment(), pageNo);
+                        setVideoInfo(data.getVideo());
                         if (pageNo == 1) {
-                            setVideoInfo(data.getVideo());
-                            commentCount = data.getVideo().getReview();
-                            ((VideoSpeechDetialActivity) activity).startVideo(data.getVideo().getSpeakurl(), data.getVideo().getTitle());
+                            if (isRefres) {
+                                ((VideoSpeechDetialActivity) activity).startVideo(data.getVideo().getSpeakurl(), data.getVideo().getTitle());
+                            }
                             ((VideoSpeechDetialActivity) activity).updateCollect(data.getVideo().getCollect() != 0);
                         }
                     }
@@ -92,20 +99,22 @@ public class VideoSpeechDetialViewMdoel extends BaseObservable implements ViewMo
 
                     @Override
                     public void onSuccess(HttpResult data) {
-                        addCommentCount++;
-                        RxSpeechInfo rxVideoInfo = getVideoInfo();
-                        commentCount += 1;
-                        rxVideoInfo.setReview(commentCount);
-                        RxComment rxComment = new RxComment();
-                        rxComment.setUsername(MyApplication.mCache.getAsString(CacheKey.USER_NAME));
-                        rxComment.setUserId(MyApplication.mCache.getAsString(CacheKey.USER_ID));
-                        rxComment.setContent(content);
-                        rxComment.setAvatar(MyApplication.mCache.getAsString(CacheKey.USER_AVATAR));
-                        rxComment.setIsDz(0);
-                        rxComment.setDz(0);
-                        rxComment.setCreationtime(AppUtil.getNowDate());
-                        adapter.getData().add(adapter.getData().size(), rxComment);
-                        adapter.notifyItemInserted(adapter.getData().size());
+
+                        testData(pageNo+1, false);
+//                        addCommentCount++;
+//                        RxSpeechInfo rxVideoInfo = getVideoInfo();
+//                        commentCount += 1;
+//                        rxVideoInfo.setReview(commentCount);
+//                        RxComment rxComment = new RxComment();
+//                        rxComment.setUsername(MyApplication.mCache.getAsString(CacheKey.USER_NAME));
+//                        rxComment.setUserId(MyApplication.mCache.getAsString(CacheKey.USER_ID));
+//                        rxComment.setContent(content);
+//                        rxComment.setAvatar(MyApplication.mCache.getAsString(CacheKey.USER_AVATAR));
+//                        rxComment.setIsDz(0);
+//                        rxComment.setDz(0);
+//                        rxComment.setCreationtime(AppUtil.getNowDate());
+//                        adapter.getData().add(adapter.getData().size(), rxComment);
+//                        adapter.notifyItemInserted(adapter.getData().size());
                     }
                 });
     }
@@ -217,7 +226,7 @@ public class VideoSpeechDetialViewMdoel extends BaseObservable implements ViewMo
 
     public void loadMore() {
         pageNo++;
-        testData();
+        testData(pageNo, false);
     }
 
     @BindingAdapter("loadContent")

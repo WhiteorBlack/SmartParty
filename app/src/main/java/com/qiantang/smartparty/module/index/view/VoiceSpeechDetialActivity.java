@@ -21,6 +21,7 @@ import com.qiantang.smartparty.module.input.viewmodel.InputViewModel;
 import com.qiantang.smartparty.utils.AutoUtils;
 import com.qiantang.smartparty.utils.Player;
 import com.qiantang.smartparty.utils.RecycleViewUtils;
+import com.qiantang.smartparty.widget.commentwidget.KeyboardControlMnanager;
 
 /**
  * Created by zhaoyong bai on 2018/5/25.
@@ -57,7 +58,19 @@ public class VoiceSpeechDetialActivity extends BaseBindActivity implements Compo
         inputViewModel.setHint("发表学习感悟...");
         viewMdoel.initData();
         initRv(binding.rv);
-        viewMdoel.testData();
+        viewMdoel.testData(1,false);
+        initRefresh(binding.cptr);
+    }
+
+    @Override
+    public void update() {
+        super.update();
+    }
+
+    @Override
+    public void refreshData() {
+        super.refreshData();
+        viewMdoel.testData(1,true);
     }
 
     private void initRv(RecyclerView rv) {
@@ -69,15 +82,24 @@ public class VoiceSpeechDetialActivity extends BaseBindActivity implements Compo
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
         rv.addOnItemTouchListener(viewMdoel.onItemTouchListener());
-        rv.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
-            int heightDiff = MyApplication.heightPixels - rv.getHeight() - MyApplication.widthPixels * 9 / 16; //计算键盘占用高度
-            if (heightDiff > MyApplication.heightPixels / 3) { //键盘弹出
-                inputViewModel.setIsPop(true);
-            } else { //键盘收起的时候判断是否有文字输入,如果有则继续展示发送按钮
-                if (TextUtils.isEmpty(inputViewModel.getTextString())) {
-                    inputViewModel.setIsPop(false);
-                } else {
+        initKeyboardHeightObserver();
+    }
+
+    private void initKeyboardHeightObserver() {
+        //观察键盘弹出与消退
+        KeyboardControlMnanager.observerKeyboardVisibleChange(this, new KeyboardControlMnanager.OnKeyboardStateChangeListener() {
+            View anchorView;
+
+            @Override
+            public void onKeyboardChange(int keyboardHeight, boolean isVisible) {
+                if (isVisible) { //键盘弹出
                     inputViewModel.setIsPop(true);
+                } else { //键盘收起的时候判断是否有文字输入,如果有则继续展示发送按钮
+                    if (TextUtils.isEmpty(inputViewModel.getTextString())) {
+                        inputViewModel.setIsPop(false);
+                    } else {
+                        inputViewModel.setIsPop(true);
+                    }
                 }
             }
         });

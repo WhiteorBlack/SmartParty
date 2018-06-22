@@ -65,7 +65,7 @@ public class OnlineViewModel implements ViewModel {
         return new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ActivityUtil.startHeadWebActivity(fragment.getActivity(), learnAdapter.getData().get(position).getContentId(), "理论在线", URLs.SPECIALORTHEORY);
+                ActivityUtil.startHeadWebActivity(fragment.getActivity(), learnAdapter.getData().get(position).getContentId(), "理论在线", URLs.SPECIALORTHEORY,4);
             }
         };
     }

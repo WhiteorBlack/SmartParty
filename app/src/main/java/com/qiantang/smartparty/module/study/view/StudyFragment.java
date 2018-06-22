@@ -71,7 +71,6 @@ public class StudyFragment extends BaseBindFragment implements CommentBox.OnComm
     @Override
     public void update() {
         super.update();
-        binding.cptr.autoRefresh(false);
     }
 
     @Override

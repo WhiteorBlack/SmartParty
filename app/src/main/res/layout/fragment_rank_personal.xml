@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="28px"
                 android:layout_marginTop="29px"
-                android:text="2018" />
+                android:text="@{viewModel.date}" />
 
             <ImageView
                 android:id="@+id/iv_next"

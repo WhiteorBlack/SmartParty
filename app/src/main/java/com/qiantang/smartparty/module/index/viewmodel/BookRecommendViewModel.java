@@ -11,6 +11,7 @@ import com.qiantang.smartparty.modle.RxBookRecommend;
 import com.qiantang.smartparty.module.index.adapter.BookRecommendAdapter;
 import com.qiantang.smartparty.network.NetworkSubscriber;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
+import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
 import com.qiantang.smartparty.utils.ActivityUtil;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
@@ -36,15 +37,23 @@ public class BookRecommendViewModel implements ViewModel {
 
     public void loadMore() {
         pageNo++;
-        getData();
+        getData(pageNo);
     }
 
-    public void getData() {
+    public void getData(int pageNo) {
+        this.pageNo = pageNo;
         ApiWrapper.getInstance().recommend(pageNo)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new NetworkSubscriber<List<RxBookRecommend>>() {
                     @Override
+                    public void onFail(RetrofitUtil.APIException e) {
+                        super.onFail(e);
+                        activity.refreshFail();
+                    }
+
+                    @Override
                     public void onSuccess(List<RxBookRecommend> data) {
+                        activity.refreshOK();
                         recommendAdapter.setPagingData(data, pageNo);
                     }
                 });
@@ -54,7 +63,7 @@ public class BookRecommendViewModel implements ViewModel {
         return new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adaptera, View view, int position) {
-                ActivityUtil.startBookDetialActivity(activity,recommendAdapter.getData().get(position).getContentId());
+                ActivityUtil.startBookDetialActivity(activity, recommendAdapter.getData().get(position).getContentId());
             }
         };
     }

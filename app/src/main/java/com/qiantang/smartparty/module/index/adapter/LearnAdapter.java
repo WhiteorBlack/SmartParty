@@ -22,7 +22,7 @@ public class LearnAdapter extends EasyBindQuickAdapter<RxLearningList> {
         holder.getBinding().setVariable(BR.item, item);
         holder.getBinding().executePendingBindings();
         try {
-            ((SimpleDraweeView) holder.getBinding().getRoot().findViewById(R.id.sdv)).setImageURI(Config.IMAGE_HOST, item.getPrinturl());
+            ((SimpleDraweeView) holder.getBinding().getRoot().findViewById(R.id.sdv)).setImageURI(Config.IMAGE_HOST+item.getPrinturl());
         } catch (NullPointerException e) {
 
         }

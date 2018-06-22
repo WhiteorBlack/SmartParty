@@ -9,12 +9,39 @@ public class RxComment {
 
     private int isDz;
     private int dz;
+    private int thumbs;
     private String avatar;
     private String creationtime;
     private String userId;
     private String content;
     private String username;
+    private int iszan;
     private String contentId;
+    private String comment_id;
+
+    public String getComment_id() {
+        return comment_id;
+    }
+
+    public void setComment_id(String comment_id) {
+        this.comment_id = comment_id;
+    }
+
+    public int getThumbs() {
+        return thumbs;
+    }
+
+    public void setThumbs(int thumbs) {
+        this.thumbs = thumbs;
+    }
+
+    public int getIszan() {
+        return iszan;
+    }
+
+    public void setIszan(int iszan) {
+        this.iszan = iszan;
+    }
 
     public String getContentId() {
         return contentId;

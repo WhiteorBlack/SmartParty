@@ -34,10 +34,11 @@ public class NewsViewModel implements ViewModel {
 
     public void onLoadMore() {
         pageNo++;
-        testData(type);
+        testData(type, pageNo);
     }
 
-    public void testData(int type) {
+    public void testData(int type, int pageNo) {
+        this.pageNo = pageNo;
         this.type = type;
         ApiWrapper.getInstance().fcNotice(pageNo, type)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
@@ -46,11 +47,13 @@ public class NewsViewModel implements ViewModel {
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                         adapter.loadMoreEnd();
+                        activity.refreshFail();
                     }
 
                     @Override
                     public void onSuccess(List<RxIndexCommon> data) {
                         adapter.setPagingData(data, pageNo);
+                        activity.refreshOK();
                     }
                 });
     }
@@ -68,7 +71,7 @@ public class NewsViewModel implements ViewModel {
                         title = "学习动态";
                         break;
                 }
-                ActivityUtil.startHeadWebActivity(activity, adapter.getData().get(position).getContentId(), title, URLs.NOTICE_DETIAL);
+                ActivityUtil.startHeadWebActivity(activity, adapter.getData().get(position).getContentId(), title, URLs.NOTICE_DETIAL, 0);
             }
         };
     }

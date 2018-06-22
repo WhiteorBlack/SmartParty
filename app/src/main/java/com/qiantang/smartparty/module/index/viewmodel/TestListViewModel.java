@@ -6,6 +6,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.qiantang.smartparty.BaseBindActivity;
+import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.modle.RxTest;
@@ -62,6 +63,10 @@ public class TestListViewModel implements ViewModel {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 super.onItemChildClick(adapter, view, position);
+                if (!MyApplication.isLogin()) {
+                    ActivityUtil.startLoginActivity(activity);
+                    return;
+                }
                 switch (view.getId()) {
                     case R.id.tv_check:
                         ActivityUtil.startTestDoneInfoActivity(activity, listAdapter.getData().get(position).getUserquestionnaire_id());

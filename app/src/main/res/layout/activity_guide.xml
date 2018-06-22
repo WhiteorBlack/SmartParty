@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.qiantang.smartparty.module.spalsh.viewmodel.GuideViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="150px"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/iv_one"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5px"
+                android:background="@drawable/select_point"
+                bind:guideOne="@{viewModel.postion}" />
+
+            <ImageView
+                android:id="@+id/iv_two"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5px"
+                android:background="@drawable/select_point"
+                bind:guideTwo="@{viewModel.postion}" />
+
+            <ImageView
+                android:id="@+id/iv_three"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5px"
+                android:background="@drawable/select_point"
+                bind:guideThree="@{viewModel.postion}" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_get_in"
+            style="@style/white26"
+            android:layout_width="300px"
+            android:layout_height="70px"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="130px"
+            android:background="@drawable/btn_guide"
+            android:onClick="onClick"
+            android:text="点击进入"
+            android:visibility="@{viewModel.postion==2?View.VISIBLE:View.GONE}" />
+    </FrameLayout>
+</layout>

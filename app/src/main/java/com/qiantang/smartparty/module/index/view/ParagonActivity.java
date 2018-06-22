@@ -30,7 +30,14 @@ public class ParagonActivity extends BaseBindActivity {
     public void initView() {
         binding.toolbar.setTitle("先进典范");
         initRv(binding.rv);
-        viewModel.getData();
+        viewModel.getData(1);
+        initRefresh(binding.cptr);
+    }
+
+    @Override
+    public void refreshData() {
+        super.refreshData();
+        viewModel.getData(1);
     }
 
     private void initRv(RecyclerView rv) {

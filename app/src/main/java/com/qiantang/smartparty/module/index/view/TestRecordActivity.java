@@ -9,14 +9,9 @@ import android.view.View;
 
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.R;
-import com.qiantang.smartparty.databinding.ActivityTestDetialBinding;
 import com.qiantang.smartparty.databinding.ActivityTestRecordBinding;
-import com.qiantang.smartparty.databinding.ViewTestDetialResultBinding;
-import com.qiantang.smartparty.module.index.adapter.TestDetialAdapter;
 import com.qiantang.smartparty.module.index.adapter.TestRecordAdapter;
-import com.qiantang.smartparty.module.index.viewmodel.TestDetialViewModel;
 import com.qiantang.smartparty.module.index.viewmodel.TestRecordViewModel;
-import com.qiantang.smartparty.utils.AutoUtils;
 import com.qiantang.smartparty.widget.NoScorllLinealayout;
 
 /**

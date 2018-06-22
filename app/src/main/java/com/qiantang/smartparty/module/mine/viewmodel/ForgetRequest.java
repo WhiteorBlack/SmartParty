@@ -14,6 +14,8 @@ public class ForgetRequest {
 
     public static void cancelCodeTime() {
         isStart = false;
+        smsTime=null;
+        time=60;
     }
 
     public static void smsCodeTime() {

@@ -7,9 +7,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.base.ViewModel;
+import com.qiantang.smartparty.modle.RxIndexCommon;
 import com.qiantang.smartparty.modle.RxMsg;
 import com.qiantang.smartparty.module.assistant.adapter.MsgAdapter;
 import com.qiantang.smartparty.network.NetworkSubscriber;
+import com.qiantang.smartparty.network.URLs;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
 import com.qiantang.smartparty.utils.ActivityUtil;
 import com.trello.rxlifecycle2.android.ActivityEvent;
@@ -49,7 +51,7 @@ public class MsgViewModel implements ViewModel {
         return new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapterq, View view, int position) {
-                ActivityUtil.jumpWeb(activity,adapter.getData().get(position).getNoticeId());
+                ActivityUtil.jumpWeb(activity, URLs.MESSAGE_DETIAL + ((RxMsg) adapter.getData().get(position)).getNoticeId());
             }
         };
     }

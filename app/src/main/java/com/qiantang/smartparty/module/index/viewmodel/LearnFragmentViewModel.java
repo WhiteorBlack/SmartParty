@@ -36,7 +36,7 @@ public class LearnFragmentViewModel implements ViewModel {
     private void initData() {
         classId = fragment.getArguments().getInt("id", -1);
         if (classId > 0) {
-            getData();
+            getData(1);
         }
     }
 
@@ -47,10 +47,11 @@ public class LearnFragmentViewModel implements ViewModel {
 
     public void loadMore() {
         pageNo++;
-        getData();
+        getData(pageNo);
     }
 
-    private void getData() {
+    public void getData(int pageNo) {
+        this.pageNo=pageNo;
         ApiWrapper.getInstance().special(pageNo, classId)
                 .compose(fragment.bindUntilEvent(FragmentEvent.DESTROY))
                 .subscribe(new NetworkSubscriber<List<RxLearningList>>() {
@@ -58,10 +59,12 @@ public class LearnFragmentViewModel implements ViewModel {
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                         learnAdapter.loadMoreEnd();
+                        fragment.refreshFail();
                     }
 
                     @Override
                     public void onSuccess(List<RxLearningList> data) {
+                        fragment.refreshOK();
                         learnAdapter.setPagingData(data, pageNo);
                     }
                 });
@@ -71,7 +74,7 @@ public class LearnFragmentViewModel implements ViewModel {
         return new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ActivityUtil.startHeadWebActivity(fragment.getActivity(), learnAdapter.getData().get(position).getContentId(), "专题学习", URLs.SPECIALORTHEORY);
+                ActivityUtil.startHeadWebActivity(fragment.getActivity(), learnAdapter.getData().get(position).getContentId(), "专题学习", URLs.SPECIALORTHEORY,3);
             }
         };
     }
