@@ -74,7 +74,7 @@ public class StringUtil {
                 text = "已结束";
                 break;
             case 6:
-                text="报名已结束";
+                text = "报名已结束";
                 break;
         }
         return text;
@@ -188,16 +188,22 @@ public class StringUtil {
         return pos;
     }
 
-    public static String getPartyFee(int type){
-        return type==0?"党费":"特殊党费";
+    public static String getPartyFee(int type) {
+        return type == 0 ? "党费" : "特殊党费";
     }
 
-    public static String getPartyMoney(double type){
-        return type==0?"自由金额":"¥"+type;
+    public static String getPartyMoney(double type) {
+        return type == 0 ? "自由金额" : "¥" + type;
     }
 
     public static String getTestType(int type) {
         return type == 1 ? "单选" : "多选";
+    }
+
+    public static String getTotalScoreTitle(String date) {
+        String month = date.substring(date.length() - 2, date.length());
+        int monthInt = Integer.parseInt(month);
+        return monthInt + "月份学习值";
     }
 
 }

@@ -102,9 +102,7 @@ public class LoginViewModel extends BaseObservable implements ViewModel {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
-                        if (e.getCode() == 3) {
-                            ToastUtil.toast("改手机号还未注册");
-                        }
+                        ToastUtil.toast(e.getMessage());
                     }
 
                     @Override
@@ -126,7 +124,7 @@ public class LoginViewModel extends BaseObservable implements ViewModel {
         } else if (!StringUtil.isPhoneNumberValid(account.get())) {
             ToastUtil.toast(getString(R.string.phoneNumberInvalid));
             setIsCounting(false);
-        }  else {
+        } else {
             if (getLoginType()) {
                 if (TextUtils.isEmpty(getPassword())) {
                     ToastUtil.toast("请输入登录密码");

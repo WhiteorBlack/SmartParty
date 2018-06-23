@@ -1,6 +1,7 @@
 package com.qiantang.smartparty.module.web.viewmodel;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -11,8 +12,10 @@ import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.CommentAdapter;
 import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.config.CacheKey;
+import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.modle.HttpResult;
 import com.qiantang.smartparty.modle.RxActivityDetial;
+import com.qiantang.smartparty.modle.RxAddScore;
 import com.qiantang.smartparty.modle.RxComment;
 import com.qiantang.smartparty.modle.RxSpecialDetial;
 import com.qiantang.smartparty.module.index.view.VoiceSpeechDetialActivity;
@@ -21,7 +24,10 @@ import com.qiantang.smartparty.network.NetworkSubscriber;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
 import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
 import com.qiantang.smartparty.utils.AppUtil;
+import com.qiantang.smartparty.utils.ToastUtil;
 import com.trello.rxlifecycle2.android.ActivityEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -38,6 +44,7 @@ public class WebHeadViewModel implements ViewModel {
     private boolean isDealing = false;
     private int addCommentCount = 0;
     private int type = 0;
+    private long startTime;
 
     public WebHeadViewModel(BaseBindActivity activity, CommentAdapter commentAdapter) {
         this.activity = activity;
@@ -46,6 +53,7 @@ public class WebHeadViewModel implements ViewModel {
     }
 
     private void initData() {
+        startTime = System.currentTimeMillis();
         id = activity.getIntent().getStringExtra("id");
         type = activity.getIntent().getIntExtra("type", 0);
     }
@@ -75,7 +83,11 @@ public class WebHeadViewModel implements ViewModel {
                             commentCount = data.getDetail().getCommentSum();
                             ((HeadWebActivity) activity).updateCollect(data.getDetail().getCollect() != 0);
                             ((HeadWebActivity) activity).updateCount(data.getDetail().getCommentSum());
-                            commentAdapter.setPagingData(data.getComment(), pageNo);
+                            if (Config.isLoadMore) {
+                                commentAdapter.setPagingData(data.getComment(), pageNo);
+                            } else {
+                                commentAdapter.setNewData(data.getComment());
+                            }
                         }
                     });
 
@@ -98,7 +110,11 @@ public class WebHeadViewModel implements ViewModel {
                             commentCount = data.getDetail().getCommentSum();
                             ((HeadWebActivity) activity).updateCollect(data.getDetail().getCollect() != 0);
                             ((HeadWebActivity) activity).updateCount(data.getDetail().getCommentSum());
-                            commentAdapter.setPagingData(data.getComment(), pageNo);
+                            if (Config.isLoadMore) {
+                                commentAdapter.setPagingData(data.getComment(), pageNo);
+                            } else {
+                                commentAdapter.setNewData(data.getComment());
+                            }
                         }
                     });
         } else {
@@ -126,7 +142,11 @@ public class WebHeadViewModel implements ViewModel {
                                 commentAdapter.notifyDataSetChanged();
                                 addCommentCount = 0;
                             }
-                            commentAdapter.setPagingData(data.getPl(), pageNo);
+                            if (Config.isLoadMore) {
+                                commentAdapter.setPagingData(data.getPl(), pageNo);
+                            } else {
+                                commentAdapter.setNewData(data.getPl());
+                            }
                         }
                     });
         }
@@ -134,6 +154,10 @@ public class WebHeadViewModel implements ViewModel {
 
 
     public void comment(String content) {
+        if (TextUtils.isEmpty(content)) {
+            ToastUtil.toast("请输入评论内容");
+            return;
+        }
         isDealing = true;
         ApiWrapper.getInstance().comment(content, id)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
@@ -147,6 +171,7 @@ public class WebHeadViewModel implements ViewModel {
                     @Override
                     public void onSuccess(HttpResult data) {
                         getData(pageNo + 1, false);
+                        EventBus.getDefault().post(new RxAddScore(CacheKey.COMMENT, 0, id));
 //                        addCommentCount++;
 //                        commentCount+=1;
 //                        ((HeadWebActivity) activity).updateCount(commentCount);
@@ -284,6 +309,6 @@ public class WebHeadViewModel implements ViewModel {
 
     @Override
     public void destroy() {
-
+        EventBus.getDefault().post(new RxAddScore(CacheKey.READ, (int) (System.currentTimeMillis() - startTime), id));
     }
 }

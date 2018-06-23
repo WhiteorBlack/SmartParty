@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data></data>
+    <data>
+
+        <import type="com.qiantang.smartparty.utils.MyTextUtils" />
+
+        <variable
+            name="item"
+            type="com.qiantang.smartparty.modle.RxMonthScore" />
+    </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -25,7 +32,7 @@
             android:layout_toRightOf="@+id/iv_red"
             android:ellipsize="end"
             android:lines="1"
-            android:text="学习"
+            android:text="@{MyTextUtils.getScoreTitle(item.content,item.status)}"
             android:textColor="@color/black"
             android:textSize="28px" />
 
@@ -37,7 +44,7 @@
             android:layout_alignLeft="@+id/tv_name"
             android:layout_below="@+id/tv_name"
             android:layout_marginTop="17px"
-            android:text="222" />
+            android:text="@{MyTextUtils.getScoreData(item.creationtime)}" />
 
         <TextView
             android:id="@+id/tv_score"
@@ -47,7 +54,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="40px"
-            android:text="+12"
+            android:text="@{MyTextUtils.getScore(item.learningability)}"
             android:textStyle="bold" />
 
         <View

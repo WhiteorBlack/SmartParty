@@ -35,7 +35,14 @@ public class CharacterActivity extends BaseBindActivity {
         binding.toolbar.setTitle("人物表彰");
         binding.toolbar.setResId(R.mipmap.icon_search_black);
         initRv(binding.rv);
-        viewModel.getData(5);
+        viewModel.getData(1,5);
+        initRefresh(binding.cptr);
+    }
+
+    @Override
+    public void refreshData() {
+        super.refreshData();
+        viewModel.getData(1,5);
     }
 
     private void initRv(RecyclerView rv) {

@@ -16,8 +16,10 @@ import com.qiantang.smartparty.modle.RxFeeRecord;
 import com.qiantang.smartparty.modle.RxIndex;
 import com.qiantang.smartparty.modle.RxIndexCommon;
 import com.qiantang.smartparty.modle.RxIndexSpeak;
+import com.qiantang.smartparty.modle.RxIsApplyFor;
 import com.qiantang.smartparty.modle.RxLearningClass;
 import com.qiantang.smartparty.modle.RxLearningList;
+import com.qiantang.smartparty.modle.RxMonthScore;
 import com.qiantang.smartparty.modle.RxMsg;
 import com.qiantang.smartparty.modle.RxMyStudy;
 import com.qiantang.smartparty.modle.RxMyUserInfo;
@@ -29,7 +31,10 @@ import com.qiantang.smartparty.modle.RxPersonalCenter;
 import com.qiantang.smartparty.modle.RxRankBranch;
 import com.qiantang.smartparty.modle.RxRankPersonal;
 import com.qiantang.smartparty.modle.RxRecordDetial;
+import com.qiantang.smartparty.modle.RxSetting;
+import com.qiantang.smartparty.modle.RxSign;
 import com.qiantang.smartparty.modle.RxSignList;
+import com.qiantang.smartparty.modle.RxSignResult;
 import com.qiantang.smartparty.modle.RxSpecialDetial;
 import com.qiantang.smartparty.modle.RxSpeechDetial;
 import com.qiantang.smartparty.modle.RxStructureLevelOne;
@@ -42,6 +47,7 @@ import com.qiantang.smartparty.modle.RxTestDetial;
 import com.qiantang.smartparty.modle.RxTestDoneInfo;
 import com.qiantang.smartparty.modle.RxTestInfo;
 import com.qiantang.smartparty.modle.RxThinkDetial;
+import com.qiantang.smartparty.modle.RxTotalScore;
 import com.qiantang.smartparty.modle.RxUploadUrl;
 import com.qiantang.smartparty.modle.RxVideoDetial;
 import com.qiantang.smartparty.modle.RxVideoStudy;
@@ -149,7 +155,10 @@ public interface ApiService {
     @FormUrlEncoded
     //党建活动详情
     @POST("app/partyBuild/djActivityDetails")
-    Observable<HttpResult<RxActivityDetial>> djActivityDetails(@Field("pageNum") int page,
+//    Observable<HttpResult<RxActivityDetial>> djActivityDetails(@Field("pageNum") int page,
+//                                                               @Field("activityId") String activityId,
+//                                                               @Field("userId") String userId);
+    Observable<HttpResult<RxActivityDetial>> djActivityDetails(
                                                                @Field("activityId") String activityId,
                                                                @Field("userId") String userId);
 
@@ -191,14 +200,21 @@ public interface ApiService {
     //党建风采详情
     @FormUrlEncoded
     @POST("app/partyBuild/fcNoticeDetails")
-    Observable<HttpResult<RxActivityDetial>> fcNoticeDetails(@Field("pageNum") int page,
+//    Observable<HttpResult<RxActivityDetial>> fcNoticeDetails(@Field("pageNum") int page,
+//                                                             @Field("contentId") String contentId,
+//                                                             @Field("userId") String userId);
+    Observable<HttpResult<RxActivityDetial>> fcNoticeDetails(
                                                              @Field("contentId") String contentId,
                                                              @Field("userId") String userId);
 
     //人物表彰详情
     @FormUrlEncoded
     @POST("app/partyBuild/rwNoticeDetails")
-    Observable<HttpResult<RxCharacterDetial>> rwNoticeDetails(@Field("pageNum") int page,
+//    Observable<HttpResult<RxCharacterDetial>> rwNoticeDetails(@Field("pageNum") int page,
+//                                                              @Field("printurl") String printurl,
+//                                                              @Field("contentId") String contentId,
+//                                                              @Field("userId") String userId);
+    Observable<HttpResult<RxCharacterDetial>> rwNoticeDetails(
                                                               @Field("printurl") String printurl,
                                                               @Field("contentId") String contentId,
                                                               @Field("userId") String userId);
@@ -218,15 +234,15 @@ public interface ApiService {
     //思想汇报发表
     @FormUrlEncoded
     @POST("app/partyBuild/insertThinking")
-    Observable<HttpResult<String>> insertThinking(@Field("title") String title,
-                                                  @Field("content") String content,
-                                                  @Field("userId") String userId);
+    Observable<HttpResult<HttpResult>> insertThinking(@Field("title") String title,
+                                                      @Field("content") String content,
+                                                      @Field("userId") String userId);
 
     //反馈发表
     @FormUrlEncoded
     @POST("app/partyBuild/insertIdea")
-    Observable<HttpResult<String>> insertIdea(@Field("content") String content,
-                                              @Field("userId") String userId);
+    Observable<HttpResult<HttpResult>> insertIdea(@Field("content") String content,
+                                                  @Field("userId") String userId);
 
     //反馈列表
     @FormUrlEncoded
@@ -252,15 +268,19 @@ public interface ApiService {
     //视频学习详情
     @FormUrlEncoded
     @POST("app/video/details")
-    Observable<HttpResult<RxVideoDetial>> videoDetails(@Field("pageNum") int page,
-                                                       @Field("videoId") String videoId,
+//    Observable<HttpResult<RxVideoDetial>> videoDetails(@Field("pageNum") int page,
+//                                                       @Field("videoId") String videoId,
+//                                                       @Field("userId") String userId);
+    Observable<HttpResult<RxVideoDetial>> videoDetails(@Field("videoId") String videoId,
                                                        @Field("userId") String userId);
 
     //系列讲话详情
     @FormUrlEncoded
     @POST("app/speak/details")
-    Observable<HttpResult<RxSpeechDetial>> speechDetails(@Field("pageNum") int page,
-                                                         @Field("speakId") String videoId,
+//    Observable<HttpResult<RxSpeechDetial>> speechDetails(@Field("pageNum") int page,
+//                                                         @Field("speakId") String videoId,
+//                                                         @Field("userId") String userId);
+    Observable<HttpResult<RxSpeechDetial>> speechDetails(@Field("speakId") String videoId,
                                                          @Field("userId") String userId);
 
     //视频学习点赞
@@ -325,9 +345,11 @@ public interface ApiService {
     //理论在线详情
     @FormUrlEncoded
     @POST("app/content/theoryDetails")
-    Observable<HttpResult<RxSpecialDetial>> theoryDetails(@Field("pageNum") int pageNum,
-                                                   @Field("contentId") String contentId,
-                                                   @Field("userId") String userId);
+//    Observable<HttpResult<RxSpecialDetial>> theoryDetails(@Field("pageNum") int pageNum,
+//                                                          @Field("contentId") String contentId,
+//                                                          @Field("userId") String userId);
+    Observable<HttpResult<RxSpecialDetial>> theoryDetails(@Field("contentId") String contentId,
+                                                          @Field("userId") String userId);
 
     //专题学习列表 收藏
     @FormUrlEncoded
@@ -335,10 +357,13 @@ public interface ApiService {
     Observable<HttpResult<RxOnline>> userTheory(@Field("pageNum") int pageNum,
                                                 @Field("userId") String userId);
 
-    //专题学习列表
+    //专题学习详情
     @FormUrlEncoded
     @POST("app/content/specialDetails")
-    Observable<HttpResult<RxSpecialDetial>> specialDetails(@Field("pageNum") int pageNum,
+//    Observable<HttpResult<RxSpecialDetial>> specialDetails(@Field("pageNum") int pageNum,
+//                                                           @Field("contentId") String contentId,
+//                                                           @Field("userId") String userId);
+    Observable<HttpResult<RxSpecialDetial>> specialDetails(
                                                            @Field("contentId") String contentId,
                                                            @Field("userId") String userId);
 
@@ -408,7 +433,11 @@ public interface ApiService {
     //先进典范详情
     @FormUrlEncoded
     @POST("app/content/paragonDetails")
-    Observable<HttpResult<RxParagonDetial>> paragonDetails(@Field("pageNum") int page,
+//    Observable<HttpResult<RxParagonDetial>> paragonDetails(@Field("pageNum") int page,
+//                                                           @Field("printurl") String printurl,
+//                                                           @Field("contentId") String contentId,
+//                                                           @Field("userId") String userId);
+    Observable<HttpResult<RxParagonDetial>> paragonDetails(
                                                            @Field("printurl") String printurl,
                                                            @Field("contentId") String contentId,
                                                            @Field("userId") String userId);
@@ -427,7 +456,10 @@ public interface ApiService {
     //好书推荐详情
     @FormUrlEncoded
     @POST("app/content/recommendDetails")
-    Observable<HttpResult<RxBookDetial>> recommendDetails(@Field("pageNum") int page,
+//    Observable<HttpResult<RxBookDetial>> recommendDetails(@Field("pageNum") int page,
+//                                                          @Field("contentId") String contentId,
+//                                                          @Field("userId") String userId);
+    Observable<HttpResult<RxBookDetial>> recommendDetails(
                                                           @Field("contentId") String contentId,
                                                           @Field("userId") String userId);
 
@@ -584,5 +616,49 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("app/userCenter/applyDetail")
     Observable<HttpResult<RxApplyDetial>> applyDetail(@Field("userId") String userId);
+
+    //入党申请详情
+    @FormUrlEncoded
+    @POST("app/userCenter/isApplyFor")
+    Observable<HttpResult<RxIsApplyFor>> isApplyFor(@Field("userId") String userId);
+
+    //月学习值
+    @FormUrlEncoded
+    @POST("app/userCenter/learnMonths")
+    Observable<HttpResult<List<RxMonthScore>>> learnMonths(@Field("phone") String phone,
+                                                           @Field("date") String date,
+                                                           @Field("pageNum") int pageNum);
+
+    //年学习值
+    @FormUrlEncoded
+    @POST("app/userCenter/learningability")
+    Observable<HttpResult<List<RxTotalScore>>> learningability(@Field("phone") String phone,
+                                                               @Field("pageNum") int pageNum);
+
+    //添加学习值
+    @FormUrlEncoded
+    @POST("app/learningability/addLearningability")
+    Observable<HttpResult<HttpResult>> addLearningability(@Field("userId") String userId,
+                                                          @Field("type") int type,
+                                                          @Field("time") int time,
+                                                          @Field("contentId") String contentId);
+
+    //年学习值
+    @FormUrlEncoded
+    @POST("app/userCenter/install")
+    Observable<HttpResult<RxSetting>> install(@Field("phone") String phone);
+
+    //签到信息
+    @FormUrlEncoded
+    @POST("app/partyBuild/sign")
+    Observable<HttpResult<RxSign>> sign(@Field("activityId") String activityId,
+                                        @Field("userId") String userId);
+
+    //签到信息
+    @FormUrlEncoded
+    @POST("app/partyBuild/signDetails")
+    Observable<HttpResult<RxSignResult>> signDetails(@Field("activityId") String activityId,
+                                                     @Field("userId") String userId,
+                                                     @Field("site") String site);
 
 }

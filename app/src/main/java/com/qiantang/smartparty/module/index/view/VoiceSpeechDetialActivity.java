@@ -13,11 +13,13 @@ import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.CommentAdapter;
+import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.databinding.ActivityVoiceSpeechDetialBinding;
 import com.qiantang.smartparty.databinding.ViewVoiceSpeechHeadBinding;
 import com.qiantang.smartparty.module.index.popwindow.SpeechPop;
 import com.qiantang.smartparty.module.index.viewmodel.VoiceSpeechDetialViewMdoel;
 import com.qiantang.smartparty.module.input.viewmodel.InputViewModel;
+import com.qiantang.smartparty.utils.ActivityUtil;
 import com.qiantang.smartparty.utils.AutoUtils;
 import com.qiantang.smartparty.utils.Player;
 import com.qiantang.smartparty.utils.RecycleViewUtils;
@@ -58,7 +60,7 @@ public class VoiceSpeechDetialActivity extends BaseBindActivity implements Compo
         inputViewModel.setHint("发表学习感悟...");
         viewMdoel.initData();
         initRv(binding.rv);
-        viewMdoel.testData(1,false);
+        viewMdoel.testData(1, false);
         initRefresh(binding.cptr);
     }
 
@@ -70,15 +72,17 @@ public class VoiceSpeechDetialActivity extends BaseBindActivity implements Compo
     @Override
     public void refreshData() {
         super.refreshData();
-        viewMdoel.testData(1,true);
+        viewMdoel.testData(1, true);
     }
 
     private void initRv(RecyclerView rv) {
         AutoUtils.auto(headBinding.getRoot());
         adapter.addHeaderView(headBinding.getRoot());
-        adapter.setEnableLoadMore(true);
+        adapter.setEnableLoadMore(Config.isLoadMore);
         adapter.setLoadMoreView(RecycleViewUtils.getLoadMoreView());
-        adapter.setOnLoadMoreListener(() -> viewMdoel.loadMore(), rv);
+        if (Config.isLoadMore) {
+            adapter.setOnLoadMoreListener(() -> viewMdoel.loadMore(), rv);
+        }
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
         rv.addOnItemTouchListener(viewMdoel.onItemTouchListener());
@@ -124,6 +128,10 @@ public class VoiceSpeechDetialActivity extends BaseBindActivity implements Compo
                 onBackPressed();
                 break;
             case R.id.tv_send:
+                if (!MyApplication.isLogin()){
+                    ActivityUtil.startLoginActivity(this);
+                    return;
+                }
                 viewMdoel.comment(inputViewModel.getTextString());
                 inputViewModel.setTextString("");
                 closeInput();

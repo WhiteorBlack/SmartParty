@@ -80,7 +80,7 @@ public class CharacterDetialViewModel extends BaseObservable implements ViewMode
     }
 
     public void getData(int pageNo) {
-        this.pageNo=pageNo;
+        this.pageNo = pageNo;
         ApiWrapper.getInstance().rwNoticeDetails(pageNo, id, printurl)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new NetworkSubscriber<RxCharacterDetial>() {
@@ -94,9 +94,13 @@ public class CharacterDetialViewModel extends BaseObservable implements ViewMode
                     @Override
                     public void onSuccess(RxCharacterDetial data) {
                         activity.refreshOK();
-                        adapter.setPagingData(data.getPl(), pageNo);
+                        if (Config.isLoadMore) {
+                            adapter.setPagingData(data.getPl(), pageNo);
+                        } else {
+                            adapter.setNewData(data.getPl());
+                        }
                         setCommentCount(data.getCount());
-                        if (pageNo == 1&&picListSize==0) {
+                        if (pageNo == 1 && picListSize == 0) {
                             picListSize = data.getImgSrc().size();
                             setPicCount("1/" + picListSize);
                             setDetials(data);
@@ -124,9 +128,10 @@ public class CharacterDetialViewModel extends BaseObservable implements ViewMode
 
                     @Override
                     public void onSuccess(HttpResult data) {
-                        RxCharacterDetial detial = getDetials();
-                        setCommentCount(getCommentCount() + 1);
-                        setDetials(detial);
+//                        RxCharacterDetial detial = getDetials();
+//                        setCommentCount(getCommentCount() + 1);
+//                        setDetials(detial);
+                        getData(pageNo+1);
                         ((CharacterDetialActivity) activity).dissmissCommentBox();
                     }
                 });
@@ -134,7 +139,7 @@ public class CharacterDetialViewModel extends BaseObservable implements ViewMode
 
     public void commentLike(String id) {
         isDealing = true;
-        ApiWrapper.getInstance().commentLike(1, id, "")
+        ApiWrapper.getInstance().videoLike(id)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .doOnTerminate(() -> isDealing = false)
                 .subscribe(new NetworkSubscriber<HttpResult>() {
@@ -154,7 +159,7 @@ public class CharacterDetialViewModel extends BaseObservable implements ViewMode
 
     private void cancelLike(String id) {
         isDealing = true;
-        ApiWrapper.getInstance().cancelLike(id)
+        ApiWrapper.getInstance().removeVideoLike(id)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .doOnTerminate(() -> isDealing = false)
                 .subscribe(new NetworkSubscriber<HttpResult>() {

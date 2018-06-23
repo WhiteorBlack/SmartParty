@@ -6,6 +6,12 @@
         <variable
             name="viewModel"
             type="com.qiantang.smartparty.module.mine.viewmodel.SettingViewModel" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="com.qiantang.smartparty.R" />
+
+        <import type="com.qiantang.smartparty.utils.AppUtil" />
     </data>
 
     <LinearLayout
@@ -46,7 +52,8 @@
                 style="@style/black26"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="30px" />
+                android:layout_marginRight="30px"
+                android:text="@{AppUtil.getPhone(viewModel.bindPhone)}" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -81,7 +88,38 @@
                 style="@style/black26"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="30px" />
+                android:layout_marginRight="30px"
+                android:text="@{TextUtils.isEmpty(viewModel.rxSetting.wx)?AppUtil.getString(`未绑定`):AppUtil.getString(`已绑定`)}"
+                android:textColor="@{TextUtils.isEmpty(viewModel.rxSetting.wx)?AppUtil.getColor(R.color.barColor):AppUtil.getColor(R.color.black)}" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/icon_step_arrow" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/Mine_list"
+            android:layout_height="104px"
+            android:background="@color/white"
+            android:paddingRight="@dimen/sideMargin">
+
+            <TextView
+                style="@style/gray24"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+                android:layout_weight="1"
+                android:text="QQ" />
+
+            <TextView
+                android:id="@+id/tv_qq"
+                style="@style/black26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30px"
+                android:text="@{TextUtils.isEmpty(viewModel.rxSetting.qq)?AppUtil.getString(`未绑定`):AppUtil.getString(`已绑定`)}"
+                android:textColor="@{TextUtils.isEmpty(viewModel.rxSetting.qq)?AppUtil.getColor(R.color.barColor):AppUtil.getColor(R.color.black)}" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -99,9 +137,9 @@
 
         <LinearLayout
             android:id="@+id/ll_service"
-            android:onClick="onClick"
             style="@style/Mine_list"
             android:layout_height="104px"
+            android:onClick="onClick"
             android:paddingRight="@dimen/sideMargin">
 
             <TextView
@@ -117,8 +155,8 @@
                 style="@style/black26"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.servicePhone}"
-                android:layout_marginRight="30px" />
+                android:layout_marginRight="30px"
+                android:text="@{viewModel.servicePhone}" />
 
             <ImageView
                 android:layout_width="wrap_content"

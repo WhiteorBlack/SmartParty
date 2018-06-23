@@ -11,6 +11,7 @@ import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.CommentAdapter;
 import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.config.CacheKey;
+import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.modle.HttpResult;
 import com.qiantang.smartparty.modle.RxActivityDetial;
 import com.qiantang.smartparty.modle.RxComment;
@@ -55,7 +56,7 @@ public class MienDetialViewModel implements ViewModel {
     }
 
     public void getData(int pageNo) {
-        this.pageNo=pageNo;
+        this.pageNo = pageNo;
         ApiWrapper.getInstance().fcNoticeDetails(pageNo, id)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new NetworkSubscriber<RxActivityDetial>() {
@@ -74,15 +75,12 @@ public class MienDetialViewModel implements ViewModel {
                         ((MienDetialActivity) activity).updateCollect(data.getDetials().getCollect() != 0);
                         ((MeetingDetialActivity) activity).updateCount(data.getCount());
                         ((MeetingDetialActivity) activity).updateCollect(data.getDetials().getCollect() != 0);
-                        if (addCommentCount > 0) {
-                            List<RxComment> comments = commentAdapter.getData();
-                            for (int i = 0; i < addCommentCount; i++) {
-                                comments.remove(comments.size() - 1);
-                            }
-                            commentAdapter.notifyDataSetChanged();
-                            addCommentCount = 0;
+
+                        if (Config.isLoadMore) {
+                            commentAdapter.setPagingData(data.getPl(), pageNo);
+                        } else {
+                            commentAdapter.setNewData(data.getPl());
                         }
-                        commentAdapter.setPagingData(data.getPl(), pageNo);
                     }
                 });
     }
@@ -101,6 +99,7 @@ public class MienDetialViewModel implements ViewModel {
 
                     @Override
                     public void onSuccess(HttpResult data) {
+                        getData(pageNo + 1);
 //                        addCommentCount++;
 //                        commentCount += 1;
 //                        ((MienDetialActivity) activity).updateCount(commentCount);

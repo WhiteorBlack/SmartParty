@@ -57,6 +57,7 @@ public class CompeteViewModel extends BaseObservable implements ViewModel {
         initDateView();
         initPartyView();
         phone = activity.getIntent().getStringExtra("phone");
+        password.set(activity.getIntent().getStringExtra("pwd"));
     }
 
     private void initPartyView() {

@@ -21,8 +21,10 @@ import com.qiantang.smartparty.modle.RxFeeRecord;
 import com.qiantang.smartparty.modle.RxIndex;
 import com.qiantang.smartparty.modle.RxIndexCommon;
 import com.qiantang.smartparty.modle.RxIndexSpeak;
+import com.qiantang.smartparty.modle.RxIsApplyFor;
 import com.qiantang.smartparty.modle.RxLearningClass;
 import com.qiantang.smartparty.modle.RxLearningList;
+import com.qiantang.smartparty.modle.RxMonthScore;
 import com.qiantang.smartparty.modle.RxMsg;
 import com.qiantang.smartparty.modle.RxMyStudy;
 import com.qiantang.smartparty.modle.RxMyUserInfo;
@@ -34,7 +36,10 @@ import com.qiantang.smartparty.modle.RxPersonalCenter;
 import com.qiantang.smartparty.modle.RxRankBranch;
 import com.qiantang.smartparty.modle.RxRankPersonal;
 import com.qiantang.smartparty.modle.RxRecordDetial;
+import com.qiantang.smartparty.modle.RxSetting;
+import com.qiantang.smartparty.modle.RxSign;
 import com.qiantang.smartparty.modle.RxSignList;
+import com.qiantang.smartparty.modle.RxSignResult;
 import com.qiantang.smartparty.modle.RxSpecialDetial;
 import com.qiantang.smartparty.modle.RxSpeechDetial;
 import com.qiantang.smartparty.modle.RxStructureLevelOne;
@@ -47,9 +52,11 @@ import com.qiantang.smartparty.modle.RxTestDetial;
 import com.qiantang.smartparty.modle.RxTestDoneInfo;
 import com.qiantang.smartparty.modle.RxTestInfo;
 import com.qiantang.smartparty.modle.RxThinkDetial;
+import com.qiantang.smartparty.modle.RxTotalScore;
 import com.qiantang.smartparty.modle.RxUploadUrl;
 import com.qiantang.smartparty.modle.RxVideoDetial;
 import com.qiantang.smartparty.modle.RxVideoStudy;
+import com.qiantang.smartparty.module.mine.view.MyTestActivity;
 import com.qiantang.smartparty.utils.luban.Luban;
 
 import java.io.File;
@@ -298,7 +305,8 @@ public class ApiWrapper extends RetrofitUtil {
      * @return
      */
     public Observable<RxActivityDetial> djActivityDetails(int page, String id) {
-        return getService().djActivityDetails(page, id, MyApplication.USER_ID).compose(this.applySchedulers());
+        return getService().djActivityDetails(id, MyApplication.USER_ID).compose(this.applySchedulers());
+//        return getService().djActivityDetails(page, id, MyApplication.USER_ID).compose(this.applySchedulers());
     }
 
     /**
@@ -340,7 +348,8 @@ public class ApiWrapper extends RetrofitUtil {
      * @return
      */
     public Observable<RxActivityDetial> fcNoticeDetails(int page, String id) {
-        return getService().fcNoticeDetails(page, id, MyApplication.USER_ID).compose(this.applySchedulers());
+        return getService().fcNoticeDetails(id, MyApplication.USER_ID).compose(this.applySchedulers());
+//        return getService().fcNoticeDetails(page, id, MyApplication.USER_ID).compose(this.applySchedulers());
     }
 
     /**
@@ -351,7 +360,8 @@ public class ApiWrapper extends RetrofitUtil {
      * @return
      */
     public Observable<RxCharacterDetial> rwNoticeDetails(int page, String id, String printurl) {
-        return getService().rwNoticeDetails(page, printurl, id, MyApplication.USER_ID).compose(this.applySchedulers());
+        return getService().rwNoticeDetails(printurl, id, MyApplication.USER_ID).compose(this.applySchedulers());
+//        return getService().rwNoticeDetails(page, printurl, id, MyApplication.USER_ID).compose(this.applySchedulers());
     }
 
     /**
@@ -381,7 +391,7 @@ public class ApiWrapper extends RetrofitUtil {
      * @param content
      * @return
      */
-    public Observable<String> insertThinking(String title, String content) {
+    public Observable<HttpResult> insertThinking(String title, String content) {
         return getService().insertThinking(title, content, MyApplication.USER_ID).compose(this.applySchedulers());
     }
 
@@ -391,7 +401,7 @@ public class ApiWrapper extends RetrofitUtil {
      * @param content
      * @return
      */
-    public Observable<String> insertIdea(String content) {
+    public Observable<HttpResult> insertIdea(String content) {
         return getService().insertIdea(content, MyApplication.USER_ID).compose(this.applySchedulers());
     }
 
@@ -443,7 +453,8 @@ public class ApiWrapper extends RetrofitUtil {
      * @return
      */
     public Observable<RxVideoDetial> videoDetial(int pageNo, String id) {
-        return getService().videoDetails(pageNo, id, MyApplication.USER_ID).compose(this.applySchedulers());
+//        return getService().videoDetails(pageNo, id, MyApplication.USER_ID).compose(this.applySchedulers());
+        return getService().videoDetails(id, MyApplication.USER_ID).compose(this.applySchedulers());
     }
 
     /**
@@ -528,7 +539,8 @@ public class ApiWrapper extends RetrofitUtil {
      * @return
      */
     public Observable<RxSpeechDetial> speechDetial(int pageNo, String id) {
-        return getService().speechDetails(pageNo, id, MyApplication.USER_ID).compose(this.applySchedulers());
+//        return getService().speechDetails(pageNo, id, MyApplication.USER_ID).compose(this.applySchedulers());
+        return getService().speechDetails(id, MyApplication.USER_ID).compose(this.applySchedulers());
     }
 
     /**
@@ -559,7 +571,8 @@ public class ApiWrapper extends RetrofitUtil {
      * @return
      */
     public Observable<RxSpecialDetial> theoryDetails(int pageNo, String id) {
-        return getService().theoryDetails(pageNo, id,MyApplication.USER_ID).compose(this.applySchedulers());
+//        return getService().theoryDetails(pageNo, id, MyApplication.USER_ID).compose(this.applySchedulers());
+        return getService().theoryDetails(id, MyApplication.USER_ID).compose(this.applySchedulers());
     }
 
     /**
@@ -600,7 +613,8 @@ public class ApiWrapper extends RetrofitUtil {
      * @return
      */
     public Observable<RxSpecialDetial> specialDetails(int pageNo, String id) {
-        return getService().specialDetails(pageNo, id,MyApplication.USER_ID).compose(this.applySchedulers());
+        return getService().specialDetails(id, MyApplication.USER_ID).compose(this.applySchedulers());
+//        return getService().specialDetails(pageNo, id, MyApplication.USER_ID).compose(this.applySchedulers());
     }
 
     /**
@@ -714,7 +728,8 @@ public class ApiWrapper extends RetrofitUtil {
      * @return
      */
     public Observable<RxParagonDetial> paragonDetails(int page, String id, String printurl) {
-        return getService().paragonDetails(page, printurl, id, MyApplication.USER_ID).compose(this.applySchedulers());
+        return getService().paragonDetails(printurl, id, MyApplication.USER_ID).compose(this.applySchedulers());
+//        return getService().paragonDetails(page, printurl, id, MyApplication.USER_ID).compose(this.applySchedulers());
     }
 
     /**
@@ -745,7 +760,8 @@ public class ApiWrapper extends RetrofitUtil {
      * @return
      */
     public Observable<RxBookDetial> bookDetails(int page, String id) {
-        return getService().recommendDetails(page, id, MyApplication.USER_ID).compose(this.applySchedulers());
+        return getService().recommendDetails(id, MyApplication.USER_ID).compose(this.applySchedulers());
+//        return getService().recommendDetails(page, id, MyApplication.USER_ID).compose(this.applySchedulers());
     }
 
 
@@ -948,8 +964,8 @@ public class ApiWrapper extends RetrofitUtil {
      *
      * @return
      */
-    public Observable<HttpResult> modifyArchives(String date,String username,String pos,String deptId) {
-        return getService().modifyArchives(MyApplication.mCache.getAsString(CacheKey.PHONE), date,username,pos,deptId).compose(this.applySchedulers());
+    public Observable<HttpResult> modifyArchives(String date, String username, String pos, String deptId) {
+        return getService().modifyArchives(MyApplication.mCache.getAsString(CacheKey.PHONE), date, username, pos, deptId).compose(this.applySchedulers());
     }
 
     /**
@@ -972,13 +988,14 @@ public class ApiWrapper extends RetrofitUtil {
 
     /**
      * 绑定信手机号
+     *
      * @param phone
      * @param code
      * @param oldPhone
      * @return
      */
-    public Observable<HttpResult> bindPhone(String phone,String code,String oldPhone){
-        return getService().bindPhoneAfter(phone,code,oldPhone).compose(this.applySchedulers());
+    public Observable<HttpResult> bindPhone(String phone, String code, String oldPhone) {
+        return getService().bindPhoneAfter(phone, code, oldPhone).compose(this.applySchedulers());
     }
 
     /**
@@ -988,5 +1005,70 @@ public class ApiWrapper extends RetrofitUtil {
      */
     public Observable<RxApplyDetial> applyDetial() {
         return getService().applyDetail(MyApplication.USER_ID).compose(this.applySchedulers());
+    }
+
+    /**
+     * 入党申请详情
+     *
+     * @return
+     */
+    public Observable<RxIsApplyFor> isApplyFor() {
+        return getService().isApplyFor(MyApplication.USER_ID).compose(this.applySchedulers());
+    }
+
+    /**
+     * 月学习值
+     *
+     * @param pageNo
+     * @param date
+     * @return
+     */
+    public Observable<List<RxMonthScore>> learnMonths(int pageNo, String date) {
+        return getService().learnMonths(MyApplication.mCache.getAsString(CacheKey.PHONE), date, pageNo).compose(this.applySchedulers());
+    }
+
+    public Observable<List<RxTotalScore>> learningability(int pageNo) {
+        return getService().learningability(MyApplication.mCache.getAsString(CacheKey.PHONE), pageNo).compose(this.applySchedulers());
+    }
+
+    /**
+     * 添加学习值
+     *
+     * @param type
+     * @param time
+     * @param id
+     * @return
+     */
+    public Observable<HttpResult> addLearningability(int type, int time, String id) {
+        return getService().addLearningability(MyApplication.USER_ID, type, time, id).compose(this.applySchedulers());
+    }
+
+    /**
+     * 我的设置
+     *
+     * @return
+     */
+    public Observable<RxSetting> install() {
+        return getService().install(MyApplication.mCache.getAsString(CacheKey.PHONE)).compose(this.applySchedulers());
+    }
+
+    /**
+     * 签到信息
+     *
+     * @param id
+     * @return
+     */
+    public Observable<RxSign> sign(String id) {
+        return getService().sign(id, MyApplication.USER_ID).compose(this.applySchedulers());
+    }
+
+    /**
+     * 签到信息
+     *
+     * @param id
+     * @return
+     */
+    public Observable<RxSignResult> signDetails(String id, String site) {
+        return getService().signDetails(id, MyApplication.USER_ID, site).compose(this.applySchedulers());
     }
 }

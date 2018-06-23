@@ -32,7 +32,7 @@ public class VideoStudyFragmentAdapter extends EasyBindQuickAdapter<RxVideoStudy
 
     @Override
     protected void easyConvert(BindingViewHolder holder, RxVideoStudy item) {
-        ((SimpleDraweeView)holder.getBinding().getRoot().findViewById(R.id.sdv)).setImageURI(Config.IMAGE_HOST+item.getPicUrl());
+        ((SimpleDraweeView)holder.getBinding().getRoot().findViewById(R.id.sdv)).setImageURI(Config.IMAGE_HOST+item.getImg());
         holder.addOnClickListener(R.id.tv_name);
         holder.getBinding().setVariable(BR.item, item);
         holder.getBinding().executePendingBindings();

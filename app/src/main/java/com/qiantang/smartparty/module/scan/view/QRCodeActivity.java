@@ -13,6 +13,7 @@ import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.databinding.ActivityQrcodeBinding;
 import com.qiantang.smartparty.module.scan.viewmodel.QRCodeViewModel;
+import com.qiantang.smartparty.utils.ActivityUtil;
 import com.qiantang.smartparty.utils.ToastUtil;
 import com.qiantang.smartparty.utils.permissions.EasyPermission;
 import com.qiantang.smartparty.utils.permissions.PermissionCode;
@@ -97,11 +98,11 @@ public class QRCodeActivity extends BaseBindActivity implements QRCodeView.Deleg
 
     @Override
     public void onScanQRCodeSuccess(String result) {
-        Log.i(TAG, "result:" + result);
-        ToastUtil.toast(result);
-
-        vibrate();
-        mQRCodeView.startSpotDelay(3000);
+        ActivityUtil.startSignActivity(this, result);
+        mQRCodeView.stopCamera();
+        onBackPressed();
+//        vibrate();
+//        mQRCodeView.startSpotDelay(3000);
     }
 
     private void createDialog() {

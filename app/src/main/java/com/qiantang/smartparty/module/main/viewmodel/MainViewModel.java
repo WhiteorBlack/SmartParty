@@ -4,12 +4,16 @@ import android.Manifest;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
+import com.orhanobut.logger.Logger;
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.config.CacheKey;
 import com.qiantang.smartparty.config.updata.NotificationDownloadCreator;
 import com.qiantang.smartparty.config.updata.NotificationInstallCreator;
+import com.qiantang.smartparty.modle.HttpResult;
+import com.qiantang.smartparty.modle.RxAddScore;
+import com.qiantang.smartparty.modle.RxIsApplyFor;
 import com.qiantang.smartparty.modle.RxMyUserInfo;
 import com.qiantang.smartparty.modle.RxPersonalCenter;
 import com.qiantang.smartparty.network.NetworkSubscriber;
@@ -20,6 +24,9 @@ import com.qiantang.smartparty.utils.permissions.EasyPermission;
 import com.qiantang.smartparty.utils.permissions.PermissionCode;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.lzh.framework.updatepluginlib.UpdateBuilder;
 import org.lzh.framework.updatepluginlib.model.Update;
 import org.lzh.framework.updatepluginlib.strategy.UpdateStrategy;
@@ -41,6 +48,7 @@ public class MainViewModel implements ViewModel {
         checkPermission();
 //        versionCheck();
         getServicePhone();
+        EventBus.getDefault().register(this);
     }
 
     private void getServicePhone() {
@@ -123,8 +131,50 @@ public class MainViewModel implements ViewModel {
                 });
     }
 
+    public void isApplyFor() {
+        ApiWrapper.getInstance().isApplyFor()
+                .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
+                .subscribe(new NetworkSubscriber<RxIsApplyFor>() {
+                    @Override
+                    public void onSuccess(RxIsApplyFor data) {
+                        MyApplication.mCache.put(CacheKey.IS_APPLY_FOR, data.getApplyStatus() + "");
+                    }
+                });
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(RxAddScore rxAddScore) {
+        if (rxAddScore != null) {
+            addScore(rxAddScore.getType(), rxAddScore.getTime(), rxAddScore.getId());
+        }
+    }
+
+    /**
+     * 添加学习值
+     *
+     * @param type
+     * @param time
+     * @param id
+     */
+    public void addScore(int type, int time, String id) {
+        ApiWrapper.getInstance().addLearningability(type, time, id)
+                .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
+                .subscribe(new NetworkSubscriber<HttpResult>() {
+                    @Override
+                    public void onFail(RetrofitUtil.APIException e) {
+                        super.onFail(e);
+                        Logger.e("addScore" + e.getMessage());
+                    }
+
+                    @Override
+                    public void onSuccess(HttpResult data) {
+                        Logger.e("addScore" + data.getErrorMessage());
+                    }
+                });
+    }
+
     @Override
     public void destroy() {
-
+        EventBus.getDefault().unregister(this);
     }
 }

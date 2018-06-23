@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.base.ViewModel;
+import com.qiantang.smartparty.config.CacheKey;
 import com.qiantang.smartparty.config.Event;
 import com.qiantang.smartparty.modle.HttpResult;
 import com.qiantang.smartparty.modle.RxStudy;
@@ -165,7 +166,7 @@ public class PublishViewModel implements ViewModel {
                         }
                     }
                     adapter.notifyDataSetChanged();
-                    isHasNew=true;
+                    isHasNew = true;
                 }
             }
 
@@ -307,6 +308,30 @@ public class PublishViewModel implements ViewModel {
                     @Override
                     public void onSuccess(HttpResult data) {
                         EventBus.getDefault().post(Event.RELOAD);
+                        addScore(CacheKey.STUDY, 0, "");
+                    }
+                });
+    }
+
+    /**
+     * 添加学习值
+     *
+     * @param type
+     * @param time
+     * @param id
+     */
+    public void addScore(int type, int time, String id) {
+        ApiWrapper.getInstance().addLearningability(type, time, id)
+                .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
+                .subscribe(new NetworkSubscriber<HttpResult>() {
+                    @Override
+                    public void onFail(RetrofitUtil.APIException e) {
+                        super.onFail(e);
+                        activity.onBackPressed();
+                    }
+
+                    @Override
+                    public void onSuccess(HttpResult data) {
                         activity.onBackPressed();
                     }
                 });

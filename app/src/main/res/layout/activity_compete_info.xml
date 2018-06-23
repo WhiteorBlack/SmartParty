@@ -270,44 +270,44 @@
                     android:layout_marginTop="40px"
                     android:background="@color/line" />
 
-                <TextView
-                    android:id="@+id/tv_pwd"
-                    style="@style/gray24"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/line5"
-                    android:layout_marginLeft="30px"
-                    android:layout_marginTop="40px"
-                    android:text="登录密码" />
+                <!-- <TextView
+                     android:id="@+id/tv_pwd"
+                     style="@style/gray24"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_below="@+id/line5"
+                     android:layout_marginLeft="30px"
+                     android:layout_marginTop="40px"
+                     android:text="登录密码" />
 
-                <EditText
-                    android:id="@+id/et_pwd"
-                    style="@style/black26"
-                    android:layout_width="400px"
-                    android:layout_height="80px"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/line5"
-                    android:layout_marginTop="13px"
-                    android:background="@null"
-                    android:gravity="right|center_vertical"
-                    android:hint="请输入登录密码"
-                    android:inputType="text"
-                    android:paddingRight="30px"
-                    android:text="@={viewModel.password}" />
+                 <EditText
+                     android:id="@+id/et_pwd"
+                     style="@style/black26"
+                     android:layout_width="400px"
+                     android:layout_height="80px"
+                     android:layout_alignParentRight="true"
+                     android:layout_below="@+id/line5"
+                     android:layout_marginTop="13px"
+                     android:background="@null"
+                     android:gravity="right|center_vertical"
+                     android:hint="请输入登录密码"
+                     android:inputType="text"
+                     android:paddingRight="30px"
+                     android:text="@={viewModel.password}" />
 
-                <View
-                    android:id="@+id/line6"
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:layout_below="@+id/tv_pwd"
-                    android:layout_marginLeft="20px"
-                    android:layout_marginRight="20px"
-                    android:layout_marginTop="40px"
-                    android:background="@color/line" />
+                 <View
+                     android:id="@+id/line6"
+                     android:layout_width="match_parent"
+                     android:layout_height="1px"
+                     android:layout_below="@+id/tv_pwd"
+                     android:layout_marginLeft="20px"
+                     android:layout_marginRight="20px"
+                     android:layout_marginTop="40px"
+                     android:background="@color/line" />-->
 
                 <Button
                     style="@style/confirmBtn"
-                    android:layout_below="@+id/line6"
+                    android:layout_below="@+id/line5"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="80px"
                     android:onClick="onClick"

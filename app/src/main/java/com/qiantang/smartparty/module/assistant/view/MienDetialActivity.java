@@ -8,14 +8,17 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.qiantang.smartparty.BaseBindActivity;
+import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.CommentAdapter;
+import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.databinding.ActivityRecycleviewBinding;
 import com.qiantang.smartparty.databinding.ActivityRecycleviewCommenboxBinding;
 import com.qiantang.smartparty.databinding.ViewWebviewHeadBinding;
 import com.qiantang.smartparty.module.assistant.viewmodel.HeadWebViewModel;
 import com.qiantang.smartparty.module.assistant.viewmodel.MienDetialViewModel;
 import com.qiantang.smartparty.module.input.viewmodel.InputViewModel;
+import com.qiantang.smartparty.utils.ActivityUtil;
 import com.qiantang.smartparty.utils.AutoUtils;
 import com.qiantang.smartparty.utils.RecycleViewUtils;
 import com.qiantang.smartparty.widget.commentwidget.CommentBox;
@@ -93,10 +96,12 @@ public class MienDetialActivity extends BaseBindActivity  {
         });
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
-        adapter.setEnableLoadMore(true);
+        adapter.setEnableLoadMore(Config.isLoadMore);
         adapter.setLoadMoreView(RecycleViewUtils.getLoadMoreView());
         rv.addOnItemTouchListener(viewModel.onItemTouchListener());
+        if (Config.isLoadMore){
         adapter.setOnLoadMoreListener(() -> viewModel.loadMore(), rv);
+        }
         adapter.addHeaderView(headBinding.getRoot());
     }
 
@@ -107,6 +112,10 @@ public class MienDetialActivity extends BaseBindActivity  {
                 onBackPressed();
                 break;
             case R.id.tv_send:
+                if (!MyApplication.isLogin()){
+                    ActivityUtil.startLoginActivity(this);
+                    return;
+                }
                 viewModel.comment(inputViewModel.getTextString());
                 inputViewModel.setTextString("");
                 closeInput();

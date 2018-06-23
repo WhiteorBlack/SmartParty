@@ -69,21 +69,26 @@ public class ActivityDetialViewModel extends BaseObservable implements ViewModel
     private void initData() {
         id = activity.getIntent().getStringExtra("id");
         int status = activity.getIntent().getIntExtra("status", 0);
-        setStatus(3);
+        setStatus(status);
     }
 
     public void loadMore() {
         pageNo++;
-        getData();
+        getData(pageNo);
     }
 
-    public void getData() {
+    public void getData(int pageNo) {
+        this.pageNo = pageNo;
         ApiWrapper.getInstance().djActivityDetails(pageNo, id)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new NetworkSubscriber<RxActivityDetial>() {
                     @Override
                     public void onSuccess(RxActivityDetial data) {
-                        adapter.setPagingData(data.getPl(), pageNo);
+                        if (Config.isLoadMore) {
+                            adapter.setPagingData(data.getPl(), pageNo);
+                        } else {
+                            adapter.setNewData(data.getPl());
+                        }
                         if (pageNo == 1) {
                             isInput.set(data.getIsApply() == 1);
                             setCommentCount(data.getCount());
@@ -122,6 +127,7 @@ public class ActivityDetialViewModel extends BaseObservable implements ViewModel
 //                        RxPartyActivityDetial detial = getDetials();
 //                        setCommentCount(getCommentCount() + 1);
 //                        setDetials(detial);
+                        getData(pageNo + 1);
                         ((ActivityDetial) activity).dissmissCommentBox();
                     }
                 });
@@ -134,22 +140,22 @@ public class ActivityDetialViewModel extends BaseObservable implements ViewModel
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
-                        ToastUtil.toast("报名失败");
+                        ToastUtil.toast(e.getMessage());
                     }
 
                     @Override
                     public void onSuccess(HttpResult data) {
                         ToastUtil.toast("报名成功");
                         setStatus(4);
-                        List<RxSignInfo> signInfos = signRecordAdapter.getData();
-                        if (signInfos.size() < 9) {
-                            RxSignInfo rxSignInfo = new RxSignInfo();
-                            rxSignInfo.setAvatar(MyApplication.mCache.getAsString(CacheKey.USER_AVATAR));
-                            rxSignInfo.setUserId(MyApplication.USER_ID);
-                            signInfos.add(signInfos.size(), rxSignInfo);
-                            setHasSign(true);
-                            signRecordAdapter.notifyItemInserted(signInfos.size());
-                        }
+//                        List<RxSignInfo> signInfos = signRecordAdapter.getData();
+//                        if (signInfos.size() < 9) {
+//                            RxSignInfo rxSignInfo = new RxSignInfo();
+//                            rxSignInfo.setAvatar(MyApplication.mCache.getAsString(CacheKey.USER_AVATAR));
+//                            rxSignInfo.setUserId(MyApplication.USER_ID);
+//                            signInfos.add(signInfos.size(), rxSignInfo);
+//                            setHasSign(true);
+//                            signRecordAdapter.notifyItemInserted(signInfos.size());
+//                        }
                     }
                 });
     }

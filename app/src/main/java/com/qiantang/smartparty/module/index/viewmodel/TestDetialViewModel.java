@@ -13,7 +13,9 @@ import com.google.gson.Gson;
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.base.ViewModel;
+import com.qiantang.smartparty.config.CacheKey;
 import com.qiantang.smartparty.modle.HttpResult;
+import com.qiantang.smartparty.modle.RxAddScore;
 import com.qiantang.smartparty.modle.RxQuestion;
 import com.qiantang.smartparty.modle.RxTestDetial;
 import com.qiantang.smartparty.modle.RxTestSave;
@@ -29,6 +31,8 @@ import com.qiantang.smartparty.utils.ToastUtil;
 import com.qiantang.smartparty.widget.NoScrollRecycleView;
 import com.qiantang.smartparty.widget.loading.LoadingView;
 import com.trello.rxlifecycle2.android.ActivityEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -233,6 +237,7 @@ public class TestDetialViewModel extends BaseObservable implements ViewModel {
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                         setIsCommit(false);
+                        ToastUtil.toast(e.getMessage());
                     }
 
                     @Override
@@ -242,6 +247,7 @@ public class TestDetialViewModel extends BaseObservable implements ViewModel {
                         resultId = data.getUserquestionnaire_id();
                         setResultGrad(data.getGrade());
                         setCountTime("考试评测");
+                        EventBus.getDefault().post(new RxAddScore(CacheKey.TEST,coastTime*1000,id));
                     }
                 });
     }

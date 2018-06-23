@@ -18,4 +18,12 @@ public interface CacheKey {
     String PHONE="phone";
     String SERVICE_PHONE="servicePhone";
     String FIRST="isFirst";
+    String IS_APPLY_FOR="isApplyFor";
+
+    int VEDIO=1;
+    int VOICE=2;
+    int READ=3;
+    int TEST=4;
+    int STUDY=5;
+    int COMMENT=6;
 }

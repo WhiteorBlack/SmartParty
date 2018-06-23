@@ -2,6 +2,7 @@ package com.qiantang.smartparty.module.assistant.view;
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.qiantang.smartparty.BaseBindActivity;
@@ -32,15 +33,15 @@ public class StructureActivity extends BaseBindActivity {
     }
 
     private void initRv(RecyclerView rv) {
-        GridLayoutManager manager = new GridLayoutManager(this, 4);
-        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                return adapter.getItemViewType(position) == StructureAdapter.TYPE_PERSON ? 1 : manager.getSpanCount();
-            }
-        });
+//        GridLayoutManager manager = new GridLayoutManager(this, 4);
+//        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+//            @Override
+//            public int getSpanSize(int position) {
+//                return adapter.getItemViewType(position) == StructureAdapter.TYPE_PERSON ? 1 : manager.getSpanCount();
+//            }
+//        });
         rv.setAdapter(adapter);
-        rv.setLayoutManager(manager);
+        rv.setLayoutManager(new LinearLayoutManager(this));
         rv.addOnItemTouchListener(viewModel.onItemTouchListener());
     }
 

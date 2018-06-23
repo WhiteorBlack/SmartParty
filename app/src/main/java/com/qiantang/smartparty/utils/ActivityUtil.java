@@ -228,8 +228,9 @@ public class ActivityUtil {
      *
      * @param activity
      */
-    public static void startMonthScoreActivity(Activity activity) {
+    public static void startMonthScoreActivity(Activity activity, String date) {
         Intent intent = new Intent(activity, MonthScoreActivity.class);
+        intent.putExtra("date", date);
         activity.startActivity(intent);
     }
 
@@ -292,8 +293,9 @@ public class ActivityUtil {
      *
      * @param activity
      */
-    public static void startCompeteActivity(Activity activity, String phone) {
+    public static void startCompeteActivity(Activity activity, String phone, String pwd) {
         Intent intent = new Intent(activity, CompeteInfoActivity.class);
+        intent.putExtra("pwd", pwd);
         intent.putExtra("phone", phone);
         activity.startActivity(intent);
     }
@@ -601,8 +603,9 @@ public class ActivityUtil {
      *
      * @param activity
      */
-    public static void startSignActivity(Activity activity) {
+    public static void startSignActivity(Activity activity, String result) {
         Intent intent = new Intent(activity, SignActivity.class);
+        intent.putExtra("result", result);
         activity.startActivity(intent);
     }
 

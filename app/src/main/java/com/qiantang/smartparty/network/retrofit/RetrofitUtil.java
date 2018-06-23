@@ -19,6 +19,7 @@ import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.config.CacheKey;
 import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.modle.HttpResult;
+import com.qiantang.smartparty.modle.RxMonthScore;
 import com.qiantang.smartparty.network.ApiService;
 import com.qiantang.smartparty.utils.NetworkUtil;
 import com.qiantang.smartparty.utils.StringUtil;
@@ -31,6 +32,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -267,7 +269,14 @@ public class RetrofitUtil {
                         subscriber.onNext(object == null ? ((T) response) : object);
                     } else if (!TextUtils.isEmpty(response.getImgId())) {
                         subscriber.onNext(object == null ? ((T) response) : object);
-                    }  else {
+                    } else if (response.getCounts() > 0) {
+                        try {
+                            ((List<RxMonthScore>) object).get(0).setSocre(response.getCounts());
+                        } catch (Exception e) {
+
+                        }
+                        subscriber.onNext(object == null ? ((T) response) : object);
+                    } else {
                         subscriber.onNext(object == null ? ((T) response) : object);
                     }
                 }

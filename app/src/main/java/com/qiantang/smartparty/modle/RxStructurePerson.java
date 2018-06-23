@@ -9,6 +9,15 @@ import com.qiantang.smartparty.module.assistant.adapter.StructureAdapter;
 public class RxStructurePerson implements MultiItemEntity {
     private String avatar;
     private String username;
+    private String dept;
+
+    public String getDept() {
+        return dept;
+    }
+
+    public void setDept(String dept) {
+        this.dept = dept;
+    }
 
     public String getAvatar() {
         return avatar;

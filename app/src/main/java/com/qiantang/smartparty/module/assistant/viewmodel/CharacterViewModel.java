@@ -33,11 +33,12 @@ public class CharacterViewModel implements ViewModel {
 
     public void loadMore() {
         pageNo++;
-        getData(type);
+        getData(pageNo, type);
     }
 
-    public void getData(int type) {
+    public void getData(int pageNo, int type) {
         this.type = type;
+        this.pageNo = pageNo;
         ApiWrapper.getInstance().fcNotice(pageNo, type)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new NetworkSubscriber<List<RxIndexCommon>>() {
@@ -45,11 +46,13 @@ public class CharacterViewModel implements ViewModel {
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                         adapter.loadMoreEnd();
+                        activity.refreshFail();
                     }
 
                     @Override
                     public void onSuccess(List<RxIndexCommon> data) {
                         adapter.setPagingData(data, pageNo);
+                        activity.refreshOK();
                     }
                 });
     }

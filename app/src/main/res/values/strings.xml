@@ -15,4 +15,6 @@
     <string name="fragment_rank_more_personal">超出个人数</string>
     <string name="item_rank_join_text">人参与</string>
     <string name="overtime">已逾期</string>
+    <string name="rationale_gps_and_audio">需要使用GPS功能和语音功能</string>
+    <string name="rationale_gps">需要使用GPS功能</string>
 </resources>

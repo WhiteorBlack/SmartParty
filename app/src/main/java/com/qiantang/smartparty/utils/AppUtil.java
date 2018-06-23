@@ -98,6 +98,14 @@ public class AppUtil {
     }
 
 
+    public static String getString(String string) {
+        return string;
+    }
+
+    public static String getPhone(String phone) {
+        return phone.substring(0, 3) + "*****" + phone.substring(7, phone.length());
+    }
+
     /**
      * 学习排行
      *
@@ -131,7 +139,7 @@ public class AppUtil {
         int resId = 0;
         if (isAnswer) {
             resId = R.mipmap.test_selected_green;
-        } else if ( isSelected) {
+        } else if (isSelected) {
             resId = R.mipmap.test_selected_wrong;
         } else {
             resId = R.mipmap.test_unselected;

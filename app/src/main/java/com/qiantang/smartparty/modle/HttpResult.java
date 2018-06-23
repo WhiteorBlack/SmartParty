@@ -3,6 +3,8 @@ package com.qiantang.smartparty.modle;
 
 import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
 
+import java.util.List;
+
 public class HttpResult<T> {
     private String avatar;
     private String msg;
@@ -14,6 +16,15 @@ public class HttpResult<T> {
     private String imgId;
     private String imagePath;
     private String id;
+    private int counts;
+
+    public int getCounts() {
+        return counts;
+    }
+
+    public void setCounts(int counts) {
+        this.counts = counts;
+    }
 
     public String getErrorMessage() {
         return msg;

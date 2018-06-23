@@ -15,11 +15,13 @@ import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.CommentAdapter;
+import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.databinding.ActivityStudyVideoDetialBinding;
 import com.qiantang.smartparty.databinding.ViewVideoStudyHeadBinding;
 import com.qiantang.smartparty.module.index.adapter.VideoDetialAdapter;
 import com.qiantang.smartparty.module.index.viewmodel.VideoDetialViewMdoel;
 import com.qiantang.smartparty.module.input.viewmodel.InputViewModel;
+import com.qiantang.smartparty.utils.ActivityUtil;
 import com.qiantang.smartparty.utils.AppUtil;
 import com.qiantang.smartparty.utils.AutoUtils;
 import com.qiantang.smartparty.utils.RecycleViewUtils;
@@ -59,7 +61,7 @@ public class VideoStudyDetialActivity extends BaseBindActivity {
         initRefresh(binding.cptr);
         inputViewModel.setHint("发表学习感悟...");
         resolveNormalVideoUI();
-
+        String title = getIntent().getStringExtra("title");
         //外部辅助的旋转，帮助全屏
         orientationUtils = new OrientationUtils(this, binding.scv);
         //初始化不打开外部的旋转
@@ -74,7 +76,7 @@ public class VideoStudyDetialActivity extends BaseBindActivity {
                 .setShowFullAnimation(false)
                 .setNeedLockFull(true)
                 .setUrl("")
-                .setVideoTitle("")
+                .setVideoTitle(title)
                 .setCacheWithPlay(false)
                 .setVideoAllCallBack(new GSYSampleCallBack() {
                     @Override
@@ -129,7 +131,7 @@ public class VideoStudyDetialActivity extends BaseBindActivity {
         binding.scv.getBackButton().setOnClickListener(this::onClick);
         viewMdoel.initData();
         initRv(binding.rv);
-        viewMdoel.testData(1,false);
+        viewMdoel.testData(1, false);
     }
 
     @Override
@@ -140,16 +142,18 @@ public class VideoStudyDetialActivity extends BaseBindActivity {
     @Override
     public void refreshData() {
         super.refreshData();
-        viewMdoel.testData(1,true);
+        viewMdoel.testData(1, true);
     }
 
 
     private void initRv(RecyclerView rv) {
         AutoUtils.auto(headBinding.getRoot());
         adapter.addHeaderView(headBinding.getRoot());
-        adapter.setEnableLoadMore(true);
+        adapter.setEnableLoadMore(Config.isLoadMore);
         adapter.setLoadMoreView(RecycleViewUtils.getLoadMoreView());
-        adapter.setOnLoadMoreListener(() -> viewMdoel.loadMore(), rv);
+        if (Config.isLoadMore) {
+            adapter.setOnLoadMoreListener(() -> viewMdoel.loadMore(), rv);
+        }
         rv.addOnItemTouchListener(viewMdoel.onItemTouchListener());
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
@@ -179,6 +183,10 @@ public class VideoStudyDetialActivity extends BaseBindActivity {
                 onBackPressed();
                 break;
             case R.id.tv_send:
+                if (!MyApplication.isLogin()){
+                    ActivityUtil.startLoginActivity(this);
+                    return;
+                }
                 viewMdoel.comment(inputViewModel.getTextString());
                 inputViewModel.setTextString("");
                 closeInput();
@@ -230,6 +238,8 @@ public class VideoStudyDetialActivity extends BaseBindActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        long pos = getCurPlay().getGSYVideoManager().getMediaPlayer().getCurrentPosition();
+        viewMdoel.addScore((int) pos);
         if (isPlay) {
             getCurPlay().release();
         }

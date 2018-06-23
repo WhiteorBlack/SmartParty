@@ -12,12 +12,14 @@ import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.CommentAdapter;
+import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.databinding.ActivityCharacterDetialBinding;
 import com.qiantang.smartparty.databinding.ViewBookDetialHeadBinding;
 import com.qiantang.smartparty.databinding.ViewParagonHeadBinding;
 import com.qiantang.smartparty.module.index.viewmodel.BookDetialViewModel;
 import com.qiantang.smartparty.module.index.viewmodel.ParagonDetialViewModel;
 import com.qiantang.smartparty.module.input.viewmodel.InputViewModel;
+import com.qiantang.smartparty.utils.ActivityUtil;
 import com.qiantang.smartparty.utils.AutoUtils;
 import com.qiantang.smartparty.utils.RecycleViewUtils;
 import com.qiantang.smartparty.widget.MyBanner;
@@ -29,7 +31,7 @@ import com.qiantang.smartparty.widget.commentwidget.KeyboardControlMnanager;
  * Created by zhaoyong bai on 2018/5/28.
  * 人物表彰详情
  */
-public class BookDetialActivity extends BaseBindActivity  {
+public class BookDetialActivity extends BaseBindActivity {
     private BookDetialViewModel viewModel;
     private ActivityCharacterDetialBinding binding;
     private ViewBookDetialHeadBinding headBinding;
@@ -44,7 +46,7 @@ public class BookDetialActivity extends BaseBindActivity  {
         headBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.view_book_detial_head, null, false);
         headBinding.setViewModel(viewModel);
         headBinding.setViewModel(viewModel);
-        inputViewModel=new InputViewModel(this);
+        inputViewModel = new InputViewModel(this);
         binding.input.setViewModel(inputViewModel);
     }
 
@@ -100,20 +102,26 @@ public class BookDetialActivity extends BaseBindActivity  {
                 viewModel.prase();
                 break;
             case R.id.tv_send:
+                if (!MyApplication.isLogin()){
+                    ActivityUtil.startLoginActivity(this);
+                    return;
+                }
                 viewModel.comment(inputViewModel.getTextString());
                 break;
         }
     }
 
     private void initRv(RecyclerView rv) {
-        adapter.setEnableLoadMore(true);
+        adapter.setEnableLoadMore(Config.isLoadMore);
         AutoUtils.auto(headBinding.getRoot());
         adapter.addHeaderView(headBinding.getRoot());
         adapter.setLoadMoreView(RecycleViewUtils.getLoadMoreView());
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
         rv.addOnItemTouchListener(viewModel.onItemTouchListener());
-        adapter.setOnLoadMoreListener(() -> viewModel.loadMore(), rv);
+        if (Config.isLoadMore) {
+            adapter.setOnLoadMoreListener(() -> viewModel.loadMore(), rv);
+        }
         viewModel.getData(1);
     }
 

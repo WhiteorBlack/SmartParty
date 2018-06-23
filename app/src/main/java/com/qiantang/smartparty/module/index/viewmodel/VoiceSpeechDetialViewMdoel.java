@@ -13,6 +13,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.orhanobut.logger.Logger;
 import com.qiantang.smartparty.BR;
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.MyApplication;
@@ -22,6 +23,7 @@ import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.config.CacheKey;
 import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.modle.HttpResult;
+import com.qiantang.smartparty.modle.RxAddScore;
 import com.qiantang.smartparty.modle.RxComment;
 import com.qiantang.smartparty.modle.RxSpeechDetial;
 import com.qiantang.smartparty.modle.RxSpeechInfo;
@@ -33,6 +35,8 @@ import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
 import com.qiantang.smartparty.utils.AppUtil;
 import com.qiantang.smartparty.utils.fullhtml.TextViewForFullHtml;
 import com.trello.rxlifecycle2.android.ActivityEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by zhaoyong bai on 2018/5/25.
@@ -69,11 +73,16 @@ public class VoiceSpeechDetialViewMdoel extends BaseObservable implements ViewMo
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                         activity.refreshFail();
+                        adapter.loadMoreEnd();
                     }
 
                     @Override
                     public void onSuccess(RxSpeechDetial data) {
-                        adapter.setPagingData(data.getComment(), pageNo);
+                        if (Config.isLoadMore) {
+                            adapter.setPagingData(data.getComment(), pageNo);
+                        } else {
+                            adapter.setNewData(data.getComment());
+                        }
                         setVideoInfo(data.getVideo());
                         activity.refreshOK();
                         commentCount = data.getVideo().getReview();
@@ -121,10 +130,12 @@ public class VoiceSpeechDetialViewMdoel extends BaseObservable implements ViewMo
 //                        rxComment.setCreationtime(AppUtil.getNowDate());
 //                        adapter.getData().add(adapter.getData().size(), rxComment);
 //                        adapter.notifyItemInserted(adapter.getData().size());
+                        EventBus.getDefault().post(new RxAddScore(CacheKey.COMMENT, 0, ""));
                         testData(pageNo + 1, false);
                     }
                 });
     }
+
 
     /**
      * 评论点赞
@@ -278,6 +289,6 @@ public class VoiceSpeechDetialViewMdoel extends BaseObservable implements ViewMo
 
     @Override
     public void destroy() {
-
+        EventBus.getDefault().post(new RxAddScore(CacheKey.VOICE, (int) getPlayTime(), id));
     }
 }

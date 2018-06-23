@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/toolbar"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="123px"
+            android:layout_marginTop="100px"
             android:background="@mipmap/icon_reigster_top"
             android:scaleType="centerCrop" />
 
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/iv_top"
             android:layout_marginLeft="54px"
-            android:layout_marginTop="172px"
+            android:layout_marginTop="142px"
             android:background="@mipmap/icon_login_phone" />
 
         <View
@@ -42,7 +42,7 @@
             android:layout_height="37px"
             android:layout_below="@+id/iv_top"
             android:layout_marginLeft="24px"
-            android:layout_marginTop="168px"
+            android:layout_marginTop="138px"
             android:layout_toRightOf="@+id/iv_phone"
             android:background="@color/line" />
 
@@ -53,7 +53,7 @@
             android:layout_height="66px"
             android:layout_below="@+id/iv_top"
             android:layout_marginLeft="25px"
-            android:layout_marginTop="157px"
+            android:layout_marginTop="127px"
             android:layout_toRightOf="@+id/line"
             android:background="@null"
             android:gravity="left|center_vertical"
@@ -124,11 +124,54 @@
             android:layout_marginRight="35px"
             android:background="@color/line" />
 
+        <ImageView
+            android:id="@+id/iv_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line3"
+            android:layout_marginLeft="54px"
+            android:layout_marginTop="80px"
+            android:background="@mipmap/icon_login_lock" />
+
+        <View
+            android:id="@+id/line4"
+            android:layout_width="1px"
+            android:layout_height="37px"
+            android:layout_below="@+id/line3"
+            android:layout_marginLeft="24px"
+            android:layout_marginTop="75px"
+            android:layout_toRightOf="@+id/iv_code"
+            android:background="@color/line" />
+
+        <EditText
+            android:id="@+id/et_pwd"
+            style="@style/black32"
+            android:layout_width="400px"
+            android:layout_height="66px"
+            android:layout_below="@+id/line3"
+            android:layout_marginLeft="25px"
+            android:layout_marginTop="62px"
+            android:layout_toRightOf="@+id/line2"
+            android:background="@null"
+            android:gravity="left|center_vertical"
+            android:hint="请输入登录密码"
+            android:inputType="text"
+            android:text="@={viewModel.pwd}" />
+
+
+        <View
+            android:id="@+id/line5"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/et_pwd"
+            android:layout_marginLeft="35px"
+            android:layout_marginRight="35px"
+            android:background="@color/line" />
 
         <Button
             style="@style/confirmBtn"
             android:layout_width="520px"
-            android:layout_below="@+id/line3"
+            android:layout_below="@+id/line5"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="120px"
             android:onClick="onClick"

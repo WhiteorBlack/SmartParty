@@ -65,14 +65,14 @@ public class StructureAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity,
             case TYPE_LEVEL_0:
                 RxStructureLevelOne rxStructureLevelOne = (RxStructureLevelOne) item;
                 binding.setVariable(BR.item, rxStructureLevelOne);
-                helper.addOnClickListener(R.id.iv_level_one);
+                helper.addOnClickListener(R.id.iv_level_one).addOnClickListener(R.id.ll_level_one);
                 helper.setImageResource(R.id.iv_level_one, rxStructureLevelOne.isExpanded() ? R.mipmap.icon_arrow_black_bottom : R.mipmap.icon_arrow_black_right);
 
                 break;
             case TYPE_LEVEL_1:
                 RxStructureLevelTwo rxStructureLevelTwo = (RxStructureLevelTwo) item;
                 binding.setVariable(BR.item, rxStructureLevelTwo);
-                helper.addOnClickListener(R.id.iv_level_two);
+                helper.addOnClickListener(R.id.iv_level_two).addOnClickListener(R.id.ll_level_two);
                 helper.setImageResource(R.id.iv_level_two, rxStructureLevelTwo.isExpanded() ? R.mipmap.icon_arrow_black_bottom : R.mipmap.icon_arrow_black_right);
                 break;
             case TYPE_PERSON:

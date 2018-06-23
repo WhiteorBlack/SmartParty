@@ -1,6 +1,7 @@
 package com.qiantang.smartparty.module.assistant.viewmodel;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -9,6 +10,7 @@ import com.qiantang.smartparty.BaseBindFragment;
 import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.base.ViewModel;
+import com.qiantang.smartparty.config.CacheKey;
 import com.qiantang.smartparty.modle.RxActivity;
 import com.qiantang.smartparty.modle.RxAssientHome;
 import com.qiantang.smartparty.modle.RxIndexClass;
@@ -95,7 +97,8 @@ public class AssisantViewModel implements ViewModel {
         return new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ActivityUtil.startMienDetialActivity(fragment.getActivity(), ((RxIndexCommon) adapter.getData().get(position)).getContentId());
+//                ActivityUtil.startMienDetialActivity(fragment.getActivity(), ((RxIndexCommon) adapter.getData().get(position)).getContentId());
+                ActivityUtil.startHeadWebActivity(fragment.getActivity(), ((RxIndexCommon) adapter.getData().get(position)).getContentId(), "党建风采", URLs.NOTICE_DETIAL, 0);
             }
         };
     }
@@ -132,14 +135,14 @@ public class AssisantViewModel implements ViewModel {
                         break;
                     case 1:
                         if (MyApplication.isLogin()) {
-                            RxMyUserInfo rxMyUserInfo = MyApplication.mCache.getAsJSONBean(MyApplication.USER_ID, RxMyUserInfo.class);
-                            if (rxMyUserInfo.getMemeber() == 3) {
+                            String startue = MyApplication.mCache.getAsString(CacheKey.IS_APPLY_FOR);
+                            if (TextUtils.equals(startue, "2")) {
                                 ActivityUtil.startApplyPartySuccessActivity(fragment.getActivity());
                             } else {
-                                if (rxMyUserInfo.getStatus() == 0) {
+                                if (TextUtils.equals(startue, "0")) {
                                     ActivityUtil.startApplyPartyActivity(fragment.getActivity());
                                 }
-                                if (rxMyUserInfo.getStatus() == 1) {
+                                if (TextUtils.equals(startue, "1")) {
                                     ActivityUtil.startApplyPartyDeitalActivity(fragment.getActivity());
                                 }
                             }

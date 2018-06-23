@@ -73,6 +73,16 @@ public class MyTextUtils {
         return s;
     }
 
+    public static SpannableString getScore(int f) {
+        String s = "+" + f;
+
+        SpannableString word = new SpannableString(s);
+        word.setSpan(new RelativeSizeSpan(0.7f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        word.setSpan(new RelativeSizeSpan(1f), 2, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return word;
+    }
+
+
     public static String getPrice(double f) {
         String s = "￥" + String.format("%.2f", f);
         return s;
@@ -211,6 +221,45 @@ public class MyTextUtils {
         Pattern p = Pattern.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");//复杂匹配
         Matcher m = p.matcher(email);
         return m.matches();
+    }
+
+    /**
+     *
+     * @param content
+     * @param type 状态 1 视频学习 2 音频学习 3 文章阅读 4 在线测评 5 学习感悟 6 评论 7 后台添加
+     * @return
+     */
+    public static String getScoreTitle(String content,int type){
+        String title="";
+        switch (type){
+            case 1:
+                title="【视频学习】";
+                break;
+            case 2:
+                title="【音频学习】";
+                break;
+            case 3:
+                title="【文章阅读】";
+                break;
+            case 4:
+                title="【在线测评】";
+                break;
+            case 5:
+                title="【学习感悟】";
+                break;
+            case 6:
+                title="【评论】";
+                break;
+            case 7:
+                title="【后台添加】";
+                break;
+        }
+        return title+content;
+    }
+
+
+    public static String getScoreData(String date){
+        return date.replace(",","  ");
     }
 
     class PostContent {

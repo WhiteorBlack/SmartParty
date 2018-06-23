@@ -71,6 +71,10 @@ public class StructureViewModel implements ViewModel {
                 .subscribe(new NetworkSubscriber<List<RxStructurePerson>>() {
                     @Override
                     public void onSuccess(List<RxStructurePerson> data) {
+                        String dept = ((RxStructureLevelTwo) dataList.get(pos)).getDept_name();
+                        for (int i = 0; i < data.size(); i++) {
+                            data.get(i).setDept(dept);
+                        }
                         ((RxStructureLevelTwo) dataList.get(pos)).setSubItems(data);
                         adapter.notifyDataSetChanged();
                         adapter.expand(pos);

@@ -34,7 +34,14 @@ public class MeetingActivity extends BaseBindActivity {
         binding.toolbar.setTitle("会议纪要");
         binding.toolbar.setResId(R.mipmap.icon_search_black);
         initRv(binding.rv);
-        viewModel.getData(6);
+        viewModel.getData(1,6);
+        initRefresh(binding.cptr);
+    }
+
+    @Override
+    public void refreshData() {
+        super.refreshData();
+        viewModel.getData(1,6);
     }
 
     private void initRv(RecyclerView rv) {

@@ -34,7 +34,14 @@ public class MienActivity extends BaseBindActivity {
         binding.toolbar.setTitle("党建风采");
         binding.toolbar.setResId(R.mipmap.icon_search_black);
         initRv(binding.rv);
-        viewModel.getData(4);
+        viewModel.getData(1,4);
+        initRefresh(binding.cptr);
+    }
+
+    @Override
+    public void refreshData() {
+        super.refreshData();
+        viewModel.getData(1,4);
     }
 
     private void initRv(RecyclerView rv) {

@@ -17,7 +17,9 @@ import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.CommentAdapter;
 import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.config.CacheKey;
+import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.modle.HttpResult;
+import com.qiantang.smartparty.modle.RxAddScore;
 import com.qiantang.smartparty.modle.RxComment;
 import com.qiantang.smartparty.modle.RxVideoDetial;
 import com.qiantang.smartparty.modle.RxVideoInfo;
@@ -32,6 +34,8 @@ import com.qiantang.smartparty.utils.AppUtil;
 import com.qiantang.smartparty.utils.ToastUtil;
 import com.qiantang.smartparty.utils.fullhtml.TextViewForFullHtml;
 import com.trello.rxlifecycle2.android.ActivityEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,11 +71,16 @@ public class VideoDetialViewMdoel extends BaseObservable implements ViewModel {
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                         activity.refreshFail();
+                        adapter.loadMoreEnd();
                     }
 
                     @Override
                     public void onSuccess(RxVideoDetial data) {
-                        adapter.setPagingData(data.getComment(), pageNo);
+                        if (Config.isLoadMore) {
+                            adapter.setPagingData(data.getComment(), pageNo);
+                        } else {
+                            adapter.setNewData(data.getComment());
+                        }
                         setVideoInfo(data.getVideo());
                         if (pageNo == 1) {
                             activity.refreshOK();
@@ -104,6 +113,7 @@ public class VideoDetialViewMdoel extends BaseObservable implements ViewModel {
                     @Override
                     public void onSuccess(HttpResult data) {
                         testData(pageNo + 1, false);
+                        EventBus.getDefault().post(new RxAddScore(CacheKey.COMMENT, 0, id));
 //                        addCommentCount++;
 //                        RxVideoInfo rxVideoInfo = getVideoInfo();
 //                        commentCount += 1;
@@ -251,6 +261,10 @@ public class VideoDetialViewMdoel extends BaseObservable implements ViewModel {
     public void setVideoInfo(RxVideoInfo videoInfo) {
         this.videoInfo.set(videoInfo);
         notifyPropertyChanged(BR.videoInfo);
+    }
+
+    public void addScore(int time) {
+        EventBus.getDefault().post(new RxAddScore(CacheKey.VEDIO, time, id));
     }
 
     @Override

@@ -33,10 +33,11 @@ public class MsgViewModel implements ViewModel {
 
     public void loadMore() {
         pageNo++;
-        getData();
+        getData(pageNo);
     }
 
-    public void getData() {
+    public void getData(int pageNo) {
+        this.pageNo=pageNo;
         ApiWrapper.getInstance().tzNotice(pageNo)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new NetworkSubscriber<List<RxMsg>>() {

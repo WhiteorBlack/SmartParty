@@ -43,7 +43,6 @@ public class MonthScoreActivity extends BaseBindActivity {
         rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rv.setAdapter(adapter);
         rv.addOnItemTouchListener(viewModel.onItemTouchListener());
-        rv.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
     }
 
     public void onClick(View view) {

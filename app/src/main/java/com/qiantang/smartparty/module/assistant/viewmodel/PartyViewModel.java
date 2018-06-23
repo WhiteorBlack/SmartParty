@@ -44,6 +44,7 @@ public class PartyViewModel implements ViewModel {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
+                        adapter.loadMoreEnd();
                     }
 
                     @Override

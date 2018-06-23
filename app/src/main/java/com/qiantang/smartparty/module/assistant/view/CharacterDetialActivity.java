@@ -12,11 +12,13 @@ import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.CommentAdapter;
+import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.databinding.ActivityCharacterDetialBinding;
 import com.qiantang.smartparty.databinding.ViewCharacterdetialHeadBinding;
 import com.qiantang.smartparty.databinding.ViewHeadBannerBinding;
 import com.qiantang.smartparty.module.assistant.viewmodel.CharacterDetialViewModel;
 import com.qiantang.smartparty.module.input.viewmodel.InputViewModel;
+import com.qiantang.smartparty.utils.ActivityUtil;
 import com.qiantang.smartparty.utils.AutoUtils;
 import com.qiantang.smartparty.utils.RecycleViewUtils;
 import com.qiantang.smartparty.widget.MyBanner;
@@ -90,6 +92,9 @@ public class CharacterDetialActivity extends BaseBindActivity implements ViewPag
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.iv_back:
+                onBackPressed();
+                break;
             case R.id.iv_collect:
 
                 break;
@@ -97,6 +102,14 @@ public class CharacterDetialActivity extends BaseBindActivity implements ViewPag
 
                 break;
             case R.id.tv_send:
+                if (!MyApplication.isLogin()) {
+                    ActivityUtil.startLoginActivity(this);
+                    return;
+                }
+                if (!MyApplication.isLogin()) {
+                    ActivityUtil.startLoginActivity(this);
+                    return;
+                }
                 viewModel.comment(inputViewModel.getTextString());
                 break;
         }
@@ -104,14 +117,16 @@ public class CharacterDetialActivity extends BaseBindActivity implements ViewPag
 
 
     private void initRv(RecyclerView rv) {
-        adapter.setEnableLoadMore(true);
+        adapter.setEnableLoadMore(Config.isLoadMore);
         AutoUtils.auto(headBinding.getRoot());
         adapter.addHeaderView(headBinding.getRoot());
         adapter.setLoadMoreView(RecycleViewUtils.getLoadMoreView());
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
         rv.addOnItemTouchListener(viewModel.onItemTouchListener());
-        adapter.setOnLoadMoreListener(() -> viewModel.loadMore(), rv);
+        if (Config.isLoadMore) {
+            adapter.setOnLoadMoreListener(() -> viewModel.loadMore(), rv);
+        }
         viewModel.getData(1);
     }
 
@@ -127,7 +142,6 @@ public class CharacterDetialActivity extends BaseBindActivity implements ViewPag
     protected void viewModelDestroy() {
         viewModel.destroy();
     }
-
 
 
     @Override

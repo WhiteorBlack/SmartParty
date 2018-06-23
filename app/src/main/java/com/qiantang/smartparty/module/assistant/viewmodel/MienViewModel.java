@@ -36,11 +36,16 @@ public class MienViewModel implements ViewModel {
 
     public void loadMore() {
         pageNo++;
-        getData(type);
+        if (type == 7) {
+            getThinkingData(pageNo, type);
+        } else {
+            getData(pageNo, type);
+        }
     }
 
-    public void getData(int type) {
+    public void getData(int pageNo, int type) {
         this.type = type;
+        this.pageNo = pageNo;
         ApiWrapper.getInstance().fcNotice(pageNo, type)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new NetworkSubscriber<List<RxIndexCommon>>() {
@@ -48,17 +53,20 @@ public class MienViewModel implements ViewModel {
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                         adapter.loadMoreEnd();
+                        activity.refreshFail();
                     }
 
                     @Override
                     public void onSuccess(List<RxIndexCommon> data) {
+                        activity.refreshOK();
                         adapter.setPagingData(data, pageNo);
                     }
                 });
     }
 
-    public void getThinkingData(int type) {
+    public void getThinkingData(int pageNo, int type) {
         this.type = type;
+        this.pageNo = pageNo;
         ApiWrapper.getInstance().thinking(pageNo, type)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new NetworkSubscriber<List<RxIndexCommon>>() {
@@ -66,11 +74,13 @@ public class MienViewModel implements ViewModel {
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                         adapter.loadMoreEnd();
+                        activity.refreshFail();
                     }
 
                     @Override
                     public void onSuccess(List<RxIndexCommon> data) {
                         adapter.setPagingData(data, pageNo);
+                        activity.refreshOK();
                     }
                 });
     }
@@ -91,18 +101,18 @@ public class MienViewModel implements ViewModel {
                 switch (type) {
                     case 4: //党建风采
                         title = "党建风采";
-//                        ActivityUtil.startMienDetialActivity(activity, id);
+                       ActivityUtil.startHeadWebActivity(activity, id, title, URLs.NOTICE_DETIAL, 0);
                         break;
                     case 6: //会议纪要
                         title = "会议纪要";
-//                        ActivityUtil.startMeetingDetialActivity(activity, id);
+                        ActivityUtil.startHeadWebActivity(activity, id, title, URLs.NOTICE_DETIAL, 0);
                         break;
                     case 7://思想汇报
                         title = "思想汇报";
-//                        ActivityUtil.startThinkingDetialActivity(activity, id);
+                        ActivityUtil.startThinkingDetialActivity(activity, id);
                         break;
                 }
-                ActivityUtil.startHeadWebActivity(activity, id, title, URLs.NOTICE_DETIAL,0);
+
             }
         };
     }

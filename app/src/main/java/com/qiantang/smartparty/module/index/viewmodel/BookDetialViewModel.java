@@ -17,8 +17,10 @@ import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.CommentAdapter;
 import com.qiantang.smartparty.base.ViewModel;
+import com.qiantang.smartparty.config.CacheKey;
 import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.modle.HttpResult;
+import com.qiantang.smartparty.modle.RxAddScore;
 import com.qiantang.smartparty.modle.RxBookDetial;
 import com.qiantang.smartparty.modle.RxBookInfo;
 import com.qiantang.smartparty.modle.RxParagonDetial;
@@ -34,6 +36,8 @@ import com.qiantang.smartparty.utils.ToastUtil;
 import com.qiantang.smartparty.utils.fullhtml.TextViewForFullHtml;
 import com.qiantang.smartparty.widget.MyBanner;
 import com.trello.rxlifecycle2.android.ActivityEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,8 +87,12 @@ public class BookDetialViewModel extends BaseObservable implements ViewModel {
                     @Override
                     public void onSuccess(RxBookDetial data) {
                         activity.refreshOK();
-                        ((BookDetialActivity)activity).updateCollect(data.getDetail().getCollect()!=0);
-                        adapter.setPagingData(data.getComment(), pageNo);
+                        ((BookDetialActivity) activity).updateCollect(data.getDetail().getCollect() != 0);
+                        if (Config.isLoadMore) {
+                            adapter.setPagingData(data.getComment(), pageNo);
+                        } else {
+                            adapter.setNewData(data.getComment());
+                        }
                         setDetials(data.getDetail());
                     }
                 });
@@ -112,7 +120,8 @@ public class BookDetialViewModel extends BaseObservable implements ViewModel {
 //                        RxBookInfo detial = getDetials();
 //                        detial.setCommentSum(detial.getCommentSum() + 1);
 //                        setDetials(detial);
-                        getData(pageNo+1);
+                        EventBus.getDefault().post(new RxAddScore(CacheKey.COMMENT, 0, id));
+                        getData(pageNo + 1);
                         ((BookDetialActivity) activity).dissmissCommentBox();
                     }
                 });
@@ -189,6 +198,7 @@ public class BookDetialViewModel extends BaseObservable implements ViewModel {
                     }
                 });
     }
+
     @Bindable
     public RxBookInfo getDetials() {
         return detials.get();

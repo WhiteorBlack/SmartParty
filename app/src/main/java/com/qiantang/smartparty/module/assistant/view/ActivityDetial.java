@@ -11,11 +11,13 @@ import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.CommentAdapter;
+import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.databinding.ActivityDetialBinding;
 import com.qiantang.smartparty.databinding.ViewActivityDetialHeadBinding;
 import com.qiantang.smartparty.module.assistant.adapter.SignRecordAdapter;
 import com.qiantang.smartparty.module.assistant.viewmodel.ActivityDetialViewModel;
 import com.qiantang.smartparty.module.input.viewmodel.InputViewModel;
+import com.qiantang.smartparty.utils.ActivityUtil;
 import com.qiantang.smartparty.utils.AutoUtils;
 import com.qiantang.smartparty.utils.RecycleViewUtils;
 import com.qiantang.smartparty.widget.commentwidget.CircleViewHelper;
@@ -111,15 +113,24 @@ public class ActivityDetial extends BaseBindActivity implements CommentBox.OnCom
     }
 
     private void initRv(RecyclerView rv) {
-        adapter.setEnableLoadMore(true);
+        adapter.setEnableLoadMore(Config.isLoadMore);
         AutoUtils.auto(headBinding.getRoot());
         adapter.addHeaderView(headBinding.getRoot());
         adapter.setLoadMoreView(RecycleViewUtils.getLoadMoreView());
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
         rv.addOnItemTouchListener(viewModel.onItemTouchListener());
-        adapter.setOnLoadMoreListener(() -> viewModel.loadMore(), rv);
-        viewModel.getData();
+        if (Config.isLoadMore) {
+            adapter.setOnLoadMoreListener(() -> viewModel.loadMore(), rv);
+        }
+        viewModel.getData(1);
+        initRefresh(binding.cptr);
+    }
+
+    @Override
+    public void refreshData() {
+        super.refreshData();
+        viewModel.getData(1);
     }
 
     /**
@@ -136,6 +147,10 @@ public class ActivityDetial extends BaseBindActivity implements CommentBox.OnCom
 
     @Override
     public void onCommentSendClick(View v, IComment comment, String commentContent) {
+        if (!MyApplication.isLogin()) {
+            ActivityUtil.startLoginActivity(this);
+            return;
+        }
         viewModel.comment(commentContent);
     }
 }

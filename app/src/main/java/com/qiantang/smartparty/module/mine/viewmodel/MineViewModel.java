@@ -59,20 +59,43 @@ public class MineViewModel extends BaseObservable implements ViewModel {
                 break;
             case R.id.ll_month:
                 //每月学习值
-                ActivityUtil.startMonthScoreActivity(fragment.getActivity());
+                if (MyApplication.isLogin()) {
+                    ActivityUtil.startMonthScoreActivity(fragment.getActivity(),"");
+                } else {
+                    ActivityUtil.startLoginActivity(fragment.getActivity());
+                }
                 break;
             case R.id.ll_total:
                 //累计学习值
-                ActivityUtil.startTotalScoreActivity(fragment.getActivity());
+                if (MyApplication.isLogin()) {
+                    ActivityUtil.startTotalScoreActivity(fragment.getActivity());
+                } else {
+                    ActivityUtil.startLoginActivity(fragment.getActivity());
+                }
                 break;
             case R.id.fl_collection:
-                ActivityUtil.startMyCollectionActivity(fragment.getActivity());
+                if (MyApplication.isLogin()) {
+                    ActivityUtil.startMyCollectionActivity(fragment.getActivity());
+                } else {
+                    ActivityUtil.startLoginActivity(fragment.getActivity());
+                }
+
                 break;
             case R.id.fl_activity:
-                ActivityUtil.startMyActivity(fragment.getActivity());
+                if (MyApplication.isLogin()) {
+                    ActivityUtil.startMyActivity(fragment.getActivity());
+                } else {
+                    ActivityUtil.startLoginActivity(fragment.getActivity());
+                }
+
                 break;
             case R.id.fl_test:
-                ActivityUtil.startMyTestActivity(fragment.getActivity());
+                if (MyApplication.isLogin()) {
+                    ActivityUtil.startMyTestActivity(fragment.getActivity());
+                } else {
+                    ActivityUtil.startLoginActivity(fragment.getActivity());
+                }
+
                 break;
             case R.id.fl_about_us:
                 ActivityUtil.startAboutUsActivity(fragment.getActivity());

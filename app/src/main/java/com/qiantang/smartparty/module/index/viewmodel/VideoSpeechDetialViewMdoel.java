@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.orhanobut.logger.Logger;
 import com.qiantang.smartparty.BR;
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.MyApplication;
@@ -17,7 +18,9 @@ import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.CommentAdapter;
 import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.config.CacheKey;
+import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.modle.HttpResult;
+import com.qiantang.smartparty.modle.RxAddScore;
 import com.qiantang.smartparty.modle.RxComment;
 import com.qiantang.smartparty.modle.RxSpeechDetial;
 import com.qiantang.smartparty.modle.RxSpeechInfo;
@@ -32,6 +35,8 @@ import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
 import com.qiantang.smartparty.utils.AppUtil;
 import com.qiantang.smartparty.utils.fullhtml.TextViewForFullHtml;
 import com.trello.rxlifecycle2.android.ActivityEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by zhaoyong bai on 2018/5/25.
@@ -69,7 +74,12 @@ public class VideoSpeechDetialViewMdoel extends BaseObservable implements ViewMo
                     @Override
                     public void onSuccess(RxSpeechDetial data) {
                         activity.refreshOK();
-                        adapter.setPagingData(data.getComment(), pageNo);
+                        if (Config.isLoadMore)
+                        {
+                            adapter.setPagingData(data.getComment(), pageNo);
+                        }else {
+                            adapter.setNewData(data.getComment());
+                        }
                         setVideoInfo(data.getVideo());
                         if (pageNo == 1) {
                             if (isRefres) {
@@ -99,7 +109,7 @@ public class VideoSpeechDetialViewMdoel extends BaseObservable implements ViewMo
 
                     @Override
                     public void onSuccess(HttpResult data) {
-
+                        EventBus.getDefault().post(new RxAddScore(CacheKey.COMMENT,0,""));
                         testData(pageNo+1, false);
 //                        addCommentCount++;
 //                        RxSpeechInfo rxVideoInfo = getVideoInfo();
@@ -118,6 +128,7 @@ public class VideoSpeechDetialViewMdoel extends BaseObservable implements ViewMo
                     }
                 });
     }
+
 
     /**
      * 评论点赞
@@ -245,8 +256,11 @@ public class VideoSpeechDetialViewMdoel extends BaseObservable implements ViewMo
         notifyPropertyChanged(BR.videoInfo);
     }
 
+    public void addScore(int time){
+        EventBus.getDefault().post(new RxAddScore(CacheKey.VEDIO,time,id));
+    }
+
     @Override
     public void destroy() {
-
     }
 }

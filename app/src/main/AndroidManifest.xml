@@ -416,7 +416,10 @@
             android:name=".module.mine.view.DateDeptActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".module.mine.view.MyTestActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".module.spalsh.view.GuideActivity"
             android:launchMode="singleTask"

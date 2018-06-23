@@ -44,7 +44,6 @@ public class TotalScoreActivity extends BaseBindActivity {
         rv.addOnItemTouchListener(viewModel.onItemTouchListener());
         rv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rv.setAdapter(adapter);
-        rv.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
     }
 
     public void onClick(View view) {

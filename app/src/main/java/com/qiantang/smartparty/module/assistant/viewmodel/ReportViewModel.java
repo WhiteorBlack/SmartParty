@@ -8,6 +8,7 @@ import android.text.TextUtils;
 
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.base.ViewModel;
+import com.qiantang.smartparty.modle.HttpResult;
 import com.qiantang.smartparty.network.NetworkSubscriber;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
 import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
@@ -39,17 +40,17 @@ public class ReportViewModel extends BaseObservable implements ViewModel {
         }
         ApiWrapper.getInstance().insertThinking(getTitle(), getContent())
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
-                .subscribe(new NetworkSubscriber<String>() {
+                .subscribe(new NetworkSubscriber<HttpResult>() {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                     }
 
                     @Override
-                    public void onSuccess(String data) {
+                    public void onSuccess(HttpResult data) {
                         ToastUtil.toast("感想发表成功");
                         Intent intent = new Intent();
-                        intent.putExtra("id", data);
+                        intent.putExtra("id", data.getErrorMessage());
                         intent.putExtra("title", getTitle());
                         intent.putExtra("content", getContent());
                         activity.setResult(Activity.RESULT_OK, intent);

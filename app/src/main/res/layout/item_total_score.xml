@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data></data>
+    <data>
+
+        <variable
+            name="item"
+            type="com.qiantang.smartparty.modle.RxTotalScore" />
+
+        <import type="com.qiantang.smartparty.utils.StringUtil" />
+    </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,6 +19,8 @@
         <ImageView
             android:id="@+id/iv_red"
             android:layout_width="10px"
+            android:layout_centerVertical="true"
+            android:background="@color/paleRed"
             android:layout_height="10px" />
 
         <TextView
@@ -24,7 +33,8 @@
             android:layout_toRightOf="@+id/iv_red"
             android:ellipsize="end"
             android:lines="1"
-            android:text="学习" />
+            android:layout_centerVertical="true"
+            android:text="@{StringUtil.getTotalScoreTitle(item.months)}" />
 
         <TextView
             android:id="@+id/tv_date"
@@ -33,8 +43,9 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/tv_name"
             android:layout_below="@+id/tv_name"
+            android:visibility="gone"
             android:layout_marginTop="17px"
-            android:text="222" />
+            android:text="" />
 
 
         <ImageView
@@ -53,9 +64,9 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginRight="26px"
-            android:textStyle="bold"
             android:layout_toLeftOf="@+id/iv_arrow"
-            android:text="+12" />
+            android:text="@{item.count+``}"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 </layout>

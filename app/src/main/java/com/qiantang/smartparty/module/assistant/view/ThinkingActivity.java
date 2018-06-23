@@ -37,7 +37,14 @@ public class ThinkingActivity extends BaseBindActivity {
         binding.toolbar.setTitle("思想汇报");
         binding.toolbar.setRight("发表");
         initRv(binding.rv);
-        viewModel.getThinkingData(7);
+        viewModel.getThinkingData(1, 7);
+        initRefresh(binding.cptr);
+    }
+
+    @Override
+    public void refreshData() {
+        super.refreshData();
+        viewModel.getThinkingData(1, 7);
     }
 
     private void initRv(RecyclerView rv) {
@@ -56,7 +63,7 @@ public class ThinkingActivity extends BaseBindActivity {
             String title = data.getStringExtra("title");
             String id = data.getStringExtra("id");
             String time = AppUtil.getNowDate();
-            time = time.substring(time.indexOf("-")+1, time.indexOf(" "));
+            time = time.substring(time.indexOf("-") + 1, time.indexOf(" "));
             RxIndexCommon indexCommon = new RxIndexCommon();
             indexCommon.setContentId(id);
             indexCommon.setTitle(title);

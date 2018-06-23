@@ -37,6 +37,7 @@ public class RegisterViewModel extends BaseObservable implements ViewModel {
     public ObservableField<String> msg = new ObservableField<>("获取验证码");
     public ObservableField<String> account = new ObservableField<>("");
     public ObservableField<String> smsCode = new ObservableField<>("");
+    public ObservableField<String> pwd = new ObservableField<>("");
 
 
     public RegisterViewModel(BaseBindActivity activity) {
@@ -109,7 +110,9 @@ public class RegisterViewModel extends BaseObservable implements ViewModel {
             setIsCounting(false);
         } else if (TextUtils.isEmpty(smsCode.get())) {
             ToastUtil.toast("请输入收到的验证码");
-        }  else {
+        } else if (TextUtils.isEmpty(pwd.get())) {
+            ToastUtil.toast("请输入登录密码");
+        } else {
             verifyCode(getAccount(), getSmsCode());
         }
     }
@@ -128,7 +131,7 @@ public class RegisterViewModel extends BaseObservable implements ViewModel {
 
                     @Override
                     public void onSuccess(HttpResult data) {
-                        ActivityUtil.startCompeteActivity(activity,s);
+                        ActivityUtil.startCompeteActivity(activity, s,pwd.get());
                         activity.onBackPressed();
                     }
                 });

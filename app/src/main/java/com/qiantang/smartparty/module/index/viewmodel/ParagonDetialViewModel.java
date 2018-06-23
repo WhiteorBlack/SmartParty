@@ -17,8 +17,10 @@ import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.CommentAdapter;
 import com.qiantang.smartparty.base.ViewModel;
+import com.qiantang.smartparty.config.CacheKey;
 import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.modle.HttpResult;
+import com.qiantang.smartparty.modle.RxAddScore;
 import com.qiantang.smartparty.modle.RxParagonDetial;
 import com.qiantang.smartparty.modle.RxParagonInfo;
 import com.qiantang.smartparty.modle.RxPicUrl;
@@ -31,6 +33,8 @@ import com.qiantang.smartparty.utils.ToastUtil;
 import com.qiantang.smartparty.utils.fullhtml.TextViewForFullHtml;
 import com.qiantang.smartparty.widget.MyBanner;
 import com.trello.rxlifecycle2.android.ActivityEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +57,7 @@ public class ParagonDetialViewModel extends BaseObservable implements ViewModel,
     private String printurl;
     private ObservableField<String> picCount = new ObservableField<>();
     public int picListSize = 0;
+    private long startTime = 0;
 
 
     public ParagonDetialViewModel(BaseBindActivity activity, CommentAdapter adapter) {
@@ -62,6 +67,7 @@ public class ParagonDetialViewModel extends BaseObservable implements ViewModel,
     }
 
     private void initData() {
+        startTime = System.currentTimeMillis();
         id = activity.getIntent().getStringExtra("id");
         printurl = activity.getIntent().getStringExtra("printurl");
     }
@@ -85,7 +91,11 @@ public class ParagonDetialViewModel extends BaseObservable implements ViewModel,
 
                     @Override
                     public void onSuccess(RxParagonDetial data) {
-                        adapter.setPagingData(data.getComment(), pageNo);
+                        if (Config.isLoadMore) {
+                            adapter.setPagingData(data.getComment(), pageNo);
+                        } else {
+                            adapter.setNewData(data.getComment());
+                        }
                         activity.refreshOK();
                         ((ParagonDetialActivity) activity).updateCollect(data.getDetail().getCollect() != 0);
                         setDetials(data.getDetail());
@@ -120,6 +130,7 @@ public class ParagonDetialViewModel extends BaseObservable implements ViewModel,
 //                        RxParagonInfo detial = getDetials();
 //                        detial.setCommentSum(detial.getCommentSum() + 1);
 //                        setDetials(detial);
+                        EventBus.getDefault().post(new RxAddScore(CacheKey.COMMENT, 0, id));
                         getData(pageNo + 1);
                         ((ParagonDetialActivity) activity).dissmissCommentBox();
                     }
@@ -266,7 +277,7 @@ public class ParagonDetialViewModel extends BaseObservable implements ViewModel,
 
     @Override
     public void destroy() {
-
+        EventBus.getDefault().post(new RxAddScore(CacheKey.READ, (int) (System.currentTimeMillis() - startTime), id));
     }
 
     @BindingAdapter("headBanner")

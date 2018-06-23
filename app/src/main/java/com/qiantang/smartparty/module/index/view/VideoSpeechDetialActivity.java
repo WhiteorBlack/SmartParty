@@ -12,6 +12,7 @@ import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.CommentAdapter;
+import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.databinding.ActivityStudyVideoDetialBinding;
 import com.qiantang.smartparty.databinding.ViewVideoSpeechHeadBinding;
 import com.qiantang.smartparty.databinding.ViewVideoStudyHeadBinding;
@@ -58,7 +59,7 @@ public class VideoSpeechDetialActivity extends BaseBindActivity {
     public void initView() {
         inputViewModel.setHint("发表学习感悟...");
         resolveNormalVideoUI();
-
+        String title = getIntent().getStringExtra("title");
         //外部辅助的旋转，帮助全屏
         orientationUtils = new OrientationUtils(this, binding.scv);
         //初始化不打开外部的旋转
@@ -73,7 +74,7 @@ public class VideoSpeechDetialActivity extends BaseBindActivity {
                 .setShowFullAnimation(false)
                 .setNeedLockFull(true)
                 .setUrl("")
-                .setVideoTitle("")
+                .setVideoTitle(title)
                 .setCacheWithPlay(false)
                 .setVideoAllCallBack(new GSYSampleCallBack() {
                     @Override
@@ -128,7 +129,7 @@ public class VideoSpeechDetialActivity extends BaseBindActivity {
         binding.scv.getBackButton().setOnClickListener(this::onClick);
         viewMdoel.initData();
         initRv(binding.rv);
-        viewMdoel.testData(1,false);
+        viewMdoel.testData(1, false);
         initRefresh(binding.cptr);
         inputViewModel.setHint("发表学习感悟...");
         initKeyboardHeightObserver();
@@ -163,15 +164,17 @@ public class VideoSpeechDetialActivity extends BaseBindActivity {
     @Override
     public void refreshData() {
         super.refreshData();
-        viewMdoel.testData(1,true);
+        viewMdoel.testData(1, true);
     }
 
     private void initRv(RecyclerView rv) {
         AutoUtils.auto(headBinding.getRoot());
         adapter.addHeaderView(headBinding.getRoot());
-        adapter.setEnableLoadMore(true);
+        adapter.setEnableLoadMore(Config.isLoadMore);
         adapter.setLoadMoreView(RecycleViewUtils.getLoadMoreView());
-        adapter.setOnLoadMoreListener(() -> viewMdoel.loadMore(), rv);
+        if (Config.isLoadMore) {
+            adapter.setOnLoadMoreListener(() -> viewMdoel.loadMore(), rv);
+        }
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
         rv.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
@@ -251,6 +254,9 @@ public class VideoSpeechDetialActivity extends BaseBindActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        long pos = getCurPlay().getGSYVideoManager().getMediaPlayer().getCurrentPosition();
+        viewMdoel.addScore((int) pos);
+        viewMdoel.destroy();
         if (isPlay) {
             getCurPlay().release();
         }

@@ -3,6 +3,10 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
         <variable
             name="viewModel"
             type="com.qiantang.smartparty.module.index.viewmodel.SignViewModel" />
@@ -48,7 +52,7 @@
                 android:layout_marginLeft="50px"
                 android:layout_marginRight="50px"
                 android:layout_marginTop="56px"
-                android:text="标题" />
+                android:text="@{viewModel.sign.title}" />
 
             <ImageView
                 android:id="@+id/iv_man"
@@ -67,7 +71,7 @@
                 android:layout_below="@+id/iv_man"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="19px"
-                android:text="测试" />
+                android:text="@{viewModel.sign.username+` | `+viewModel.sign.dept_name}" />
 
             <ImageView
                 android:id="@+id/iv_point"
@@ -76,7 +80,8 @@
                 android:layout_below="@+id/tv_name"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="40px"
-                android:background="@mipmap/icon_sign_point" />
+                android:background="@mipmap/icon_sign_point"
+                android:visibility="@{TextUtils.isEmpty(viewModel.sign.point)?View.INVISIBLE:View.VISIBLE}" />
 
             <TextView
                 android:id="@+id/tv_sign_point"
@@ -96,7 +101,7 @@
                 android:layout_below="@+id/tv_sign_point"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="12px"
-                android:text="签到地点" />
+                android:text="@{viewModel.sign.point}" />
 
             <ImageView
                 android:id="@+id/iv_time"
@@ -105,7 +110,8 @@
                 android:layout_below="@+id/tv_point"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="40px"
-                android:background="@mipmap/icon_sign_time" />
+                android:background="@mipmap/icon_sign_time"
+                android:visibility="@{TextUtils.isEmpty(viewModel.sign.time)?View.INVISIBLE:View.VISIBLE}" />
 
             <TextView
                 android:id="@+id/tv_sign_time"
@@ -115,7 +121,7 @@
                 android:layout_below="@+id/iv_time"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="19px"
-                android:text="签到时间" />
+                android:text="@{viewModel.sign.time}" />
 
             <TextView
                 android:id="@+id/tv_time"
@@ -125,7 +131,7 @@
                 android:layout_below="@+id/tv_sign_time"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="12px"
-                android:text="签到地点" />
+                android:text="@{viewModel.sign.time}" />
         </RelativeLayout>
 
 
@@ -138,7 +144,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="89px"
             android:background="@drawable/btn_confirm"
-            android:text="立即签到" />
+            android:text="立即签到"
+            android:visibility="@{viewModel.isSuccess?View.INVISIBLE:View.VISIBLE}" />
 
         <ImageView
             android:id="@+id/iv_confirm"
@@ -148,6 +155,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="-70px"
             android:scaleType="centerInside"
-            android:src="@mipmap/icon_sign_success" />
+            android:src="@mipmap/icon_sign_success"
+            android:visibility="@{viewModel.isSuccess?View.VISIBLE:View.INVISIBLE}" />
     </RelativeLayout>
 </layout>

@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/sideMargin"
-                android:text="50" />
+                android:text="@{viewModel.score+``}" />
 
             <TextView
                 style="@style/white30"
@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30px"
-                android:text="本月学习值" />
+                android:text="总学习值" />
 
         </LinearLayout>
 

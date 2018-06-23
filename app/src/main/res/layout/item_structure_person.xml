@@ -11,14 +11,16 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingLeft="60px"
+        android:paddingTop="10px">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/sdv"
             android:layout_width="80px"
             android:layout_height="80px"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10px"
+            app:placeholderImage="@mipmap/mine_head"
+            app:placeholderImageScaleType="fitXY"
             app:roundAsCircle="true" />
 
         <TextView
@@ -26,10 +28,21 @@
             style="@style/black26"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/sdv"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20px"
+            android:layout_alignTop="@+id/sdv"
+            android:layout_marginLeft="20px"
+            android:layout_toRightOf="@+id/sdv"
             android:text="@{item.username}" />
+
+        <TextView
+            style="@style/gray22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/sdv"
+            android:layout_alignLeft="@+id/tv_name"
+            android:layout_below="@+id/tv_name"
+            android:layout_toRightOf="@+id/sdv"
+            android:gravity="center"
+            android:text="@{item.dept}" />
 
         <View
             android:layout_width="match_parent"
@@ -37,7 +50,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="20px"
             android:layout_marginRight="20px"
-            android:layout_marginTop="10px"
+            android:layout_marginTop="20px"
             android:background="@color/line" />
     </RelativeLayout>
 </layout>
