@@ -13,6 +13,16 @@ public class RxIndexSpeak {
     private int speaktype;
     private String speakurl;
 
+    private String source;
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
     public String getImg() {
         return img;
     }

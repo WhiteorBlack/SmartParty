@@ -30,4 +30,5 @@ public interface Event {
     int LOGIN_REFRESH=2023;
     int DISABLE_SCROLL=2024;
     int ENABLE_SCROLL=2025;
+    int RELOAD_STUDY = 2026;
 }

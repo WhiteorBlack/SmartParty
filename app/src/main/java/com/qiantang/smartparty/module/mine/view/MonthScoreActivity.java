@@ -11,7 +11,9 @@ import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.databinding.ActivityMonthScoreBinding;
 import com.qiantang.smartparty.module.mine.adapter.MonthScoreAdapter;
 import com.qiantang.smartparty.module.mine.viewmodel.MonthViewModel;
+import com.qiantang.smartparty.network.URLs;
 import com.qiantang.smartparty.utils.RecycleViewUtils;
+import com.qiantang.smartparty.utils.WebUtil;
 import com.qiantang.smartparty.widget.RecycleViewDivider;
 
 /**
@@ -49,6 +51,9 @@ public class MonthScoreActivity extends BaseBindActivity {
         switch (view.getId()) {
             case R.id.iv_back:
                 onBackPressed();
+                break;
+            case R.id.iv_intro:
+                WebUtil.jumpWeb(this, URLs.USER_PROTOCOL+1,"学习值说明");
                 break;
         }
     }

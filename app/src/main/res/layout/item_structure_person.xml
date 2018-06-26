@@ -12,13 +12,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="60px"
-        android:paddingTop="10px">
+        android:paddingTop="20px">
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/sdv"
             android:layout_width="80px"
             android:layout_height="80px"
+            android:layout_marginBottom="20px"
+            android:layout_marginLeft="60px"
             app:placeholderImage="@mipmap/mine_head"
             app:placeholderImageScaleType="fitXY"
             app:roundAsCircle="true" />

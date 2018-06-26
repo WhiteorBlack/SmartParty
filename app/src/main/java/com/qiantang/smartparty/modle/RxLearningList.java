@@ -10,6 +10,15 @@ public class RxLearningList {
     private String creationtime;
     private String title;
     private int commentSum;
+    private String source;
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
 
     public int getRead() {
         return read;

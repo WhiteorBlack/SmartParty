@@ -17,4 +17,6 @@
     <string name="overtime">已逾期</string>
     <string name="rationale_gps_and_audio">需要使用GPS功能和语音功能</string>
     <string name="rationale_gps">需要使用GPS功能</string>
+    <string name="is_activity_apply">已报名</string>
+    <string name="not_activity_apply">报名</string>
 </resources>

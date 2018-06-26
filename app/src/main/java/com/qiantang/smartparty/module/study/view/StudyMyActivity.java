@@ -56,6 +56,7 @@ public class StudyMyActivity extends BaseBindActivity implements CommentBox.OnCo
             circleViewHelper = new CircleViewHelper(this);
         }
         initKeyboardHeightObserver();
+        viewModel.getData(1);
     }
 
     private void initKeyboardHeightObserver() {
@@ -102,12 +103,6 @@ public class StudyMyActivity extends BaseBindActivity implements CommentBox.OnCo
 
 
     @Override
-    public void update() {
-        super.update();
-        binding.cptr.autoRefresh();
-    }
-
-    @Override
     public void refreshData() {
         super.refreshData();
         viewModel.getData(1);
@@ -127,6 +122,9 @@ public class StudyMyActivity extends BaseBindActivity implements CommentBox.OnCo
         switch (view.getId()) {
             case R.id.iv_right:
 
+                break;
+            case R.id.iv_back:
+                onBackPressed();
                 break;
         }
     }

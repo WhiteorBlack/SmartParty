@@ -9,6 +9,7 @@ import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.databinding.ActivityAdviseRecordBinding;
 import com.qiantang.smartparty.module.assistant.adapter.AdviseRecordAdapter;
 import com.qiantang.smartparty.module.assistant.viewmodel.AdviseRecordViewModel;
+import com.qiantang.smartparty.utils.RecycleViewUtils;
 
 /**
  * Created by zhaoyong bai on 2018/6/1.
@@ -35,6 +36,9 @@ public class AdviseRecordActivity extends BaseBindActivity {
     private void initRv(RecyclerView rv) {
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adviseRecordAdapter);
+        adviseRecordAdapter.setLoadMoreView(RecycleViewUtils.getLoadMoreView());
+        adviseRecordAdapter.setEnableLoadMore(true);
+        adviseRecordAdapter.setOnLoadMoreListener(() -> viewModel.onLoadMore(), rv);
         viewModel.getData();
     }
 

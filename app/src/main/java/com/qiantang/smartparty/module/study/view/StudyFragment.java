@@ -66,12 +66,9 @@ public class StudyFragment extends BaseBindFragment implements CommentBox.OnComm
             circleViewHelper = new CircleViewHelper(getActivity());
         }
         initKeyboardHeightObserver();
+        viewModel.getData(1);
     }
 
-    @Override
-    public void update() {
-        super.update();
-    }
 
     @Override
     public void refreshData() {

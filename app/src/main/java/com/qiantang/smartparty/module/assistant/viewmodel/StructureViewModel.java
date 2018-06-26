@@ -94,6 +94,7 @@ public class StructureViewModel implements ViewModel {
                 super.onItemChildClick(adapter, view, position);
                 switch (view.getId()) {
                     case R.id.iv_level_one:
+                    case R.id.ll_level_one:
                         RxStructureLevelOne rxStructureLevelOne = (RxStructureLevelOne) dataList.get(position);
                         if (rxStructureLevelOne.getSubItems() == null || rxStructureLevelOne.getSubItems().size() == 0) {
                             getTwoData(rxStructureLevelOne.getDept_id(), position);
@@ -106,6 +107,7 @@ public class StructureViewModel implements ViewModel {
                         }
                         break;
                     case R.id.iv_level_two:
+                    case R.id.ll_level_two:
                         RxStructureLevelTwo rxStructureLevelTwo = (RxStructureLevelTwo) dataList.get(position);
                         if (rxStructureLevelTwo.getSubItems() == null || rxStructureLevelTwo.getSubItems().size() == 0) {
                             getPerson(rxStructureLevelTwo.getDept_id(), position);

@@ -5,6 +5,7 @@ import android.databinding.ObservableBoolean;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.TextView;
 
 import com.baoyz.actionsheet.ActionSheet;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -15,6 +16,7 @@ import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.config.CacheKey;
 import com.qiantang.smartparty.config.Event;
 import com.qiantang.smartparty.modle.HttpResult;
+import com.qiantang.smartparty.modle.RxAddScore;
 import com.qiantang.smartparty.modle.RxStudy;
 import com.qiantang.smartparty.modle.RxStudyList;
 import com.qiantang.smartparty.module.study.adapter.PublishAdapter;
@@ -203,7 +205,11 @@ public class PublishViewModel implements ViewModel {
      */
     public void uploadImage() {
         loadingWindow.showWindow();
-        upload(checkPhotoUrl());
+        if (list.size()==1) {
+            commitData();
+        } else {
+            upload(checkPhotoUrl());
+        }
     }
 
     /**
@@ -303,12 +309,14 @@ public class PublishViewModel implements ViewModel {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
+                        ToastUtil.toast(e.getMessage());
                     }
 
                     @Override
                     public void onSuccess(HttpResult data) {
-                        EventBus.getDefault().post(Event.RELOAD);
-                        addScore(CacheKey.STUDY, 0, "");
+                        EventBus.getDefault().post(Event.RELOAD_STUDY);
+//                        EventBus.getDefault().post(new RxAddScore(CacheKey.STUDY, 0, ""));
+                        activity.onBackPressed();
                     }
                 });
     }

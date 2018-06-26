@@ -12,6 +12,16 @@ public class RxIndexStudy {
     private String title;
     private String imgSrc;
 
+    private String source;
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
     public String getImgSrc() {
         return imgSrc;
     }

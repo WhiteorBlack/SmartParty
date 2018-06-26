@@ -178,6 +178,19 @@ public class ActivityUtil {
     }
 
     /**
+     * 跳转没有登录要求的网页
+     *
+     * @param activity
+     * @param url
+     */
+    public static void jumpWeb(Activity activity, String url, String title) {
+        Intent intent = new Intent(activity, WebViewNew.class);
+        intent.putExtra("title", title);
+        intent.putExtra(WebUtil.URL, url);
+        activity.startActivity(intent);
+    }
+
+    /**
      * 跳转没有登录有要求的网页
      *
      * @param activity
@@ -426,9 +439,10 @@ public class ActivityUtil {
      *
      * @param activity
      */
-    public static void startTestDeitalInfoActivity(Activity activity, String id, int time, int count) {
+    public static void startTestDeitalInfoActivity(Activity activity, String id, int time, int count, boolean retry) {
         Intent intent = new Intent(activity, TestDetialActivity.class);
         intent.putExtra("time", time);
+        intent.putExtra("retry", retry);
         intent.putExtra("count", count);
         intent.putExtra("id", id);
         activity.startActivity(intent);

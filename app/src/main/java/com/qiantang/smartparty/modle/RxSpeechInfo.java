@@ -15,6 +15,15 @@ public class RxSpeechInfo {
     private String speak_id;
     private String content;
     private String img;
+    private String source;
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
 
     public String getImg() {
         return img;

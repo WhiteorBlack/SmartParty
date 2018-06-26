@@ -74,10 +74,9 @@ public class VideoSpeechDetialViewMdoel extends BaseObservable implements ViewMo
                     @Override
                     public void onSuccess(RxSpeechDetial data) {
                         activity.refreshOK();
-                        if (Config.isLoadMore)
-                        {
+                        if (Config.isLoadMore) {
                             adapter.setPagingData(data.getComment(), pageNo);
-                        }else {
+                        } else {
                             adapter.setNewData(data.getComment());
                         }
                         setVideoInfo(data.getVideo());
@@ -109,8 +108,8 @@ public class VideoSpeechDetialViewMdoel extends BaseObservable implements ViewMo
 
                     @Override
                     public void onSuccess(HttpResult data) {
-                        EventBus.getDefault().post(new RxAddScore(CacheKey.COMMENT,0,""));
-                        testData(pageNo+1, false);
+                        EventBus.getDefault().post(new RxAddScore(CacheKey.COMMENT, 0, ""));
+                        testData(pageNo + 1, false);
 //                        addCommentCount++;
 //                        RxSpeechInfo rxVideoInfo = getVideoInfo();
 //                        commentCount += 1;
@@ -256,8 +255,18 @@ public class VideoSpeechDetialViewMdoel extends BaseObservable implements ViewMo
         notifyPropertyChanged(BR.videoInfo);
     }
 
-    public void addScore(int time){
-        EventBus.getDefault().post(new RxAddScore(CacheKey.VEDIO,time,id));
+    public void addScore(int time) {
+        EventBus.getDefault().post(new RxAddScore(CacheKey.VEDIO, time, id));
+    }
+
+    public void saveTime(int time) {
+        ApiWrapper.getInstance().saveplayrecord(id, time)
+                .subscribe(new NetworkSubscriber<HttpResult>() {
+                    @Override
+                    public void onSuccess(HttpResult data) {
+
+                    }
+                });
     }
 
     @Override

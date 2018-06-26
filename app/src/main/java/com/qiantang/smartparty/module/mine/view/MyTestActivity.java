@@ -22,7 +22,7 @@ public class MyTestActivity extends BaseBindActivity {
 
     @Override
     protected void initBind() {
-        listAdapter = new TestListAdapter(R.layout.item_test_list);
+        listAdapter = new TestListAdapter(R.layout.item_test_mine);
         viewModel = new MyTestViewModel(this, listAdapter);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_recycleview);
     }

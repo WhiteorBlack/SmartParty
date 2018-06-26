@@ -56,7 +56,7 @@
             android:text="@{viewModel.detials.rw.title}" />
 
         <TextView
-            android:id="@+id/tv_date"
+            android:id="@+id/tv_intro"
             style="@style/gray24"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -67,12 +67,45 @@
             android:layout_marginTop="22px"
             android:text="@{viewModel.detials.rw.intro}" />
 
+        <TextView
+            android:id="@+id/tv_source"
+            style="@style/indexNewsInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_intro"
+            android:layout_marginTop="@dimen/sideMargin"
+            android:layout_alignLeft="@+id/tv_intro"
+            android:text="@{viewModel.detials.rw.source}" />
+
+
+        <TextView
+            android:id="@+id/tv_date"
+            style="@style/indexNewsInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_source"
+            android:layout_marginLeft="25px"
+            android:layout_marginTop="@dimen/sideMargin"
+            android:layout_toRightOf="@+id/tv_source"
+            android:text="@{viewModel.detials.rw.createTime}" />
+
+        <TextView
+            android:id="@+id/tv_read"
+            style="@style/indexNewsInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_source"
+            android:layout_marginLeft="25px"
+            android:layout_marginTop="@dimen/sideMargin"
+            android:layout_toRightOf="@+id/tv_date"
+            android:text="@{viewModel.detials.rw.read+`阅读`}" />
+
 
         <View
             android:id="@+id/line2"
             android:layout_width="match_parent"
             android:layout_height="20px"
-            android:layout_below="@+id/tv_date"
+            android:layout_below="@+id/tv_source"
             android:layout_marginTop="30px"
             android:background="@color/line" />
 

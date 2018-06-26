@@ -287,8 +287,19 @@ public class VoiceSpeechDetialViewMdoel extends BaseObservable implements ViewMo
         notifyPropertyChanged(BR.videoInfo);
     }
 
+    public void saveTime(int time) {
+        ApiWrapper.getInstance().saveplayrecord(id, time)
+                .subscribe(new NetworkSubscriber<HttpResult>() {
+                    @Override
+                    public void onSuccess(HttpResult data) {
+
+                    }
+                });
+    }
+
     @Override
     public void destroy() {
+        saveTime((int) getPlayTime());
         EventBus.getDefault().post(new RxAddScore(CacheKey.VOICE, (int) getPlayTime(), id));
     }
 }

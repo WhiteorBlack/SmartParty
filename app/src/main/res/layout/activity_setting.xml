@@ -98,6 +98,11 @@
                 android:background="@mipmap/icon_step_arrow" />
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line" />
+
         <LinearLayout
             style="@style/Mine_list"
             android:layout_height="104px"
@@ -157,6 +162,33 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="30px"
                 android:text="@{viewModel.servicePhone}" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/icon_step_arrow" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line" />
+
+        <LinearLayout
+            android:id="@+id/ll_pro"
+            style="@style/Mine_list"
+            android:layout_height="104px"
+            android:onClick="onClick"
+            android:paddingRight="@dimen/sideMargin">
+
+            <TextView
+                style="@style/gray24"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30px"
+                android:layout_weight="1"
+                android:text="用户协议" />
+
 
             <ImageView
                 android:layout_width="wrap_content"

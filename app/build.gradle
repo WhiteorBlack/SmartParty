@@ -47,7 +47,7 @@ android {
         jumboMode = true
         javaMaxHeapSize "2g"
     }
-    aaptOptions{
+    aaptOptions {
         cruncherEnabled = false
     }
 
@@ -134,6 +134,9 @@ dependencies {
     implementation 'com.github.nanchen2251:CompressHelper:1.0.5'
     //城市三级联动
     implementation 'com.contrarywind:Android-PickerView:3.2.7'
+
+    //图片查看器
+    implementation 'com.github.SuperKotlin:PictureViewer:2.0.1'
 }
 repositories {
     mavenCentral()

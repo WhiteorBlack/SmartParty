@@ -6,6 +6,7 @@ import com.qiantang.smartparty.modle.RxStudyUnreadMsg;
 import com.qiantang.smartparty.module.study.adapter.UnreadAdapter;
 import com.qiantang.smartparty.network.NetworkSubscriber;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
+import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import java.util.List;
@@ -25,16 +26,26 @@ public class UnreadMsgViewModel implements ViewModel {
 
     public void loadMore() {
         pageNo++;
-        getData();
+        getData(pageNo);
     }
 
-    public void getData() {
+    public void getData(int pageNo) {
+        this.pageNo = pageNo;
         ApiWrapper.getInstance().getUnreadMsg()
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new NetworkSubscriber<List<RxStudyUnreadMsg>>() {
                     @Override
+                    public void onFail(RetrofitUtil.APIException e) {
+                        super.onFail(e);
+                        adapter.loadMoreEnd();
+                        activity.refreshFail();
+                    }
+
+                    @Override
                     public void onSuccess(List<RxStudyUnreadMsg> data) {
                         adapter.setPagingData(data, pageNo);
+                        adapter.loadMoreEnd();
+                        activity.refreshOK();
                     }
                 });
     }

@@ -38,7 +38,7 @@
             android:text="@{item.title}" />
 
         <TextView
-            android:id="@+id/tv_date"
+            android:id="@+id/tv_source"
             style="@style/indexNewsInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,6 +46,18 @@
             android:layout_marginLeft="5px"
             android:layout_marginRight="5px"
             android:layout_marginTop="27px"
+            android:text="@{item.source}" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            style="@style/indexNewsInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginLeft="25px"
+            android:layout_marginRight="5px"
+            android:layout_marginTop="27px"
+            android:layout_toRightOf="@+id/tv_source"
             android:text="@{item.createTime}" />
 
         <TextView
@@ -58,7 +70,8 @@
             android:layout_marginLeft="5px"
             android:layout_marginRight="5px"
             android:layout_marginTop="27px"
-            android:text="@{item.pl+`评论`}" />
+            android:text="@{item.pl+`评论`}"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_read"
@@ -69,7 +82,8 @@
             android:layout_marginRight="27px"
             android:layout_marginTop="27px"
             android:layout_toLeftOf="@+id/tv_comment"
-            android:text="@{item.read+`阅读`}" />
+            android:text="@{item.read+`阅读`}"
+            android:visibility="gone" />
 
         <View
             android:layout_width="match_parent"

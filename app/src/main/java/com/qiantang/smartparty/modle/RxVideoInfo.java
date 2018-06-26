@@ -13,6 +13,15 @@ public class RxVideoInfo {
     private String title;
     private int collect;
     private String video_id;
+    private String source;
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
 
     public String getVideourl() {
         return videourl;

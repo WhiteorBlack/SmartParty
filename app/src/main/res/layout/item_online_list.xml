@@ -29,13 +29,24 @@
             android:text="@{item.title}" />
 
         <TextView
-            android:id="@+id/tv_date"
+            android:id="@+id/tv_source"
             style="@style/gray22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/tv_name"
             android:layout_below="@+id/tv_name"
             android:layout_marginTop="24px"
+            android:text="@{item.source}" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            style="@style/gray22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginLeft="25px"
+            android:layout_marginTop="24px"
+            android:layout_toRightOf="@id/tv_source"
             android:text="@{item.creationtime}" />
 
         <TextView
@@ -47,16 +58,18 @@
             android:layout_below="@+id/tv_name"
             android:layout_marginRight="25px"
             android:layout_marginTop="24px"
-            android:text="@{item.commentSum+`评论`}" />
+            android:text="@{item.commentSum+`评论`}"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_read"
             style="@style/gray22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/tv_comment"
+            android:layout_alignBaseline="@+id/tv_date"
+            android:layout_marginLeft="25px"
             android:layout_marginRight="57px"
-            android:layout_toLeftOf="@+id/tv_comment"
+            android:layout_toRightOf="@+id/tv_date"
             android:text="@{item.read+`阅读`}" />
 
         <View

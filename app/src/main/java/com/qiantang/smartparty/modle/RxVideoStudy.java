@@ -13,6 +13,15 @@ public class RxVideoStudy {
     private String creationtime;
     private String video_id;
     private int number;
+    private String source;
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
 
     public String getPicUrl() {
         return picUrl;

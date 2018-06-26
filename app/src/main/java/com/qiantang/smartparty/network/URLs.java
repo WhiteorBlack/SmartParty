@@ -14,5 +14,6 @@ public class URLs {
     public static final String NOTICE_DETIAL = Config.SERVER_HOST + "app/partyBuild/share?contentId=";
     public static final String SPECIALORTHEORY=Config.SERVER_HOST+"app/content/specialOrTheoryShare?contentId=";
     public static final String MESSAGE_DETIAL=Config.SERVER_HOST+"app/partyBuild/shareTZ?noticeId=";
+    public static final String USER_PROTOCOL=Config.SERVER_HOST+"app/agreement/agreement?type=";
 }
 

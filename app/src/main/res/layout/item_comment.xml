@@ -59,14 +59,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40px"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/tv_comment"
             android:layout_marginLeft="16px"
             android:layout_marginRight="@dimen/sideMargin"
             android:layout_marginTop="22px"
             android:layout_toRightOf="@+id/sdv"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:orientation="horizontal">
 
             <TextView
@@ -79,22 +79,22 @@
 
             <ImageView
                 android:id="@+id/iv_praise"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="35px"
+                android:layout_height="35px"
                 android:background="@mipmap/icon_comment_praise_red"
                 android:visibility="@{(item.isDz&gt;0||item.iszan&gt;0)?View.VISIBLE:View.GONE}" />
 
             <ImageView
                 android:id="@+id/iv_unpraise"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="35px"
+                android:layout_height="35px"
                 android:background="@mipmap/icon_comment_praise_gray"
                 android:visibility="@{(item.isDz==0&amp;&amp;item.iszan==0)?View.VISIBLE:View.GONE}" />
 
             <TextView
                 android:id="@+id/tv_praise"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="9px"
                 android:text="@{item.dz+item.thumbs+``}"
                 android:textSize="22px" />

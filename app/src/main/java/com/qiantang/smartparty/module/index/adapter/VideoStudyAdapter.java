@@ -53,7 +53,7 @@ public class VideoStudyAdapter extends EasyBindQuickAdapter<RxVideoStudy> {
                 resolveFullBtn(sampleCoverVideo);
             }
         });
-        sampleCoverVideo.loadCoverImage(Config.IMAGE_HOST+item.getImg(),0);
+        sampleCoverVideo.loadCoverImage(Config.IMAGE_HOST + item.getImg(), 0);
         sampleCoverVideo.setRotateViewAuto(!getListNeedAutoLand());
         sampleCoverVideo.setLockLand(!getListNeedAutoLand());
         sampleCoverVideo.setPlayTag(TAG);
@@ -61,6 +61,8 @@ public class VideoStudyAdapter extends EasyBindQuickAdapter<RxVideoStudy> {
         sampleCoverVideo.setReleaseWhenLossAudio(false);
         sampleCoverVideo.setShowFullAnimation(!getListNeedAutoLand());
         sampleCoverVideo.setIsTouchWiget(false);
+
+
         //循环
         sampleCoverVideo.setLooping(false);
         sampleCoverVideo.setNeedLockFull(true);
@@ -77,7 +79,7 @@ public class VideoStudyAdapter extends EasyBindQuickAdapter<RxVideoStudy> {
                 Debuger.printfLog("onPrepared");
                 boolean full = sampleCoverVideo.getCurrentPlayer().isIfCurrentIsFullscreen();
                 if (!sampleCoverVideo.getCurrentPlayer().isIfCurrentIsFullscreen()) {
-                    GSYVideoManager.instance().setNeedMute(true);
+                    GSYVideoManager.instance().setNeedMute(false);
                 }
                 curPlayer = (StandardGSYVideoPlayer) objects[1];
                 isPlay = true;
@@ -92,7 +94,7 @@ public class VideoStudyAdapter extends EasyBindQuickAdapter<RxVideoStudy> {
             public void onQuitFullscreen(String url, Object... objects) {
                 super.onQuitFullscreen(url, objects);
                 isFull = false;
-                GSYVideoManager.instance().setNeedMute(true);
+                GSYVideoManager.instance().setNeedMute(false);
                 if (getListNeedAutoLand()) {
                     VideoStudyAdapter.this.onQuitFullscreen();
                 }
@@ -119,7 +121,7 @@ public class VideoStudyAdapter extends EasyBindQuickAdapter<RxVideoStudy> {
         });
         sampleCoverVideo.setPlayPosition(holder.getAdapterPosition());
 
-        holder.addOnClickListener(R.id.tv_name);
+        holder.addOnClickListener(R.id.rl_parent);
         holder.getBinding().setVariable(BR.item, item);
         holder.getBinding().executePendingBindings();
     }

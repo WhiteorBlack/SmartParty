@@ -19,9 +19,22 @@
             android:background="@mipmap/bg_score_top"
             android:orientation="vertical">
 
-            <ImageButton
-                style="@style/ToolbarBackBtnWhiteStyle"
-                android:layout_marginTop="50px" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50px">
+
+                <ImageButton style="@style/ToolbarBackBtnWhiteStyle" />
+
+                <ImageView
+                    android:id="@+id/iv_intro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical"
+                    android:padding="24px"
+                    android:onClick="onClick"
+                    android:src="@mipmap/icon_score_intro" />
+            </FrameLayout>
 
             <TextView
                 style="@style/white64"

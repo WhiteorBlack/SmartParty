@@ -77,6 +77,7 @@ public class StudyMyViewModel extends BaseObservable implements ViewModel, Comme
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                         fragment.refreshFail();
+                        adapter.loadMoreEnd();
                     }
 
                     @Override

@@ -1071,4 +1071,14 @@ public class ApiWrapper extends RetrofitUtil {
     public Observable<RxSignResult> signDetails(String id, String site) {
         return getService().signDetails(id, MyApplication.USER_ID, site).compose(this.applySchedulers());
     }
+
+    /**
+     * 保存播放记录
+     *
+     * @param id
+     * @return
+     */
+    public Observable<HttpResult> saveplayrecord(String id, int time) {
+        return getService().saveplayrecord(id, MyApplication.USER_ID, time).compose(this.applySchedulers());
+    }
 }

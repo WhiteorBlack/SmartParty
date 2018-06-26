@@ -8,6 +8,7 @@ import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.modle.HttpResult;
 import com.qiantang.smartparty.network.NetworkSubscriber;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
+import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
 import com.qiantang.smartparty.utils.ToastUtil;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
@@ -30,6 +31,12 @@ public class AdviseViewModel implements ViewModel {
         ApiWrapper.getInstance().insertIdea(content.get())
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new NetworkSubscriber<HttpResult>() {
+                    @Override
+                    public void onFail(RetrofitUtil.APIException e) {
+                        super.onFail(e);
+
+                    }
+
                     @Override
                     public void onSuccess(HttpResult data) {
                         ToastUtil.toast("您反馈的问题已提交");

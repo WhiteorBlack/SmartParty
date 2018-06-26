@@ -11,7 +11,9 @@ import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.config.CacheKey;
 import com.qiantang.smartparty.databinding.ActivitySettingBinding;
 import com.qiantang.smartparty.module.mine.viewmodel.SettingViewModel;
+import com.qiantang.smartparty.network.URLs;
 import com.qiantang.smartparty.utils.ActivityUtil;
+import com.qiantang.smartparty.utils.WebUtil;
 
 /**
  * Created by zhaoyong bai on 2018/5/22.
@@ -47,6 +49,9 @@ public class SettingActivity extends BaseBindActivity {
                 break;
             case R.id.ll_service:
                 callPhone(viewModel.servicePhone.get());
+                break;
+            case R.id.ll_pro:
+                WebUtil.jumpWeb(this, URLs.USER_PROTOCOL+4,"用户协议");
                 break;
         }
 

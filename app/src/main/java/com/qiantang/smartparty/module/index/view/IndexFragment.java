@@ -67,8 +67,14 @@ public class IndexFragment extends BaseBindFragment {
         initStudyPro(binding.rvStudyPractice);
         viewModel.setAdater(newsAdapter, studyStateAdapter, studyVideoAdapter, speechAdapter, sectionAdapter);
         viewModel.getData();
+        initRefresh(binding.cptr);
     }
 
+    @Override
+    public void refreshData() {
+        super.refreshData();
+        viewModel.getData();
+    }
 
     /**
      * 底部动态数据

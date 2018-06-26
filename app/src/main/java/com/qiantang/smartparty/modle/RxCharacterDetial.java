@@ -12,6 +12,7 @@ public class RxCharacterDetial {
     private RxCharacterInfo rw;
     private List<RxPicUrl> imgSrc;
 
+
     public int getIsComment() {
         return isComment;
     }

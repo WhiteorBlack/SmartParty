@@ -11,6 +11,7 @@ import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.base.ViewModel;
+import com.qiantang.smartparty.config.Event;
 import com.qiantang.smartparty.modle.HttpResult;
 import com.qiantang.smartparty.modle.RxMyUserInfo;
 import com.qiantang.smartparty.module.mine.viewmodel.ForgetRequest;
@@ -148,9 +149,7 @@ public class LoginViewModel extends BaseObservable implements ViewModel {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
-                        if (e.getCode() == 1) {
-                            ToastUtil.toast("验证码过期，请重新获取");
-                        }
+                        ToastUtil.toast(e.getMessage());
                     }
 
                     @Override
@@ -162,6 +161,7 @@ public class LoginViewModel extends BaseObservable implements ViewModel {
 
     private void loginSuccess(RxMyUserInfo data) {
         MyApplication.mCache.saveInfo(data, data.getId());
+        EventBus.getDefault().post(Event.RELOAD_STUDY);
         activity.onBackPressed();
     }
 
@@ -172,8 +172,7 @@ public class LoginViewModel extends BaseObservable implements ViewModel {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
-                        if (e.getCode() == 1) {
-                        }
+                        ToastUtil.toast(e.getMessage());
                     }
 
                     @Override

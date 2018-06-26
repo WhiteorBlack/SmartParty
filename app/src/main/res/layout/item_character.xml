@@ -24,7 +24,7 @@
             android:layout_height="160px"
             android:layout_alignParentLeft="true"
             android:layout_marginRight="5px"
-            app:actualImageScaleType="centerInside" />
+            app:actualImageScaleType="centerCrop" />
 
         <TextView
             android:id="@+id/tv_time"
@@ -46,7 +46,7 @@
             android:layout_marginTop="7px"
             android:layout_toRightOf="@+id/sdv"
             android:ellipsize="end"
-            android:lines="1"
+            android:lines="2"
             android:text="@{item.title}" />
 
         <TextView
@@ -55,23 +55,38 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/tv_name"
-            android:text="@{}"
             android:layout_alignRight="@+id/tv_right"
             android:layout_below="@id/tv_name"
             android:ellipsize="end"
-            android:lines="2" />
+            android:maxLines="2"
+            android:text="@{item.intro}" />
+
+        <TextView
+            android:id="@+id/tv_source"
+            style="@style/gray22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/sdv"
+            android:layout_marginBottom="5px"
+            android:layout_marginLeft="25px"
+            android:layout_marginRight="5px"
+            android:layout_marginTop="18px"
+            android:layout_toRightOf="@+id/sdv"
+            android:gravity="bottom"
+            android:text="@{item.source}" />
 
         <TextView
             android:id="@+id/tv_date"
             style="@style/gray22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_source"
             android:layout_below="@+id/tv_content"
             android:layout_marginBottom="5px"
             android:layout_marginLeft="25px"
             android:layout_marginRight="5px"
             android:layout_marginTop="18px"
-            android:layout_toRightOf="@+id/sdv"
+            android:layout_toRightOf="@+id/tv_source"
             android:gravity="bottom"
             android:text="@{item.createTime}" />
 
@@ -80,12 +95,12 @@
             style="@style/gray22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="18px"
+            android:layout_alignBaseline="@+id/tv_source"
             android:layout_below="@+id/tv_content"
             android:layout_marginBottom="5px"
-            android:layout_marginLeft="5px"
-            android:layout_toLeftOf="@+id/sdv"
+            android:layout_marginLeft="25px"
+            android:layout_marginTop="18px"
+            android:layout_toRightOf="@+id/tv_date"
             android:gravity="bottom"
             android:text="@{item.pl+`评论`}" />
 
@@ -100,7 +115,8 @@
             android:layout_marginRight="87px"
             android:layout_toLeftOf="@+id/tv_comment"
             android:gravity="bottom"
-            android:text="@{item.read+`阅读`}" />
+            android:text="@{item.read+`阅读`}"
+            android:visibility="gone" />
 
         <View
             android:layout_width="match_parent"

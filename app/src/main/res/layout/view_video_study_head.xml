@@ -27,12 +27,27 @@
             android:text="@{viewModel.videoInfo.title}" />
 
         <TextView
-            android:id="@+id/tv_date"
+            android:id="@+id/tv_source"
             style="@style/indexNewsInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_title"
             android:layout_marginTop="@dimen/sideMargin"
+            android:paddingLeft="@dimen/sideMargin"
+            android:paddingRight="@dimen/sideMargin"
+            android:text="@{viewModel.videoInfo.source}" />
+
+
+        <TextView
+            android:id="@+id/tv_date"
+            style="@style/indexNewsInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_source"
+            android:layout_below="@+id/tv_title"
+            android:layout_marginLeft="25px"
+            android:layout_marginTop="@dimen/sideMargin"
+            android:layout_toRightOf="@+id/tv_source"
             android:paddingLeft="@dimen/sideMargin"
             android:paddingRight="@dimen/sideMargin"
             android:text="@{viewModel.videoInfo.creationtime}" />
@@ -46,24 +61,27 @@
             android:layout_below="@+id/tv_title"
             android:layout_marginRight="@dimen/sideMargin"
             android:layout_marginTop="@dimen/sideMargin"
-            android:text="@{viewModel.videoInfo.review+`评论`}" />
+            android:text="@{viewModel.videoInfo.review+`评论`}"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/tv_view"
             style="@style/indexNewsInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_source"
             android:layout_below="@+id/tv_title"
+            android:layout_marginLeft="25px"
             android:layout_marginRight="40px"
             android:layout_marginTop="@dimen/sideMargin"
-            android:layout_toLeftOf="@id/tv_comment"
+            android:layout_toRightOf="@+id/tv_date"
             android:text="@{viewModel.videoInfo.number+`次播放`}" />
 
         <View
             android:id="@+id/line1"
             android:layout_width="match_parent"
             android:layout_height="2px"
-            android:layout_below="@id/tv_comment"
+            android:layout_below="@id/tv_source"
             android:layout_marginLeft="@dimen/sideMargin"
             android:layout_marginRight="@dimen/sideMargin"
             android:layout_marginTop="28px"

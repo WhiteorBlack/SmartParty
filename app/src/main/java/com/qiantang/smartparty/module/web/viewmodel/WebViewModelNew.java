@@ -16,6 +16,7 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.config.Event;
 import com.qiantang.smartparty.module.web.view.WebViewNew;
@@ -122,6 +123,11 @@ public class WebViewModelNew implements ViewModel {
                 }
                 if (url.contains(URLs.NOTICE_DETIAL)) {
                     setTitle("通知详情");
+                }
+                if (url.contains(URLs.USER_PROTOCOL)) {
+                    ((WebViewNew) activity).setRes(0);
+                }else {
+                    ((WebViewNew) activity).setRes(R.mipmap.icon_share_white);
                 }
             }
 

@@ -9,8 +9,10 @@ import android.databinding.ObservableInt;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
@@ -25,7 +27,9 @@ import com.qiantang.smartparty.BR;
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.base.ViewModel;
+import com.qiantang.smartparty.module.web.view.WebViewNew;
 import com.qiantang.smartparty.network.URLs;
+import com.qiantang.smartparty.utils.WebUtil;
 
 /**
  * Created by zhaoyong bai on 2018/6/10.
@@ -51,6 +55,7 @@ public class HeadWebViewModel extends BaseObservable implements ViewModel {
                 .setAgentWebParent(viewGroup, new LinearLayout.LayoutParams(-1, -1))
                 .closeIndicator()
                 .setWebChromeClient(mWebChromeClient)
+                .addJavascriptInterface("qiantang", new JsToAndroid())
                 .setWebViewClient(getWebViewClient())
                 .setMainFrameErrorView(R.layout.agentweb_error_page, -1)
                 .setSecurityType(AgentWeb.SecurityType.STRICT_CHECK)
@@ -135,5 +140,21 @@ public class HeadWebViewModel extends BaseObservable implements ViewModel {
     @Override
     public void destroy() {
 
+    }
+
+    private class JsToAndroid {
+
+        /**
+         * 跳转新页面
+         *
+         * @param data
+         */
+        @JavascriptInterface
+        public void jumpNewPage(String data) {
+            if (TextUtils.isEmpty(data)) {
+                return;
+            }
+            WebUtil.jumpWeb(activity, data, "阅读原文");
+        }
     }
 }

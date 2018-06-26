@@ -267,6 +267,16 @@ public class VideoDetialViewMdoel extends BaseObservable implements ViewModel {
         EventBus.getDefault().post(new RxAddScore(CacheKey.VEDIO, time, id));
     }
 
+    public void saveTime(int time) {
+        ApiWrapper.getInstance().saveplayrecord(id, time)
+                .subscribe(new NetworkSubscriber<HttpResult>() {
+                    @Override
+                    public void onSuccess(HttpResult data) {
+
+                    }
+                });
+    }
+
     @Override
     public void destroy() {
 

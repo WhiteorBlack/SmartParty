@@ -97,7 +97,7 @@ public class VideoStudyViewModel implements ViewModel {
                     rxVideoStudy = adapter.getData().get(position);
                 }
                 switch (view.getId()) {
-                    case R.id.tv_name:
+                    case R.id.rl_parent:
                         ActivityUtil.startVideoDetialActivity(activity, rxVideoStudy.getVideourl(), rxVideoStudy.getTitle(), rxVideoStudy.getVideo_id());
                         break;
                 }

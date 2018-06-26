@@ -3,6 +3,7 @@ package com.qiantang.smartparty.module.web.view;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
@@ -68,10 +69,16 @@ public class WebViewNew extends BaseBindActivity {
 
     @Override
     public void initView() {
-        binding.toolbar.setResId(R.mipmap.icon_share_white);
+        String title = getIntent().getStringExtra("title");
+        if (!TextUtils.isEmpty(title)) {
+           viewModel.toolBarTitle.set(title);
+        }
         viewModel.initData();
     }
 
+    public void setRes(int resId){
+        binding.toolbar.setResId(resId);
+    }
 
     private WebChromeClient mWebChromeClient = new WebChromeClient() {
         @Override
@@ -91,6 +98,9 @@ public class WebViewNew extends BaseBindActivity {
             case R.id.iv_right:
 
                 break;
+            case R.id.iv_back:
+                onBackPressed();
+                return;
         }
     }
 

@@ -6,6 +6,7 @@ import com.qiantang.smartparty.modle.RxAdviseRecord;
 import com.qiantang.smartparty.module.assistant.adapter.AdviseRecordAdapter;
 import com.qiantang.smartparty.network.NetworkSubscriber;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
+import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import java.util.ArrayList;
@@ -38,6 +39,12 @@ public class AdviseRecordViewModel implements ViewModel {
         ApiWrapper.getInstance().ideaList(pageNo)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new NetworkSubscriber<List<RxAdviseRecord>>() {
+                    @Override
+                    public void onFail(RetrofitUtil.APIException e) {
+                        super.onFail(e);
+                        adviseRecordAdapter.loadMoreEnd();
+                    }
+
                     @Override
                     public void onSuccess(List<RxAdviseRecord> data) {
                         adviseRecordAdapter.setPagingData(data,pageNo);

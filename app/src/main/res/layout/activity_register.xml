@@ -168,6 +168,32 @@
             android:layout_marginRight="35px"
             android:background="@color/line" />
 
+        <CheckBox
+            android:id="@+id/chb"
+            style="@style/gray24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line5"
+            android:layout_marginLeft="40px"
+            android:layout_marginTop="10px"
+            android:button="@drawable/chb_register"
+            android:checked="@={viewModel.isAgree}"
+            android:drawablePadding="5px"
+            android:gravity="center_vertical"
+            android:padding="10px"
+            android:text="我已阅读并同意" />
+
+        <TextView
+            android:id="@+id/tv_protocal"
+            style="@style/red24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/chb"
+            android:layout_marginLeft="15px"
+            android:layout_toRightOf="@+id/chb"
+            android:onClick="onClick"
+            android:text="【智慧党建用户协议】" />
+
         <Button
             style="@style/confirmBtn"
             android:layout_width="520px"

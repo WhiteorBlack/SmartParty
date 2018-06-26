@@ -87,6 +87,7 @@ public class AppUtil {
         return MyApplication.getContext().getResources().getDimensionPixelSize(resId);
     }
 
+
     /**
      * 判断排行榜
      *

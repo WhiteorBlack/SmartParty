@@ -7,14 +7,16 @@
 
     <ImageView
         android:id="@+id/iv_tab"
-        android:layout_width="45px"
-        android:layout_height="45px" />
+        android:scaleType="centerInside"
+        android:layout_width="40px"
+        android:layout_height="40px" />
 
     <TextView
         android:id="@+id/tv_tab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="首页"
+        android:layout_marginTop="3px"
         android:textColor="@drawable/main_test"
         android:textSize="20px" />
 </LinearLayout>

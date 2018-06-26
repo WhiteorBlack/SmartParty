@@ -52,7 +52,7 @@ public class MsgViewModel implements ViewModel {
         return new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapterq, View view, int position) {
-                ActivityUtil.jumpWeb(activity, URLs.MESSAGE_DETIAL + ((RxMsg) adapter.getData().get(position)).getNoticeId());
+                ActivityUtil.jumpWeb(activity, URLs.MESSAGE_DETIAL + ( adapter.getData().get(position)).getNoticeId(),"公告详情");
             }
         };
     }

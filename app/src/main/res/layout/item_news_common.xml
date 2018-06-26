@@ -24,7 +24,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginLeft="5px"
             android:layout_marginRight="5px"
-            app:actualImageScaleType="centerInside"
+            app:actualImageScaleType="centerCrop"
             app:viewAspectRatio="1.33" />
 
         <TextView
@@ -41,16 +41,29 @@
             android:text="@{item.title}" />
 
         <TextView
+            android:id="@+id/tv_source"
+            style="@style/indexNewsInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginLeft="5px"
+            android:layout_alignBottom="@+id/sdv"
+            android:layout_marginRight="5px"
+            android:gravity="bottom"
+            android:layout_marginTop="27px"
+            android:text="@{item.source}" />
+
+        <TextView
             android:id="@+id/tv_date"
             style="@style/indexNewsInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/sdv"
             android:layout_below="@+id/tv_name"
-            android:layout_marginBottom="5px"
-            android:layout_marginLeft="5px"
+            android:layout_marginLeft="25px"
             android:layout_marginRight="5px"
-            android:gravity="bottom"
+            android:layout_marginTop="27px"
+            android:layout_alignBaseline="@+id/tv_source"
+            android:layout_toRightOf="@+id/tv_source"
             android:text="@{item.createTime}" />
 
         <TextView
@@ -62,6 +75,7 @@
             android:layout_below="@+id/tv_name"
             android:layout_marginBottom="5px"
             android:layout_marginLeft="5px"
+            android:visibility="gone"
             android:layout_marginRight="28px"
             android:layout_toLeftOf="@+id/sdv"
             android:gravity="bottom"
@@ -76,6 +90,7 @@
             android:layout_below="@+id/tv_name"
             android:layout_marginBottom="5px"
             android:layout_marginRight="27px"
+            android:visibility="gone"
             android:layout_toLeftOf="@+id/tv_comment"
             android:gravity="bottom"
             android:text="@{item.read+`阅读`}" />

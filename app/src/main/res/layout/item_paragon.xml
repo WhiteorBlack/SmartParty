@@ -37,7 +37,7 @@
             android:layout_marginTop="7px"
             android:layout_toRightOf="@+id/sdv"
             android:ellipsize="end"
-            android:lines="2"
+            android:lines="1"
             android:text="@{item.title}" />
 
         <TextView
@@ -49,7 +49,7 @@
             android:layout_below="@+id/tv_name"
             android:layout_marginBottom="5px"
             android:layout_marginRight="5px"
-            android:layout_marginTop="18px"
+            android:layout_marginTop="15px"
             android:layout_toRightOf="@+id/sdv"
             android:ellipsize="end"
             android:maxLines="2"

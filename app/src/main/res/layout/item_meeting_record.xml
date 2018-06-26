@@ -12,46 +12,57 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="90px"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:paddingLeft="20px"
         android:paddingRight="32px"
-        android:paddingTop="@dimen/sideMargin">
+        android:paddingTop="24px">
 
         <View
             android:id="@+id/line"
-            android:layout_width="4px"
-            android:layout_height="28px"
-            android:layout_centerVertical="true"
+            android:layout_width="10px"
+            android:layout_height="10px"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="13px"
             android:background="@color/paleRed" />
-
-        <TextView
-            android:id="@+id/tv_time"
-            style="@style/gray22"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text="@{item.createTime}" />
 
         <TextView
             android:id="@+id/tv_name"
             style="@style/black30"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_marginLeft="20px"
             android:layout_marginRight="20px"
-            android:layout_toLeftOf="@+id/tv_time"
             android:layout_toRightOf="@+id/line"
             android:ellipsize="end"
             android:lines="1"
             android:text="@{item.title}" />
 
+        <TextView
+            android:id="@+id/tv_source"
+            style="@style/gray22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_name"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginTop="15px"
+            android:text="@{item.source}" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            style="@style/gray22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_source"
+            android:layout_marginLeft="25px"
+            android:layout_toRightOf="@+id/tv_source"
+            android:text="@{item.createTime}" />
+
         <View
             android:layout_width="match_parent"
-            android:layout_height="2px"
-            android:layout_alignParentBottom="true"
+            android:layout_height="1px"
+            android:layout_below="@+id/tv_source"
+            android:layout_marginTop="24px"
             android:background="@color/line" />
     </RelativeLayout>
 </layout>

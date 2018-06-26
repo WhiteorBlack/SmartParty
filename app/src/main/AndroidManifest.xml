@@ -425,6 +425,11 @@
             android:launchMode="singleTask"
             android:theme="@style/SplashTheme"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".module.photo.view.CheckPhotoActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

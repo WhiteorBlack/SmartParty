@@ -83,6 +83,11 @@ public class ActivityDetial extends BaseBindActivity implements CommentBox.OnCom
         });
     }
 
+    public void scorllTop() {
+        binding.rv.scrollBy(0, Integer.MAX_VALUE);
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_back:
@@ -104,7 +109,7 @@ public class ActivityDetial extends BaseBindActivity implements CommentBox.OnCom
 
     @Override
     public void onBackPressed() {
-        if (viewModel.isInput.get() && viewModel.getStatus() == 3) {
+        if (viewModel.isInput.get() && viewModel.getStatus() == 3&&!viewModel.isApply.get()) {
             viewModel.isInput.set(false);
             binding.input.dismissCommentBoxWithoutShowing(false);
             return;
@@ -119,13 +124,15 @@ public class ActivityDetial extends BaseBindActivity implements CommentBox.OnCom
         adapter.setLoadMoreView(RecycleViewUtils.getLoadMoreView());
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
+        rv.setFocusable(false);
         rv.addOnItemTouchListener(viewModel.onItemTouchListener());
         if (Config.isLoadMore) {
             adapter.setOnLoadMoreListener(() -> viewModel.loadMore(), rv);
         }
-        viewModel.getData(1);
         initRefresh(binding.cptr);
+        viewModel.getData(1);
     }
+
 
     @Override
     public void refreshData() {

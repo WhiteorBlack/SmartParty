@@ -50,7 +50,11 @@ public class RankViewModel extends BaseObservable implements ViewModel {
         Calendar calendar = Calendar.getInstance();
         currentYear = year = calendar.get(Calendar.YEAR);
         currentMonth = month = calendar.get(Calendar.MONTH) + 1;
-        setDate(year + "/" + month);
+        if (month < 10) {
+            setDate(year + "/0" + month);
+        } else {
+            setDate(year + "/" + month);
+        }
         getData();
     }
 
@@ -77,19 +81,27 @@ public class RankViewModel extends BaseObservable implements ViewModel {
             if (month > currentMonth) {
                 month = currentMonth;
             }
-        }else {
-            setDate(year+"/"+month);
-            getData();
         }
+        if (month < 10) {
+            setDate(year + "/0" + month);
+        } else {
+            setDate(year + "/" + month);
+        }
+        getData();
+
     }
 
     private void preMonth() {
         month--;
-        if (month<0){
-            month=12;
+        if (month < 0) {
+            month = 12;
             year--;
         }
-        setDate(year+"/"+month);
+        if (month < 10) {
+            setDate(year + "/0" + month);
+        } else {
+            setDate(year + "/" + month);
+        }
         getData();
     }
 

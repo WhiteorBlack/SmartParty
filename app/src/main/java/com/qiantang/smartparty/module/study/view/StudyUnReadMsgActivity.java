@@ -30,8 +30,15 @@ public class StudyUnReadMsgActivity extends BaseBindActivity {
     @Override
     public void initView() {
         binding.toolbar.setTitle("学习感悟");
-        viewModel.getData();
+        viewModel.getData(1);
         initRv(binding.rv);
+        initRefresh(binding.cptr);
+    }
+
+    @Override
+    public void refreshData() {
+        super.refreshData();
+        viewModel.getData(1);
     }
 
     private void initRv(RecyclerView rv) {

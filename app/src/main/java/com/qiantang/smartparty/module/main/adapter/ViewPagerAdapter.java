@@ -48,7 +48,8 @@ public class ViewPagerAdapter extends IndicatorViewPager.IndicatorFragmentPagerA
             convertView = inflater.inflate(R.layout.tab_main, container, false);
         }
         ImageView imageView = (ImageView) convertView.findViewById(R.id.iv_tab);
-        imageView.setImageDrawable(AppUtil.getDrawable(icons[position]));
+//        imageView.setImageDrawable(AppUtil.getDrawable(icons[position]));
+        imageView.setImageResource(icons[position]);
         TextView textView = convertView.findViewById(R.id.tv_tab);
         textView.setText(names[position]);
         AutoUtils.auto(convertView);

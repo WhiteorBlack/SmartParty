@@ -36,9 +36,8 @@
                     <com.facebook.drawee.view.SimpleDraweeView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:actualImageScaleType="fitXY"
                         app:placeholderImage="@mipmap/bg_assistant_top"
-                        app:placeholderImageScaleType="centerInside"
+                        app:placeholderImageScaleType="fitXY"
                         app:viewAspectRatio="2.5" />
 
                     <android.support.v7.widget.RecyclerView

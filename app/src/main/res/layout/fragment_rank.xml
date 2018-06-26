@@ -28,27 +28,28 @@
 
             <ImageView
                 android:id="@+id/iv_pre"
-                android:layout_width="30px"
-                android:layout_height="30px"
+                android:layout_width="50px"
+                android:layout_height="50px"
                 android:layout_marginTop="33px"
-                android:background="@mipmap/arrow_left_white"
                 android:onClick="@{viewModel.onClick}"
-                android:scaleType="centerInside" />
+                android:scaleType="centerInside"
+                android:src="@mipmap/arrow_left_white" />
 
             <TextView
                 android:id="@+id/tv_date"
                 style="@style/white28"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="28px"
-                android:layout_marginTop="29px"
+                android:layout_height="50px"
+                android:gravity="center"
+                android:layout_marginLeft="18px"
+                android:layout_marginTop="33px"
                 android:text="@{viewModel.date}" />
 
             <ImageView
                 android:id="@+id/iv_next"
-                android:layout_width="30px"
-                android:layout_height="30px"
-                android:layout_marginLeft="28px"
+                android:layout_width="50px"
+                android:layout_height="50px"
+                android:layout_marginLeft="18px"
                 android:layout_marginTop="33px"
                 android:onClick="@{viewModel.onClick}"
                 android:scaleType="centerInside"

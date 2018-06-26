@@ -56,6 +56,8 @@ public class ActivityDetialViewModel extends BaseObservable implements ViewModel
     private ObservableInt status = new ObservableInt(0);
     private SignRecordAdapter signRecordAdapter;
     private boolean isDealing = false;
+    public ObservableBoolean isInit=new ObservableBoolean(false);
+    public ObservableBoolean isApply=new ObservableBoolean(false);
     private int commentPos = 0;
 
 
@@ -83,18 +85,27 @@ public class ActivityDetialViewModel extends BaseObservable implements ViewModel
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new NetworkSubscriber<RxActivityDetial>() {
                     @Override
+                    public void onFail(RetrofitUtil.APIException e) {
+                        super.onFail(e);
+                        activity.refreshFail();
+                    }
+
+                    @Override
                     public void onSuccess(RxActivityDetial data) {
+                        activity.refreshOK();
+                        ((ActivityDetial)activity).scorllTop();
                         if (Config.isLoadMore) {
                             adapter.setPagingData(data.getPl(), pageNo);
                         } else {
                             adapter.setNewData(data.getPl());
                         }
+                        isApply.set(data.getIsApply()==1);
                         if (pageNo == 1) {
-                            isInput.set(data.getIsApply() == 1);
                             setCommentCount(data.getCount());
                             setDetials(data.getDetials());
                             dealSign(data.getQd());
                         }
+                        isInit.set(true);
                     }
                 });
     }
@@ -134,6 +145,9 @@ public class ActivityDetialViewModel extends BaseObservable implements ViewModel
     }
 
     public void enroll() {
+        if (isApply.get()){
+            return;
+        }
         ApiWrapper.getInstance().enroll(getDetials().getActivityId())
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new NetworkSubscriber<HttpResult>() {

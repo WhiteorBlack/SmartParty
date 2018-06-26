@@ -30,7 +30,7 @@
             android:layout_below="@+id/line"
             android:background="@color/white"
             android:gravity="center"
-            android:text="查看更多 ＞＞"
+            android:text="查看更多"
             android:textSize="24px"
             android:visibility="@{item.top?View.GONE:View.VISIBLE}" />
 

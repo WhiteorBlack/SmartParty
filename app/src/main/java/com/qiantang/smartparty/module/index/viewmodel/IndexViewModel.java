@@ -23,6 +23,7 @@ import com.qiantang.smartparty.module.index.adapter.SpechAdapter;
 import com.qiantang.smartparty.network.NetworkSubscriber;
 import com.qiantang.smartparty.network.URLs;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
+import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
 import com.qiantang.smartparty.utils.ActivityUtil;
 import com.qiantang.smartparty.utils.ToastUtil;
 import com.trello.rxlifecycle2.android.FragmentEvent;
@@ -60,7 +61,14 @@ public class IndexViewModel implements ViewModel {
                 .compose(fragment.bindUntilEvent(FragmentEvent.DESTROY))
                 .subscribe(new NetworkSubscriber<List<RxIndex>>() {
                     @Override
+                    public void onFail(RetrofitUtil.APIException e) {
+                        super.onFail(e);
+                        fragment.refreshFail();
+                    }
+
+                    @Override
                     public void onSuccess(List<RxIndex> data) {
+                        fragment.refreshOK();
                         if (data.get(0) != null) {
                             List<RxIndexNews> newsList = data.get(0).getNews();
                             for (int i = 0; i < newsList.size(); i++) {
@@ -82,6 +90,7 @@ public class IndexViewModel implements ViewModel {
                             spechAdapter.setNewData(data.get(3).getSpeak());
                         }
                         if (data.size() > 4) {
+                            sectionList.clear();
                             int lastId = 0;
                             for (int i = 0; i < data.size() - 4; i++) {
                                 List<RxIndexStudy> studyList = data.get(4 + i).getContent();

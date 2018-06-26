@@ -13,7 +13,9 @@ import com.qiantang.smartparty.databinding.ActivityTotalScoreBinding;
 import com.qiantang.smartparty.module.mine.adapter.TotalScoreAdapter;
 import com.qiantang.smartparty.module.mine.viewmodel.MonthViewModel;
 import com.qiantang.smartparty.module.mine.viewmodel.TotalViewModel;
+import com.qiantang.smartparty.network.URLs;
 import com.qiantang.smartparty.utils.RecycleViewUtils;
+import com.qiantang.smartparty.utils.WebUtil;
 
 /**
  * Created by zhaoyong bai on 2018/5/22.
@@ -50,6 +52,9 @@ public class TotalScoreActivity extends BaseBindActivity {
         switch (view.getId()) {
             case R.id.iv_back:
                 onBackPressed();
+                break;
+            case R.id.iv_intro:
+                WebUtil.jumpWeb(this, URLs.USER_PROTOCOL + 1, "学习值说明");
                 break;
         }
     }

@@ -66,6 +66,9 @@ public class PublishActivity extends BaseBindActivity implements EasyPermission.
                 viewModel.content = MyTextUtils.getEditTextString(binding.etContent);
                 viewModel.uploadImage();
                 break;
+            case R.id.iv_back:
+                onBackPressed();
+                break;
         }
     }
 

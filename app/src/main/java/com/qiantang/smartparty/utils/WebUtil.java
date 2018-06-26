@@ -19,6 +19,7 @@ import android.webkit.WebViewClient;
 
 import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.config.Config;
+import com.qiantang.smartparty.module.web.view.WebViewNew;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -184,6 +185,13 @@ public class WebUtil {
         //  cookieManager.setCookie(url, cookie);//如果没有特殊需求，这里只需要将session id以"key=value"形式作为cookie即可
         String newCookie = cookieManager.getCookie(url);
         return !StringUtil.isEmpty(newCookie);
+    }
+
+    public static void jumpWeb(Context context,String url,String title){
+        Intent intent=new Intent(context,WebViewNew.class);
+        intent.putExtra("title",title);
+        intent.putExtra("url",url);
+        context.startActivity(intent);
     }
 
 }

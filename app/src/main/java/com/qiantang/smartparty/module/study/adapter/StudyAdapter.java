@@ -11,11 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.SuperKotlin.pictureviewer.ImagePagerActivity;
+import com.SuperKotlin.pictureviewer.PictureConfig;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.orhanobut.logger.Logger;
 import com.qiantang.smartparty.BR;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.BindingViewHolder;
@@ -23,6 +26,7 @@ import com.qiantang.smartparty.adapter.EasyBindQuickAdapter;
 import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.modle.RxStudy;
 import com.qiantang.smartparty.modle.RxStudyList;
+import com.qiantang.smartparty.module.photo.view.CheckPhotoActivity;
 import com.qiantang.smartparty.utils.AutoUtils;
 import com.qiantang.smartparty.utils.ToastUtil;
 import com.qiantang.smartparty.widget.AutoLinearLayout;
@@ -97,9 +101,39 @@ public class StudyAdapter extends EasyBindQuickAdapter<RxStudyList> {
             rvImage.addOnItemTouchListener(new com.chad.library.adapter.base.listener.OnItemClickListener() {
                 @Override
                 public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    ToastUtil.toast(imgList.get(position));
+
+
+                }
+
+                @Override
+                public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                    super.onItemChildClick(adapter, view, position);
+                    Logger.e("itemClick--"+position+"---"+holder.getLayoutPosition());
+                    switch (view.getId()){
+                        case R.id.sdv:
+                            List<String> imglist = new ArrayList<>();
+                            List<String> imgs = adapter.getData();
+                            if (imgs != null && imgs.size() > 0) {
+                                for (int i = 0; i < imgs.size(); i++) {
+                                    imglist.add(Config.IMAGE_HOST + imgs.get(i));
+                                }
+                            }
+                            PictureConfig config = new PictureConfig.Builder()
+                                    .setListData((ArrayList<String>) imglist)    //图片数据List<String> list
+                                    .setPosition(position)    //图片下标（从第position张图片开始浏览）
+                                    .setDownloadPath("smartParty")    //图片下载文件夹地址
+                                    .setIsShowNumber(true)//是否显示数字下标
+                                    .needDownload(true)    //是否支持图片下载
+                                    .setPlacrHolder(R.mipmap.ic_launcher)    //占位符图片（图片加载完成前显示的资源图片，来源drawable或者mipmap）
+                                    .build();
+                            CheckPhotoActivity.startActivity(mContext, config);
+                            break;
+                    }
                 }
             });
+        }else{
+            holder.getBinding().getRoot().findViewById(R.id.rv).setVisibility(View.GONE);
         }
+
     }
 }

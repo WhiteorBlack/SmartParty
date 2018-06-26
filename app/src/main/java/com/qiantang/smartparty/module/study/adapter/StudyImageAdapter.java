@@ -25,6 +25,7 @@ public class StudyImageAdapter extends EasyBindQuickAdapter<String> {
     protected void easyConvert(BindingViewHolder holder, String item) {
         holder.getBinding().setVariable(BR.item, item);
         holder.getBinding().executePendingBindings();
+        holder.addOnClickListener(R.id.sdv);
         ((SimpleDraweeView) holder.getBinding().getRoot().findViewById(R.id.sdv)).setImageURI(Config.IMAGE_HOST+item);
     }
 }

@@ -12,6 +12,15 @@ public class RxIndexCommon {
     private String imgSrc;
     private String printurl;
     private String intro;
+    private String source;
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
 
     public String getIntro() {
         return intro;

@@ -5,19 +5,36 @@ package com.qiantang.smartparty.modle;
  */
 public class RxParagonInfo {
     private int commentSum;
-    private String createTime;
+    private String creationtime;
     private String intro;
     private String title;
     private int collect;
     private String content;
+    private String source;
+    private int read;
 
-
-    public String getCreateTime() {
-        return createTime;
+    public int getRead() {
+        return read;
     }
 
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
+    public void setRead(int read) {
+        this.read = read;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public String getCreationtime() {
+        return creationtime;
+    }
+
+    public void setCreationtime(String creationtime) {
+        this.creationtime = creationtime;
     }
 
     public String getIntro() {

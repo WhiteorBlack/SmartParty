@@ -44,6 +44,7 @@
             android:layout_alignLeft="@+id/tv_name"
             android:layout_below="@+id/tv_name"
             android:layout_marginTop="17px"
+            android:paddingLeft="10px"
             android:text="@{MyTextUtils.getScoreData(item.creationtime)}" />
 
         <TextView

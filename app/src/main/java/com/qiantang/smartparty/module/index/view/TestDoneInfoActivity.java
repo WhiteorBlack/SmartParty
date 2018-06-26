@@ -39,7 +39,7 @@ public class TestDoneInfoActivity extends BaseBindActivity {
                 ActivityUtil.startTestRecordActivity(this, viewModel.getTestInfo().getUserquestionnaire_id());
                 break;
             case R.id.btn_retry:
-                ActivityUtil.startTestDeitalInfoActivity(this, viewModel.getTestInfo().getQuestionnaire_id(), viewModel.getTestInfo().getClippingtime() * 60, viewModel.getTestInfo().getNumber());
+                ActivityUtil.startTestDeitalInfoActivity(this, viewModel.getTestInfo().getQuestionnaire_id(), viewModel.getTestInfo().getClippingtime() * 60, viewModel.getTestInfo().getNumber(),true);
                 break;
         }
     }

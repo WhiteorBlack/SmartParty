@@ -5,6 +5,12 @@
 
         <import type="android.view.View" />
 
+        <import type="com.qiantang.smartparty.utils.AppUtil" />
+
+        <import type="com.qiantang.smartparty.R" />
+
+        <import type="com.qiantang.smartparty.utils.StringUtil" />
+
         <variable
             name="viewModel"
             type="com.qiantang.smartparty.module.assistant.viewmodel.ActivityDetialViewModel" />
@@ -30,14 +36,14 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv"
                 android:layout_width="match_parent"
-                android:layout_height="0px"
+                android:layout_height="match_parent"
                 android:layout_below="@+id/toolbar" />
         </com.qiantang.smartparty.widget.CusPtrFrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="98px"
-            android:visibility="@{viewModel.status &lt; 3?View.GONE:View.VISIBLE}">
+            android:visibility="@{(viewModel.status &lt; 3 &amp;&amp; viewModel.isInit)?View.GONE:View.VISIBLE}">
 
             <com.qiantang.smartparty.widget.commentwidget.CommentBox
                 android:id="@+id/input"
@@ -49,7 +55,7 @@
                 android:layout_height="98px"
                 android:layout_alignParentBottom="true"
                 android:orientation="horizontal"
-                android:visibility="@{(!viewModel.isInput &amp;&amp; viewModel.status==3)?View.VISIBLE:View.GONE}">
+                android:visibility="@{(!viewModel.isInput &amp;&amp; viewModel.status ==3)?View.VISIBLE:View.GONE}">
 
                 <LinearLayout
                     android:id="@+id/ll_comment"
@@ -80,12 +86,11 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
-                    android:background="@color/paleRed"
+                    android:background="@{(viewModel.status==3 &amp;&amp; !viewModel.isApply)?AppUtil.getColor(R.color.paleRed):AppUtil.getColor(R.color.none_text)}"
                     android:gravity="center"
                     android:onClick="onClick"
-                    android:text="报名" />
+                    android:text="@{(viewModel.status==3 &amp;&amp; !viewModel.isApply)?StringUtil.getString(R.string.is_activity_apply):StringUtil.getString(R.string.not_activity_apply)}" />
             </LinearLayout>
-
 
         </FrameLayout>
     </LinearLayout>

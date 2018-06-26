@@ -59,6 +59,7 @@ public class TestDetialViewModel extends BaseObservable implements ViewModel {
     private String resultId = "";
     private ObservableBoolean isCommit = new ObservableBoolean(false);
     private LoadingWindow loadingView;
+    private boolean retry;
 
     public TestDetialViewModel(BaseBindActivity activity, TestDetialAdapter detialAdapter) {
         this.activity = activity;
@@ -67,6 +68,7 @@ public class TestDetialViewModel extends BaseObservable implements ViewModel {
     }
 
     private void initData() {
+        retry = activity.getIntent().getBooleanExtra("retry", false);
         loadingView = new LoadingWindow(activity);
         id = activity.getIntent().getStringExtra("id");
         timeSeconde = activity.getIntent().getIntExtra("time", 0);
@@ -247,7 +249,9 @@ public class TestDetialViewModel extends BaseObservable implements ViewModel {
                         resultId = data.getUserquestionnaire_id();
                         setResultGrad(data.getGrade());
                         setCountTime("考试评测");
-                        EventBus.getDefault().post(new RxAddScore(CacheKey.TEST,coastTime*1000,id));
+//                        if (!retry) {
+//                            EventBus.getDefault().post(new RxAddScore(CacheKey.TEST, coastTime * 1000, id));
+//                        }
                     }
                 });
     }

@@ -256,6 +256,7 @@ public class VideoSpeechDetialActivity extends BaseBindActivity {
         super.onDestroy();
         long pos = getCurPlay().getGSYVideoManager().getMediaPlayer().getCurrentPosition();
         viewMdoel.addScore((int) pos);
+        viewMdoel.saveTime((int) pos);
         viewMdoel.destroy();
         if (isPlay) {
             getCurPlay().release();

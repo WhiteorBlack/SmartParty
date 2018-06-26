@@ -159,8 +159,8 @@ public interface ApiService {
 //                                                               @Field("activityId") String activityId,
 //                                                               @Field("userId") String userId);
     Observable<HttpResult<RxActivityDetial>> djActivityDetails(
-                                                               @Field("activityId") String activityId,
-                                                               @Field("userId") String userId);
+            @Field("activityId") String activityId,
+            @Field("userId") String userId);
 
     @FormUrlEncoded
     //党建活动
@@ -204,8 +204,8 @@ public interface ApiService {
 //                                                             @Field("contentId") String contentId,
 //                                                             @Field("userId") String userId);
     Observable<HttpResult<RxActivityDetial>> fcNoticeDetails(
-                                                             @Field("contentId") String contentId,
-                                                             @Field("userId") String userId);
+            @Field("contentId") String contentId,
+            @Field("userId") String userId);
 
     //人物表彰详情
     @FormUrlEncoded
@@ -215,9 +215,9 @@ public interface ApiService {
 //                                                              @Field("contentId") String contentId,
 //                                                              @Field("userId") String userId);
     Observable<HttpResult<RxCharacterDetial>> rwNoticeDetails(
-                                                              @Field("printurl") String printurl,
-                                                              @Field("contentId") String contentId,
-                                                              @Field("userId") String userId);
+            @Field("printurl") String printurl,
+            @Field("contentId") String contentId,
+            @Field("userId") String userId);
 
     //思想汇报列表
     @FormUrlEncoded
@@ -364,8 +364,8 @@ public interface ApiService {
 //                                                           @Field("contentId") String contentId,
 //                                                           @Field("userId") String userId);
     Observable<HttpResult<RxSpecialDetial>> specialDetails(
-                                                           @Field("contentId") String contentId,
-                                                           @Field("userId") String userId);
+            @Field("contentId") String contentId,
+            @Field("userId") String userId);
 
     //专题学习列表
     @FormUrlEncoded
@@ -438,9 +438,9 @@ public interface ApiService {
 //                                                           @Field("contentId") String contentId,
 //                                                           @Field("userId") String userId);
     Observable<HttpResult<RxParagonDetial>> paragonDetails(
-                                                           @Field("printurl") String printurl,
-                                                           @Field("contentId") String contentId,
-                                                           @Field("userId") String userId);
+            @Field("printurl") String printurl,
+            @Field("contentId") String contentId,
+            @Field("userId") String userId);
 
     //好书推荐
     @FormUrlEncoded
@@ -460,8 +460,8 @@ public interface ApiService {
 //                                                          @Field("contentId") String contentId,
 //                                                          @Field("userId") String userId);
     Observable<HttpResult<RxBookDetial>> recommendDetails(
-                                                          @Field("contentId") String contentId,
-                                                          @Field("userId") String userId);
+            @Field("contentId") String contentId,
+            @Field("userId") String userId);
 
     //轮播图
     @POST("app/agreement/advertising")
@@ -660,5 +660,14 @@ public interface ApiService {
     Observable<HttpResult<RxSignResult>> signDetails(@Field("activityId") String activityId,
                                                      @Field("userId") String userId,
                                                      @Field("site") String site);
+
+
+    //保存播放记录
+    @FormUrlEncoded
+    @POST("app/video/saveplayrecord")
+    Observable<HttpResult<HttpResult>> saveplayrecord(@Field("comment_id") String comment_id,
+                                                      @Field("userId") String userId,
+                                                      @Field("playtime") int playtime);
+
 
 }

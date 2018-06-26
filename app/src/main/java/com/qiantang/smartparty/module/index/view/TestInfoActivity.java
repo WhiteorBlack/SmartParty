@@ -33,7 +33,7 @@ public class TestInfoActivity extends BaseBindActivity {
         super.onClick(view);
         switch (view.getId()){
             case R.id.btn_confirm:
-                ActivityUtil.startTestDeitalInfoActivity(this,viewModel.getTestInfo().getQuestionnaire_id(),viewModel.getTestInfo().getClippingtime()*60,viewModel.getTestInfo().getNumber());
+                ActivityUtil.startTestDeitalInfoActivity(this,viewModel.getTestInfo().getQuestionnaire_id(),viewModel.getTestInfo().getClippingtime()*60,viewModel.getTestInfo().getNumber(),false);
                 break;
         }
     }

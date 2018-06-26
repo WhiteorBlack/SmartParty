@@ -19,6 +19,7 @@ import com.qiantang.smartparty.BaseBindFragment;
 import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.base.ViewModel;
+import com.qiantang.smartparty.config.CacheKey;
 import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.config.Event;
 import com.qiantang.smartparty.modle.HttpResult;
@@ -72,7 +73,7 @@ public class StudyViewModel extends BaseObservable implements ViewModel, Comment
     //接收更新请求
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(Integer i) {
-        if (i== Event.RELOAD) {
+        if (i== Event.RELOAD_STUDY) {
             getData(1);
         }
     }
@@ -112,7 +113,7 @@ public class StudyViewModel extends BaseObservable implements ViewModel, Comment
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
                         fragment.refreshFail();
-                        adapter.loadMoreEnd();
+                        adapter.loadMoreComplete();
                     }
 
                     @Override
@@ -157,10 +158,10 @@ public class StudyViewModel extends BaseObservable implements ViewModel, Comment
                     public void onSuccess(HttpResult data) {
                         if (type == 1) {
                             //点赞成功
-                            adapter.getData().get(commentPos).getZanAppMap().add(new RxStudyZan(adapter.getData().get(commentPos).getUsername(), "", MyApplication.USER_ID));
+                            adapter.getData().get(commentPos).getZanAppMap().add(new RxStudyZan(MyApplication.mCache.getAsString(CacheKey.USER_NAME), "", MyApplication.USER_ID));
                         }
                         if (type == 2) {
-                            adapter.getData().get(commentPos).getCommentAppMap().add(new RxStudyComment(adapter.getData().get(commentPos).getUsername(), content, MyApplication.USER_ID));
+                            adapter.getData().get(commentPos).getCommentAppMap().add(new RxStudyComment(MyApplication.mCache.getAsString(CacheKey.USER_NAME), content, MyApplication.USER_ID));
                         }
                         adapter.notifyItemChanged(commentPos + 1);
                     }

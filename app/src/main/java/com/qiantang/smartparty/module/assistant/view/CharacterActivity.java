@@ -25,7 +25,7 @@ public class CharacterActivity extends BaseBindActivity {
 
     @Override
     protected void initBind() {
-        adapter = new IndexCommonAdapter(R.layout.item_study_state);
+        adapter = new IndexCommonAdapter(R.layout.item_character);
         viewModel = new CharacterViewModel(this, adapter);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_recycleview);
     }
