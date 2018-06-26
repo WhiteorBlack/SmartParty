@@ -130,13 +130,12 @@ dependencies {
     implementation files('libs/umeng_social_net.jar')
     implementation files('libs/umeng_social_tool.jar')
     implementation files('libs/wechat-sdk-android-with-mta-1.1.6.jar')
-
     implementation 'com.github.nanchen2251:CompressHelper:1.0.5'
     //城市三级联动
     implementation 'com.contrarywind:Android-PickerView:3.2.7'
-
-    //图片查看器
-    implementation 'com.github.SuperKotlin:PictureViewer:2.0.1'
+    //    //图片查看器
+    //    implementation 'com.github.SuperKotlin:PictureViewer:2.0.1'
+    implementation project(':PictureViewer')
 }
 repositories {
     mavenCentral()
