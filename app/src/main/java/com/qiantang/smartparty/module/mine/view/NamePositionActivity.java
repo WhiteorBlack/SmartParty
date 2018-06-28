@@ -26,7 +26,6 @@ public class NamePositionActivity extends BaseBindActivity {
         String name = getIntent().getStringExtra("info");
         viewModel.info.set(name);
         if (type == 0) {
-
             binding.toolbar.setTitle("修改名称");
         } else {
             binding.toolbar.setTitle("修改职位");

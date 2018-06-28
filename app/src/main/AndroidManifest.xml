@@ -226,7 +226,7 @@
         <activity
             android:name=".module.login.view.CompeteInfoActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustResize|stateUnspecified"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" />
 
         <activity

@@ -17,6 +17,8 @@ import com.qiantang.smartparty.utils.StringUtil;
 import com.qiantang.smartparty.utils.ToastUtil;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
+import org.greenrobot.eventbus.EventBus;
+
 import static android.app.Activity.RESULT_OK;
 
 public class NamePositionViewModel extends BaseObservable implements ViewModel {
@@ -75,6 +77,7 @@ public class NamePositionViewModel extends BaseObservable implements ViewModel {
                         MyApplication.mCache.getAsJSONBean(CacheKey.USER_INFO, RxMyUserInfo.class, rxMyUserInfo -> {
                             rxMyUserInfo.setUsername(realName);
                             MyApplication.mCache.put(CacheKey.USER_INFO, rxMyUserInfo);
+                            EventBus.getDefault().post(rxMyUserInfo);
                             activity.finish();
                         });
 

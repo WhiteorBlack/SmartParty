@@ -25,7 +25,7 @@ public class CompeteInfoActivity extends BaseBindActivity {
 
     @Override
     public void initView() {
-//        mImmersionBar.keyboardMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE).init();
+        mImmersionBar.keyboardMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN).init();
         binding.toolbar.setTitle("完善信息");
     }
 

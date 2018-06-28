@@ -591,7 +591,7 @@ public interface ApiService {
     @POST("app/userCenter/modifyArchives")
     Observable<HttpResult<HttpResult>> modifyArchives(@Field("phone") String phone,
                                                       @Field("joinpatryTime") String joinpatryTime,
-                                                      @Field("username ") String username,
+                                                      @Field("username") String username,
                                                       @Field("position") String position,
                                                       @Field("deptId ") String deptId);
 

@@ -51,6 +51,7 @@ public class MineViewModel extends BaseObservable implements ViewModel {
         switch (view.getId()) {
             case R.id.rl_info:
                 //个人档案
+//                ActivityUtil.startCompeteActivity(fragment.getActivity(),"","");
                 if (MyApplication.isLogin()) {
                     ActivityUtil.startInfoActivity(fragment.getActivity());
                 } else {

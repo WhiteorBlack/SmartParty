@@ -130,7 +130,7 @@ public class VoiceSpeechDetialViewMdoel extends BaseObservable implements ViewMo
 //                        rxComment.setCreationtime(AppUtil.getNowDate());
 //                        adapter.getData().add(adapter.getData().size(), rxComment);
 //                        adapter.notifyItemInserted(adapter.getData().size());
-                        EventBus.getDefault().post(new RxAddScore(CacheKey.COMMENT, 0, ""));
+                        EventBus.getDefault().post(new RxAddScore(CacheKey.COMMENT, 0, id));
                         testData(pageNo + 1, false);
                     }
                 });

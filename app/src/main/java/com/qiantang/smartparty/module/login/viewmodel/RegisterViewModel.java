@@ -88,7 +88,7 @@ public class RegisterViewModel extends BaseObservable implements ViewModel {
                     @Override
                     public void onFail(RetrofitUtil.APIException e) {
                         super.onFail(e);
-                        ToastUtil.toast("发送失败,请重试");
+                        ToastUtil.toast(e.getMessage());
                     }
 
                     @Override

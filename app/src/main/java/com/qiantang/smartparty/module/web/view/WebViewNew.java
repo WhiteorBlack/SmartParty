@@ -40,7 +40,7 @@ public class WebViewNew extends BaseBindActivity {
     private void initAgentWeb() {
         mAgentWeb = AgentWeb.with(this)
                 .setAgentWebParent(binding.llParent, new LinearLayout.LayoutParams(-1, -1))
-                .useDefaultIndicator(getResources().getColor(R.color.colorPrimary), 1)
+                .useDefaultIndicator(getResources().getColor(R.color.barColor), 1)
                 .setWebChromeClient(mWebChromeClient)
                 .setWebViewClient(viewModel.getWebViewClient())
                 .addJavascriptInterface("puxiang", new JsToAndroid())

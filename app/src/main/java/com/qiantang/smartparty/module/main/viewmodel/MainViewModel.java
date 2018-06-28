@@ -123,6 +123,7 @@ public class MainViewModel implements ViewModel {
                             rxMyUserInfo1.setLearningability(data.getLearningability());
                             rxMyUserInfo1.setAvatar(data.getAvatar());
                             rxMyUserInfo1.setMemeber(data.getMember());
+                            rxMyUserInfo1.setUsername(data.getUsername());
                             rxMyUserInfo1.setStatus(data.getSta());
                             MyApplication.mCache.saveInfo(rxMyUserInfo1, rxMyUserInfo1.getId());
                         });

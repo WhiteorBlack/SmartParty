@@ -27,7 +27,9 @@ import com.qiantang.smartparty.BR;
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.base.ViewModel;
+import com.qiantang.smartparty.module.web.view.HeadWebActivity;
 import com.qiantang.smartparty.module.web.view.WebViewNew;
+import com.qiantang.smartparty.module.web.viewmodel.WebViewModelNew;
 import com.qiantang.smartparty.network.URLs;
 import com.qiantang.smartparty.utils.WebUtil;
 
@@ -40,6 +42,7 @@ public class HeadWebViewModel extends BaseObservable implements ViewModel {
     private String url = "";
     private ObservableInt commentCount = new ObservableInt(0);
     public ObservableBoolean isFinish = new ObservableBoolean(false); //判断是否H5加载完毕,完毕之后在展示评论内容
+    public ObservableInt progress=new ObservableInt(0);
 
     public HeadWebViewModel(BaseBindActivity activity) {
         this.activity = activity;
@@ -53,6 +56,7 @@ public class HeadWebViewModel extends BaseObservable implements ViewModel {
     public void initWev(ViewGroup viewGroup) {
         mAgentWeb = AgentWeb.with(activity)
                 .setAgentWebParent(viewGroup, new LinearLayout.LayoutParams(-1, -1))
+//                .useDefaultIndicator(activity.getResources().getColor(R.color.barColor), 1)
                 .closeIndicator()
                 .setWebChromeClient(mWebChromeClient)
                 .addJavascriptInterface("qiantang", new JsToAndroid())
@@ -62,9 +66,9 @@ public class HeadWebViewModel extends BaseObservable implements ViewModel {
                 .setOpenOtherPageWays(DefaultWebClient.OpenOtherPageWays.ASK)//打开其他应用时，弹窗咨询用户是否前往其他应用
                 .interceptUnkownUrl() //拦截找不到相关页面的Scheme
                 .createAgentWeb()
-                .go("");
+                .go(url);
         mAgentWeb.getWebCreator().getWebView().setLayerType(View.LAYER_TYPE_NONE, null);
-        setUrl(url);
+//        setUrl(url);
     }
 
     public void setUrl(String url) {
@@ -74,7 +78,11 @@ public class HeadWebViewModel extends BaseObservable implements ViewModel {
     private WebChromeClient mWebChromeClient = new WebChromeClient() {
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
-            mAgentWeb.getIndicatorController().progress(view, newProgress);
+            progress.set(newProgress);
+            if (newProgress==100){
+                mAgentWeb.getIndicatorController().finish();
+//                mAgentWeb.getIndicatorController().offerIndicator().hide();
+            }
         }
 
         @Override
@@ -97,8 +105,19 @@ public class HeadWebViewModel extends BaseObservable implements ViewModel {
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 isFinish.set(true);
+                ((HeadWebActivity) activity).loadEnd(true);
+                if (view.getSettings().getLoadsImagesAutomatically()) {
+                    view.getSettings().setLoadsImagesAutomatically(true);
+                }
+                view.getSettings().setBlockNetworkImage(false);
+                Logger.e("onPageFinished");
             }
 
+            @Override
+            public void onPageCommitVisible(WebView view, String url) {
+                super.onPageCommitVisible(view, url);
+                Logger.e("onPageCommitVisible");
+            }
 
             @Override //网页加载 禁止在浏览器打开在本应用打开
             public boolean shouldOverrideUrlLoading(WebView web, String url) {
@@ -139,7 +158,8 @@ public class HeadWebViewModel extends BaseObservable implements ViewModel {
 
     @Override
     public void destroy() {
-
+        mAgentWeb.clearWebCache();
+        mAgentWeb.destroy();
     }
 
     private class JsToAndroid {

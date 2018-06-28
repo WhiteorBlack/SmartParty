@@ -28,8 +28,8 @@
 
                 <ImageView
                     android:id="@+id/iv_intro"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="80px"
+                    android:layout_height="80px"
                     android:layout_gravity="right|center_vertical"
                     android:onClick="onClick"
                     android:padding="24px"

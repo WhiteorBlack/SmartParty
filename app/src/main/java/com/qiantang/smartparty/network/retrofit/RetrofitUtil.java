@@ -276,7 +276,9 @@ public class RetrofitUtil {
 
                         }
                         subscriber.onNext(object == null ? ((T) response) : object);
-                    } else {
+                    }else if (!TextUtils.isEmpty(response.getAvatar())){
+                        subscriber.onNext((T)response);
+                    }else {
                         subscriber.onNext(object == null ? ((T) response) : object);
                     }
                 }

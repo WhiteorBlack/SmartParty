@@ -224,42 +224,44 @@ public class MyTextUtils {
     }
 
     /**
-     *
      * @param content
-     * @param type 状态 1 视频学习 2 音频学习 3 文章阅读 4 在线测评 5 学习感悟 6 评论 7 后台添加
+     * @param type    状态 1 视频学习 2 音频学习 3 文章阅读 4 在线测评 5 学习感悟 6 评论 7 后台添加
      * @return
      */
-    public static String getScoreTitle(String content,int type){
-        String title="";
-        switch (type){
+    public static String getScoreTitle(String content, int type) {
+        String title = "";
+        switch (type) {
             case 1:
-                title="【视频学习】";
+                title = "【视频学习】";
                 break;
             case 2:
-                title="【音频学习】";
+                title = "【音频学习】";
                 break;
             case 3:
-                title="【文章阅读】";
+                title = "【文章阅读】";
                 break;
             case 4:
-                title="【在线测评】";
+                title = "【在线测评】";
                 break;
             case 5:
-                title="【学习感悟】";
+                title = "【学习感悟】";
                 break;
             case 6:
-                title="【评论】";
+                title = "【评论】";
                 break;
             case 7:
-                title="【后台添加】";
+                title = "【后台添加】";
                 break;
         }
-        return title+content;
+        if (content == null) {
+            content = "";
+        }
+        return title + content;
     }
 
 
-    public static String getScoreData(String date){
-        return date.replace(",","  ");
+    public static String getScoreData(String date) {
+        return date.replace(",", "  ");
     }
 
     class PostContent {

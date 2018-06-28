@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.qiantang.smartparty.module.assistant.viewmodel.HeadWebViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_common" />
+
+        <com.qiantang.smartparty.widget.CusPtrFrameLayout
+            android:id="@+id/cptr"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.qiantang.smartparty.widget.CusPtrFrameLayout>
+
+        <include
+            android:id="@+id/input"
+            layout="@layout/view_input_box" />
+    </LinearLayout>
+</layout>

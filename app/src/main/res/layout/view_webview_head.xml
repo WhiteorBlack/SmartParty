@@ -16,7 +16,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:maxHeight="2px"
+            android:visibility="@{(viewModel.progress==0||viewModel.progress==100)?View.GONE:View.VISIBLE}"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:progress="@{viewModel.progress}"
+            android:background="@color/white"
+            android:progressDrawable="@drawable/second_seekbar"
+            android:minHeight="4px"
+           />
         <LinearLayout
             android:id="@+id/ll_content"
             android:layout_width="match_parent"

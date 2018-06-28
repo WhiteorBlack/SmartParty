@@ -22,11 +22,11 @@
 
         <LinearLayout
             android:id="@+id/ll_avatar"
-            android:onClick="onClick"
             android:layout_width="match_parent"
             android:layout_height="120px"
             android:background="@color/white"
             android:gravity="center_vertical"
+            android:onClick="onClick"
             android:orientation="horizontal"
             android:paddingRight="@dimen/sideMargin">
 
@@ -62,9 +62,9 @@
 
         <LinearLayout
             android:id="@+id/ll_name"
-            android:onClick="onClick"
             style="@style/Mine_list"
-            android:layout_height="102px">
+            android:layout_height="102px"
+            android:onClick="onClick">
 
             <TextView
                 style="@style/gray22"
@@ -78,8 +78,8 @@
                 android:id="@+id/tv_name"
                 style="@style/MineTextStyle"
                 android:layout_width="wrap_content"
-                android:text="@{viewModel.userInfo.username}"
                 android:layout_height="wrap_content"
+                android:text="@{viewModel.userInfo.username}"
                 android:textStyle="bold" />
 
             <ImageView
@@ -99,9 +99,9 @@
 
         <LinearLayout
             android:id="@+id/ll_org"
-            android:onClick="onClick"
             style="@style/Mine_list"
-            android:layout_height="102px">
+            android:layout_height="102px"
+            android:onClick="onClick">
 
             <TextView
                 style="@style/gray22"
@@ -136,9 +136,9 @@
 
         <LinearLayout
             android:id="@+id/ll_position"
-            android:onClick="onClick"
             style="@style/Mine_list"
-            android:layout_height="102px">
+            android:layout_height="102px"
+            android:onClick="onClick">
 
             <TextView
                 style="@style/gray22"
@@ -152,8 +152,8 @@
                 android:id="@+id/tv_pos"
                 style="@style/MineTextStyle"
                 android:layout_width="wrap_content"
-                android:text="@{viewModel.userInfo.position}"
                 android:layout_height="wrap_content"
+                android:text="@{viewModel.userInfo.position}"
                 android:textStyle="bold" />
 
             <ImageView
@@ -173,9 +173,9 @@
 
         <LinearLayout
             android:id="@+id/ll_date"
-            android:onClick="onClick"
             style="@style/Mine_list"
-            android:layout_height="102px">
+            android:layout_height="102px"
+            android:onClick="onClick">
 
             <TextView
                 style="@style/gray22"
@@ -189,8 +189,8 @@
                 android:id="@+id/tv_date"
                 style="@style/MineTextStyle"
                 android:layout_width="wrap_content"
-                android:text="@{viewModel.userInfo.joinpatryTime}"
                 android:layout_height="wrap_content"
+                android:text="@{viewModel.userInfo.joinpatryTime}"
                 android:textStyle="bold" />
 
             <ImageView
@@ -210,7 +210,8 @@
 
         <LinearLayout
             style="@style/Mine_list"
-            android:layout_height="102px">
+            android:layout_height="102px"
+            android:visibility="gone">
 
             <TextView
                 style="@style/gray22"
@@ -224,8 +225,8 @@
                 android:id="@+id/tv_nation"
                 style="@style/MineTextStyle"
                 android:layout_width="wrap_content"
-                android:text="@{viewModel.userInfo.nation}"
                 android:layout_height="wrap_content"
+                android:text="@{viewModel.userInfo.nation}"
                 android:textStyle="bold" />
 
             <ImageView

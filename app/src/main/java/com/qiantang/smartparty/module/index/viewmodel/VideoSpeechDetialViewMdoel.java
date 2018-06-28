@@ -108,7 +108,7 @@ public class VideoSpeechDetialViewMdoel extends BaseObservable implements ViewMo
 
                     @Override
                     public void onSuccess(HttpResult data) {
-                        EventBus.getDefault().post(new RxAddScore(CacheKey.COMMENT, 0, ""));
+                        EventBus.getDefault().post(new RxAddScore(CacheKey.COMMENT, 0, id));
                         testData(pageNo + 1, false);
 //                        addCommentCount++;
 //                        RxSpeechInfo rxVideoInfo = getVideoInfo();

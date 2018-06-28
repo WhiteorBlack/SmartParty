@@ -4,6 +4,7 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
+import android.databinding.ObservableInt;
 import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,19 +12,24 @@ import android.view.View;
 import com.baoyz.actionsheet.ActionSheet;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.qiantang.smartparty.BaseBindActivity;
+import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.BR;
+import com.qiantang.smartparty.config.Event;
 import com.qiantang.smartparty.modle.HttpResult;
 import com.qiantang.smartparty.modle.RxDateDay;
 import com.qiantang.smartparty.modle.RxDateMonth;
 import com.qiantang.smartparty.modle.RxDateYear;
 import com.qiantang.smartparty.modle.RxDeptName;
+import com.qiantang.smartparty.modle.RxMyUserInfo;
 import com.qiantang.smartparty.modle.RxPartyPos;
 import com.qiantang.smartparty.network.NetworkSubscriber;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
 import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
 import com.qiantang.smartparty.utils.ToastUtil;
 import com.trello.rxlifecycle2.android.ActivityEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,6 +47,7 @@ public class CompeteViewModel extends BaseObservable implements ViewModel {
     private ObservableField<String> password = new ObservableField<>();
     private ObservableField<String> isParty = new ObservableField<>();
     private ObservableField<String> date = new ObservableField<>("");
+    public ObservableInt partyCode = new ObservableInt(0);
     private List<RxDeptName> deptNames = new ArrayList<>();
     private String deptId = "";
     private int posId = 3;
@@ -66,6 +73,7 @@ public class CompeteViewModel extends BaseObservable implements ViewModel {
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 setIsParty(partyPos.get(options1).getName());
                 posId = partyPos.get(options1).getCode();
+                partyCode.set(posId);
             }
         })
                 .setTitleText("身份")
@@ -82,6 +90,7 @@ public class CompeteViewModel extends BaseObservable implements ViewModel {
         partyPos.add(new RxPartyPos("党员", 3));
         posId = 3;
         setIsParty("党员");
+        partyCode.set(posId);
         if (partyPickerView != null) {
             partyPickerView.setPicker(partyPos);
         }
@@ -292,7 +301,30 @@ public class CompeteViewModel extends BaseObservable implements ViewModel {
 
                     @Override
                     public void onSuccess(HttpResult data) {
-                        activity.onBackPressed();
+                        loginPassword(phone, getPassword());
+                    }
+                });
+    }
+
+    private void loginSuccess(RxMyUserInfo data) {
+        MyApplication.mCache.saveInfo(data, data.getId());
+        EventBus.getDefault().post(Event.RELOAD_STUDY);
+        activity.onBackPressed();
+    }
+
+    private void loginPassword(String phone, String code) {
+        ApiWrapper.getInstance().passwordLogin(phone, code)
+                .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
+                .subscribe(new NetworkSubscriber<RxMyUserInfo>() {
+                    @Override
+                    public void onFail(RetrofitUtil.APIException e) {
+                        super.onFail(e);
+                        ToastUtil.toast(e.getMessage());
+                    }
+
+                    @Override
+                    public void onSuccess(RxMyUserInfo data) {
+                        loginSuccess(data);
                     }
                 });
     }

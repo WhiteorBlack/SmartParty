@@ -28,7 +28,7 @@ public class InfoViewModel extends BaseObservable implements ViewModel {
 
     public InfoViewModel(BaseBindActivity activity) {
         this.activity = activity;
-        initData();
+//        initData();
     }
 
     public void initData() {

@@ -27,6 +27,7 @@ public class RegisterActivity extends BaseBindActivity {
 
     @Override
     public void initView() {
+        binding.toolbar.setTitle("注册");
     }
 
     @Override

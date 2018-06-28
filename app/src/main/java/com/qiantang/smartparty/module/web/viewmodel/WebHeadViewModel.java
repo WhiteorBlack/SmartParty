@@ -1,5 +1,6 @@
 package com.qiantang.smartparty.module.web.viewmodel;
 
+import android.databinding.ObservableBoolean;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -31,6 +32,8 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
+import retrofit2.http.POST;
+
 /**
  * Created by zhaoyong bai on 2018/6/11.
  */
@@ -45,6 +48,7 @@ public class WebHeadViewModel implements ViewModel {
     private int addCommentCount = 0;
     private int type = 0;
     private long startTime;
+    public ObservableBoolean isFinish = new ObservableBoolean(false); //判断是否H5加载完毕,完毕之后在展示评论内容
 
     public WebHeadViewModel(BaseBindActivity activity, CommentAdapter commentAdapter) {
         this.activity = activity;
@@ -86,6 +90,7 @@ public class WebHeadViewModel implements ViewModel {
                             if (Config.isLoadMore) {
                                 commentAdapter.setPagingData(data.getComment(), pageNo);
                             } else {
+
                                 commentAdapter.setNewData(data.getComment());
                             }
                         }

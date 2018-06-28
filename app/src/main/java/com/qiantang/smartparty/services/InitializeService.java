@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
+import android.os.StrictMode;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.Gravity;
@@ -232,6 +233,9 @@ public class InitializeService extends IntentService {
         CoreConfig coreConfig = new CoreConfig.Builder(this, imageLoader, themeConfig)
                 .setFunctionConfig(functionConfig).setNoAnimcation(true).build();
         GalleryFinal.init(coreConfig);
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        builder.detectFileUriExposure();
     }
 
     @Override

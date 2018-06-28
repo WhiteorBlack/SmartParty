@@ -46,7 +46,8 @@
                 android:layout_marginBottom="6px"
                 android:layout_marginLeft="8px"
                 android:layout_marginTop="6px"
-                app:roundAsCircle="true" />
+                app:roundAsCircle="true"
+                bind:msgAvatar="@{viewModel.userMap.background}" />
 
             <TextView
                 android:id="@+id/tv_name"

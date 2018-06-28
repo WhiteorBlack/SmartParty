@@ -73,7 +73,7 @@ public class StudyViewModel extends BaseObservable implements ViewModel, Comment
     //接收更新请求
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(Integer i) {
-        if (i== Event.RELOAD_STUDY) {
+        if (i == Event.RELOAD_STUDY) {
             getData(1);
         }
     }
@@ -82,15 +82,15 @@ public class StudyViewModel extends BaseObservable implements ViewModel, Comment
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onEvent(RxMyUserInfo myUserInfo) {
         if (myUserInfo != null) {
-            RxStudyUserMap rxStudyUserMap=getUserMap();
-          if (!TextUtils.equals(myUserInfo.getAvatar(),rxStudyUserMap.getAvatar())){
-             rxStudyUserMap.setAvatar(myUserInfo.getAvatar());
-             setUserMap(rxStudyUserMap);
-          }
-          if (!TextUtils.equals(myUserInfo.getUsername(),rxStudyUserMap.getUserName())){
-              rxStudyUserMap.setUserName(myUserInfo.getUsername());
-              setUserMap(rxStudyUserMap);
-          }
+            RxStudyUserMap rxStudyUserMap = getUserMap();
+            if (!TextUtils.equals(myUserInfo.getAvatar(), rxStudyUserMap.getAvatar())) {
+                rxStudyUserMap.setAvatar(myUserInfo.getAvatar());
+                setUserMap(rxStudyUserMap);
+            }
+            if (!TextUtils.equals(myUserInfo.getUsername(), rxStudyUserMap.getUserName())) {
+                rxStudyUserMap.setUserName(myUserInfo.getUsername());
+                setUserMap(rxStudyUserMap);
+            }
         }
     }
 
@@ -103,7 +103,7 @@ public class StudyViewModel extends BaseObservable implements ViewModel, Comment
         if (i == 1) {
             pageNo = 1;
         }
-        if (!MyApplication.isLogin()){
+        if (!MyApplication.isLogin()) {
             return;
         }
         ApiWrapper.getInstance().getStudyList(i)
@@ -190,7 +190,7 @@ public class StudyViewModel extends BaseObservable implements ViewModel, Comment
                                 break;
                             }
                         }
-                        adapter.notifyItemChanged(commentPos+1);
+                        adapter.notifyItemChanged(commentPos + 1);
                     }
                 });
     }
@@ -216,7 +216,12 @@ public class StudyViewModel extends BaseObservable implements ViewModel, Comment
 
     @BindingAdapter("avatar")
     public static void setAvatar(SimpleDraweeView simpleDraweeView, String url) {
-        simpleDraweeView.setImageURI(Config.IMAGE_HOST+url);
+        simpleDraweeView.setImageURI(Config.IMAGE_HOST + url);
+    }
+
+    @BindingAdapter("msgAvatar")
+    public static void msgAvatar(SimpleDraweeView simpleDraweeView, String url) {
+        simpleDraweeView.setImageURI(Config.IMAGE_HOST + url);
     }
 
     public RecyclerView.OnItemTouchListener onItemTouchListener() {
@@ -237,7 +242,7 @@ public class StudyViewModel extends BaseObservable implements ViewModel, Comment
                         if (isDeleting) {
                             return;
                         }
-                        delPos=position;
+                        delPos = position;
                         deletePop(adapter.getData().get(position).getComment_id());
                         break;
                     case R.id.iv_comment:

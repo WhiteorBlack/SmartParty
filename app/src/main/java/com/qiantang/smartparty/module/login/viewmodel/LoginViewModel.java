@@ -60,6 +60,15 @@ public class LoginViewModel extends BaseObservable implements ViewModel {
         }
     }
 
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(Integer integer) {
+        if (integer == Event.RELOAD) {
+            activity.onBackPressed();
+        }
+    }
+
+
     public void pwdLogin() {
         setLoginType(true);
         setIsCounting(false);

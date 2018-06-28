@@ -13,6 +13,7 @@ import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.CommentAdapter;
 import com.qiantang.smartparty.config.Config;
+import com.qiantang.smartparty.databinding.ActivityHeadWebBinding;
 import com.qiantang.smartparty.databinding.ActivityRecycleviewCommenboxBinding;
 import com.qiantang.smartparty.databinding.ViewWebviewHeadBinding;
 import com.qiantang.smartparty.module.assistant.viewmodel.HeadWebViewModel;
@@ -31,7 +32,7 @@ import com.qiantang.smartparty.widget.commentwidget.KeyboardControlMnanager;
  */
 public class HeadWebActivity extends BaseBindActivity {
     private ViewWebviewHeadBinding headBinding;
-    private ActivityRecycleviewCommenboxBinding binding;
+    private ActivityHeadWebBinding binding;
     private CommentAdapter adapter;
     private WebHeadViewModel viewModel;
     private HeadWebViewModel headViewModel;
@@ -45,16 +46,17 @@ public class HeadWebActivity extends BaseBindActivity {
         inputViewModel = new InputViewModel(this);
         headViewModel = new HeadWebViewModel(this);
         headBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.view_webview_head, null, false);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_recycleview_commenbox);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_head_web);
         headBinding.setViewModel(headViewModel);
         binding.input.setViewModel(inputViewModel);
+        binding.setViewModel(headViewModel);
     }
 
     @Override
     public void initView() {
         String title = getIntent().getStringExtra("title");
         type = getIntent().getIntExtra("type", 0);
-        if (type==0){
+        if (type == 0) {
             inputViewModel.setIsPop(true);
         }
         AutoUtils.auto(headBinding.getRoot());
@@ -92,6 +94,12 @@ public class HeadWebActivity extends BaseBindActivity {
         });
     }
 
+    public void loadEnd(boolean isEnd) {
+        if (isEnd) {
+            viewModel.getData(1, false);
+        }
+    }
+
     @Override
     public void refreshData() {
         super.refreshData();
@@ -99,19 +107,13 @@ public class HeadWebActivity extends BaseBindActivity {
     }
 
     private void initRv(RecyclerView rv) {
-        headViewModel.isFinish.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable sender, int propertyId) {
-                viewModel.getData(1, false);
-            }
-        });
+
         rv.setLayoutManager(new LinearLayoutManager(this));
         rv.setAdapter(adapter);
         adapter.setEnableLoadMore(Config.isLoadMore);
         adapter.setLoadMoreView(RecycleViewUtils.getLoadMoreView());
         rv.addOnItemTouchListener(viewModel.onItemTouchListener());
-        if (Config.isLoadMore)
-        {
+        if (Config.isLoadMore) {
             adapter.setOnLoadMoreListener(() -> viewModel.loadMore(), rv);
         }
         adapter.addHeaderView(headBinding.getRoot());
@@ -125,7 +127,7 @@ public class HeadWebActivity extends BaseBindActivity {
                 onBackPressed();
                 break;
             case R.id.tv_send:
-                if (!MyApplication.isLogin()){
+                if (!MyApplication.isLogin()) {
                     ActivityUtil.startLoginActivity(this);
                     return;
                 }
@@ -163,6 +165,7 @@ public class HeadWebActivity extends BaseBindActivity {
     @Override
     protected void viewModelDestroy() {
         viewModel.destroy();
+        headViewModel.destroy();
     }
 
 }

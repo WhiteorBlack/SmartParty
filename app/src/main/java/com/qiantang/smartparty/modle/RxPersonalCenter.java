@@ -11,6 +11,33 @@ public class RxPersonalCenter {
     private int learningability;
     private int member;
     private String username;
+    private String position;
+    private String nation;
+    private String deptId;
+
+    public String getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(String deptId) {
+        this.deptId = deptId;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getNation() {
+        return nation;
+    }
+
+    public void setNation(String nation) {
+        this.nation = nation;
+    }
 
     public String getDeptName() {
         return deptName;

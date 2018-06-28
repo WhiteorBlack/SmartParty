@@ -144,6 +144,7 @@ public class ChangeAvatarViewModel extends BaseObservable implements ViewModel {
                         String urlu = uploadUrl.getAvatar();
                         url.set(urlu);
                         update(urlu);
+                        setUserInfo(urlu);
                     }
                 });
     }
@@ -162,7 +163,6 @@ public class ChangeAvatarViewModel extends BaseObservable implements ViewModel {
                     @Override
                     public void onSuccess(HttpResult bean) {
                         ToastUtil.longToast("头像修改成功");
-                        setUserInfo(bean.getAvatar());
                     }
                 });
     }
@@ -175,6 +175,8 @@ public class ChangeAvatarViewModel extends BaseObservable implements ViewModel {
         MyApplication.mCache.getAsJSONBean(CacheKey.USER_INFO, RxMyUserInfo.class, rxMyUserInfo -> {
             rxMyUserInfo.setAvatar(avatar);
             MyApplication.mCache.put(CacheKey.USER_INFO, rxMyUserInfo);
+            EventBus.getDefault().post(rxMyUserInfo);
+            activity.onBackPressed();
         });
 
 

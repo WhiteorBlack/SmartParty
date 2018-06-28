@@ -3,6 +3,7 @@ package com.qiantang.smartparty.network.retrofit;
 
 import android.databinding.ObservableField;
 
+import com.google.android.exoplayer2.C;
 import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.config.CacheKey;
 import com.qiantang.smartparty.modle.HttpResult;
@@ -965,7 +966,8 @@ public class ApiWrapper extends RetrofitUtil {
      * @return
      */
     public Observable<HttpResult> modifyArchives(String date, String username, String pos, String deptId) {
-        return getService().modifyArchives(MyApplication.mCache.getAsString(CacheKey.PHONE), date, username, pos, deptId).compose(this.applySchedulers());
+        String phone = MyApplication.mCache.getAsString(CacheKey.PHONE);
+        return getService().modifyArchives(phone, date, username, pos, deptId).compose(this.applySchedulers());
     }
 
     /**
