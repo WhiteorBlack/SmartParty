@@ -83,10 +83,11 @@ public class StudyAdapter extends EasyBindQuickAdapter<RxStudyList> {
             });
         }
 
+        RecyclerView rvImage = holder.getBinding().getRoot().findViewById(R.id.rv);
+        rvImage.setLayoutManager(new GridLayoutManager(mContext, 3));
         if (!TextUtils.isEmpty(item.getImage())) {
             //填充照片信息
-            RecyclerView rvImage = holder.getBinding().getRoot().findViewById(R.id.rv);
-            rvImage.setLayoutManager(new GridLayoutManager(mContext, 3));
+            rvImage.setVisibility(View.VISIBLE);
             List<String> imgList = new ArrayList<>();
             if (item.getImage().contains(",")) {
                 String[] images = item.getImage().split(",");
@@ -101,38 +102,53 @@ public class StudyAdapter extends EasyBindQuickAdapter<RxStudyList> {
             rvImage.addOnItemTouchListener(new com.chad.library.adapter.base.listener.OnItemClickListener() {
                 @Override
                 public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    List<String> img = new ArrayList<>();
+                    List<String> imgs=new ArrayList<>();
+                    imgs= (List<String>) view.getTag();
+                    if (img!=null&&imgs.size()>0){
+                        for (int i = 0; i < imgs.size(); i++) {
+                            img.add(Config.IMAGE_HOST+imgs.get(i));
+                        }
+                    }
 
-
+                    PictureConfig config = new PictureConfig.Builder()
+                            .setListData((ArrayList<String>) img)    //图片数据List<String> list
+                            .setPosition(position)    //图片下标（从第position张图片开始浏览）
+                            .setDownloadPath("smartParty")    //图片下载文件夹地址
+                            .setIsShowNumber(true)//是否显示数字下标
+                            .needDownload(true)    //是否支持图片下载
+                            .setPlacrHolder(R.mipmap.ic_launcher)    //占位符图片（图片加载完成前显示的资源图片，来源drawable或者mipmap）
+                            .build();
+                    CheckPhotoActivity.startActivity(mContext, config);
                 }
 
                 @Override
                 public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                     super.onItemChildClick(adapter, view, position);
-                    Logger.e("itemClick--"+position+"---"+holder.getLayoutPosition());
-                    switch (view.getId()){
-                        case R.id.sdv:
-                            List<String> imglist = new ArrayList<>();
-                            List<String> imgs = adapter.getData();
-                            if (imgs != null && imgs.size() > 0) {
-                                for (int i = 0; i < imgs.size(); i++) {
-                                    imglist.add(Config.IMAGE_HOST + imgs.get(i));
-                                }
-                            }
-                            PictureConfig config = new PictureConfig.Builder()
-                                    .setListData((ArrayList<String>) imglist)    //图片数据List<String> list
-                                    .setPosition(position)    //图片下标（从第position张图片开始浏览）
-                                    .setDownloadPath("smartParty")    //图片下载文件夹地址
-                                    .setIsShowNumber(true)//是否显示数字下标
-                                    .needDownload(true)    //是否支持图片下载
-                                    .setPlacrHolder(R.mipmap.ic_launcher)    //占位符图片（图片加载完成前显示的资源图片，来源drawable或者mipmap）
-                                    .build();
-                            CheckPhotoActivity.startActivity(mContext, config);
-                            break;
-                    }
+//                    switch (view.getId()){
+//                        case R.id.sdv:
+//                            List<String> imglist = new ArrayList<>();
+//                            List<String> imgs = adapter.getData();
+//                            if (imgs != null && imgs.size() > 0) {
+//                                for (int i = 0; i < imgs.size(); i++) {
+//                                    imglist.add(Config.IMAGE_HOST + imgs.get(i));
+//                                }
+//                            }
+//                            PictureConfig config = new PictureConfig.Builder()
+//                                    .setListData((ArrayList<String>) imglist)    //图片数据List<String> list
+//                                    .setPosition(position)    //图片下标（从第position张图片开始浏览）
+//                                    .setDownloadPath("smartParty")    //图片下载文件夹地址
+//                                    .setIsShowNumber(true)//是否显示数字下标
+//                                    .needDownload(true)    //是否支持图片下载
+//                                    .setPlacrHolder(R.mipmap.ic_launcher)    //占位符图片（图片加载完成前显示的资源图片，来源drawable或者mipmap）
+//                                    .build();
+//                            CheckPhotoActivity.startActivity(mContext, config);
+//                            break;
+//                    }
                 }
             });
-        }else{
-            holder.getBinding().getRoot().findViewById(R.id.rv).setVisibility(View.GONE);
+        } else {
+           rvImage.setVisibility(View.GONE);
         }
 
     }

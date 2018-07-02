@@ -68,7 +68,6 @@ public class MeetingDetialActivity extends BaseBindActivity  {
     private void initKeyboardHeightObserver() {
         //观察键盘弹出与消退
         KeyboardControlMnanager.observerKeyboardVisibleChange(this, new KeyboardControlMnanager.OnKeyboardStateChangeListener() {
-            View anchorView;
 
             @Override
             public void onKeyboardChange(int keyboardHeight, boolean isVisible) {
