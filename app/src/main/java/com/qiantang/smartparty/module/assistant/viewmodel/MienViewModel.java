@@ -101,11 +101,11 @@ public class MienViewModel implements ViewModel {
                 switch (type) {
                     case 4: //党建风采
                         title = "党建风采";
-                       ActivityUtil.startHeadWebActivity(activity, id, title, URLs.NOTICE_DETIAL, 0);
+                        ActivityUtil.startHeadWebActivity(activity, id, title, URLs.NOTICE_DETIAL, 0, adapter.getData().get(position).getImgSrc());
                         break;
                     case 6: //会议纪要
                         title = "会议纪要";
-                        ActivityUtil.startHeadWebActivity(activity, id, title, URLs.NOTICE_DETIAL, 0);
+                        ActivityUtil.startHeadWebActivity(activity, id, title, URLs.NOTICE_DETIAL, 0, adapter.getData().get(position).getImgSrc());
                         break;
                     case 7://思想汇报
                         title = "思想汇报";

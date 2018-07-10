@@ -34,10 +34,10 @@ public class Config {
     public static final int MIEN_TYPE = 1; //党建风采搜索
     public static final int PARTY_ACTIVITY = 2;//党建活动
     public static final int SPEECH_STUDY = 3;//系列讲话
-    public static final boolean isLoadMore=false;
+    public static final boolean isLoadMore = false;
 
     public static String[] getAuthKey() {
-        return new String[]{"wxcf7500ef8e821ee4", "58d211ef47461b1d08c75ca3bb30bbfe", "101445135", "1f2753cdb7cd8b8de261d78c73908ca3  ", "", "", "", "", "http://api.esomic.com/weibo/callback.do"};
+        return new String[]{"wxca76e4116add66d0", "ac6a549ff0fdb417c87f9beadf5e0139", "1106878507", "SDdISGXGrqQjW0qj", "ad77ceb416bdacca751d5909c1c4e361"};
     }
 
 
@@ -51,16 +51,11 @@ public class Config {
     public static final String WX_APP_SECRET = authKey[1];
     public static final String QQ_APP_ID = authKey[2];
     public static final String QQ_APP_SECRET = authKey[3];
-    public static final String SINA_APP_ID = authKey[4];
-    public static final String SINA_APP_SECRET = authKey[5];
-    public static final String LINJU_APP_KEY = authKey[6];
-    public static final String SINA_REDICT_URL = authKey[7];
+    public static final String UPUSH_SECRET = authKey[4];
 
     public static final String LOG_TAG = "QIANTANG";
     public static final String SERVER_HOST;
     public static final String IMAGE_HOST;
-    public static final String HTTP_MALL_ROOT_URL;
-    public static final String HTTP_BBS_ROOT_URL;
     public static final String HTTP_CONTENT_TYPE = "Content-Type";
     public static final String HTTP_CONTENT_TYPE_VALUE = "json";
     public static final long HTTP_READ_TIMEOUT_MILLIS = 20 * 1000;//20s
@@ -75,23 +70,19 @@ public class Config {
     /**
      * 环境配置
      */
-    private static final Environment ENVIRONMENT = Environment.DEVELOP;
+    private static final Environment ENVIRONMENT = Environment.ONLINE;
 
 
     static {
         switch (ENVIRONMENT) {
             case DEVELOP: //开发环境
-                SERVER_HOST = "http://zhdj.qtcem.cn/";
-                HTTP_BBS_ROOT_URL = "";
-                HTTP_MALL_ROOT_URL = "";
+                SERVER_HOST = "http://192.168.1.27:8081/";
                 IMAGE_HOST = "http://zhdj.qtcem.cn/imgfile/";
                 LOG_LEVEL = LogLevel.FULL;
                 break;
             case ONLINE: //生产环境
             default:
                 SERVER_HOST = "http://zhdj.qtcem.cn/";
-                HTTP_BBS_ROOT_URL = "http://172.16.88.158:8092/bbs/";
-                HTTP_MALL_ROOT_URL = "http://172.16.88.158:8092/mall/";
                 IMAGE_HOST = "http://zhdj.qtcem.cn/imgfile/";
                 LOG_LEVEL = LogLevel.NONE;
                 break;

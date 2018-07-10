@@ -11,6 +11,7 @@ import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.databinding.ActivityNewsBinding;
 import com.qiantang.smartparty.module.index.adapter.IndexCommonAdapter;
 import com.qiantang.smartparty.module.index.viewmodel.NewsViewModel;
+import com.qiantang.smartparty.utils.ActivityUtil;
 import com.qiantang.smartparty.utils.RecycleViewUtils;
 
 /**
@@ -43,7 +44,7 @@ public class NewsActivity extends BaseBindActivity {
     @Override
     public void refreshData() {
         super.refreshData();
-        viewModel.testData(type,1);
+        viewModel.testData(type, 1);
     }
 
     private void initData() {
@@ -57,7 +58,7 @@ public class NewsActivity extends BaseBindActivity {
                 title = "学习动态";
                 break;
         }
-        viewModel.testData(type,1);
+        viewModel.testData(type, 1);
         binding.toolbar.setTitle(title);
     }
 
@@ -75,8 +76,8 @@ public class NewsActivity extends BaseBindActivity {
             case R.id.iv_back:
                 onBackPressed();
                 break;
-            case R.id.tv_right:
-
+            case R.id.iv_right:
+                ActivityUtil.startSearchActivity(this, type);
                 break;
         }
     }

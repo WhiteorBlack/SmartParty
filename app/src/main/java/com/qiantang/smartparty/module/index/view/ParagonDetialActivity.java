@@ -53,7 +53,7 @@ public class ParagonDetialActivity extends BaseBindActivity implements ViewPager
     @Override
     public void initView() {
         binding.toolbar.setTitle("先进典范");
-        binding.toolbar.setResId(R.mipmap.icon_share_white);
+//        binding.toolbar.setResId(R.mipmap.icon_share_white);
         initRv(binding.rv);
         initBanner(headBinding.headBanner);
         setBanner(headBinding.headBanner);

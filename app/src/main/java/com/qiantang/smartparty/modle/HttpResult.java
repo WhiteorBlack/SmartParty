@@ -17,6 +17,15 @@ public class HttpResult<T> {
     private String imagePath;
     private String id;
     private int counts;
+    private String openid;
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
+    }
 
     public int getCounts() {
         return counts;

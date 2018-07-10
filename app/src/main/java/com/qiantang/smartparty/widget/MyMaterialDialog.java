@@ -55,9 +55,9 @@ public class MyMaterialDialog extends MaterialDialog {
 
 
         mTvBtnLeft.setBackground(AppUtil.getDrawable(R.drawable.btn_gohome_bg));
-        mTvBtnLeft.setTextColor(AppUtil.getColor(R.color.white));
+        mTvBtnLeft.setTextColor(AppUtil.getColor(R.color.none_text));
         mTvBtnMiddle.setBackground(AppUtil.getDrawable(R.drawable.btn_gobuy_bg));
-        mTvBtnMiddle.setTextColor(AppUtil.getColor(R.color.white));
+        mTvBtnMiddle.setTextColor(AppUtil.getColor(R.color.barColor));
     }
 
     @Override

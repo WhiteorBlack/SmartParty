@@ -133,6 +133,7 @@ public class VideoSpeechDetialActivity extends BaseBindActivity {
         initRefresh(binding.cptr);
         inputViewModel.setHint("发表学习感悟...");
         initKeyboardHeightObserver();
+        inputViewModel.setShareVis(false);
     }
 
     private void initKeyboardHeightObserver() {

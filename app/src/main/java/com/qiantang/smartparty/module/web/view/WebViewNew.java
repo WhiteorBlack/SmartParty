@@ -96,7 +96,7 @@ public class WebViewNew extends BaseBindActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_right:
-
+                viewModel.share();
                 break;
             case R.id.iv_back:
                 onBackPressed();

@@ -59,19 +59,17 @@
 }
 
 
-#-libraryjars libs/libammsdk.jar
-#-libraries libammsdk.jar
-#
-#-keep class com.alipay.android.app.IAlixPay{*;}
-#-keep class com.alipay.android.app.IAlixPay$Stub{*;}
-#-keep class com.alipay.android.app.IRemoteServiceCallback{*;}
-#-keep class com.alipay.android.app.IRemoteServiceCallback$Stub{*;}
-#-keep class com.alipay.sdk.app.PayTask{ public *;}
-#-keep class com.alipay.sdk.app.AuthTask{ public *;}
+-dontwarn com.umeng.**
+-dontwarn com.taobao.**
+-dontwarn anet.channel.**
+-dontwarn anetwork.channel.**
+-dontwarn org.android.**
+-dontwarn org.apache.thrift.**
+-dontwarn com.xiaomi.**
+-dontwarn com.huawei.**
+-dontwarn com.meizu.**
 -keep class com.alipay.** {*; }
 -keep class com.tencent.** {*;}
-#-libraryjars libs/SocialSDK_WeiXin_1.jar
-#-libraryjars libs/SocialSDK_WeiXin_2.jar
 -keep class com.umeng.** {*;}
 -keep class com.tencent.mm.sdk.openapi.WXMediaMessage {*; }
 -keep class com.tencent.mm.sdk.openapi.** implements com.tencent.mm.sdk.openapi.WXMediaMessage$IMediaObject {*; }
@@ -93,12 +91,6 @@
     <init>(java.lang.Throwable);
 }
 
-# unionpay 银联
--keep class org.simalliance.openmobileapi.** {*;}
--keep class org.simalliance.openmobileapi.service.** {*;}
-
--keep class com.unionpay.** {*;}
--dontwarn com.unionpay.**
 
 #PersistentCookieJar
 -dontwarn com.franmontiel.persistentcookiejar.**
@@ -114,18 +106,6 @@
     java.lang.Object readResolve();
 }
 
-#butterknife
--keep class butterknife.** { *; }
--dontwarn butterknife.internal.**
--keep class **$$ViewBinder { *; }
-
--keepclasseswithmembernames class * {
-    @butterknife.* <fields>;
-}
-
--keepclasseswithmembernames class * {
-    @butterknife.* <methods>;
-}
 
 #galleryfinal
 -keep class cn.finalteam.galleryfinal.widget.*{*;}
@@ -173,43 +153,6 @@
 
 # For retrolambda
 -dontwarn java.lang.invoke.*
-
-# 融云
--dontwarn io.rong.**
--keep class io.rong.** {*;}
--keepclassmembers class **.R$* {
-    public static <fields>;
-}
--keep class *.R$ { *;}
--keep class com.somic.mall.module.im.IMNotificationReceiver {*;}
-#融云
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-# public *;
-#}
-#-keepattributes Exceptions,InnerClasses
-#
-#-keepattributes Signature
-#
-#-keepattributes *Annotation*
-#
-#-keep class com.google.gson.examples.android.model.** { *; }
-#
-#-keep class **$Properties
-#-dontwarn org.eclipse.jdt.annotation.**
-#
-##-libraryjars libs/agora-rtc-sdk.jar
-##-keep class io.agora.rtc.** {*;}
-#
-#-keep class io.rong.** {*;}
-#-keep class io.agora.rtc.** {*; }
-#-keep class * implements io.rong.imlib.model.MessageContent{*;}
-#
-#-dontwarn io.rong.push.** 
-#-dontnote com.xiaomi.** 
-#-dontnote com.huawei.android.pushagent.** 
-#-dontnote com.google.android.gms.gcm.** 
-#-dontnote io.rong.**
-# -ignorewarnings
 
 
 #alibaba
@@ -339,19 +282,23 @@
 -keepattributes EnclosingMethod
 -keep class com.somic.mall.model.data.**{*;}
 
-#-------------------------------------------------------------------------
+-dontwarn com.umeng.**
+-dontwarn com.taobao.**
+-dontwarn anet.channel.**
+-dontwarn anetwork.channel.**
+-dontwarn org.android.**
+-dontwarn org.apache.thrift.**
+-dontwarn com.xiaomi.**
+-dontwarn com.huawei.**
+-dontwarn com.meizu.**
+-keep class org.apache.thrift.** {*;}
+-keep class com.alibaba.sdk.android.**{*;}
+-keep class com.ut.**{*;}
+-keep class com.ta.**{*;}
+-keep public class **.R$*{
+   public static final int *;
+}
 
-#---------------------------------3.与js互相调用的类------------------------
-
-
-
-#-------------------------------------------------------------------------
-
-#---------------------------------4.反射相关的类和方法-----------------------
-
-
-
-#----------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------
 
 #-------------------------------------------基本不用动区域--------------------------------------------

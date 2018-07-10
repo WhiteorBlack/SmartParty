@@ -3,103 +3,52 @@ package com.qiantang.smartparty.modle;
 public class AppVersionJSON {
 
     /**
-     * errorMessage : 业务操作成功
-     * returnObject : {"id":1,"createTime":"2016-08-10 10:43:30","versionFile":"","introduceDetail":"硕美科V2.0","introduce":"硕美科V2.0","versionCode":2,"versionType":1,"versionName":"硕美科V2.0","modifyTime":"2016-08-10 10:43:30"}
-     * token :
-     * errorCode : 000
+     * {
+     * "status": 0,
+     * "msg": "有新的版本请更新",
+     * -"data": {
+     * "conUpdate": 1, -----------是否强制更新 0不强制 1强制
+     * "versionId": "1.0.2", ------版本号
+     * "versionExplain": "新增分享页面",-------更新说明
+     * "versionUrl": "www.baiud.com" --------下载链接
+     * }
+     * }
      */
 
-    private String errorMessage;
 
+    private String status;
+    private ReturnObjectBean data;
+    private String msg;
 
-    private ReturnObjectBean returnObject;
-    private String token;
-    private String errorCode;
-
-    public String getErrorMessage() {
-        return errorMessage;
+    public String getStatus() {
+        return status;
     }
 
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public ReturnObjectBean getReturnObject() {
-        return returnObject;
+    public ReturnObjectBean getData() {
+        return data;
     }
 
-    public void setReturnObject(ReturnObjectBean returnObject) {
-        this.returnObject = returnObject;
+    public void setData(ReturnObjectBean data) {
+        this.data = data;
     }
 
-    public String getToken() {
-        return token;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public String getErrorCode() {
-        return errorCode;
-    }
-
-    public void setErrorCode(String errorCode) {
-        this.errorCode = errorCode;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public static class ReturnObjectBean {
-        private int id;
-        private String createTime;
-        private String versionFile;
-        private String introduceDetail;
-        private String introduce;
+        private String versionExplain;
+        private String versionId;
+        private String versionUrl;
         private int versionCode;
-        private int versionType;
-        private String versionName;
-        private String modifyTime;
-
-        private int isMustUpdate;
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getCreateTime() {
-            return createTime;
-        }
-
-        public void setCreateTime(String createTime) {
-            this.createTime = createTime;
-        }
-
-        public String getVersionFile() {
-            return versionFile;
-        }
-
-        public void setVersionFile(String versionFile) {
-            this.versionFile = versionFile;
-        }
-
-        public String getIntroduceDetail() {
-            return introduceDetail;
-        }
-
-        public void setIntroduceDetail(String introduceDetail) {
-            this.introduceDetail = introduceDetail;
-        }
-
-        public String getIntroduce() {
-            return introduce;
-        }
-
-        public void setIntroduce(String introduce) {
-            this.introduce = introduce;
-        }
 
         public int getVersionCode() {
             return versionCode;
@@ -109,36 +58,38 @@ public class AppVersionJSON {
             this.versionCode = versionCode;
         }
 
-        public int getVersionType() {
-            return versionType;
+        private int conUpdate;
+
+        public String getVersionExplain() {
+            return versionExplain;
         }
 
-        public void setVersionType(int versionType) {
-            this.versionType = versionType;
+        public void setVersionExplain(String versionExplain) {
+            this.versionExplain = versionExplain;
         }
 
-        public String getVersionName() {
-            return versionName;
+        public String getVersionId() {
+            return versionId;
         }
 
-        public void setVersionName(String versionName) {
-            this.versionName = versionName;
+        public void setVersionId(String versionId) {
+            this.versionId = versionId;
         }
 
-        public String getModifyTime() {
-            return modifyTime;
+        public String getVersionUrl() {
+            return versionUrl;
         }
 
-        public void setModifyTime(String modifyTime) {
-            this.modifyTime = modifyTime;
+        public void setVersionUrl(String versionUrl) {
+            this.versionUrl = versionUrl;
         }
 
-        public int getIsMustUpdate() {
-            return isMustUpdate;
+        public int getConUpdate() {
+            return conUpdate;
         }
 
-        public void setIsMustUpdate(int isMustUpdate) {
-            this.isMustUpdate = isMustUpdate;
+        public void setConUpdate(int conUpdate) {
+            this.conUpdate = conUpdate;
         }
     }
 }

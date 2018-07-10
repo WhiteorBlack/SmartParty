@@ -51,7 +51,7 @@ public class CharacterDetialActivity extends BaseBindActivity implements ViewPag
     @Override
     public void initView() {
         binding.toolbar.setTitle("人物表彰");
-        binding.toolbar.setResId(R.mipmap.icon_share_white);
+//        binding.toolbar.setResId(R.mipmap.icon_share_white);
         initRv(binding.rv);
         initBanner(headBinding.headBanner);
         setBanner(headBinding.headBanner);

@@ -62,6 +62,7 @@ public class VoiceSpeechDetialActivity extends BaseBindActivity implements Compo
         initRv(binding.rv);
         viewMdoel.testData(1, false);
         initRefresh(binding.cptr);
+        inputViewModel.setShareVis(false);
     }
 
     @Override

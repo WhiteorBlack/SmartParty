@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <import type="com.qiantang.smartparty.utils.AppUtil" />
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolBarSizeHeight"
+        android:background="@color/barColor">
+
+        <ImageButton
+            style="@style/ToolbarBackBtnWhiteStyle"
+            android:layout_alignParentBottom="true"
+            android:src="@mipmap/back_black" />
+
+
+        <TextView
+            android:id="@+id/tv_right"
+            style="@style/white28"
+            android:layout_width="wrap_content"
+            android:layout_height="80px"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:paddingRight="24px"
+            android:text="搜索"
+            android:textSize="28px" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10px"
+            android:layout_marginLeft="@dimen/sideMargin"
+            android:layout_marginRight="@dimen/sideMargin"
+            android:layout_toLeftOf="@+id/tv_right"
+            android:layout_toRightOf="@+id/iv_back"
+            android:background="@drawable/bg_search"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="15px"
+            android:paddingRight="15px">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:src="@mipmap/icon_search_gray" />
+
+            <EditText
+                android:id="@+id/et"
+                style="@style/gray26"
+                android:layout_width="match_parent"
+                android:layout_height="60px"
+                android:layout_marginLeft="10px"
+                android:layout_weight="1"
+                android:lines="1"
+                android:imeOptions="actionSearch"
+                android:background="@null"
+                android:hint="请输入要搜索的内容" />
+
+            <ImageView
+                android:id="@+id/iv_clear"
+                android:layout_width="40px"
+                android:layout_height="40px"
+                android:onClick="onClick"
+                android:scaleType="centerInside"
+                android:src="@mipmap/icon_clear" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/line"
+            android:visibility="gone" />
+    </RelativeLayout>
+</layout>

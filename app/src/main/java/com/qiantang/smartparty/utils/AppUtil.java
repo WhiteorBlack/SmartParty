@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -87,6 +88,41 @@ public class AppUtil {
         return MyApplication.getContext().getResources().getDimensionPixelSize(resId);
     }
 
+    /**
+     * 获取当前本地apk的版本
+     *
+     * @param mContext
+     * @return
+     */
+    public static int getVersionCode(Context mContext) {
+        int versionCode = 0;
+        try {
+            //获取软件版本号，对应AndroidManifest.xml下android:versionCode
+            versionCode = mContext.getPackageManager().
+                    getPackageInfo(mContext.getPackageName(), 0).versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return versionCode;
+    }
+
+    /**
+     * 获取版本号名称
+     *
+     * @param context 上下文
+     * @return
+     */
+    public static String getVerName(Context context) {
+        String verName = "";
+        try {
+            verName = context.getPackageManager().
+                    getPackageInfo(context.getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return verName;
+    }
+
 
     /**
      * 判断排行榜
@@ -104,7 +140,15 @@ public class AppUtil {
     }
 
     public static String getPhone(String phone) {
+        if (TextUtils.isEmpty(phone)){
+            return "";
+        }
         return phone.substring(0, 3) + "*****" + phone.substring(7, phone.length());
+    }
+
+    public static String getAndroidId(){
+        String ANDROID_ID = Settings.System.getString(MyApplication.getContext().getContentResolver(), Settings.System.ANDROID_ID);
+        return ANDROID_ID;
     }
 
     /**

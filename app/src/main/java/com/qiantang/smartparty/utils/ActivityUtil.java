@@ -7,11 +7,14 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.qiantang.smartparty.MyApplication;
+import com.qiantang.smartparty.config.CacheKey;
 import com.qiantang.smartparty.config.Config;
+import com.qiantang.smartparty.config.Event;
 import com.qiantang.smartparty.module.assistant.view.ActivityDetial;
 import com.qiantang.smartparty.module.assistant.view.AdviseActivity;
 import com.qiantang.smartparty.module.assistant.view.AdviseRecordActivity;
@@ -54,6 +57,7 @@ import com.qiantang.smartparty.module.index.view.VideoSpeechDetialActivity;
 import com.qiantang.smartparty.module.index.view.VideoStudyActivity;
 import com.qiantang.smartparty.module.index.view.VideoStudyDetialActivity;
 import com.qiantang.smartparty.module.index.view.VoiceSpeechDetialActivity;
+import com.qiantang.smartparty.module.login.view.BindPhoneActivity;
 import com.qiantang.smartparty.module.login.view.CompeteInfoActivity;
 import com.qiantang.smartparty.module.login.view.LoginActivity;
 import com.qiantang.smartparty.module.login.view.RegisterActivity;
@@ -79,6 +83,11 @@ import com.qiantang.smartparty.module.study.view.StudyMyActivity;
 import com.qiantang.smartparty.module.study.view.StudyUnReadMsgActivity;
 import com.qiantang.smartparty.module.web.view.HeadWebActivity;
 import com.qiantang.smartparty.module.web.view.WebViewNew;
+import com.qiantang.smartparty.network.URLs;
+import com.umeng.message.PushAgent;
+import com.umeng.message.entity.UMessage;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -186,6 +195,20 @@ public class ActivityUtil {
     public static void jumpWeb(Activity activity, String url, String title) {
         Intent intent = new Intent(activity, WebViewNew.class);
         intent.putExtra("title", title);
+        intent.putExtra(WebUtil.URL, url);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 通知栏点击跳转
+     *
+     * @param activity
+     * @param url
+     */
+    public static void jumpNotifyWeb(Context activity, String url, String title) {
+        Intent intent = new Intent(activity, WebViewNew.class);
+        intent.putExtra("title", title);
+        intent.setFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(WebUtil.URL, url);
         activity.startActivity(intent);
     }
@@ -387,6 +410,14 @@ public class ActivityUtil {
             startLoginActivity(activity);
             return;
         }
+        if (TextUtils.equals(MyApplication.mCache.getAsString(CacheKey.DEPT_ID), "1")) {
+            ToastUtil.toast("仅内部人员可查看");
+            return;
+        }
+        if (((int) MyApplication.mCache.getAsObject(CacheKey.STATUS)) > 0) {
+            ToastUtil.toast("您尚未通过审核，请耐心等待");
+            return;
+        }
         Intent intent = new Intent(activity, RankActivity.class);
         activity.startActivity(intent);
     }
@@ -506,6 +537,18 @@ public class ActivityUtil {
      * @param activity
      */
     public static void startActivityDetialActivity(Activity activity, String id, int status) {
+        if (!MyApplication.isLogin()) {
+            startLoginActivity(activity);
+            return;
+        }
+        if (TextUtils.equals(MyApplication.mCache.getAsString(CacheKey.DEPT_ID), "1")) {
+            ToastUtil.toast("仅内部人员可查看");
+            return;
+        }
+        if (((int) MyApplication.mCache.getAsObject(CacheKey.STATUS)) > 0) {
+            ToastUtil.toast("您尚未通过审核，请耐心等待");
+            return;
+        }
         Intent intent = new Intent(activity, ActivityDetial.class);
         intent.putExtra("id", id);
         intent.putExtra("status", status);
@@ -659,6 +702,18 @@ public class ActivityUtil {
      * @param activity
      */
     public static void startMeetingActivity(Activity activity) {
+        if (!MyApplication.isLogin()) {
+            startLoginActivity(activity);
+            return;
+        }
+        if (TextUtils.equals(MyApplication.mCache.getAsString(CacheKey.DEPT_ID), "1")) {
+            ToastUtil.toast("仅内部人员可查看");
+            return;
+        }
+        if (((int) MyApplication.mCache.getAsObject(CacheKey.STATUS)) > 0) {
+            ToastUtil.toast("您尚未通过审核，请耐心等待");
+            return;
+        }
         Intent intent = new Intent(activity, MeetingActivity.class);
         activity.startActivity(intent);
     }
@@ -701,6 +756,18 @@ public class ActivityUtil {
      * @param activity
      */
     public static void startStructureActivity(Activity activity) {
+        if (!MyApplication.isLogin()) {
+            startLoginActivity(activity);
+            return;
+        }
+        if (TextUtils.equals(MyApplication.mCache.getAsString(CacheKey.DEPT_ID), "1")) {
+            ToastUtil.toast("仅内部人员可查看");
+            return;
+        }
+        if (((int) MyApplication.mCache.getAsObject(CacheKey.STATUS)) > 0) {
+            ToastUtil.toast("您尚未通过审核，请耐心等待");
+            return;
+        }
         Intent intent = new Intent(activity, StructureActivity.class);
         activity.startActivity(intent);
     }
@@ -764,6 +831,15 @@ public class ActivityUtil {
      * @param activity
      */
     public static void startPublishActivity(Activity activity) {
+        if (TextUtils.equals(MyApplication.mCache.getAsString(CacheKey.DEPT_ID), "1")) {
+            ToastUtil.toast("仅供内部人员使用");
+            return;
+        }
+
+        if (((int) MyApplication.mCache.getAsObject(CacheKey.STATUS)) > 0) {
+            ToastUtil.toast("您尚未通过审核，请耐心等待");
+            return;
+        }
         Intent intent = new Intent(activity, PublishActivity.class);
         activity.startActivityForResult(intent, Config.PUBLISH_REQUEST);
     }
@@ -774,6 +850,19 @@ public class ActivityUtil {
      * @param activity
      */
     public static void startMsgActivity(Activity activity) {
+        if (!MyApplication.isLogin()) {
+            startLoginActivity(activity);
+            return;
+        }
+        if (TextUtils.equals(MyApplication.mCache.getAsString(CacheKey.DEPT_ID), "1")) {
+            ToastUtil.toast("仅内部人员可查看");
+            return;
+        }
+
+        if (((int) MyApplication.mCache.getAsObject(CacheKey.STATUS)) > 0) {
+            ToastUtil.toast("您尚未通过审核，请耐心等待");
+            return;
+        }
         Intent intent = new Intent(activity, MsgActivity.class);
         activity.startActivity(intent);
     }
@@ -794,6 +883,18 @@ public class ActivityUtil {
      * @param activity
      */
     public static void startPartyActivity(Activity activity) {
+        if (!MyApplication.isLogin()) {
+            startLoginActivity(activity);
+            return;
+        }
+        if (TextUtils.equals(MyApplication.mCache.getAsString(CacheKey.DEPT_ID), "1")) {
+            ToastUtil.toast("仅内部人员可查看");
+            return;
+        }
+        if (((int) MyApplication.mCache.getAsObject(CacheKey.STATUS)) > 0) {
+            ToastUtil.toast("您尚未通过审核，请耐心等待");
+            return;
+        }
         Intent intent = new Intent(activity, PartyActivity.class);
         activity.startActivity(intent);
     }
@@ -850,9 +951,10 @@ public class ActivityUtil {
      * @param id
      * @param title
      */
-    public static void startHeadWebActivity(Activity activity, String id, String title, String url, int type) {
+    public static void startHeadWebActivity(Activity activity, String id, String title, String url, int type,String imgUrl) {
         Intent intent = new Intent(activity, HeadWebActivity.class);
         intent.putExtra("id", id);
+        intent.putExtra("img",imgUrl);
         intent.putExtra("type", type);
         intent.putExtra("title", title);
         intent.putExtra("url", url);
@@ -924,5 +1026,116 @@ public class ActivityUtil {
         intent.putExtra("type", type);
         intent.putExtra("info", info);
         activity.startActivity(intent);
+    }
+
+    /**
+     * 绑定微信,qq手机
+     *
+     * @param activity
+     */
+    public static void startBindPhoneActivity(Activity activity, int type, String id) {
+        Intent intent = new Intent(activity, BindPhoneActivity.class);
+        intent.putExtra("type", type);
+        intent.putExtra("id", id);
+        activity.startActivity(intent);
+    }
+
+    /**
+     * 1在线测评  2通知公告  3特殊党费   4党建风采   5活动/会议通知   6后台推送   7 视频    8讲话    9专题学习 10 唯一登录
+     *
+     * @param context
+     * @param message
+     */
+    public static void startNotifyActivity(Context context, UMessage message) {
+
+        String type = message.extra.get("type");
+        String id = message.extra.get("countId");
+        if (!TextUtils.isEmpty(type)) {
+            Intent intent = null;
+            if (TextUtils.equals(type, "1")) {//1在线测评
+                intent = new Intent(context, TestInfoActivity.class);
+                intent.putExtra("id", id);
+            }
+
+            if (TextUtils.equals(type, "2")) { //2通知公告
+                jumpNotifyWeb(context, URLs.MESSAGE_DETIAL + id, "公告详情");
+                return;
+            }
+
+            if (TextUtils.equals(type, "3")) {//3特殊党费
+                intent = new Intent(context, FeeDetialSpecialActivity.class);
+                intent.putExtra("id", id);
+            }
+
+            if (TextUtils.equals(type, "4")) {//4党建风采
+                intent = new Intent(context, HeadWebActivity.class);
+                intent.putExtra("id", id);
+                intent.putExtra("type", 0);
+                intent.putExtra("title", "党建风采");
+                intent.putExtra("url", URLs.NOTICE_DETIAL);
+            }
+
+            if (TextUtils.equals(type, "5")) {//活动/会议通知
+
+                return;
+            }
+
+            if (TextUtils.equals(type, "6")) {//6后台推送
+                return;
+            }
+
+            if (TextUtils.equals(type, "7")) {//视频
+                intent = new Intent(context, VideoStudyDetialActivity.class);
+                intent.putExtra("url", "");
+                intent.putExtra("id", id);
+                intent.putExtra("title", message.title);
+            }
+
+            if (TextUtils.equals(type, "8")) {//8讲话
+                intent = new Intent(context, VoiceSpeechDetialActivity.class);
+                intent.putExtra("url", "");
+                intent.putExtra("id", id);
+                intent.putExtra("title", message.title);
+            }
+
+            if (TextUtils.equals(type, "9")) {//9专题学习
+                intent = new Intent(context, HeadWebActivity.class);
+                intent.putExtra("id", id);
+                intent.putExtra("type", 3);
+                intent.putExtra("title", "专题学习");
+                intent.putExtra("url", URLs.SPECIALORTHEORY);
+            }
+
+            if (TextUtils.equals(type, "10")) {//唯一登录
+                logOut(context);
+            }
+
+            if (intent == null) {
+                return;
+            }
+            intent.setFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        }
+
+    }
+
+    /**
+     * 退出登录
+     */
+    private static void logOut(Context context) {
+        PushAgent.getInstance(context).deleteAlias(MyApplication.USER_ID, "party", (b, s) -> {
+
+        });
+        MyApplication.mCache.remove(CacheKey.USER_ID);
+        MyApplication.mCache.remove(CacheKey.INFO);
+        MyApplication.mCache.remove(CacheKey.USER_INFO);
+        MyApplication.mCache.remove(CacheKey.PHONE);
+        MyApplication.USER_ID = "";
+        System.gc();
+        WebUtil.removeCookie();
+        EventBus.getDefault().post(Event.RELOAD);
+        EventBus.getDefault().post(Event.LOGOUT);
+        MyApplication.isLoginOB.set(false);
+
     }
 }

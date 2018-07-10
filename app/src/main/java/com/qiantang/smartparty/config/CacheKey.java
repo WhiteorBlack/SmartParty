@@ -19,6 +19,9 @@ public interface CacheKey {
     String SERVICE_PHONE="servicePhone";
     String FIRST="isFirst";
     String IS_APPLY_FOR="isApplyFor";
+    String DEPT_ID="deptId";
+    String MSG_NOTIFY="msgNotify";
+    String STATUS="status";
 
     int VEDIO=1;
     int VOICE=2;

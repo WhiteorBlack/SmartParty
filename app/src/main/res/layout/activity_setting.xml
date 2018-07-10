@@ -11,6 +11,9 @@
 
         <import type="com.qiantang.smartparty.R" />
 
+        <import type="android.view.View"/>
+        <import type="com.qiantang.smartparty.MyApplication"/>
+
         <import type="com.qiantang.smartparty.utils.AppUtil" />
     </data>
 
@@ -24,182 +27,264 @@
             android:id="@+id/toolbar"
             layout="@layout/toolbar_common" />
 
-        <TextView
-            style="@style/gray24"
-            android:layout_width="match_parent"
-            android:layout_height="78px"
-            android:layout_marginLeft="30px"
-            android:gravity="center_vertical"
-            android:text="账户安全" />
-
-        <LinearLayout
-            android:id="@+id/ll_modify_phone"
-            style="@style/Mine_list"
-            android:layout_height="104px"
-            android:onClick="onClick"
-            android:paddingRight="@dimen/sideMargin">
-
-            <TextView
-                style="@style/gray24"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30px"
-                android:layout_weight="1"
-                android:text="修改手机号" />
-
-            <TextView
-                android:id="@+id/tv_phone"
-                style="@style/black26"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="30px"
-                android:text="@{AppUtil.getPhone(viewModel.bindPhone)}" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/icon_step_arrow" />
-        </LinearLayout>
-
-        <TextView
-            style="@style/gray24"
-            android:layout_width="match_parent"
-            android:layout_height="78px"
-            android:layout_marginLeft="30px"
-            android:gravity="center_vertical"
-            android:text="第三方授权" />
-
-        <LinearLayout
-            style="@style/Mine_list"
-            android:layout_height="104px"
-            android:background="@color/white"
-            android:paddingRight="@dimen/sideMargin">
-
-            <TextView
-                style="@style/gray24"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30px"
-                android:layout_weight="1"
-                android:text="微信" />
-
-            <TextView
-                android:id="@+id/tv_wechat"
-                style="@style/black26"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="30px"
-                android:text="@{TextUtils.isEmpty(viewModel.rxSetting.wx)?AppUtil.getString(`未绑定`):AppUtil.getString(`已绑定`)}"
-                android:textColor="@{TextUtils.isEmpty(viewModel.rxSetting.wx)?AppUtil.getColor(R.color.barColor):AppUtil.getColor(R.color.black)}" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/icon_step_arrow" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/line" />
-
-        <LinearLayout
-            style="@style/Mine_list"
-            android:layout_height="104px"
-            android:background="@color/white"
-            android:paddingRight="@dimen/sideMargin">
-
-            <TextView
-                style="@style/gray24"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30px"
-                android:layout_weight="1"
-                android:text="QQ" />
-
-            <TextView
-                android:id="@+id/tv_qq"
-                style="@style/black26"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="30px"
-                android:text="@{TextUtils.isEmpty(viewModel.rxSetting.qq)?AppUtil.getString(`未绑定`):AppUtil.getString(`已绑定`)}"
-                android:textColor="@{TextUtils.isEmpty(viewModel.rxSetting.qq)?AppUtil.getColor(R.color.barColor):AppUtil.getColor(R.color.black)}" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/icon_step_arrow" />
-        </LinearLayout>
-
-        <TextView
-            style="@style/gray24"
-            android:layout_width="match_parent"
-            android:layout_height="78px"
-            android:layout_marginLeft="30px"
-            android:gravity="center_vertical"
-            android:text="联系客服" />
-
-        <LinearLayout
-            android:id="@+id/ll_service"
-            style="@style/Mine_list"
-            android:layout_height="104px"
-            android:onClick="onClick"
-            android:paddingRight="@dimen/sideMargin">
-
-            <TextView
-                style="@style/gray24"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30px"
-                android:layout_weight="1"
-                android:text="客服" />
-
-            <TextView
-                android:id="@+id/tv_service"
-                style="@style/black26"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="30px"
-                android:text="@{viewModel.servicePhone}" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/icon_step_arrow" />
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/line" />
-
-        <LinearLayout
-            android:id="@+id/ll_pro"
-            style="@style/Mine_list"
-            android:layout_height="104px"
-            android:onClick="onClick"
-            android:paddingRight="@dimen/sideMargin">
-
-            <TextView
-                style="@style/gray24"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30px"
-                android:layout_weight="1"
-                android:text="用户协议" />
-
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/icon_step_arrow" />
-        </LinearLayout>
-
-        <FrameLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/gray24"
+                    android:layout_width="match_parent"
+                    android:layout_height="78px"
+                    android:visibility="@{MyApplication.isLogin?View.VISIBLE:View.GONE}"
+                    android:layout_marginLeft="30px"
+                    android:gravity="center_vertical"
+                    android:text="账户安全" />
+
+                <LinearLayout
+                    android:id="@+id/ll_modify_phone"
+                    style="@style/Mine_list"
+                    android:layout_height="104px"
+                    android:visibility="@{MyApplication.isLogin?View.VISIBLE:View.GONE}"
+                    android:onClick="onClick"
+                    android:paddingRight="@dimen/sideMargin">
+
+                    <TextView
+                        style="@style/gray24"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30px"
+                        android:layout_weight="1"
+                        android:text="修改手机号" />
+
+                    <TextView
+                        android:id="@+id/tv_phone"
+                        style="@style/black26"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="30px"
+                        android:text="@{AppUtil.getPhone(viewModel.bindPhone)}" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/icon_step_arrow" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/gray24"
+                    android:layout_width="match_parent"
+                    android:layout_height="78px"
+                    android:visibility="@{MyApplication.isLogin?View.VISIBLE:View.GONE}"
+                    android:layout_marginLeft="30px"
+                    android:gravity="center_vertical"
+                    android:text="第三方授权" />
+
+                <LinearLayout
+                    android:id="@+id/ll_wechat"
+                    style="@style/Mine_list"
+                    android:visibility="@{MyApplication.isLogin?View.VISIBLE:View.GONE}"
+                    android:layout_height="104px"
+                    android:background="@color/white"
+                    android:onClick="onClick"
+                    android:paddingRight="@dimen/sideMargin">
+
+                    <TextView
+                        style="@style/gray24"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30px"
+                        android:layout_weight="1"
+                        android:text="微信" />
+
+                    <TextView
+                        android:id="@+id/tv_wechat"
+                        style="@style/black26"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="30px"
+                        android:text="@{TextUtils.isEmpty(viewModel.rxSetting.wx)?AppUtil.getString(`未绑定`):AppUtil.getString(`已绑定`)}"
+                        android:textColor="@{TextUtils.isEmpty(viewModel.rxSetting.wx)?AppUtil.getColor(R.color.barColor):AppUtil.getColor(R.color.black)}" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/icon_step_arrow" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:visibility="@{MyApplication.isLogin?View.VISIBLE:View.GONE}"
+                    android:background="@color/line" />
+
+                <LinearLayout
+                    android:id="@+id/ll_qq"
+                    style="@style/Mine_list"
+                    android:layout_height="104px"
+                    android:background="@color/white"
+                    android:onClick="onClick"
+                    android:visibility="@{MyApplication.isLogin?View.VISIBLE:View.GONE}"
+                    android:paddingRight="@dimen/sideMargin">
+
+                    <TextView
+                        style="@style/gray24"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30px"
+                        android:layout_weight="1"
+                        android:text="QQ" />
+
+                    <TextView
+                        android:id="@+id/tv_qq"
+                        style="@style/black26"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="30px"
+                        android:text="@{TextUtils.isEmpty(viewModel.rxSetting.qq)?AppUtil.getString(`未绑定`):AppUtil.getString(`已绑定`)}"
+                        android:textColor="@{TextUtils.isEmpty(viewModel.rxSetting.qq)?AppUtil.getColor(R.color.barColor):AppUtil.getColor(R.color.black)}" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/icon_step_arrow" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/gray24"
+                    android:layout_width="match_parent"
+                    android:layout_height="78px"
+                    android:layout_marginLeft="30px"
+                    android:gravity="center_vertical"
+                    android:text="联系客服" />
+
+                <LinearLayout
+                    android:id="@+id/ll_service"
+                    style="@style/Mine_list"
+                    android:layout_height="104px"
+                    android:onClick="onClick"
+                    android:paddingRight="@dimen/sideMargin">
+
+                    <TextView
+                        style="@style/gray24"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30px"
+                        android:layout_weight="1"
+                        android:text="客服" />
+
+                    <TextView
+                        android:id="@+id/tv_service"
+                        style="@style/black26"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="30px"
+                        android:text="@{viewModel.servicePhone}" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/icon_step_arrow" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/line" />
+
+                <LinearLayout
+                    android:id="@+id/ll_pro"
+                    style="@style/Mine_list"
+                    android:layout_height="104px"
+                    android:onClick="onClick"
+                    android:paddingRight="@dimen/sideMargin">
+
+                    <TextView
+                        style="@style/gray24"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30px"
+                        android:layout_weight="1"
+                        android:text="用户协议" />
+
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/icon_step_arrow" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/gray24"
+                    android:layout_width="match_parent"
+                    android:layout_height="78px"
+                    android:layout_marginLeft="30px"
+                    android:gravity="center_vertical"
+                    android:text="版本信息" />
+
+                <LinearLayout
+                    style="@style/Mine_list"
+                    android:layout_height="104px"
+                    android:onClick="onClick"
+                    android:paddingRight="@dimen/sideMargin">
+
+                    <TextView
+                        style="@style/gray24"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30px"
+                        android:layout_weight="1"
+                        android:text="当前版本" />
+
+
+                    <TextView
+                        style="@style/gray24"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/sideMargin"
+                        android:text="@{viewModel.version}" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/gray24"
+                    android:layout_width="match_parent"
+                    android:layout_height="78px"
+                    android:layout_marginLeft="30px"
+                    android:gravity="center_vertical"
+                    android:text="消息设置" />
+
+                <LinearLayout
+                    style="@style/Mine_list"
+                    android:layout_height="104px"
+                    android:onClick="onClick"
+                    android:paddingRight="@dimen/sideMargin">
+
+                    <TextView
+                        style="@style/gray24"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30px"
+                        android:layout_weight="1"
+                        android:text="消息推送" />
+
+
+                    <Switch
+                        android:id="@+id/sch"
+                        android:checked="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="150px">
 
             <Button
                 style="@style/confirmBtn"

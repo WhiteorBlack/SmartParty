@@ -10,13 +10,14 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="80px"
         android:layout_marginRight="80px"
+        android:background="@drawable/bg_update_dialog"
         android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/ll_title_contaner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:background="@drawable/bg_update_dialog_title"
             android:gravity="center"
             android:orientation="horizontal"
             android:paddingBottom="15px"
@@ -28,10 +29,10 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            android:paddingBottom="50px"
+            android:paddingBottom="60px"
             android:paddingLeft="25px"
             android:paddingRight="25px"
-            android:paddingTop="50px"></LinearLayout>
+            android:paddingTop="80px"></LinearLayout>
 
 
         <LinearLayout
@@ -40,7 +41,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal|bottom"
             android:orientation="horizontal"
-            android:paddingBottom="50px"
+            android:paddingBottom="30px"
             android:paddingLeft="15px"
             android:paddingRight="15px">
 
@@ -48,14 +49,14 @@
                 android:id="@+id/ll_right"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
                 android:layout_marginLeft="20px"
+                android:gravity="center_horizontal"
                 android:orientation="vertical">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                   />
+                    android:layout_marginBottom="5dp" />
             </LinearLayout>
         </LinearLayout>
 

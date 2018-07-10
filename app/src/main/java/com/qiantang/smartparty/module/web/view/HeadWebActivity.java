@@ -135,8 +135,8 @@ public class HeadWebActivity extends BaseBindActivity {
                 inputViewModel.setTextString("");
                 closeInput();
                 break;
-            case R.id.iv_share:
-
+            case R.id.iv_right:
+                viewModel.share();
                 break;
             case R.id.iv_collect:
                 viewModel.cancelPrase();

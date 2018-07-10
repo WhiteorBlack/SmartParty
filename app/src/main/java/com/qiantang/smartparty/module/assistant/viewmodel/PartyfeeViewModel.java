@@ -57,7 +57,12 @@ public class PartyfeeViewModel implements ViewModel {
         return new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adaptera, View view, int position) {
-                ActivityUtil.startFeeDetialActivity(activity, adapter.getData().get(position).getDuesId());
+                if (adapter.getData().get(position).getType()==1){
+                    ActivityUtil.startFeeDetialSpecialActivity(activity,adapter.getData().get(position).getDuesId());
+                }else {
+
+                    ActivityUtil.startFeeDetialActivity(activity, adapter.getData().get(position).getDuesId());
+                }
             }
         };
     }

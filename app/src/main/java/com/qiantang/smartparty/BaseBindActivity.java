@@ -16,6 +16,7 @@ import com.qiantang.smartparty.utils.AutoUtils;
 import com.qiantang.smartparty.utils.ToastUtil;
 import com.qiantang.smartparty.widget.RefreshHeader;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.umeng.message.PushAgent;
 
 import java.util.HashMap;
 
@@ -54,6 +55,7 @@ public abstract class BaseBindActivity extends RxAppCompatActivity implements Re
 
             AutoUtils.auto(this);
         }
+        PushAgent.getInstance(this).onAppStart();
 
         initView();
         onFirstUserVisible();
@@ -106,7 +108,6 @@ public abstract class BaseBindActivity extends RxAppCompatActivity implements Re
     public void setPageValue(String value) {
         this.value = value;
     }
-
 
 
     /**
@@ -278,8 +279,8 @@ public abstract class BaseBindActivity extends RxAppCompatActivity implements Re
         }
     }
 
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.iv_back:
                 onBackPressed();
                 break;

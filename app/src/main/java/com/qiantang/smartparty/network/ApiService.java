@@ -8,6 +8,7 @@ import com.qiantang.smartparty.modle.RxAds;
 import com.qiantang.smartparty.modle.RxAdviseRecord;
 import com.qiantang.smartparty.modle.RxApplyDetial;
 import com.qiantang.smartparty.modle.RxAssientHome;
+import com.qiantang.smartparty.modle.RxAuthorizeUserInfo;
 import com.qiantang.smartparty.modle.RxBookDetial;
 import com.qiantang.smartparty.modle.RxBookRecommend;
 import com.qiantang.smartparty.modle.RxCharacterDetial;
@@ -138,19 +139,28 @@ public interface ApiService {
                                                      @Field("image") String image);
 
     //党建助手首页
+    @FormUrlEncoded
     @POST("app/partyBuild/homePage")
-    Observable<HttpResult<RxAssientHome>> assientHome();
+    Observable<HttpResult<RxAssientHome>> assientHome(@Field("userId") String userId);
 
     @FormUrlEncoded
     //消息列表
     @POST("app/partyBuild/tzNotice")
-    Observable<HttpResult<List<RxMsg>>> tzNotice(@Field("pageNum") int page);
+    Observable<HttpResult<List<RxMsg>>> tzNotice(@Field("pageNum") int page,
+                                                 @Field("userId") String userId);
 
     @FormUrlEncoded
     //党建风采
     @POST("app/partyBuild/fcNotice")
     Observable<HttpResult<List<RxIndexCommon>>> fcNotice(@Field("pageNum") int page,
                                                          @Field("type") int type);
+
+    @FormUrlEncoded
+    //党建风采
+    @POST("app/partyBuild/fcNotice")
+    Observable<HttpResult<List<RxIndexCommon>>> fcNoticeSerach(@Field("pageNum") int page,
+                                                               @Field("type") int type,
+                                                               @Field("search") String serach);
 
     @FormUrlEncoded
     //党建活动详情
@@ -165,13 +175,14 @@ public interface ApiService {
     @FormUrlEncoded
     //党建活动
     @POST("app/partyBuild/djActivity")
-    Observable<HttpResult<List<RxActivity>>> djActivity(@Field("pageNum") int page);
+    Observable<HttpResult<List<RxActivity>>> djActivity(@Field("pageNum") int page,
+                                                        @Field("userId") String userId);
 
     @FormUrlEncoded
     //我的党建活动
     @POST("app/partyBuild/user/djActivity")
-    Observable<HttpResult<List<RxActivity>>> djActivity(@Field("pageNum") int page,
-                                                        @Field("userId") String userId);
+    Observable<HttpResult<List<RxActivity>>> djActivityMine(@Field("pageNum") int page,
+                                                            @Field("userId") String userId);
 
     @FormUrlEncoded
     //我的党建活动
@@ -510,7 +521,8 @@ public interface ApiService {
     //登录验证码
     @FormUrlEncoded
     @POST("app/user/sendCode")
-    Observable<HttpResult<HttpResult>> loginCode(@Field("phone") String phone);
+    Observable<HttpResult<HttpResult>> loginCode(@Field("phone") String phone
+    );
 
     //注册验证码
     @FormUrlEncoded
@@ -521,13 +533,15 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("app/user/login")
     Observable<HttpResult<RxMyUserInfo>> login(@Field("phone") String phone,
-                                               @Field("code") String code);
+                                               @Field("code") String code,
+                                               @Field("pid") String pid);
 
     //登录
     @FormUrlEncoded
     @POST("app/user/passwordLogin")
     Observable<HttpResult<RxMyUserInfo>> passwordLogin(@Field("phone") String phone,
-                                                       @Field("password") String password);
+                                                       @Field("password") String password,
+                                                       @Field("pid") String pid);
 
     //注册
     @FormUrlEncoded
@@ -555,12 +569,18 @@ public interface ApiService {
                                                @Field("position") String position,
                                                @Field("member") int member,
                                                @Field("joinpatryTime") String joinpatryTime,
-                                               @Field("password") String password);
+                                               @Field("password") String password,
+                                               @Field("pid") String pid);
 
     //个人信息
     @FormUrlEncoded
     @POST("app/userCenter/center")
     Observable<HttpResult<RxPersonalCenter>> center(@Field("phone") String phone);
+
+    //个人信息
+    @FormUrlEncoded
+    @POST("app/userCenter/archives")
+    Observable<HttpResult<RxPersonalCenter>> archives(@Field("phone") String phone);
 
     //党费缴纳
     @FormUrlEncoded
@@ -668,6 +688,36 @@ public interface ApiService {
     Observable<HttpResult<HttpResult>> saveplayrecord(@Field("comment_id") String comment_id,
                                                       @Field("userId") String userId,
                                                       @Field("playtime") int playtime);
+
+
+    //第三方登录
+    @FormUrlEncoded
+    @POST("app/userCenter/thirdLogin")
+    Observable<HttpResult<RxMyUserInfo>> thirdLogin(@Field("openId") String openId,
+                                                    @Field("type") int type,
+                                                    @Field("pid") String pic);
+
+    //获取微信授权
+    @FormUrlEncoded
+    @POST("https://api.weixin.qq.com/sns/oauth2/access_token")
+    Observable<HttpResult<HttpResult>> wxToken(@Field("appid") String appid,
+                                               @Field("secret") String secret,
+                                               @Field("code") String code,
+                                               @Field("grant_type") String grant_type);
+
+    //绑定微信qq
+    @FormUrlEncoded
+    @POST("app/userCenter/band")
+    Observable<HttpResult<RxMyUserInfo>> band(@Field("phone") String phone,
+                                              @Field("type") int type,
+                                              @Field("code") String code,
+                                              @Field("openId") String openId);
+
+
+    //退出登录
+    @FormUrlEncoded
+    @POST("app/user/exit")
+    Observable<HttpResult<HttpResult>> exit(@Field("userId") String userId);
 
 
 }

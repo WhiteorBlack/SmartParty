@@ -3,10 +3,15 @@ package com.qiantang.smartparty.module.main.viewmodel;
 import android.Manifest;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.view.Gravity;
 
+import com.flyco.animation.BounceEnter.BounceLeftEnter;
+import com.flyco.animation.SlideExit.SlideLeftExit;
+import com.flyco.dialog.listener.OnBtnClickL;
 import com.orhanobut.logger.Logger;
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.MyApplication;
+import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.config.CacheKey;
 import com.qiantang.smartparty.config.updata.NotificationDownloadCreator;
@@ -20,8 +25,11 @@ import com.qiantang.smartparty.network.NetworkSubscriber;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
 import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
 import com.qiantang.smartparty.utils.ACache;
+import com.qiantang.smartparty.utils.AppUtil;
+import com.qiantang.smartparty.utils.NetworkUtil;
 import com.qiantang.smartparty.utils.permissions.EasyPermission;
 import com.qiantang.smartparty.utils.permissions.PermissionCode;
+import com.qiantang.smartparty.widget.MyMaterialDialog;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import org.greenrobot.eventbus.EventBus;

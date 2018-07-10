@@ -57,6 +57,7 @@ public class BookDetialActivity extends BaseBindActivity {
         inputViewModel.setHint("发表学习感悟...");
         initKeyboardHeightObserver();
         initRefresh(binding.cptr);
+        inputViewModel.setShareVis(false);
     }
 
     @Override

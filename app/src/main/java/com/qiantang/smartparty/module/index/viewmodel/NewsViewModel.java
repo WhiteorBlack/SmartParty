@@ -71,7 +71,8 @@ public class NewsViewModel implements ViewModel {
                         title = "学习动态";
                         break;
                 }
-                ActivityUtil.startHeadWebActivity(activity, adapter.getData().get(position).getContentId(), title, URLs.NOTICE_DETIAL, 0);
+                ActivityUtil.startHeadWebActivity(activity, adapter.getData().get(position).getContentId(),
+                        title, URLs.NOTICE_DETIAL, 0,adapter.getData().get(position).getImgSrc());
             }
         };
     }

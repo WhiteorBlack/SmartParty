@@ -146,9 +146,6 @@ public class WebUtil {
                 url += "&userId=" + MyApplication.USER_ID;
             }
 
-            if (!url.contains("token") && !TextUtils.isEmpty(MyApplication.TOKEN)) {
-                url += "&token=" + MyApplication.TOKEN;
-            }
         }
         return url;
     }
@@ -164,12 +161,12 @@ public class WebUtil {
 
 
     public static boolean syncCookie(String url) {
-        if (StringUtil.isEmpty(MyApplication.TOKEN)) {
+        if (StringUtil.isEmpty(MyApplication.USER_ID)) {
             removeCookie();
             return false;
         }
 
-        String state = "state={\"token\":\"" + MyApplication.TOKEN + "\"};Domain=" + Config.HTML_HOST + ";Path=/";
+        String state = "state={\"token\":\"" + MyApplication.USER_ID + "\"};Domain=" + Config.HTML_HOST + ";Path=/";
         String encode = "";
         try {
             encode = URLEncoder.encode(MyApplication.INFO, "UTF-8");

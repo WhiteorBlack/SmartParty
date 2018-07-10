@@ -203,6 +203,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="22px"
             android:onClick="onClick"
+            android:visibility="invisible"
             android:text="手机号注册" />
 
         <TextView

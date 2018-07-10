@@ -104,7 +104,9 @@ public class ACache {
         String info = myUserInfo.toString();
         MyApplication.mCache.put(CacheKey.USER_ID, userId);
         MyApplication.mCache.put(CacheKey.INFO, info);
+        MyApplication.mCache.put(CacheKey.DEPT_ID, myUserInfo.getDeptId());
         MyApplication.mCache.put(CacheKey.PHONE, myUserInfo.getPhone());
+        MyApplication.mCache.put(CacheKey.STATUS, myUserInfo.getStatus());
         if (!TextUtils.isEmpty(myUserInfo.getAvatar())) {
             MyApplication.mCache.put(CacheKey.USER_AVATAR, myUserInfo.getAvatar());
         }

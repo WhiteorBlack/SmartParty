@@ -11,6 +11,7 @@ import com.qiantang.smartparty.databinding.ActivityFeeDetialBinding;
 import com.qiantang.smartparty.databinding.ActivityFeeDetialSpecialBinding;
 import com.qiantang.smartparty.module.assistant.viewmodel.FeeDetialSpecialViewModel;
 import com.qiantang.smartparty.module.assistant.viewmodel.FeeDetialViewModel;
+import com.qiantang.smartparty.module.study.adapter.StudyImageAdapter;
 import com.qiantang.smartparty.utils.ActivityUtil;
 
 /**
@@ -19,10 +20,12 @@ import com.qiantang.smartparty.utils.ActivityUtil;
 public class FeeDetialSpecialActivity extends BaseBindActivity {
     private FeeDetialSpecialViewModel viewModel;
     private ActivityFeeDetialSpecialBinding binding;
+    private StudyImageAdapter adapter;
 
     @Override
     protected void initBind() {
-        viewModel = new FeeDetialSpecialViewModel(this);
+        adapter=new StudyImageAdapter(R.layout.item_study_image);
+        viewModel = new FeeDetialSpecialViewModel(this,adapter);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_fee_detial_special);
         binding.setViewModel(viewModel);
     }
@@ -51,6 +54,8 @@ public class FeeDetialSpecialActivity extends BaseBindActivity {
 
     private void initRv(RecyclerView rvInfo) {
         rvInfo.setLayoutManager(new GridLayoutManager(this, 4));
+        rvInfo.setAdapter(adapter);
+        rvInfo.addOnItemTouchListener(viewModel.onItemTouchListener());
     }
 
     @Override

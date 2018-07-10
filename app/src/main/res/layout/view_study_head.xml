@@ -22,10 +22,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="42px"
             app:actualImageScaleType="centerCrop"
-            app:failureImage="@mipmap/study_top_bg"
-            app:failureImageScaleType="centerCrop"
-            app:viewAspectRatio="1.84"
-            bind:background="@{viewModel.userMap.background}" />
+            app:placeholderImage="@mipmap/study_top_bg"
+            app:placeholderImageScaleType="fitXY"
+            app:viewAspectRatio="1.84" />
 
         <LinearLayout
             android:id="@+id/ll_content"
@@ -46,6 +45,8 @@
                 android:layout_marginBottom="6px"
                 android:layout_marginLeft="8px"
                 android:layout_marginTop="6px"
+                app:placeholderImageScaleType="centerCrop"
+                app:placeholderImage="@mipmap/icon_reigster_top"
                 app:roundAsCircle="true"
                 bind:msgAvatar="@{viewModel.userMap.background}" />
 
@@ -74,8 +75,11 @@
             android:layout_marginBottom="-80px"
             android:layout_marginRight="17px"
             android:onClick="@{viewModel.onClick}"
-            app:placeholderImage="@mipmap/mine_head"
+            app:placeholderImageScaleType="centerCrop"
+            app:placeholderImage="@mipmap/icon_reigster_top"
             app:roundAsCircle="true"
+            app:roundingBorderColor="@color/white"
+            app:roundingBorderWidth="4px"
             bind:avatar="@{viewModel.userMap.avatar}" />
 
         <TextView

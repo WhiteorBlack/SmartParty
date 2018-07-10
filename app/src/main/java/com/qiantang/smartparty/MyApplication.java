@@ -18,11 +18,14 @@ import com.facebook.imagepipeline.cache.MemoryCacheParams;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.imagepipeline.decoder.ProgressiveJpegConfig;
 import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig;
+import com.orhanobut.logger.Logger;
 import com.qiantang.smartparty.base.ApplicationLike;
 import com.qiantang.smartparty.config.CacheKey;
 import com.qiantang.smartparty.services.InitializeService;
 import com.qiantang.smartparty.utils.ACache;
 import com.qiantang.smartparty.utils.StringUtil;
+import com.umeng.message.IUmengRegisterCallback;
+import com.umeng.message.PushAgent;
 
 public class MyApplication extends ApplicationLike {
     private Application application;
@@ -51,6 +54,7 @@ public class MyApplication extends ApplicationLike {
     public static ObservableBoolean isRefreshing = new ObservableBoolean(false);
     public static ObservableBoolean isLoginOB = new ObservableBoolean(false);
     public static ObservableBoolean isPop = new ObservableBoolean(false);
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -75,7 +79,6 @@ public class MyApplication extends ApplicationLike {
         initNative();
         initThirdParty();
     }
-
 
     private void initNative() {
         context = application.getApplicationContext();

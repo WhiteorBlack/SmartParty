@@ -28,6 +28,8 @@ import com.qiantang.smartparty.network.retrofit.ApiWrapper;
 import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
 import com.qiantang.smartparty.utils.ToastUtil;
 import com.trello.rxlifecycle2.android.ActivityEvent;
+import com.umeng.message.PushAgent;
+import com.umeng.message.UTrack;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -308,6 +310,12 @@ public class CompeteViewModel extends BaseObservable implements ViewModel {
 
     private void loginSuccess(RxMyUserInfo data) {
         MyApplication.mCache.saveInfo(data, data.getId());
+        PushAgent.getInstance(activity).setAlias(data.getId(), "party", new UTrack.ICallBack() {
+            @Override
+            public void onMessage(boolean b, String s) {
+
+            }
+        });
         EventBus.getDefault().post(Event.RELOAD_STUDY);
         activity.onBackPressed();
     }

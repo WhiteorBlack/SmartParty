@@ -74,7 +74,8 @@ public class LearnFragmentViewModel implements ViewModel {
         return new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ActivityUtil.startHeadWebActivity(fragment.getActivity(), learnAdapter.getData().get(position).getContentId(), "专题学习", URLs.SPECIALORTHEORY,3);
+                ActivityUtil.startHeadWebActivity(fragment.getActivity(), learnAdapter.getData().get(position).getContentId(),
+                        "专题学习", URLs.SPECIALORTHEORY,3,learnAdapter.getData().get(position).getPrinturl());
             }
         };
     }

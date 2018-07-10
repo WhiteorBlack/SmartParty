@@ -7,10 +7,21 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Handler;
 import android.os.SystemClock;
+import android.util.Log;
 
 
 import com.qiantang.smartparty.base.ApplicationLike;
+import com.qiantang.smartparty.services.UmengNotificationService;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.commonsdk.UMConfigure;
+import com.umeng.message.IUmengRegisterCallback;
+import com.umeng.message.MsgConstant;
+import com.umeng.message.PushAgent;
+
+import org.android.agoo.huawei.HuaWeiRegister;
+import org.android.agoo.xiaomi.MiPushRegistar;
 
 import java.lang.reflect.Constructor;
 
@@ -31,6 +42,42 @@ public class SampleApplication extends Application {
         super.onCreate();
         applicationLike.onCreate();
 //        InitializeService.start(this, InitializeService.ACTION_INIT_WHEN_APP_CREATE);
+        initUMeng();
+    }
+
+    /**
+     * 初始化友盟统计分析
+     */
+    private void initUMeng() {
+        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
+//        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, Config.UPUSH_SECRET);
+        UMConfigure.setLogEnabled(true);
+        UMConfigure.setEncryptEnabled(true);
+        UMConfigure.init(this, "5b077233f43e481af30000ae", "party", UMConfigure.DEVICE_TYPE_PHONE,
+                "ad77ceb416bdacca751d5909c1c4e361");
+        initUpush();
+    }
+
+    private void initUpush() {
+        PushAgent mPushAgent = PushAgent.getInstance(this);
+        mPushAgent.setNotificationPlaySound(MsgConstant.NOTIFICATION_PLAY_SDK_ENABLE);
+
+        //注册推送服务 每次调用register都会回调该接口
+        mPushAgent.register(new IUmengRegisterCallback() {
+            @Override
+            public void onSuccess(String deviceToken) {
+                MyApplication.TOKEN = deviceToken;
+            }
+
+            @Override
+            public void onFailure(String s, String s1) {
+            }
+        });
+
+        mPushAgent.setPushIntentServiceClass(UmengNotificationService.class);
+
+        MiPushRegistar.register(this, "2882303761517834569", "5911783494569");
+        HuaWeiRegister.register(this);
     }
 
     @Override

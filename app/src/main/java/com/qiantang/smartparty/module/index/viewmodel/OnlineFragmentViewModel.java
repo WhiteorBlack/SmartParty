@@ -29,6 +29,7 @@ public class OnlineFragmentViewModel implements ViewModel {
     private LearnAdapter learnAdapter;
     private int pageNo = 1;
     private int classId = -1;
+    private String imgUrl;
 
     public OnlineFragmentViewModel(BaseBindFragment fragment, LearnAdapter learnAdapter) {
         this.fragment = fragment;
@@ -68,6 +69,7 @@ public class OnlineFragmentViewModel implements ViewModel {
                     public void onSuccess(RxOnline data) {
                         if (pageNo == 1) {
                             ((FragmentOnline) fragment).setHeadImage(Config.IMAGE_HOST + data.getPictureurl());
+                            imgUrl = data.getPictureurl();
                         }
                         learnAdapter.setPagingData(data.getList(), pageNo);
                     }
@@ -78,7 +80,8 @@ public class OnlineFragmentViewModel implements ViewModel {
         return new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ActivityUtil.startHeadWebActivity(fragment.getActivity(), learnAdapter.getData().get(position).getContentId(), "理论在线", URLs.SPECIALORTHEORY,4);
+                ActivityUtil.startHeadWebActivity(fragment.getActivity(), learnAdapter.getData().get(position).getContentId(),
+                        "理论在线", URLs.SPECIALORTHEORY, 4, imgUrl);
             }
         };
     }

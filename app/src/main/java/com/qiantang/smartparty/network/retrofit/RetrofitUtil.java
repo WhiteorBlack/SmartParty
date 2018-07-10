@@ -276,9 +276,11 @@ public class RetrofitUtil {
 
                         }
                         subscriber.onNext(object == null ? ((T) response) : object);
-                    }else if (!TextUtils.isEmpty(response.getAvatar())){
-                        subscriber.onNext((T)response);
-                    }else {
+                    } else if (!TextUtils.isEmpty(response.getAvatar())) {
+                        subscriber.onNext((T) response);
+                    } else if (!TextUtils.isEmpty(response.getOpenid())) {
+                        subscriber.onNext((T) response);
+                    } else {
                         subscriber.onNext(object == null ? ((T) response) : object);
                     }
                 }
@@ -287,7 +289,6 @@ public class RetrofitUtil {
                 if (!subscriber.isDisposed()) {
                     APIException e = new APIException(errorCode, response.getErrorMessage());
                     if (e.isTokenExpired()) {
-                        MyApplication.TOKEN = "";
                         MyApplication.USER_ID = "";
                         MyApplication.mCache.remove(CacheKey.TOKEN);
                         MyApplication.mCache.remove(CacheKey.USER_ID);

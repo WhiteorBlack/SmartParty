@@ -1,11 +1,9 @@
 package com.qiantang.smartparty.network.retrofit;
 
 
-import android.databinding.ObservableField;
-
-import com.google.android.exoplayer2.C;
 import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.config.CacheKey;
+import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.modle.HttpResult;
 import com.qiantang.smartparty.modle.RxActivity;
 import com.qiantang.smartparty.modle.RxActivityDetial;
@@ -16,7 +14,6 @@ import com.qiantang.smartparty.modle.RxAssientHome;
 import com.qiantang.smartparty.modle.RxBookDetial;
 import com.qiantang.smartparty.modle.RxBookRecommend;
 import com.qiantang.smartparty.modle.RxCharacterDetial;
-import com.qiantang.smartparty.modle.RxComment;
 import com.qiantang.smartparty.modle.RxDeptName;
 import com.qiantang.smartparty.modle.RxFeeRecord;
 import com.qiantang.smartparty.modle.RxIndex;
@@ -54,18 +51,14 @@ import com.qiantang.smartparty.modle.RxTestDoneInfo;
 import com.qiantang.smartparty.modle.RxTestInfo;
 import com.qiantang.smartparty.modle.RxThinkDetial;
 import com.qiantang.smartparty.modle.RxTotalScore;
-import com.qiantang.smartparty.modle.RxUploadUrl;
 import com.qiantang.smartparty.modle.RxVideoDetial;
 import com.qiantang.smartparty.modle.RxVideoStudy;
-import com.qiantang.smartparty.module.mine.view.MyTestActivity;
 import com.qiantang.smartparty.utils.luban.Luban;
 
 import java.io.File;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -255,14 +248,14 @@ public class ApiWrapper extends RetrofitUtil {
      * 党建助手首页
      */
     public Observable<RxAssientHome> assientHome() {
-        return getService().assientHome().compose(this.applySchedulers());
+        return getService().assientHome(MyApplication.USER_ID).compose(this.applySchedulers());
     }
 
     /**
      * 党建助手首页
      */
     public Observable<List<RxMsg>> tzNotice(int page) {
-        return getService().tzNotice(page).compose(this.applySchedulers());
+        return getService().tzNotice(page, MyApplication.USER_ID).compose(this.applySchedulers());
     }
 
     /**
@@ -275,13 +268,23 @@ public class ApiWrapper extends RetrofitUtil {
     }
 
     /**
+     * @param type 4党建风采 搜索
+     * @param page
+     * @return
+     */
+    public Observable<List<RxIndexCommon>> fcNotice(int page, int type, String search) {
+        return getService().fcNoticeSerach(page, type, search).compose(this.applySchedulers());
+    }
+
+
+    /**
      * 党建活动
      *
      * @param page
      * @return
      */
     public Observable<List<RxActivity>> djActivity(int page) {
-        return getService().djActivity(page).compose(this.applySchedulers());
+        return getService().djActivity(page, MyApplication.USER_ID).compose(this.applySchedulers());
     }
 
     /**
@@ -291,7 +294,7 @@ public class ApiWrapper extends RetrofitUtil {
      * @return
      */
     public Observable<List<RxActivity>> myActivity(int page) {
-        return getService().djActivity(page, MyApplication.USER_ID).compose(this.applySchedulers());
+        return getService().djActivityMine(page, MyApplication.USER_ID).compose(this.applySchedulers());
     }
 
     public Observable<String> deleteActivity(String id) {
@@ -854,7 +857,8 @@ public class ApiWrapper extends RetrofitUtil {
      * @return
      */
     public Observable<RxMyUserInfo> login(String phone, String code) {
-        return getService().login(phone, code).compose(this.applySchedulers());
+
+        return getService().login(phone, code, MyApplication.TOKEN).compose(this.applySchedulers());
     }
 
     /**
@@ -864,7 +868,7 @@ public class ApiWrapper extends RetrofitUtil {
      * @return
      */
     public Observable<RxMyUserInfo> passwordLogin(String phone, String password) {
-        return getService().passwordLogin(phone, password).compose(this.applySchedulers());
+        return getService().passwordLogin(phone, password, MyApplication.TOKEN).compose(this.applySchedulers());
     }
 
     /**
@@ -912,7 +916,7 @@ public class ApiWrapper extends RetrofitUtil {
      * @return
      */
     public Observable<HttpResult> perfect(String phone, String username, boolean bl, String deptId, String position, int member, String joinpatryTime, String password) {
-        return getService().perfect(phone, username, bl, deptId, position, member, joinpatryTime, password).compose(this.applySchedulers());
+        return getService().perfect(phone, username, bl, deptId, position, member, joinpatryTime, password, MyApplication.TOKEN).compose(this.applySchedulers());
     }
 
     /**
@@ -922,6 +926,24 @@ public class ApiWrapper extends RetrofitUtil {
      */
     public Observable<RxPersonalCenter> center() {
         return getService().center(MyApplication.mCache.getAsString(CacheKey.PHONE)).compose(this.applySchedulers());
+    }
+
+    /**
+     * 获取个人信息
+     *
+     * @return
+     */
+    public Observable<RxPersonalCenter> center(String phone) {
+        return getService().center(phone).compose(this.applySchedulers());
+    }
+
+    /**
+     * 获取个人信息
+     *
+     * @return
+     */
+    public Observable<RxPersonalCenter> archives() {
+        return getService().archives(MyApplication.mCache.getAsString(CacheKey.PHONE)).compose(this.applySchedulers());
     }
 
     /**
@@ -1082,5 +1104,40 @@ public class ApiWrapper extends RetrofitUtil {
      */
     public Observable<HttpResult> saveplayrecord(String id, int time) {
         return getService().saveplayrecord(id, MyApplication.USER_ID, time).compose(this.applySchedulers());
+    }
+
+    /**
+     * 第三方登录
+     *
+     * @param id
+     * @return
+     */
+    public Observable<RxMyUserInfo> thirdLogin(String id, int type) {
+        return getService().thirdLogin(id, type, MyApplication.TOKEN).compose(this.applySchedulers());
+    }
+
+    /**
+     * 获取微信授权id
+     */
+
+    public Observable<HttpResult> wxToken(String code) {
+        return getService().wxToken(Config.WX_APP_ID, Config.WX_APP_SECRET, code, "authorization_code").compose(this.applySchedulers());
+    }
+
+    /**
+     * 绑定微信qq
+     *
+     * @param code
+     * @param phone
+     * @param openId
+     * @param type
+     * @return
+     */
+    public Observable<RxMyUserInfo> band(String code, String phone, String openId, int type) {
+        return getService().band(phone, type, code, openId).compose(this.applySchedulers());
+    }
+
+    public Observable<HttpResult> exit() {
+        return getService().exit(MyApplication.USER_ID).compose(this.applySchedulers());
     }
 }

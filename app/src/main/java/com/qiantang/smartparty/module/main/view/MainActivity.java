@@ -58,6 +58,7 @@ public class MainActivity extends BaseBindActivity implements IndicatorViewPager
         binding.viewpager.setOffscreenPageLimit(icons.length);
         indicatorViewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), icons, names));
         indicatorViewPager.setOnIndicatorPageChangeListener(this);
+        viewModel.versionCheck();
     }
 
     @Override

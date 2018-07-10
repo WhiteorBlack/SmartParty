@@ -19,6 +19,7 @@ import com.qiantang.smartparty.modle.RxActivityDetial;
 import com.qiantang.smartparty.modle.RxAddScore;
 import com.qiantang.smartparty.modle.RxComment;
 import com.qiantang.smartparty.modle.RxSpecialDetial;
+import com.qiantang.smartparty.modle.ShareInfo;
 import com.qiantang.smartparty.module.index.view.VoiceSpeechDetialActivity;
 import com.qiantang.smartparty.module.web.view.HeadWebActivity;
 import com.qiantang.smartparty.network.NetworkSubscriber;
@@ -26,6 +27,7 @@ import com.qiantang.smartparty.network.retrofit.ApiWrapper;
 import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
 import com.qiantang.smartparty.utils.AppUtil;
 import com.qiantang.smartparty.utils.ToastUtil;
+import com.qiantang.smartparty.widget.dialog.ShareBottomDialog;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -49,6 +51,11 @@ public class WebHeadViewModel implements ViewModel {
     private int type = 0;
     private long startTime;
     public ObservableBoolean isFinish = new ObservableBoolean(false); //判断是否H5加载完毕,完毕之后在展示评论内容
+    private String title = "";
+    private String content = "";
+    private String url = "";
+    private ShareBottomDialog shareDialog;
+    private String imgUrl = "";
 
     public WebHeadViewModel(BaseBindActivity activity, CommentAdapter commentAdapter) {
         this.activity = activity;
@@ -60,6 +67,8 @@ public class WebHeadViewModel implements ViewModel {
         startTime = System.currentTimeMillis();
         id = activity.getIntent().getStringExtra("id");
         type = activity.getIntent().getIntExtra("type", 0);
+        url = activity.getIntent().getStringExtra("url");
+        imgUrl = activity.getIntent().getStringExtra("img");
     }
 
     public void loadMore() {
@@ -85,6 +94,8 @@ public class WebHeadViewModel implements ViewModel {
                         public void onSuccess(RxSpecialDetial data) {
                             activity.refreshOK();
                             commentCount = data.getDetail().getCommentSum();
+                            title = data.getDetail().getTitle();
+                            content = data.getDetail().getContent();
                             ((HeadWebActivity) activity).updateCollect(data.getDetail().getCollect() != 0);
                             ((HeadWebActivity) activity).updateCount(data.getDetail().getCommentSum());
                             if (Config.isLoadMore) {
@@ -112,6 +123,8 @@ public class WebHeadViewModel implements ViewModel {
                         @Override
                         public void onSuccess(RxSpecialDetial data) {
                             activity.refreshOK();
+                            title = data.getDetail().getTitle();
+                            content = data.getDetail().getContent();
                             commentCount = data.getDetail().getCommentSum();
                             ((HeadWebActivity) activity).updateCollect(data.getDetail().getCollect() != 0);
                             ((HeadWebActivity) activity).updateCount(data.getDetail().getCommentSum());
@@ -136,6 +149,8 @@ public class WebHeadViewModel implements ViewModel {
                         @Override
                         public void onSuccess(RxActivityDetial data) {
                             activity.refreshOK();
+                            title = data.getDetials().getTitle();
+                            content = data.getDetials().getContent();
                             commentCount = data.getCount();
                             ((HeadWebActivity) activity).updateCollect(data.getDetials().getCollect() != 0);
                             ((HeadWebActivity) activity).updateCount(data.getCount());
@@ -177,21 +192,6 @@ public class WebHeadViewModel implements ViewModel {
                     public void onSuccess(HttpResult data) {
                         getData(pageNo + 1, false);
                         EventBus.getDefault().post(new RxAddScore(CacheKey.COMMENT, 0, id));
-//                        addCommentCount++;
-//                        commentCount+=1;
-//                        ((HeadWebActivity) activity).updateCount(commentCount);
-//                        ((HeadWebActivity) activity).dissmissCommentBox();
-//                        RxComment rxComment = new RxComment();
-//                        rxComment.setUsername(MyApplication.mCache.getAsString(CacheKey.USER_NAME));
-//                        rxComment.setUserId(MyApplication.mCache.getAsString(CacheKey.USER_ID));
-//                        rxComment.setContent(content);
-//                        rxComment.setAvatar(MyApplication.mCache.getAsString(CacheKey.USER_AVATAR));
-//                        rxComment.setIsDz(0);
-//                        rxComment.setDz(0);
-//                        rxComment.setCreationtime(AppUtil.getNowDate());
-//                        commentAdapter.getData().add(commentAdapter.getData().size(), rxComment);
-//                        commentAdapter.notifyItemInserted(commentAdapter.getData().size());
-
                     }
                 });
     }
@@ -310,6 +310,16 @@ public class WebHeadViewModel implements ViewModel {
                 }
             }
         };
+    }
+
+    public void share() {
+        ShareInfo shareInfo = new ShareInfo("", title, Config.IMAGE_HOST+imgUrl, url + id, "智慧党建-党员在线学习平台\n");
+        if (shareDialog == null) {
+            shareDialog = new ShareBottomDialog(activity, shareInfo);
+        } else {
+            shareDialog.setShareInfo(shareInfo);
+        }
+        shareDialog.show();
     }
 
     @Override

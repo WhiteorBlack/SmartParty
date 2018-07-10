@@ -142,7 +142,8 @@ public class IndexViewModel implements ViewModel {
         return new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ActivityUtil.startHeadWebActivity(fragment.getActivity(), studyAdapter.getData().get(position).getContentId(), "学习动态", URLs.NOTICE_DETIAL,0);
+                ActivityUtil.startHeadWebActivity(fragment.getActivity(), studyAdapter.getData().get(position).getContentId(),
+                        "学习动态", URLs.NOTICE_DETIAL,0,studyAdapter.getData().get(position).getImgSrc());
             }
         };
     }
@@ -192,7 +193,8 @@ public class IndexViewModel implements ViewModel {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (!sectionAdapter.getData().get(position).isHeader) {
-                    ActivityUtil.startHeadWebActivity(fragment.getActivity(), sectionAdapter.getData().get(position).getRxIndexStudy().getContentId(), "专题学习", URLs.SPECIALORTHEORY,3);
+                    ActivityUtil.startHeadWebActivity(fragment.getActivity(), sectionAdapter.getData().get(position).getRxIndexStudy().getContentId(),
+                            "专题学习", URLs.SPECIALORTHEORY,3,sectionAdapter.getData().get(position).getRxIndexStudy().getPrinturl());
                 }
             }
 
@@ -219,7 +221,8 @@ public class IndexViewModel implements ViewModel {
         return new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ActivityUtil.startHeadWebActivity(fragment.getActivity(), newsAdapter.getData().get(position).getContentId(), "新闻快报", URLs.NOTICE_DETIAL,0);
+                ActivityUtil.startHeadWebActivity(fragment.getActivity(), newsAdapter.getData().get(position).getContentId(),
+                        "新闻快报", URLs.NOTICE_DETIAL,0,newsAdapter.getData().get(position).getImgSrc());
             }
         };
     }

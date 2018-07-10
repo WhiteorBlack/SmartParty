@@ -132,6 +132,7 @@ public class VideoStudyDetialActivity extends BaseBindActivity {
         viewMdoel.initData();
         initRv(binding.rv);
         viewMdoel.testData(1, false);
+        inputViewModel.setShareVis(false);
     }
 
     @Override

@@ -14,8 +14,6 @@ public class StatUtil {
         String CLASSIFY = "classify"; //商品目录
         //from
         String FROM = "from";//来源频道
-        //home
-        String HOME_FIRST = "homeFirst"; //首页
         //im
         String CONVERSATION = "conversation"; //单聊
         String IM_LIST = "imList"; //聊天列表

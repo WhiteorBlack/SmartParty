@@ -1,13 +1,16 @@
 package com.qiantang.smartparty.module.login.view;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.view.View;
 
 import com.qiantang.smartparty.BaseBindActivity;
+import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.databinding.ActivityLoginBinding;
 import com.qiantang.smartparty.module.login.viewmodel.LoginViewModel;
 import com.qiantang.smartparty.utils.ActivityUtil;
+import com.umeng.socialize.UMShareAPI;
 
 /**
  * Created by zhaoyong bai on 2018/6/4.
@@ -29,6 +32,14 @@ public class LoginActivity extends BaseBindActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (MyApplication.isLogin()){
+            onBackPressed();
+        }
+    }
+
+    @Override
     public void onClick(View view) {
         super.onClick(view);
         switch (view.getId()) {
@@ -39,10 +50,10 @@ public class LoginActivity extends BaseBindActivity {
                 ActivityUtil.startRegisterActivity(this);
                 break;
             case R.id.iv_qq:
-
+                viewModel.authQQ();
                 break;
             case R.id.iv_wechat:
-
+                viewModel.authWechat();
                 break;
             case R.id.tv_count:
                 viewModel.sendMsg();
@@ -58,6 +69,13 @@ public class LoginActivity extends BaseBindActivity {
                 break;
 
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.view.View;
 import com.qiantang.smartparty.BaseBindActivity;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.config.Config;
+import com.qiantang.smartparty.config.Event;
 import com.qiantang.smartparty.databinding.ActivityRecycleviewBinding;
 import com.qiantang.smartparty.module.assistant.viewmodel.CharacterViewModel;
 import com.qiantang.smartparty.module.assistant.viewmodel.MienViewModel;
@@ -59,8 +60,11 @@ public class CharacterActivity extends BaseBindActivity {
         super.onClick(view);
         switch (view.getId()) {
             case R.id.iv_right:
-                ActivityUtil.startSearchActivity(this, Config.MIEN_TYPE);
+                ActivityUtil.startSearchActivity(this, Event.SEARCH_CHARACTER);
                 break;
+                case R.id.iv_back:
+                    onBackPressed();
+                    break;
         }
     }
 

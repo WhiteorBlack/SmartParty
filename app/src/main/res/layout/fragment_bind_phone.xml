@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="102px"
             android:layout_marginLeft="29px"
+            android:inputType="number"
             android:background="@null"
             android:gravity="left|center_vertical"
             android:hint="请输入新手机号"
@@ -40,6 +41,7 @@
             android:layout_height="102px"
             android:layout_below="@+id/line"
             android:layout_marginLeft="29px"
+            android:inputType="number"
             android:background="@null"
             android:hint="请输入验证码" />
 

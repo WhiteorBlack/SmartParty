@@ -3,12 +3,17 @@ package com.qiantang.smartparty.services;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.IntentService;
+import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.StrictMode;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
+import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import com.flyco.animation.BounceEnter.BounceLeftEnter;
 import com.flyco.animation.SlideExit.SlideLeftExit;
@@ -27,6 +32,15 @@ import com.qiantang.smartparty.utils.AppUtil;
 import com.qiantang.smartparty.utils.DateUtils;
 import com.qiantang.smartparty.utils.NetworkUtil;
 import com.qiantang.smartparty.widget.MyMaterialDialog;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.commonsdk.UMConfigure;
+import com.umeng.message.IUmengRegisterCallback;
+import com.umeng.message.MsgConstant;
+import com.umeng.message.PushAgent;
+import com.umeng.message.UTrack;
+import com.umeng.message.UmengMessageHandler;
+import com.umeng.message.UmengNotificationClickHandler;
+import com.umeng.message.entity.UMessage;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 
@@ -46,6 +60,8 @@ public class InitializeService extends IntentService {
     private String createTime = "";
     public static final String ACTION_INIT_WHEN_APP_CREATE = "com.qiantang.smartparty.services.action.init";
     private static String TAG = "InitializeService";
+    public static final String UPDATE_STATUS_ACTION = "com.umeng.message.example.action.UPDATE_STATUS";
+    private Handler handler;
 
     public InitializeService() {
         super("InitializeService");
@@ -85,10 +101,46 @@ public class InitializeService extends IntentService {
         initPlatformConfig();
         initGalleryFinal();
         initUpdateConfig();
+//        initUMeng();
     }
 
 
+    /**
+     * 初始化友盟统计分析
+     */
+    private void initUMeng() {
+        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);
+//        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, Config.UPUSH_SECRET);
+        UMConfigure.setLogEnabled(true);
+        UMConfigure.setEncryptEnabled(true);
+        UMConfigure.init(this, "5b077233f43e481af30000ae", "party", UMConfigure.DEVICE_TYPE_PHONE,
+                "ad77ceb416bdacca751d5909c1c4e361");
+        initUpush();
+    }
 
+    private void initUpush() {
+        PushAgent mPushAgent = PushAgent.getInstance(this);
+        handler = new Handler(getMainLooper());
+        mPushAgent.setNotificationPlaySound(MsgConstant.NOTIFICATION_PLAY_SDK_ENABLE);
+
+        //注册推送服务 每次调用register都会回调该接口
+        mPushAgent.register(new IUmengRegisterCallback() {
+            @Override
+            public void onSuccess(String deviceToken) {
+                Log.i(TAG, "device token: " + deviceToken);
+                sendBroadcast(new Intent(UPDATE_STATUS_ACTION));
+            }
+
+            @Override
+            public void onFailure(String s, String s1) {
+                Log.i(TAG, "register failed: " + s + " " + s1);
+                sendBroadcast(new Intent(UPDATE_STATUS_ACTION));
+            }
+        });
+
+        mPushAgent.setPushIntentServiceClass(UmengNotificationService.class);
+
+    }
 
 
     private void initLogger() {
@@ -119,8 +171,11 @@ public class InitializeService extends IntentService {
                     public Update parse(String response) {
                         Gson gson = new Gson();
                         AppVersionJSON appVersionJSON = gson.fromJson(response, AppVersionJSON.class);
-                        AppVersionJSON.ReturnObjectBean bean = appVersionJSON.getReturnObject();
-                        if (appVersionJSON.getErrorCode().equals(URLs.RESPONSE_OK)) {
+                        AppVersionJSON.ReturnObjectBean bean = appVersionJSON.getData();
+                        if (!TextUtils.equals(bean.getVersionId(), AppUtil.getVerName(MyApplication.getContext()))) {
+                            bean.setVersionCode(AppUtil.getVersionCode(MyApplication.getContext()) + 1);
+                        }
+                        if (appVersionJSON.getStatus().equals(URLs.RESPONSE_OK)) {
                             MyApplication.mCache.put(CacheKey.VERSION, response);
                         }
                         // 此处模拟一个Update对象
@@ -129,16 +184,18 @@ public class InitializeService extends IntentService {
                             // 此apk包的更新时间
                             update.setUpdateTime(DateUtils.convert2long(createTime));
                             // 此apk包的下载地址
-                            update.setUpdateUrl(bean.getVersionFile());
+                            update.setUpdateUrl(bean.getVersionUrl());
+
+
                             // 此apk包的版本号
                             update.setVersionCode(bean.getVersionCode());
                             // 此apk包的版本名称
-                            update.setVersionName(bean.getVersionName());
+                            update.setVersionName(bean.getVersionId());
                             // 此apk包的更新内容
-                            update.setUpdateContent(bean.getIntroduce());
+                            update.setUpdateContent(bean.getVersionExplain());
                             // 此apk包是否为强制更新
 //                            update.setForced(false);
-                            update.setForced(bean.getIsMustUpdate() == 1);
+                            update.setForced(bean.getConUpdate() == 1);
                             // 是否显示忽略此次版本更新按钮
                             update.setIgnore(true);
                         } catch (Exception e) {
@@ -177,12 +234,12 @@ public class InitializeService extends IntentService {
                         MyMaterialDialog dialog = new MyMaterialDialog(context, isForced);
                         dialog.title("发现新版本 " + update.getVersionName())
                                 .titleTextColor(AppUtil.getColor(R.color.white))
-                                .titleTextSize(18)
+                                .titleTextSize(16)
                                 .contentTextSize(14)
                                 .cornerRadius(10)
-                                .content(update.getUpdateContent()).contentGravity(Gravity.START)
+                                .content(update.getUpdateContent()).contentGravity(Gravity.CENTER)
                                 .btnNum(isForced ? 1 : 3)
-                                .btnTextColor(new int[]{R.color.white, R.color.white})
+                                .btnTextColor(new int[]{R.color.none_text, R.color.barColor})
                                 .btnText(isForced ? new String[]{"立即更新"}
                                         : new String[]{"取消", "", "立即更新"})
                                 .showAnim(new BounceLeftEnter())

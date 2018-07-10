@@ -19,6 +19,7 @@ import android.webkit.WebViewClient;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.config.Event;
+import com.qiantang.smartparty.modle.ShareInfo;
 import com.qiantang.smartparty.module.web.view.WebViewNew;
 import com.qiantang.smartparty.network.URLs;
 import com.qiantang.smartparty.utils.ActivityUtil;
@@ -27,6 +28,7 @@ import com.qiantang.smartparty.utils.StringUtil;
 import com.qiantang.smartparty.utils.ToastUtil;
 import com.qiantang.smartparty.utils.WebUtil;
 import com.qiantang.smartparty.utils.location.LocationUtil;
+import com.qiantang.smartparty.widget.dialog.ShareBottomDialog;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.greenrobot.eventbus.EventBus;
@@ -53,6 +55,9 @@ public class WebViewModelNew implements ViewModel {
     private String TAG = "WebViewModel";
     private WebViewNew activity;
     private boolean initOK = false;
+    private ShareBottomDialog shareDialog;
+    private String title;
+    private String imgUrl="https://image-umeng-push.oss-cn-shanghai.aliyuncs.com/1531118488258_56eb630167e58ecc4800038b.png";
 
     public WebViewModelNew(WebViewNew activity) {
         EventBus.getDefault().register(this);
@@ -122,6 +127,7 @@ public class WebViewModelNew implements ViewModel {
                     isError.set(false);
                 }
                 if (url.contains(URLs.NOTICE_DETIAL)) {
+                    title="通知详情";
                     setTitle("通知详情");
                 }
                 if (url.contains(URLs.USER_PROTOCOL)) {
@@ -238,6 +244,16 @@ public class WebViewModelNew implements ViewModel {
                         ToastUtil.toast("需要访问的GPS权限~");
                     }
                 });
+    }
+
+    public void share() {
+        ShareInfo shareInfo = new ShareInfo("", title, imgUrl, url, "智慧党建-党员在线学习平台\n");
+        if (shareDialog == null) {
+            shareDialog = new ShareBottomDialog(activity, shareInfo);
+        } else {
+            shareDialog.setShareInfo(shareInfo);
+        }
+        shareDialog.show();
     }
 
     private void showText(String text) {

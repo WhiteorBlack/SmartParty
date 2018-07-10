@@ -11,6 +11,7 @@ import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.config.CacheKey;
+import com.qiantang.smartparty.config.Event;
 import com.qiantang.smartparty.modle.RxActivity;
 import com.qiantang.smartparty.modle.RxAssientHome;
 import com.qiantang.smartparty.modle.RxIndexClass;
@@ -19,13 +20,19 @@ import com.qiantang.smartparty.modle.RxMsg;
 import com.qiantang.smartparty.modle.RxMyUserInfo;
 import com.qiantang.smartparty.module.assistant.adapter.ActivityAdapter;
 import com.qiantang.smartparty.module.assistant.adapter.MsgAdapter;
+import com.qiantang.smartparty.module.assistant.view.AssisantFragment;
 import com.qiantang.smartparty.module.index.adapter.IndexCommonAdapter;
 import com.qiantang.smartparty.network.NetworkSubscriber;
 import com.qiantang.smartparty.network.URLs;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
 import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
 import com.qiantang.smartparty.utils.ActivityUtil;
+import com.qiantang.smartparty.utils.ToastUtil;
 import com.trello.rxlifecycle2.android.FragmentEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +45,7 @@ public class AssisantViewModel implements ViewModel {
 
     public AssisantViewModel(BaseBindFragment fragment) {
         this.fragment = fragment;
+        EventBus.getDefault().register(this);
     }
 
     public List<RxIndexClass> getClassData() {
@@ -51,6 +59,14 @@ public class AssisantViewModel implements ViewModel {
         classes.add(new RxIndexClass("人物表彰", R.mipmap.icon_praise_man, 6));
         classes.add(new RxIndexClass("意见反馈", R.mipmap.icon_advice, 7));
         return classes;
+    }
+
+    //接收更新请求
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(Integer i) {
+        if (i == Event.RELOAD_STUDY) {
+            ((AssisantFragment) fragment).refreshData();
+        }
     }
 
     public void getListData(MsgAdapter msgAdapter, ActivityAdapter activityAdapter, IndexCommonAdapter indexCommonAdapter) {
@@ -83,7 +99,19 @@ public class AssisantViewModel implements ViewModel {
         return new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ActivityUtil.jumpWeb(fragment.getActivity(), URLs.MESSAGE_DETIAL + ((RxMsg) adapter.getData().get(position)).getNoticeId(),"公告详情");
+                if (!MyApplication.isLogin()) {
+                    ActivityUtil.startLoginActivity(fragment.getActivity());
+                    return;
+                }
+                if (TextUtils.equals(MyApplication.mCache.getAsString(CacheKey.DEPT_ID), "1")) {
+                    ToastUtil.toast("仅内部人员可查看");
+                    return;
+                }
+                if (((int) MyApplication.mCache.getAsObject(CacheKey.STATUS)) > 0) {
+                    ToastUtil.toast("您尚未通过审核，请耐心等待");
+//                    return;
+                }
+                ActivityUtil.jumpWeb(fragment.getActivity(), URLs.MESSAGE_DETIAL + ((RxMsg) adapter.getData().get(position)).getNoticeId(), "公告详情");
             }
         };
     }
@@ -98,7 +126,7 @@ public class AssisantViewModel implements ViewModel {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
 //                ActivityUtil.startMienDetialActivity(fragment.getActivity(), ((RxIndexCommon) adapter.getData().get(position)).getContentId());
-                ActivityUtil.startHeadWebActivity(fragment.getActivity(), ((RxIndexCommon) adapter.getData().get(position)).getContentId(), "党建风采", URLs.NOTICE_DETIAL, 0);
+                ActivityUtil.startHeadWebActivity(fragment.getActivity(), ((RxIndexCommon) adapter.getData().get(position)).getContentId(), "党建风采", URLs.NOTICE_DETIAL, 0, ((RxIndexCommon) adapter.getData().get(position)).getImgSrc());
             }
         };
     }
@@ -113,6 +141,18 @@ public class AssisantViewModel implements ViewModel {
         return new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (!MyApplication.isLogin()) {
+                    ActivityUtil.startLoginActivity(fragment.getActivity());
+                    return;
+                }
+                if (TextUtils.equals(MyApplication.mCache.getAsString(CacheKey.DEPT_ID), "1")) {
+                    ToastUtil.toast("仅内部人员可查看");
+                    return;
+                }
+                if (((int) MyApplication.mCache.getAsObject(CacheKey.STATUS)) > 0) {
+                    ToastUtil.toast("您尚未通过审核，请耐心等待");
+                    return;
+                }
                 RxActivity rxActivity = (RxActivity) adapter.getData().get(position);
                 ActivityUtil.startActivityDetialActivity(fragment.getActivity(), rxActivity.getActivityId(), rxActivity.getStatus());
             }
@@ -193,6 +233,6 @@ public class AssisantViewModel implements ViewModel {
 
     @Override
     public void destroy() {
-
+        EventBus.getDefault().unregister(this);
     }
 }

@@ -1,6 +1,5 @@
 package com.qiantang.smartparty.modle;
 
-import java.util.List;
 
 public class RxMyUserInfo {
     private int pageNum;
