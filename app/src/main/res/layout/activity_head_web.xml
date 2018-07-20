@@ -3,9 +3,6 @@
 
     <data>
         <import type="android.view.View"/>
-        <variable
-            name="viewModel"
-            type="com.qiantang.smartparty.module.assistant.viewmodel.HeadWebViewModel"/>
     </data>
 
     <LinearLayout

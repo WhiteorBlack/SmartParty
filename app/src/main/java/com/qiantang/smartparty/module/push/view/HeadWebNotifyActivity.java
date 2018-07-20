@@ -1,66 +1,88 @@
-package com.qiantang.smartparty.module.web.view;
+package com.qiantang.smartparty.module.push.view;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.databinding.Observable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.View;
 
+import com.google.gson.Gson;
 import com.qiantang.smartparty.BaseBindActivity;
+import com.qiantang.smartparty.BaseNotifyBindActivity;
 import com.qiantang.smartparty.MyApplication;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.CommentAdapter;
 import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.databinding.ActivityHeadWebBinding;
-import com.qiantang.smartparty.databinding.ActivityRecycleviewCommenboxBinding;
 import com.qiantang.smartparty.databinding.ViewWebviewHeadBinding;
+import com.qiantang.smartparty.databinding.ViewWebviewNotifyHeadBinding;
+import com.qiantang.smartparty.modle.RxMessageExtra;
 import com.qiantang.smartparty.module.assistant.viewmodel.HeadWebViewModel;
-import com.qiantang.smartparty.module.assistant.viewmodel.MienDetialViewModel;
 import com.qiantang.smartparty.module.input.viewmodel.InputViewModel;
+import com.qiantang.smartparty.module.push.viewmodel.HeadWebNotifyViewModel;
+import com.qiantang.smartparty.module.push.viewmodel.WebHeadNotifyViewModel;
 import com.qiantang.smartparty.module.web.viewmodel.WebHeadViewModel;
+import com.qiantang.smartparty.network.URLs;
 import com.qiantang.smartparty.utils.ActivityUtil;
 import com.qiantang.smartparty.utils.AutoUtils;
 import com.qiantang.smartparty.utils.RecycleViewUtils;
-import com.qiantang.smartparty.widget.commentwidget.CommentBox;
-import com.qiantang.smartparty.widget.commentwidget.IComment;
+import com.qiantang.smartparty.utils.ToastUtil;
 import com.qiantang.smartparty.widget.commentwidget.KeyboardControlMnanager;
+
+import org.android.agoo.common.AgooConstants;
 
 /**
  * Created by zhaoyong bai on 2018/6/11.
  */
-public class HeadWebActivity extends BaseBindActivity {
-    private ViewWebviewHeadBinding headBinding;
+public class HeadWebNotifyActivity extends BaseNotifyBindActivity {
+    private ViewWebviewNotifyHeadBinding headBinding;
     private ActivityHeadWebBinding binding;
     private CommentAdapter adapter;
-    private WebHeadViewModel viewModel;
-    private HeadWebViewModel headViewModel;
+    private WebHeadNotifyViewModel viewModel;
+    private HeadWebNotifyViewModel headViewModel;
     private InputViewModel inputViewModel;
     private int type = 0;
+    private String title;
 
     @Override
     protected void initBind() {
         adapter = new CommentAdapter(R.layout.item_comment);
-        viewModel = new WebHeadViewModel(this, adapter);
+        viewModel = new WebHeadNotifyViewModel(this, adapter);
         inputViewModel = new InputViewModel(this);
-        headViewModel = new HeadWebViewModel(this);
-        headBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.view_webview_head, null, false);
+        headViewModel = new HeadWebNotifyViewModel(this);
+        headBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.view_webview_notify_head, null, false);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_head_web);
         headBinding.setViewModel(headViewModel);
         binding.input.setViewModel(inputViewModel);
-//        binding.setViewModel(headViewModel);
+    }
+
+    @Override
+    public void onMessage(Intent intent) {
+        super.onMessage(intent);
+        String body = intent.getStringExtra(AgooConstants.MESSAGE_ACCS_EXTRA);
+        ToastUtil.toast(body);
+        if (!TextUtils.isEmpty(body)) {
+            RxMessageExtra rxMessageExtra = new Gson().fromJson(body, RxMessageExtra.class);
+            if (rxMessageExtra != null) {
+                if (rxMessageExtra.getType() == 4) {
+                    viewModel.initData(rxMessageExtra.getCountId(), 0, URLs.NOTICE_DETIAL, "");
+                    title = "党建风采";
+                }
+                if (rxMessageExtra.getType() == 9) {
+                    viewModel.initData(rxMessageExtra.getCountId(), 3, URLs.NOTICE_DETIAL, "");
+                    title = "专题学习";
+                }
+                viewModel.getData(1, false);
+                inputViewModel.setIsPop(rxMessageExtra.getType() == 0);
+                binding.toolbar.setTitle(title);
+            }
+        }
     }
 
     @Override
     public void initView() {
-        String title = getIntent().getStringExtra("title");
-        type = getIntent().getIntExtra("type", 0);
-        if (type == 0) {
-            inputViewModel.setIsPop(true);
-        }
         AutoUtils.auto(headBinding.getRoot());
-        binding.toolbar.setTitle(title);
         binding.toolbar.setResId(R.mipmap.icon_share_white);
         headViewModel.initWev(headBinding.llContent);
         inputViewModel.setHint("发表学习感悟...");

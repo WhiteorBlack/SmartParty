@@ -951,10 +951,10 @@ public class ActivityUtil {
      * @param id
      * @param title
      */
-    public static void startHeadWebActivity(Activity activity, String id, String title, String url, int type,String imgUrl) {
+    public static void startHeadWebActivity(Activity activity, String id, String title, String url, int type, String imgUrl) {
         Intent intent = new Intent(activity, HeadWebActivity.class);
         intent.putExtra("id", id);
-        intent.putExtra("img",imgUrl);
+        intent.putExtra("img", imgUrl);
         intent.putExtra("type", type);
         intent.putExtra("title", title);
         intent.putExtra("url", url);

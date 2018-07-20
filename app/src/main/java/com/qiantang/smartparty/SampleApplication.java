@@ -2,6 +2,7 @@ package com.qiantang.smartparty;
 
 import android.annotation.TargetApi;
 import android.app.Application;
+import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
@@ -10,18 +11,28 @@ import android.content.res.Resources;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
+import android.widget.RemoteViews;
 
 
 import com.qiantang.smartparty.base.ApplicationLike;
+import com.qiantang.smartparty.config.CacheKey;
+import com.qiantang.smartparty.config.Event;
 import com.qiantang.smartparty.services.UmengNotificationService;
+import com.qiantang.smartparty.utils.ActivityUtil;
+import com.qiantang.smartparty.utils.WebUtil;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.message.IUmengRegisterCallback;
 import com.umeng.message.MsgConstant;
 import com.umeng.message.PushAgent;
+import com.umeng.message.UTrack;
+import com.umeng.message.UmengMessageHandler;
+import com.umeng.message.UmengNotificationClickHandler;
+import com.umeng.message.entity.UMessage;
 
 import org.android.agoo.huawei.HuaWeiRegister;
 import org.android.agoo.xiaomi.MiPushRegistar;
+import org.greenrobot.eventbus.EventBus;
 
 import java.lang.reflect.Constructor;
 
@@ -36,6 +47,8 @@ public class SampleApplication extends Application {
     public static final int TINKER_ENABLE_ALL = TINKER_DEX_MASK | TINKER_NATIVE_LIBRARY_MASK | TINKER_RESOURCE_MASK;
     private long applicationStartElapsedTime;
     private long applicationStartMillisTime;
+    private Handler handler;
+    public static final String UPDATE_STATUS_ACTION = "com.umeng.message.example.action.UPDATE_STATUS";
 
     @Override
     public void onCreate() {
@@ -60,17 +73,22 @@ public class SampleApplication extends Application {
 
     private void initUpush() {
         PushAgent mPushAgent = PushAgent.getInstance(this);
+//        handler = new Handler(getMainLooper());
         mPushAgent.setNotificationPlaySound(MsgConstant.NOTIFICATION_PLAY_SDK_ENABLE);
+        mPushAgent.setNotificationPlayLights(MsgConstant.NOTIFICATION_PLAY_SDK_ENABLE);//呼吸灯
+        mPushAgent.setNotificationPlayVibrate(MsgConstant.NOTIFICATION_PLAY_SDK_ENABLE);//振动
 
         //注册推送服务 每次调用register都会回调该接口
         mPushAgent.register(new IUmengRegisterCallback() {
             @Override
             public void onSuccess(String deviceToken) {
                 MyApplication.TOKEN = deviceToken;
+                sendBroadcast(new Intent(UPDATE_STATUS_ACTION));
             }
 
             @Override
             public void onFailure(String s, String s1) {
+                sendBroadcast(new Intent(UPDATE_STATUS_ACTION));
             }
         });
 

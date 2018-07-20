@@ -38,11 +38,11 @@ public class NotificationBroadcast extends BroadcastReceiver {
         try {
             UMessage msg = (UMessage) new UMessage(new JSONObject(message));
             String type = msg.extra.get("type");
-            if (!TextUtils.isEmpty(type) && TextUtils.equals("10", type)) {
-                //在另一端进行了登录
-                ToastUtil.toast("您的账号已在其他设备登录");
-                logOut(context);
-            }
+//            if (!TextUtils.isEmpty(type) && TextUtils.equals("10", type)) {
+//                //在另一端进行了登录
+//                ToastUtil.toast("您的账号已在其他设备登录");
+//                logOut(context);
+//            }
 
             switch (action) {
                 case ACTION_DISMISS:

@@ -66,9 +66,14 @@ public class StudyFragment extends BaseBindFragment implements CommentBox.OnComm
             circleViewHelper = new CircleViewHelper(getActivity());
         }
         initKeyboardHeightObserver();
-        viewModel.getData(1);
+
     }
 
+    @Override
+    public void update() {
+        super.update();
+        refreshData();
+    }
 
     @Override
     public void refreshData() {
@@ -77,12 +82,13 @@ public class StudyFragment extends BaseBindFragment implements CommentBox.OnComm
     }
 
     private void initRecycleView(RecyclerView rv) {
-        rv.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        rv.setAdapter(adapter);
         AutoUtils.auto(headBinding.getRoot());
+        adapter.addHeaderView(headBinding.getRoot());
         adapter.setEnableLoadMore(true);
         adapter.setLoadMoreView(RecycleViewUtils.getLoadMoreView());
-        adapter.addHeaderView(headBinding.getRoot());
+        rv.setLayoutManager(new LinearLayoutManager(getContext()));
+        rv.setAdapter(adapter);
+        rv.setFocusable(false);
         rv.addOnItemTouchListener(viewModel.onItemTouchListener());
         adapter.setOnLoadMoreListener(() -> viewModel.loadMore(), rv);
     }
@@ -125,6 +131,7 @@ public class StudyFragment extends BaseBindFragment implements CommentBox.OnComm
                 break;
         }
     }
+
 
     @Override
     protected void viewModelDestroy() {

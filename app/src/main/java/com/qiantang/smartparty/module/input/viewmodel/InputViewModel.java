@@ -1,5 +1,6 @@
 package com.qiantang.smartparty.module.input.viewmodel;
 
+import android.app.Activity;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.Observable;
@@ -16,12 +17,12 @@ import com.qiantang.smartparty.base.ViewModel;
 public class InputViewModel extends BaseObservable implements ViewModel {
     private ObservableBoolean isPop = new ObservableBoolean(false);
     public ObservableField<String> hint = new ObservableField<>("");
-    private BaseBindActivity activity;
+    private Activity activity;
     private ObservableField<String> textString = new ObservableField<>("");
     private ObservableBoolean isCollect=new ObservableBoolean(false);
     private ObservableBoolean shareVis=new ObservableBoolean(true);
 
-    public InputViewModel(BaseBindActivity activity) {
+    public InputViewModel(Activity activity) {
         this.activity = activity;
     }
 
@@ -73,14 +74,6 @@ public class InputViewModel extends BaseObservable implements ViewModel {
     public void setShareVis(boolean shareVis) {
         this.shareVis.set(shareVis);
         notifyPropertyChanged(BR.shareVis);
-    }
-
-    public BaseBindActivity getActivity() {
-        return activity;
-    }
-
-    public void setActivity(BaseBindActivity activity) {
-        this.activity = activity;
     }
 
     @Override

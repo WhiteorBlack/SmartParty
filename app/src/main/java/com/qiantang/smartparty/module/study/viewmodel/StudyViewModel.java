@@ -181,7 +181,6 @@ public class StudyViewModel extends BaseObservable implements ViewModel, Comment
 
                     @Override
                     public void onSuccess(HttpResult data) {
-
                         //取消点赞成功
                         List<RxStudyZan> zanList = adapter.getData().get(commentPos).getZanAppMap();
                         for (int i = 0; i < zanList.size(); i++) {
