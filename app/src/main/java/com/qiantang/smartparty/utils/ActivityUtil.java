@@ -67,6 +67,7 @@ import com.qiantang.smartparty.module.mine.view.AboutUsActivity;
 import com.qiantang.smartparty.module.mine.view.DateDeptActivity;
 import com.qiantang.smartparty.module.mine.view.InfoActivity;
 import com.qiantang.smartparty.module.mine.view.ModifyPhoneActivity;
+import com.qiantang.smartparty.module.mine.view.ModifyPwdActivity;
 import com.qiantang.smartparty.module.mine.view.MonthScoreActivity;
 import com.qiantang.smartparty.module.mine.view.MyActivity;
 import com.qiantang.smartparty.module.mine.view.MyCollectionActivity;
@@ -656,6 +657,16 @@ public class ActivityUtil {
     }
 
     /**
+     * 修改密码页面
+     *
+     * @param activity
+     */
+    public static void startModifyPwdActivity(Activity activity) {
+        Intent intent = new Intent(activity, ModifyPwdActivity.class);
+        activity.startActivity(intent);
+    }
+
+    /**
      * 签到页面
      *
      * @param activity
@@ -820,8 +831,10 @@ public class ActivityUtil {
      *
      * @param activity
      */
-    public static void startStudyMyActivity(Activity activity) {
+    public static void startStudyMyActivity(Activity activity,String id,String name) {
         Intent intent = new Intent(activity, StudyMyActivity.class);
+        intent.putExtra("id",id);
+        intent.putExtra("name",name);
         activity.startActivity(intent);
     }
 

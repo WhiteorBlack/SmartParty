@@ -425,6 +425,11 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".module.mine.view.ModifyPwdActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".module.index.view.SignActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />

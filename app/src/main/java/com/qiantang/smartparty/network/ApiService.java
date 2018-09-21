@@ -555,6 +555,12 @@ public interface ApiService {
     Observable<HttpResult<HttpResult>> modifyPhoneAfter(@Field("phone") String phone,
                                                         @Field("code") String code);
 
+    //修改登录密码
+    @FormUrlEncoded
+    @POST("app/user/revise")
+    Observable<HttpResult<HttpResult>> revise(@Field("userId") String userId,
+                                              @Field("password") String password);
+
     //验证
     @POST("app/user/deptName")
     Observable<HttpResult<List<RxDeptName>>> deptName();

@@ -16,6 +16,7 @@ import com.qiantang.smartparty.base.ViewModel;
 import com.qiantang.smartparty.config.CacheKey;
 import com.qiantang.smartparty.modle.HttpResult;
 import com.qiantang.smartparty.module.mine.view.ModifyPhoneActivity;
+import com.qiantang.smartparty.module.mine.view.ModifyPwdActivity;
 import com.qiantang.smartparty.network.NetworkSubscriber;
 import com.qiantang.smartparty.network.retrofit.ApiWrapper;
 import com.qiantang.smartparty.network.retrofit.RetrofitUtil;
@@ -99,7 +100,7 @@ public class FragmentVerifyViewModel extends BaseObservable implements ViewModel
     }
 
     public void verifyCode() {
-        if (TextUtils.isEmpty(getSmsCode())){
+        if (TextUtils.isEmpty(getSmsCode())) {
             ToastUtil.toast("请输入收到的验证码");
             return;
         }
@@ -114,7 +115,11 @@ public class FragmentVerifyViewModel extends BaseObservable implements ViewModel
 
                     @Override
                     public void onSuccess(HttpResult data) {
-                        ((ModifyPhoneActivity) fragment.getActivity()).nextStep();
+                        try {
+                            ((ModifyPhoneActivity) fragment.getActivity()).nextStep();
+                        } catch (Exception e) {
+                            ((ModifyPwdActivity) fragment.getActivity()).nextStep();
+                        }
                         ForgetRequest.cancelCodeTime();
                     }
                 });

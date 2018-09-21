@@ -234,8 +234,9 @@ public class StudyViewModel extends BaseObservable implements ViewModel, Comment
             public void onItemChildClick(BaseQuickAdapter adapterT, View view, int position) {
                 super.onItemChildClick(adapterT, view, position);
                 switch (view.getId()) {
-                    case R.id.sdv_avatar:
-
+                    case R.id.sdv:
+                        RxStudyList rxStudyList = adapter.getData().get(position);
+                        ActivityUtil.startStudyMyActivity(fragment.getActivity(), rxStudyList.getUser_id(), rxStudyList.getUsername());
                         break;
                     case R.id.tv_del:
                         if (isDeleting) {
@@ -290,7 +291,7 @@ public class StudyViewModel extends BaseObservable implements ViewModel, Comment
                 setUserMap(getUserMap());
                 break;
             case R.id.sdv_avatar:
-                ActivityUtil.startStudyMyActivity(fragment.getActivity());
+                ActivityUtil.startStudyMyActivity(fragment.getActivity(), MyApplication.USER_ID, "");
                 break;
         }
     }

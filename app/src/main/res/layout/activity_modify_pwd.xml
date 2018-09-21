@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="com.qiantang.smartparty.R" />
+
+        <import type="com.qiantang.smartparty.utils.AppUtil" />
+
+        <variable
+            name="viewModel"
+            type="com.qiantang.smartparty.module.mine.viewmodel.ModifyPhoneViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_common" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="78px">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="78px"
+                android:background="@color/bgColor"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/red24"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.1"
+                    android:background="@{viewModel.stepNext?AppUtil.getColor(R.color.bgColor):AppUtil.getColor(R.color.white)}"
+                    android:gravity="center"
+                    android:text="1 验证身份"
+                    android:textColor="@{viewModel.stepNext?AppUtil.getColor(R.color.paleRed):AppUtil.getColor(R.color.black)}" />
+
+                <TextView
+                    style="@style/black24"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@{viewModel.stepNext?AppUtil.getColor(R.color.white):AppUtil.getColor(R.color.bgColor)}"
+                    android:gravity="center"
+                    android:text="2 重置密码"
+                    android:textColor="@{viewModel.stepNext?AppUtil.getColor(R.color.black):AppUtil.getColor(R.color.paleRed)}" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="40px"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:background="@{viewModel.stepNext?AppUtil.getDrawable(R.mipmap.change_step_gray):AppUtil.getDrawable(R.mipmap.change_step_white)}" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2px"
+            android:background="@color/line" />
+
+        <com.shizhefei.view.viewpager.SViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</layout>

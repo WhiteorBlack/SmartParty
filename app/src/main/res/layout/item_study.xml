@@ -38,8 +38,20 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/sdv"
             android:layout_marginLeft="20px"
+            android:layout_marginTop="10px"
             android:layout_toRightOf="@+id/sdv"
             android:text="@{item.username}" />
+
+        <TextView
+            android:id="@+id/tv_nation"
+            style="@style/gray22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/sdv"
+            android:layout_marginBottom="10px"
+            android:layout_marginLeft="20px"
+            android:layout_toRightOf="@+id/sdv"
+            android:text="@{item.dept_name}" />
 
         <TextView
             android:id="@+id/tv_content"
@@ -47,9 +59,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/tv_name"
-            android:layout_below="@+id/tv_name"
+            android:layout_below="@+id/sdv"
             android:layout_marginRight="36px"
-            android:layout_marginTop="20px"
+            android:layout_marginTop="10px"
             android:layout_toRightOf="@+id/sdv"
             android:text="@{item.content}" />
 
@@ -57,11 +69,11 @@
             android:id="@+id/rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30px"
-            android:layout_toRightOf="@+id/sdv"
+            android:layout_below="@+id/tv_content"
             android:layout_marginLeft="10px"
             android:layout_marginRight="26px"
-            android:layout_below="@+id/tv_content"
+            android:layout_marginTop="30px"
+            android:layout_toRightOf="@+id/sdv"
             android:visibility="@{TextUtils.isEmpty(item.image)?View.INVISIBLE:View.VISIBLE}" />
 
         <TextView
@@ -127,9 +139,9 @@
 
             <com.qiantang.smartparty.widget.AutoLinearLayout
                 android:id="@+id/ll_like"
-                android:layout_marginLeft="10px"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10px" />
         </LinearLayout>
 
         <View

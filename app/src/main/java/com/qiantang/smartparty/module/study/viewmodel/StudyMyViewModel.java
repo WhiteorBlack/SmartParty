@@ -53,12 +53,14 @@ public class StudyMyViewModel extends BaseObservable implements ViewModel, Comme
     private boolean isDealing = false;
     private int commentPos;
     private CommentPop commentPop;
+    private String id;
 
     public StudyMyViewModel(BaseBindActivity fragment, StudyAdapter adapter) {
         this.fragment = fragment;
         this.adapter = adapter;
         commentPop = new CommentPop(fragment);
         commentPop.setmOnCommentPopupClickListener(this);
+        id=fragment.getIntent().getStringExtra("id");
     }
 
     public void loadMore() {
@@ -67,10 +69,8 @@ public class StudyMyViewModel extends BaseObservable implements ViewModel, Comme
     }
 
     public void getData(int i) {
-        if (i == 1) {
-            pageNo = 1;
-        }
-        ApiWrapper.getInstance().getMyStudyList(i)
+        pageNo=i;
+        ApiWrapper.getInstance().getMyStudyList(pageNo,id)
                 .compose(fragment.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new NetworkSubscriber<RxMyStudy>() {
                     @Override
@@ -81,9 +81,21 @@ public class StudyMyViewModel extends BaseObservable implements ViewModel, Comme
                     }
 
                     @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        fragment.refreshFail();
+                        adapter.loadMoreEnd();
+                    }
+
+                    @Override
                     public void onSuccess(RxMyStudy data) {
                         fragment.refreshOK();
                         adapter.setPagingData(data.getResultList(), pageNo);
+                    }
+
+                    @Override
+                    public void onNext(RxMyStudy data) {
+                        super.onNext(data);
                     }
                 });
     }

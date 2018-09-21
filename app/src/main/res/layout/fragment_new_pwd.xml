@@ -5,7 +5,7 @@
 
         <variable
             name="viewModel"
-            type="com.qiantang.smartparty.module.mine.viewmodel.FragmentVerifyViewModel" />
+            type="com.qiantang.smartparty.module.mine.viewmodel.FragmentNewPwdViewModel" />
     </data>
 
     <RelativeLayout
@@ -13,20 +13,23 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <TextView
-            android:id="@+id/tv_phone"
+        <EditText
+            android:id="@+id/et_phone"
             style="@style/black24"
             android:layout_width="match_parent"
             android:layout_height="102px"
             android:layout_marginLeft="29px"
+            android:background="@null"
             android:gravity="left|center_vertical"
-            android:text="@{viewModel.phone}" />
+            android:hint="请输入新密码"
+            android:inputType="textPassword"
+            android:text="@={viewModel.phone}" />
 
         <View
             android:id="@+id/line"
             android:layout_width="match_parent"
             android:layout_height="2px"
-            android:layout_below="@+id/tv_phone"
+            android:layout_below="@+id/et_phone"
             android:layout_marginLeft="20px"
             android:layout_marginRight="20px"
             android:background="@color/line" />
@@ -39,26 +42,10 @@
             android:layout_below="@+id/line"
             android:layout_marginLeft="29px"
             android:background="@null"
-            android:inputType="number"
-            android:text="@={viewModel.smsCode}"
-            android:hint="请输入验证码" />
+            android:hint="确认新密码"
+            android:inputType="textPassword"
+            android:text="@={viewModel.newPwd}" />
 
-        <CheckBox
-            android:id="@+id/cb_sms"
-            android:layout_width="180px"
-            android:layout_height="54px"
-            android:layout_alignBaseline="@+id/et_code"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/sideMargin"
-            android:background="@drawable/bg_send_code"
-            android:button="@null"
-            android:checked="@{viewModel.isCounting}"
-            android:clickable="false"
-            android:enabled="@{!viewModel.isCounting}"
-            android:gravity="center"
-            style="@style/red24"
-            android:onClick="@{viewModel.onClick}"
-            android:text="@{viewModel.msg}" />
 
         <View
             android:id="@+id/line1"
@@ -79,6 +66,6 @@
             android:layout_marginTop="240px"
             android:background="@drawable/btn_confirm"
             android:onClick="@{viewModel.onClick}"
-            android:text="下一步" />
+            android:text="提交" />
     </RelativeLayout>
 </layout>

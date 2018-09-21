@@ -14,10 +14,19 @@ public class RxStudyList implements MultiItemEntity{
     private String avatar;
     private String creationtime;
     private String username;
+    private String dept_name;
     private String comment_id;
     private String content;
     private List<RxStudyComment> commentAppMap;
     private int type;
+
+    public String getDept_name() {
+        return dept_name;
+    }
+
+    public void setDept_name(String dept_name) {
+        this.dept_name = dept_name;
+    }
 
     public String getUsername() {
         return username;

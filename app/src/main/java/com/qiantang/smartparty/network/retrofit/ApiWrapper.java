@@ -201,8 +201,8 @@ public class ApiWrapper extends RetrofitUtil {
      *
      * @return
      */
-    public Observable<RxMyStudy> getMyStudyList(int pageNo) {
-        return getService().getMyStudyList(MyApplication.USER_ID, pageNo).compose(this.applySchedulers());
+    public Observable<RxMyStudy> getMyStudyList(int pageNo, String userId) {
+        return getService().getMyStudyList(userId, pageNo).compose(this.applySchedulers());
     }
 
     /**
@@ -891,6 +891,15 @@ public class ApiWrapper extends RetrofitUtil {
      */
     public Observable<HttpResult> modifyPhoneAfter(String phone, String code) {
         return getService().modifyPhoneAfter(phone, code).compose(this.applySchedulers());
+    }
+
+    /**
+     * 修改登录密码
+     *
+     * @return
+     */
+    public Observable<HttpResult> revise(String pwd) {
+        return getService().revise(MyApplication.USER_ID, pwd).compose(this.applySchedulers());
     }
 
     /**

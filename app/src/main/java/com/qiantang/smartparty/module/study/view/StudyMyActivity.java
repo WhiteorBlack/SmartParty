@@ -47,7 +47,13 @@ public class StudyMyActivity extends BaseBindActivity implements CommentBox.OnCo
 
     @Override
     public void initView() {
-        binding.toolbar.setTitle("我的感悟");
+        String id = getIntent().getStringExtra("id");
+        String name=getIntent().getStringExtra("name");
+        if (TextUtils.equals(id, MyApplication.USER_ID)) {
+            binding.toolbar.setTitle("我的感悟");
+        }else {
+            binding.toolbar.setTitle(name+"的感悟");
+        }
         binding.toolbar.setIsHide(false);
         binding.commentBox.setOnCommentSendClickListener(this);
         initRecycleView(binding.rv);

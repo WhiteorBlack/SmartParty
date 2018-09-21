@@ -1,9 +1,11 @@
 package com.qiantang.smartparty.module.mine.adapter;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.qiantang.smartparty.BR;
 import com.qiantang.smartparty.R;
 import com.qiantang.smartparty.adapter.BindingViewHolder;
 import com.qiantang.smartparty.adapter.EasyBindQuickAdapter;
+import com.qiantang.smartparty.config.Config;
 import com.qiantang.smartparty.modle.RxActivity;
 
 /**
@@ -20,5 +22,6 @@ public class MyActivityAdapter extends EasyBindQuickAdapter<RxActivity> {
         holder.getBinding().executePendingBindings();
         holder.addOnClickListener(R.id.tv_check)
                 .addOnClickListener(R.id.tv_del);
+        ((SimpleDraweeView) holder.getBinding().getRoot().findViewById(R.id.sdv)).setImageURI(Config.IMAGE_HOST + item.getImgSrc());
     }
 }

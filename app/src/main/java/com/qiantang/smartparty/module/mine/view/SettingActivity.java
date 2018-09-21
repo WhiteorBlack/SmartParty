@@ -106,6 +106,9 @@ public class SettingActivity extends BaseBindActivity {
                 }
                 viewModel.authQQ();
                 break;
+            case R.id.ll_modify_pwd:
+                ActivityUtil.startModifyPwdActivity(this);
+                break;
         }
 
     }

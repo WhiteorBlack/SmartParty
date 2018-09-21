@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
@@ -257,7 +258,7 @@ public class RetrofitUtil {
      * @return
      */
     public <T> Observable<T> flatResponse(final HttpResult<T> response) {
-        return Observable.create(subscriber -> {
+        return Observable.create((ObservableEmitter<T> subscriber) -> {
             if (response.isSuccess()) {
                 String errorMessage = response.getErrorMessage();
                 if (!StringUtil.isEmpty(errorMessage)) {
@@ -281,7 +282,12 @@ public class RetrofitUtil {
                     } else if (!TextUtils.isEmpty(response.getOpenid())) {
                         subscriber.onNext((T) response);
                     } else {
-                        subscriber.onNext(object == null ? ((T) response) : object);
+                        try {
+                            subscriber.onNext(object == null ? ((T) response) : object);
+                        } catch (Exception e) {
+                            APIException exception = new APIException(response.getErrorCode(), response.getErrorMessage());
+                            subscriber.onNext(object);
+                        }
                     }
                 }
             } else {

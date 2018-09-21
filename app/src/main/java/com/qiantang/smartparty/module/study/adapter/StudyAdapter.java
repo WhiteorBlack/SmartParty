@@ -50,6 +50,7 @@ public class StudyAdapter extends EasyBindQuickAdapter<RxStudyList> {
         holder.getBinding().executePendingBindings();
         ((SimpleDraweeView) holder.getBinding().getRoot().findViewById(R.id.sdv)).setImageURI(Config.IMAGE_HOST + item.getAvatar());
         holder.addOnClickListener(R.id.iv_comment)
+                .addOnClickListener(R.id.sdv)
                 .addOnClickListener(R.id.tv_del);
         if (item.getZanAppMap().size() > 0) {  //填充赞的人 数据
             AutoLinearLayout llLike = holder.getBinding().getRoot().findViewById(R.id.ll_like);
@@ -103,11 +104,11 @@ public class StudyAdapter extends EasyBindQuickAdapter<RxStudyList> {
                 @Override
                 public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                     List<String> img = new ArrayList<>();
-                    List<String> imgs=new ArrayList<>();
-                    imgs= (List<String>) view.getTag();
-                    if (img!=null&&imgs.size()>0){
+                    List<String> imgs = new ArrayList<>();
+                    imgs = (List<String>) view.getTag();
+                    if (img != null && imgs.size() > 0) {
                         for (int i = 0; i < imgs.size(); i++) {
-                            img.add(Config.IMAGE_HOST+imgs.get(i));
+                            img.add(Config.IMAGE_HOST + imgs.get(i));
                         }
                     }
 
@@ -148,7 +149,7 @@ public class StudyAdapter extends EasyBindQuickAdapter<RxStudyList> {
                 }
             });
         } else {
-           rvImage.setVisibility(View.GONE);
+            rvImage.setVisibility(View.GONE);
         }
 
     }

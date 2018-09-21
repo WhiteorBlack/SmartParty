@@ -11,8 +11,9 @@
 
         <import type="com.qiantang.smartparty.R" />
 
-        <import type="android.view.View"/>
-        <import type="com.qiantang.smartparty.MyApplication"/>
+        <import type="android.view.View" />
+
+        <import type="com.qiantang.smartparty.MyApplication" />
 
         <import type="com.qiantang.smartparty.utils.AppUtil" />
     </data>
@@ -41,18 +42,18 @@
                     style="@style/gray24"
                     android:layout_width="match_parent"
                     android:layout_height="78px"
-                    android:visibility="@{MyApplication.isLogin?View.VISIBLE:View.GONE}"
                     android:layout_marginLeft="30px"
                     android:gravity="center_vertical"
-                    android:text="账户安全" />
+                    android:text="账户安全"
+                    android:visibility="@{MyApplication.isLogin?View.VISIBLE:View.GONE}" />
 
                 <LinearLayout
                     android:id="@+id/ll_modify_phone"
                     style="@style/Mine_list"
                     android:layout_height="104px"
-                    android:visibility="@{MyApplication.isLogin?View.VISIBLE:View.GONE}"
                     android:onClick="onClick"
-                    android:paddingRight="@dimen/sideMargin">
+                    android:paddingRight="@dimen/sideMargin"
+                    android:visibility="@{MyApplication.isLogin?View.VISIBLE:View.GONE}">
 
                     <TextView
                         style="@style/gray24"
@@ -76,23 +77,51 @@
                         android:background="@mipmap/icon_step_arrow" />
                 </LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="@color/line" />
+
+                <LinearLayout
+                    android:id="@+id/ll_modify_pwd"
+                    style="@style/Mine_list"
+                    android:layout_height="104px"
+                    android:onClick="onClick"
+                    android:paddingRight="@dimen/sideMargin"
+                    android:visibility="@{MyApplication.isLogin?View.VISIBLE:View.GONE}">
+
+                    <TextView
+                        style="@style/gray24"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30px"
+                        android:layout_weight="1"
+                        android:text="修改登录密码" />
+
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/icon_step_arrow" />
+                </LinearLayout>
+
                 <TextView
                     style="@style/gray24"
                     android:layout_width="match_parent"
                     android:layout_height="78px"
-                    android:visibility="@{MyApplication.isLogin?View.VISIBLE:View.GONE}"
                     android:layout_marginLeft="30px"
                     android:gravity="center_vertical"
-                    android:text="第三方授权" />
+                    android:text="第三方授权"
+                    android:visibility="@{MyApplication.isLogin?View.VISIBLE:View.GONE}" />
 
                 <LinearLayout
                     android:id="@+id/ll_wechat"
                     style="@style/Mine_list"
-                    android:visibility="@{MyApplication.isLogin?View.VISIBLE:View.GONE}"
                     android:layout_height="104px"
                     android:background="@color/white"
                     android:onClick="onClick"
-                    android:paddingRight="@dimen/sideMargin">
+                    android:paddingRight="@dimen/sideMargin"
+                    android:visibility="@{MyApplication.isLogin?View.VISIBLE:View.GONE}">
 
                     <TextView
                         style="@style/gray24"
@@ -120,8 +149,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:visibility="@{MyApplication.isLogin?View.VISIBLE:View.GONE}"
-                    android:background="@color/line" />
+                    android:background="@color/line"
+                    android:visibility="@{MyApplication.isLogin?View.VISIBLE:View.GONE}" />
 
                 <LinearLayout
                     android:id="@+id/ll_qq"
@@ -129,8 +158,8 @@
                     android:layout_height="104px"
                     android:background="@color/white"
                     android:onClick="onClick"
-                    android:visibility="@{MyApplication.isLogin?View.VISIBLE:View.GONE}"
-                    android:paddingRight="@dimen/sideMargin">
+                    android:paddingRight="@dimen/sideMargin"
+                    android:visibility="@{MyApplication.isLogin?View.VISIBLE:View.GONE}">
 
                     <TextView
                         style="@style/gray24"
@@ -275,9 +304,9 @@
 
                     <Switch
                         android:id="@+id/sch"
-                        android:checked="true"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:checked="true" />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

@@ -225,6 +225,15 @@ public class SettingViewModel extends BaseObservable implements ViewModel {
         }
     }
 
+    //接收更新请求
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(Integer integer) {
+        if (integer == Event.LOGOUT) {
+            activity.onBackPressed();
+        }
+    }
+
+
     private void getWXOpenId(String code) {
         ApiWrapper.getInstance().wxToken(code)
                 .compose(activity.bindUntilEvent(ActivityEvent.DESTROY))
